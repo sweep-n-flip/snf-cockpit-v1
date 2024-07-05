@@ -40,8 +40,8 @@ jobs:
       - name: 'Create .env file'
         run: |
           touch .env
-          echo DATABASE_URI=${{ secrets.DATABASE_URI }} >> .env
-          echo PAYLOAD_SECRET=${{ secrets.NEXT_PUBLIC_TESTNET_MODE }} >> .env
+          echo DATABASE_URI ${{ secrets.DATABASE_URI }} >> .env
+          echo PAYLOAD_SECRET ${{ secrets.NEXT_PUBLIC_TESTNET_MODE }} >> .env
 
       - name: Build and push
         uses: docker/build-push-action@v5
