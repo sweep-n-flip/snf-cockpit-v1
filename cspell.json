@@ -1,0 +1,32 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "ignorePaths": ["node_modules", "package.json"],
+  "dictionaryDefinitions": [],
+  "dictionaries": [],
+  "words": [],
+  "ignoreWords": [
+    "NFTFY",
+    "fontawesome",
+    "Wagmi",
+    "connectkit",
+    "viem",
+    "wagmi",
+    "luxon",
+    "hookstatate",
+    "usehooks",
+    "Navs",
+    "Linea",
+    "jazzicon",
+    "fortawesome",
+    "EVMERC",
+    "WERC",
+    "Rangebar",
+    "mainnets",
+    "shortcode",
+    "Binancescan",
+    "payloadcms",
+    "filesize"
+  ],
+  "import": []
+}
