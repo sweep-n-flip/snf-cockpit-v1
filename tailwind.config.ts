@@ -2,7 +2,7 @@ import type { Config } from 'tailwindcss'
 import plugin from 'tailwindcss/plugin'
 
 const config: Config = {
-  content: ['./app/**/*.{tsx,ts}', './lib/**/*.{tsx,ts}'],
+  content: ['./src/app/**/*.{tsx,ts}', './src/lib/**/*.{tsx,ts}'],
   darkMode: 'class',
   corePlugins: {
     container: false,

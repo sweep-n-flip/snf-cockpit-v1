@@ -4,6 +4,17 @@ import { withPayload } from '@payloadcms/next/withPayload'
 const nextConfig = {
   reactStrictMode: true,
   trailingSlash: true,
+  webpack: (config) => {
+    config.resolve.fallback = {
+      fs: false,
+      net: false,
+      tls: false,
+      encoding: false,
+      'pino-pretty': false,
+    }
+
+    return config
+  },
   images: {
     remotePatterns: [
       {
