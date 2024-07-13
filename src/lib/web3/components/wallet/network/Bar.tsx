@@ -1,3 +1,5 @@
+'use client'
+
 import { HTMLProps, useRef } from 'react'
 import { Thumbnail } from './Thumbnail'
 import { useToggle } from 'usehooks-ts'

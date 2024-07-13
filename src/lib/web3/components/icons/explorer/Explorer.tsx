@@ -1,3 +1,5 @@
+'use client'
+
 import { ChainId } from '@/lib/web3/types/chain'
 import { Etherscan } from './Etherscan'
 import { Snowtrace } from './Snowtrace'

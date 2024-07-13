@@ -1,3 +1,4 @@
+'use client'
 import { type HTMLProps } from 'react'
 import { ChevronDownIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import classNames from 'classnames'

@@ -1,3 +1,4 @@
+'use client'
 import { ButtonHTMLAttributes } from 'react'
 import { useNetwork } from '@/lib/web3/hooks'
 import { Typography } from '@/lib/ui/components'

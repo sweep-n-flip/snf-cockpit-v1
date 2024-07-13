@@ -1,3 +1,5 @@
+'use client'
+
 import { Marketplace as MarketplaceEnum } from '@/lib/web3/types/chain'
 import { Opensea } from './Opensea'
 

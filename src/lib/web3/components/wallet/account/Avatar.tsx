@@ -1,3 +1,5 @@
+'use client'
+
 import { type HTMLProps } from 'react'
 import { ZeroAddress } from 'ethers'
 import classNames from 'classnames'
