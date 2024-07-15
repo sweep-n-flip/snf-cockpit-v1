@@ -14,10 +14,6 @@ export interface Config {
     users: User;
     media: Media;
     chains: Chains;
-    rpcs: RPCS;
-    contracts: Contracts;
-    marketplaces: Marketplaces;
-    blockExplorers: BlockExplorers;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -93,46 +89,6 @@ export interface Chains {
     decimals: number;
     address: string;
   };
-  rpcs: (string | RPCS)[];
-  marketplaces?: (string | Marketplaces)[] | null;
-  contracts?: (string | Contracts)[] | null;
-  blockExplorers?: (string | BlockExplorers)[] | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "rpcs".
- */
-export interface RPCS {
-  id: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "marketplaces".
- */
-export interface Marketplaces {
-  id: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contracts".
- */
-export interface Contracts {
-  id: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "blockExplorers".
- */
-export interface BlockExplorers {
-  id: string;
   updatedAt: string;
   createdAt: string;
 }

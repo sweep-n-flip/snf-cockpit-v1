@@ -1,10 +1,10 @@
 import type { Config } from 'payload'
 
-export type Settings = {
+export type Project = {
   globals: Config['globals']
 }
 
-export const settings = ({ globals }: Settings): Settings['globals'] => {
+export const project = ({ globals }: Project): Project['globals'] => {
   return [
     ...(globals ? globals : []),
     {

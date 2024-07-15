@@ -1,5 +1,5 @@
-import { chains } from './chains'
+import { networks } from './networks'
 
 export const fields = {
-  chains,
+  networks,
 }

@@ -20,7 +20,7 @@ export const plugin = () => {
       ),
     (config: Config) =>
       reduce<keyof typeof globals, Config>(
-        [`settings`],
+        [`project`],
         (acc, method) => ({
           ...acc,
           globals: globals[method]({ globals: config.globals }),
