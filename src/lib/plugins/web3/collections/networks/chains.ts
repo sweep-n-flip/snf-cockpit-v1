@@ -7,7 +7,7 @@ export type Chains = {
 import { fields } from '../../fields'
 
 export const chains = ({ collections }: Chains): Chains['collections'] => {
-  const collectionsWithchain = [
+  const collectionsWithChain = [
     ...(collections ? collections : []),
     {
       slug: `chains`,
@@ -31,31 +31,7 @@ export const chains = ({ collections }: Chains): Chains['collections'] => {
         delete: () => true,
       },
     },
-    // {
-    //   slug: `blockExplorers`,
-    //   labels: {
-    //     singular: `Block Explorer`,
-    //     plural: `Block Explorers`,
-    //   },
-    //   typescript: {
-    //     interface: `BlockExplorers`,
-    //   },
-    //   admin: {
-    //     useAsTitle: `title`,
-    //     group: `Network`,
-    //   },
-    //   fields: fields.chains({
-    //     fields: [],
-    //     context: ChainsContext.BlockExplorers,
-    //   }),
-    //   /// todo: change access
-    //   access: {
-    //     read: () => true,
-    //     create: () => true,
-    //     update: () => true,
-    //   },
-    // },
   ]
 
-  return collectionsWithchain
+  return collectionsWithChain
 }
