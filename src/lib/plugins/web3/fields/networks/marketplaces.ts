@@ -23,5 +23,15 @@ export const marketplaces = (): CollectionConfig['fields'] => {
           'Eg: /{{address}}/{{tokenId}} to replace {{address}} with the collection address and {{tokenId}} with the token id',
       },
     },
+    {
+      type: 'text',
+      name: 'slug',
+      label: 'Slug',
+      required: true,
+      unique: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
   ]
 }

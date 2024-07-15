@@ -82,5 +82,15 @@ export const chains = (): CollectionConfig['fields'] => {
       relationTo: 'blockExplorers',
       hasMany: true,
     },
+    {
+      type: 'text',
+      name: 'slug',
+      label: 'Slug',
+      required: true,
+      unique: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
   ]
 }

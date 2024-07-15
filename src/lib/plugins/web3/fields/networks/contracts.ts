@@ -20,5 +20,15 @@ export const contracts = (): CollectionConfig['fields'] => {
       label: 'Block Created',
       type: 'number',
     },
+    {
+      type: 'text',
+      name: 'slug',
+      label: 'Slug',
+      unique: true,
+      required: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
   ]
 }

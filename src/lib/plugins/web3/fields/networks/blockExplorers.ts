@@ -19,5 +19,15 @@ export const blockExplorers = (): CollectionConfig['fields'] => {
       name: 'apiUrl',
       label: 'API URL',
     },
+    {
+      type: 'text',
+      name: 'slug',
+      label: 'Slug',
+      required: true,
+      unique: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
   ]
 }

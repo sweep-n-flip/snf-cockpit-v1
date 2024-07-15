@@ -30,8 +30,6 @@ export const rpcs = (): CollectionConfig['fields'] => {
     {
       type: 'array',
       name: 'webSocket',
-      minRows: 1,
-      required: true,
       label: 'Web Socket',
       labels: {
         singular: 'WebSocket',
@@ -45,6 +43,16 @@ export const rpcs = (): CollectionConfig['fields'] => {
           required: true,
         },
       ],
+    },
+    {
+      type: 'text',
+      name: 'slug',
+      label: 'Slug',
+      unique: true,
+      required: true,
+      admin: {
+        position: 'sidebar',
+      },
     },
   ]
 }

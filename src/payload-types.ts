@@ -97,6 +97,7 @@ export interface Chains {
   marketplaces?: (string | Marketplaces)[] | null;
   contracts?: (string | Contracts)[] | null;
   blockExplorers?: (string | BlockExplorers)[] | null;
+  slug: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -111,10 +112,13 @@ export interface RPCS {
     url: string;
     id?: string | null;
   }[];
-  webSocket: {
-    url: string;
-    id?: string | null;
-  }[];
+  webSocket?:
+    | {
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  slug: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -127,6 +131,7 @@ export interface Marketplaces {
   name: string;
   url: string;
   urlTokenIdPath?: string | null;
+  slug: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -139,6 +144,7 @@ export interface Contracts {
   address: string;
   name: string;
   blockCreated?: number | null;
+  slug: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -151,6 +157,7 @@ export interface BlockExplorers {
   name: string;
   url: string;
   apiUrl?: string | null;
+  slug: string;
   updatedAt: string;
   createdAt: string;
 }

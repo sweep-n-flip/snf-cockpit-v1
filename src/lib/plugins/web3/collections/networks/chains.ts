@@ -19,7 +19,7 @@ export const chains = ({ collections }: Chains): Chains['collections'] => {
         interface: `Chains`,
       },
       admin: {
-        useAsTitle: `title`,
+        useAsTitle: `name`,
         group: `Network`,
       },
       fields: fields.chains(),

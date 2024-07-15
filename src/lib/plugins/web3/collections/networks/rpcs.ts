@@ -18,7 +18,7 @@ export const rpcs = ({ collections }: Chains): Chains['collections'] => {
         interface: `RPCS`,
       },
       admin: {
-        useAsTitle: `title`,
+        useAsTitle: `name`,
         group: `Network`,
       },
       fields: fields.rpcs(),
