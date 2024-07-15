@@ -13,10 +13,10 @@ export const rpcs = (): CollectionConfig['fields'] => {
       name: 'http',
       minRows: 1,
       required: true,
-      label: 'RPC',
+      label: 'HTTP',
       labels: {
-        singular: 'RPC',
-        plural: 'RPCs',
+        singular: 'HTTP',
+        plural: 'HTTPs',
       },
       fields: [
         {

@@ -19,6 +19,7 @@ export const rpcs = ({ collections }: Chains): Chains['collections'] => {
       },
       admin: {
         useAsTitle: `name`,
+        defaultColumns: ['name'],
         group: `Network`,
       },
       fields: fields.rpcs(),

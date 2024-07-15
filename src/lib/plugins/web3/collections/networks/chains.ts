@@ -20,6 +20,7 @@ export const chains = ({ collections }: Chains): Chains['collections'] => {
       },
       admin: {
         useAsTitle: `name`,
+        defaultColumns: ['name', 'testnet'],
         group: `Network`,
       },
       fields: fields.chains(),
