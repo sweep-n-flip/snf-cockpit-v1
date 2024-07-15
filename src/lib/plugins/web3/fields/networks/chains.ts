@@ -8,9 +8,7 @@ export const chains = (): CollectionConfig['fields'] => {
       name: 'chainId',
       label: 'Chain ID',
       type: 'number',
-      access: {
-        read: () => true,
-      },
+
       required: true,
     },
     {

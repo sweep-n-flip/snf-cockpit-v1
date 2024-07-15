@@ -1,4 +1,5 @@
 import type { Config } from 'payload'
+import { fields } from '../../fields'
 
 export type Chains = {
   collections: Config['collections']
@@ -21,7 +22,7 @@ export const marketplaces = ({ collections }: Chains): Chains['collections'] => 
         useAsTitle: `title`,
         group: `Network`,
       },
-      fields: [],
+      fields: fields.marketplaces(),
       /// todo: change access
       access: {
         read: () => true,

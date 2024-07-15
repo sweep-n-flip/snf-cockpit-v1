@@ -22,7 +22,7 @@ export const chains = ({ collections }: Chains): Chains['collections'] => {
         useAsTitle: `title`,
         group: `Network`,
       },
-      fields: fields.networks.chains(),
+      fields: fields.chains(),
       /// todo: change access
       access: {
         read: () => true,

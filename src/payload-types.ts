@@ -106,6 +106,15 @@ export interface Chains {
  */
 export interface RPCS {
   id: string;
+  name: string;
+  http: {
+    url: string;
+    id?: string | null;
+  }[];
+  webSocket: {
+    url: string;
+    id?: string | null;
+  }[];
   updatedAt: string;
   createdAt: string;
 }
@@ -115,6 +124,9 @@ export interface RPCS {
  */
 export interface Marketplaces {
   id: string;
+  name: string;
+  url: string;
+  urlTokenIdPath?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -124,6 +136,9 @@ export interface Marketplaces {
  */
 export interface Contracts {
   id: string;
+  address: string;
+  name: string;
+  blockCreated?: number | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -133,6 +148,9 @@ export interface Contracts {
  */
 export interface BlockExplorers {
   id: string;
+  name: string;
+  url: string;
+  apiUrl?: string | null;
   updatedAt: string;
   createdAt: string;
 }
