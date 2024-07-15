@@ -13,11 +13,12 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    chain: Chains;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
   globals: {
-    config: Config1;
+    project: Project;
   };
   locale: null;
   user: User & {
@@ -75,6 +76,15 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "chain".
+ */
+export interface Chains {
+  id: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
@@ -109,9 +119,9 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "config".
+ * via the `definition` "project".
  */
-export interface Config1 {
+export interface Project {
   id: string;
   testnet?: boolean | null;
   updatedAt?: string | null;

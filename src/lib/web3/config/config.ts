@@ -42,24 +42,26 @@ export const transports = reduce(
 
 export const defaultChain = allowedChains[appConfig.networks.defaultChainId]
 
-export const config: Config = createConfig(
-  getDefaultConfig({
-    ssr: typeof window === 'undefined',
-    chains,
-    transports,
-    connectors: [
-      walletConnect({
-        projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID!,
-        disableProviderPing: true,
-        showQrModal: false,
-      }),
-      coinbaseWallet({
-        appName: appConfig.name,
-        darkMode: true,
-        preference: 'smartWalletOnly',
-      }),
-    ],
-    walletConnectProjectId: process.env.WALLET_CONNECT_PROJECT_ID!,
-    ...app,
-  }),
-)
+export const config = (): Config => {
+  return createConfig(
+    getDefaultConfig({
+      ssr: typeof window === 'undefined',
+      chains,
+      transports,
+      connectors: [
+        walletConnect({
+          projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID!,
+          disableProviderPing: true,
+          showQrModal: false,
+        }),
+        coinbaseWallet({
+          appName: appConfig.name,
+          darkMode: true,
+          preference: 'smartWalletOnly',
+        }),
+      ],
+      walletConnectProjectId: process.env.WALLET_CONNECT_PROJECT_ID!,
+      ...app,
+    }),
+  )
+}

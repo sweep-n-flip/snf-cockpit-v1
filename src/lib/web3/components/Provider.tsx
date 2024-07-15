@@ -9,7 +9,7 @@ const queryClient = new QueryClient()
 
 export const Web3Provider = ({ children }: any) => {
   return (
-    <WagmiProvider config={config}>
+    <WagmiProvider config={config()}>
       <QueryClientProvider client={queryClient}>
         <ConnectKitProvider
           options={{

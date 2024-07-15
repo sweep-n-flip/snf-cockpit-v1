@@ -1,23 +1,25 @@
-import type { Config } from 'payload'
+import { Payload } from 'payload'
 
-export type Settings = Pick<Config, 'globals'>
+export type Settings = Pick<Payload['config'], 'globals'>
 
 export const settings = ({ globals }: Settings): Settings['globals'] => {
   return [
     ...(globals ? globals : []),
     {
-      slug: `config`,
+      slug: `project`,
       typescript: {
-        interface: `Config`,
+        interface: `Project`,
       },
       graphQL: {
-        name: `Config`,
+        name: `Project`,
       },
       admin: {
         group: `Settings`,
       },
+      /// todo: change access
       access: {
         read: () => true,
+        update: () => true,
       },
       fields: [
         {

@@ -13,7 +13,7 @@ import { Nav, Typography, Logos, Layouts } from '@/lib/ui/components'
 const inter = Inter({ subsets: ['latin'] })
 
 async function getData() {
-  const res = await fetch('http://localhost:3000/api/globals/config')
+  const res = await fetch('http://localhost:3000/api/globals/project')
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
 
