@@ -91,6 +91,7 @@ export interface Chains {
     name: string;
     symbol: string;
     decimals: number;
+    address: string;
   };
   rpcs: (string | RPCS)[];
   marketplaces?: (string | Marketplaces)[] | null;
@@ -176,7 +177,8 @@ export interface PayloadMigration {
 export interface Project {
   id: string;
   testnet?: boolean | null;
-  appName: string;
+  name: string;
+  description?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }

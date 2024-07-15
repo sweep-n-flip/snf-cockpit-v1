@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { zeroAddress } from 'viem'
 
 export enum ChainsContext {
   Config,
@@ -59,6 +60,13 @@ export const chains = ({ fields, context }: Chains): CollectionConfig['fields'] 
             type: 'number',
             name: 'decimals',
             label: 'Decimals',
+            required: true,
+          },
+          {
+            type: 'text',
+            name: 'address',
+            label: 'Address',
+            defaultValue: zeroAddress,
             required: true,
           },
         ],

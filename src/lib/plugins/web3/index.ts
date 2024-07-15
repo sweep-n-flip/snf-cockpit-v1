@@ -1,4 +1,4 @@
-import { Config } from '@/payload-types'
+import type { Config } from 'payload'
 import { collections } from './collections'
 import { globals } from './globals'
 

@@ -1,6 +1,8 @@
-import { Payload } from 'payload'
+import type { Config } from 'payload'
 
-export type Settings = Pick<Payload['config'], 'globals'>
+export type Settings = {
+  globals: Config['globals']
+}
 
 export const settings = ({ globals }: Settings): Settings['globals'] => {
   return [
@@ -28,14 +30,19 @@ export const settings = ({ globals }: Settings): Settings['globals'] => {
           label: 'Testnet Mode',
           admin: {
             position: 'sidebar',
-            description: `Enable testnet mode to use testnet contracts and tokens.`,
+            description: `Enable testnet mode for the current environment`,
           },
         },
         {
           type: 'text',
-          name: 'appName',
+          name: 'name',
           label: 'App Name',
           required: true,
+        },
+        {
+          type: 'text',
+          name: 'description',
+          label: 'App Description',
         },
       ],
     },

@@ -1,6 +1,8 @@
-import { Payload } from 'payload'
+import type { Config } from 'payload'
 
-export type Chains = Pick<Payload['config'], 'collections'>
+export type Chains = {
+  collections: Config['collections']
+}
 
 import { fields } from '../fields'
 
