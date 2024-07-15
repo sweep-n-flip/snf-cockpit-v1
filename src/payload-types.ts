@@ -13,7 +13,11 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
-    chain: Chains;
+    chains: Chains;
+    rpcs: RPCS;
+    contracts: Contracts;
+    marketplaces: Marketplaces;
+    blockExplorers: BlockExplorers;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -76,9 +80,57 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "chain".
+ * via the `definition` "chains".
  */
 export interface Chains {
+  id: string;
+  chainId: number;
+  name: string;
+  testnet?: boolean | null;
+  nativeCurrency: {
+    name: string;
+    symbol: string;
+    decimals: number;
+  };
+  rpcs: (string | RPCS)[];
+  marketplaces?: (string | Marketplaces)[] | null;
+  contracts?: (string | Contracts)[] | null;
+  blockExplorers?: (string | BlockExplorers)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rpcs".
+ */
+export interface RPCS {
+  id: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "marketplaces".
+ */
+export interface Marketplaces {
+  id: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contracts".
+ */
+export interface Contracts {
+  id: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blockExplorers".
+ */
+export interface BlockExplorers {
   id: string;
   updatedAt: string;
   createdAt: string;
@@ -124,6 +176,7 @@ export interface PayloadMigration {
 export interface Project {
   id: string;
   testnet?: boolean | null;
+  appName: string;
   updatedAt?: string | null;
   createdAt?: string | null;
 }

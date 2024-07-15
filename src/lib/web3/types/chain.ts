@@ -26,6 +26,7 @@ export enum Marketplace {
 export type ChainMarketplace = {
   id: Marketplace
   url: string
+  urlTokenIdPath?: string
 }
 
 export type ChainMarketplaces = ChainMarketplace[]

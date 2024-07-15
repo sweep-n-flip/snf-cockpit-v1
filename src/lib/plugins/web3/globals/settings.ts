@@ -27,8 +27,15 @@ export const settings = ({ globals }: Settings): Settings['globals'] => {
           name: 'testnet',
           label: 'Testnet Mode',
           admin: {
+            position: 'sidebar',
             description: `Enable testnet mode to use testnet contracts and tokens.`,
           },
+        },
+        {
+          type: 'text',
+          name: 'appName',
+          label: 'App Name',
+          required: true,
         },
       ],
     },

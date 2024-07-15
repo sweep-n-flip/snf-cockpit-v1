@@ -1,0 +1,99 @@
+import type { CollectionConfig } from 'payload'
+
+export enum ChainsContext {
+  Config,
+  RPCS,
+  Marketplaces,
+  Contracts,
+  BlockExplorers,
+}
+
+export type Chains = {
+  context: ChainsContext
+  fields: CollectionConfig['fields']
+}
+
+/// todo: migrate fields to core library UI
+export const chains = ({ fields, context }: Chains): CollectionConfig['fields'] => {
+  if (context === ChainsContext.Config) {
+    return [
+      ...fields,
+      {
+        unique: true,
+        name: 'chainId',
+        label: 'Chain ID',
+        type: 'number',
+        access: {
+          read: () => true,
+        },
+        required: true,
+      },
+      {
+        name: 'name',
+        label: 'Name',
+        type: 'text',
+        required: true,
+      },
+      {
+        name: 'testnet',
+        label: 'Testnet',
+        type: 'checkbox',
+      },
+      {
+        name: 'nativeCurrency',
+        type: 'group',
+        fields: [
+          {
+            type: 'text',
+            name: 'name',
+            label: 'Name',
+            required: true,
+          },
+          {
+            type: 'text',
+            name: 'symbol',
+            label: 'Symbol',
+            required: true,
+          },
+          {
+            type: 'number',
+            name: 'decimals',
+            label: 'Decimals',
+            required: true,
+          },
+        ],
+      },
+      {
+        name: 'rpcs',
+        label: 'RPCs',
+        type: 'relationship',
+        relationTo: 'rpcs',
+        hasMany: true,
+        required: true,
+      },
+      {
+        name: 'marketplaces',
+        label: 'Marketplaces',
+        type: 'relationship',
+        relationTo: 'marketplaces',
+        hasMany: true,
+      },
+      {
+        name: 'contracts',
+        label: 'Contracts',
+        type: 'relationship',
+        relationTo: 'contracts',
+        hasMany: true,
+      },
+      {
+        name: 'blockExplorers',
+        label: 'Block Explorers',
+        type: 'relationship',
+        relationTo: 'blockExplorers',
+        hasMany: true,
+      },
+    ]
+  }
+
+  return [...fields]
+}
