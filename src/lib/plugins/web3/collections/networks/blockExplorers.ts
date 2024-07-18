@@ -19,7 +19,7 @@ export const blockExplorers = ({ collections }: Chains): Chains['collections'] =
         interface: `BlockExplorers`,
       },
       admin: {
-        useAsTitle: `title`,
+        useAsTitle: `name`,
         group: `Network`,
       },
       fields: fields.blockExplorers(),

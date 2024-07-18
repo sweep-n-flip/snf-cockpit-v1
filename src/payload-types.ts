@@ -132,6 +132,7 @@ export interface Marketplaces {
   name: string;
   url: string;
   urlTokenIdPath?: string | null;
+  logo?: string | Media | null;
   slug: string;
   updatedAt: string;
   createdAt: string;
@@ -158,6 +159,7 @@ export interface BlockExplorers {
   name: string;
   url: string;
   apiUrl?: string | null;
+  logo?: string | Media | null;
   slug: string;
   updatedAt: string;
   createdAt: string;

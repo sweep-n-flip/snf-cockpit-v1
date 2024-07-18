@@ -20,6 +20,12 @@ export const blockExplorers = (): CollectionConfig['fields'] => {
       label: 'API URL',
     },
     {
+      name: 'logo',
+      label: 'Icon',
+      type: 'upload',
+      relationTo: 'media',
+    },
+    {
       type: 'text',
       name: 'slug',
       label: 'Slug',

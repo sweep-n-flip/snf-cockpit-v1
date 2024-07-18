@@ -20,6 +20,7 @@ export const marketplaces = ({ collections }: Chains): Chains['collections'] => 
       },
       admin: {
         useAsTitle: `name`,
+        defaultColumns: ['name'],
         group: `Network`,
       },
       fields: fields.marketplaces(),
