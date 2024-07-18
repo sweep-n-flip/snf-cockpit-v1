@@ -6,5 +6,12 @@ export type UploadParams = {
 
 export const upload = ({ fields }: UploadParams): UploadParams['fields'] => {
   /// todo: increment fields
-  return [...fields]
+  return [
+    ...fields,
+    {
+      type: 'text',
+      name: 'caption',
+      label: 'Caption',
+    },
+  ]
 }
