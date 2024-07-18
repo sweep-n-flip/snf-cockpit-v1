@@ -25,7 +25,7 @@ export const marketplaces = (): CollectionConfig['fields'] => {
     },
     {
       name: 'logo',
-      label: 'Icon',
+      label: 'Logo',
       type: 'upload',
       relationTo: 'media',
     },

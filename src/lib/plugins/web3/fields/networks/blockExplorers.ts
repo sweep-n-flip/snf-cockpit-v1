@@ -21,7 +21,7 @@ export const blockExplorers = (): CollectionConfig['fields'] => {
     },
     {
       name: 'logo',
-      label: 'Icon',
+      label: 'Logo',
       type: 'upload',
       relationTo: 'media',
     },
