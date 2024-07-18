@@ -8,7 +8,6 @@ export const chains = (): CollectionConfig['fields'] => {
       name: 'chainId',
       label: 'Chain ID',
       type: 'number',
-
       required: true,
     },
     {
@@ -16,6 +15,12 @@ export const chains = (): CollectionConfig['fields'] => {
       label: 'Name',
       type: 'text',
       required: true,
+    },
+    {
+      name: 'logo',
+      label: 'Icon',
+      type: 'upload',
+      relationTo: 'media',
     },
     {
       name: 'testnet',

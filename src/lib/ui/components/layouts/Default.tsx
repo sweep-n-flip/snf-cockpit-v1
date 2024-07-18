@@ -17,18 +17,14 @@ export const Default = ({
   ...props
 }: DefaultProps) => {
   return (
-    <html lang="en">
-      <body>
-        <div
-          {...props}
-          className={classNames([className, 'flex h-screen flex-col bg-zinc-100 text-zinc-700'])}
-        >
-          <Header {...headerProps} />
-          <main className="flex-1">{children}</main>
-          <Footer {...footerProps} />
-        </div>
-      </body>
-    </html>
+    <div
+      {...props}
+      className={classNames([className, 'flex h-screen flex-col bg-zinc-100 text-zinc-700'])}
+    >
+      <Header {...headerProps} />
+      <main className="flex-1">{children}</main>
+      <Footer {...footerProps} />
+    </div>
   )
 }
 

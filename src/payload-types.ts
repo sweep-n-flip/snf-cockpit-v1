@@ -86,6 +86,7 @@ export interface Chains {
   id: string;
   chainId: number;
   name: string;
+  logo?: string | Media | null;
   testnet?: boolean | null;
   nativeCurrency: {
     name: string;
