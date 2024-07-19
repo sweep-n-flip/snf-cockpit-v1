@@ -18,6 +18,7 @@ export interface Config {
     marketplaces: Marketplaces;
     contracts: Contracts;
     blockExplorers: BlockExplorers;
+    collections: Collections;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -204,6 +205,16 @@ export interface BlockExplorers {
   apiUrl?: string | null;
   logo?: string | Media | null;
   slug: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "collections".
+ */
+export interface Collections {
+  id: string;
+  name: string;
   updatedAt: string;
   createdAt: string;
 }
