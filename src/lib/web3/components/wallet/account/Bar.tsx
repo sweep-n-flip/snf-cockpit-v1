@@ -1,3 +1,4 @@
+'use client'
 import { addressUtils } from '@/lib/utils/address'
 import { Typography } from '@/lib/ui/components'
 import classNames from 'classnames'

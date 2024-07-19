@@ -1,3 +1,5 @@
+'use client'
+
 import { HTMLProps } from 'react'
 import { Network, Buttons } from '@/lib/web3/components/wallet'
 import { BarProps } from '@/lib/web3/components/wallet/network/Bar'

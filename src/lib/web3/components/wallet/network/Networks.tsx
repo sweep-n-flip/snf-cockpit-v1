@@ -1,3 +1,4 @@
+'use client'
 import { Children, HTMLProps } from 'react'
 import { useChainConfig, useNetwork } from '@/lib/web3/hooks'
 import { Network } from './Network'

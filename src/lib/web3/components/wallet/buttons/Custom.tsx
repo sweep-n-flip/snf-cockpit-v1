@@ -1,3 +1,5 @@
+'use client'
+
 import { Default, DefaultProps } from '@/lib/ui/components/button/Default'
 import { useNetwork, useWallet } from '@/lib/web3/hooks'
 import { MouseEvent, ReactNode, useEffect, useMemo, useState } from 'react'

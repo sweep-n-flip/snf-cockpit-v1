@@ -1,3 +1,4 @@
+'use client'
 import { Button } from '@/lib/ui/components'
 import { useModal } from 'connectkit'
 import { ButtonHTMLAttributes } from 'react'
