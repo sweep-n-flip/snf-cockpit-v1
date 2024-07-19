@@ -4,9 +4,10 @@ import { ReactNode } from 'react'
 import { Registry } from '@/app/Registry'
 import { Web3Provider } from '@/lib/web3/components'
 import { ServiceProvider } from '@/lib/services/api/components'
+// import { headers } from 'next/headers'
 
 // async function getData() {
-//   const res = await fetch('http://localhost:3000/api/globals/project')
+//   const res = await fetch('/api/globals/project')
 //   // The return value is *not* serialized
 //   // You can return Date, Map, Set, etc.
 
@@ -18,7 +19,7 @@ import { ServiceProvider } from '@/lib/services/api/components'
 //   return res.json()
 // }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: ReactNode
