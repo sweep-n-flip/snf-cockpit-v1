@@ -1,3 +1,6 @@
+/**
+ * DEFAULT PAYLOAD FILES, DO NOT CHANGE HERE
+ */
 import type { CollectionConfig } from 'payload'
 
 export const Users: CollectionConfig = {

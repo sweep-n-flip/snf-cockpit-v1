@@ -13,6 +13,10 @@ const uploadDir = path.join(process.cwd(), 'public', 'uploads')
 export const upload = ({ collections }: Chains): Chains['collections'] => {
   return map(collections, (collection) => {
     if (collection.slug === `media`) {
+      // collection.graphQL = {
+      //   pluralName: `Media`,
+      //   singularName: `Media`,
+      // }
       collection.upload = {
         ...(typeof collection.upload === `object` ? collection.upload : {}),
         staticDir: uploadDir,

@@ -5,32 +5,34 @@ export type Chains = {
   collections: Config['collections']
 }
 
-export const rpcs = ({ collections }: Chains): Chains['collections'] => {
-  const collectionsWithRpcs = [
+export const marketplaces = ({ collections }: Chains): Chains['collections'] => {
+  const collectionsWithMarketplaces = [
     ...(collections ? collections : []),
+
     {
-      slug: `rpcs`,
+      slug: `marketplaces`,
       labels: {
-        singular: `RPC`,
-        plural: `RPCs`,
+        singular: `Marketplace`,
+        plural: `Marketplaces`,
       },
       typescript: {
-        interface: `RPCS`,
+        interface: `Marketplaces`,
       },
       admin: {
         useAsTitle: `name`,
         defaultColumns: ['name'],
         group: `Network`,
       },
-      fields: fields.rpcs(),
+      fields: fields.marketplaces(),
       /// todo: change access
       access: {
         read: () => true,
         create: () => true,
         update: () => true,
+        delete: () => true,
       },
     },
   ]
 
-  return collectionsWithRpcs
+  return collectionsWithMarketplaces
 }

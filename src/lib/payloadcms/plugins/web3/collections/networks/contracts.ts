@@ -30,6 +30,7 @@ export const contracts = ({ collections }: Chains): Chains['collections'] => {
         read: () => true,
         create: () => true,
         update: () => true,
+        delete: () => true,
       },
     },
   ]

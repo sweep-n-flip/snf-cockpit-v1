@@ -5,33 +5,33 @@ export type Chains = {
   collections: Config['collections']
 }
 
-export const marketplaces = ({ collections }: Chains): Chains['collections'] => {
-  const collectionsWithMarketplaces = [
+export const blockExplorers = ({ collections }: Chains): Chains['collections'] => {
+  const collectionsWithBlockExplorers = [
     ...(collections ? collections : []),
 
     {
-      slug: `marketplaces`,
+      slug: `blockExplorers`,
       labels: {
-        singular: `Marketplace`,
-        plural: `Marketplaces`,
+        singular: `Block Explorer`,
+        plural: `Block Explorers`,
       },
       typescript: {
-        interface: `Marketplaces`,
+        interface: `BlockExplorers`,
       },
       admin: {
         useAsTitle: `name`,
-        defaultColumns: ['name'],
         group: `Network`,
       },
-      fields: fields.marketplaces(),
+      fields: fields.blockExplorers(),
       /// todo: change access
       access: {
         read: () => true,
         create: () => true,
         update: () => true,
+        delete: () => true,
       },
     },
   ]
 
-  return collectionsWithMarketplaces
+  return collectionsWithBlockExplorers
 }

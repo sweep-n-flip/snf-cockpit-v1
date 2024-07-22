@@ -5,32 +5,33 @@ export type Chains = {
   collections: Config['collections']
 }
 
-export const blockExplorers = ({ collections }: Chains): Chains['collections'] => {
-  const collectionsWithBlockExplorers = [
+export const rpcs = ({ collections }: Chains): Chains['collections'] => {
+  const collectionsWithRpcs = [
     ...(collections ? collections : []),
-
     {
-      slug: `blockExplorers`,
+      slug: `rpcs`,
       labels: {
-        singular: `Block Explorer`,
-        plural: `Block Explorers`,
+        singular: `RPC`,
+        plural: `RPCs`,
       },
       typescript: {
-        interface: `BlockExplorers`,
+        interface: `RPCS`,
       },
       admin: {
         useAsTitle: `name`,
+        defaultColumns: ['name'],
         group: `Network`,
       },
-      fields: fields.blockExplorers(),
+      fields: fields.rpcs(),
       /// todo: change access
       access: {
         read: () => true,
         create: () => true,
         update: () => true,
+        delete: () => true,
       },
     },
   ]
 
-  return collectionsWithBlockExplorers
+  return collectionsWithRpcs
 }
