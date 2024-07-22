@@ -2,25 +2,25 @@ import type { Config } from 'payload'
 import { fields } from '../../fields'
 import map from 'lodash/map'
 import { Media } from '@/payload-types'
-import path from 'path'
+// import path from 'path'
 
 export type Chains = {
   collections: Config['collections']
 }
 
-const uploadDir = path.join(process.cwd(), 'public', 'uploads')
+// const uploadDir = path.join(process.cwd(), 'public', 'uploads')
 
 export const upload = ({ collections }: Chains): Chains['collections'] => {
   return map(collections, (collection) => {
     if (collection.slug === `media`) {
-      // collection.graphQL = {
-      //   pluralName: `Media`,
-      //   singularName: `Media`,
-      // }
+      collection.graphQL = {
+        pluralName: `Media`,
+        singularName: `Media`,
+      }
       collection.upload = {
         ...(typeof collection.upload === `object` ? collection.upload : {}),
-        staticDir: uploadDir,
-        mimeTypes: [`image/*`],
+        // staticDir: uploadDir,
+        // mimeTypes: [`image/*`],
         adminThumbnail: ({ doc }) => {
           const media = doc as unknown as Media
           if (
