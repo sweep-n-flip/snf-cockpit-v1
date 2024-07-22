@@ -28,6 +28,7 @@
     "@payloadcms/next": "3.0.0-beta.67",
     "@payloadcms/plugin-cloud": "3.0.0-beta.67",
     "@payloadcms/richtext-lexical": "3.0.0-beta.67",
+    "@payloadcms/storage-vercel-blob": "3.0.0-beta.67",
     "@tanstack/react-query": "^5.50.1",
     "classnames": "^2.5.1",
     "connectkit": "^1.8.2",

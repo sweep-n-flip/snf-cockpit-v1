@@ -34,6 +34,12 @@ export const project = ({ globals }: Project): Project['globals'] => {
           },
         },
         {
+          name: 'logo',
+          label: 'Logo',
+          type: 'upload',
+          relationTo: 'media',
+        },
+        {
           type: 'text',
           name: 'name',
           label: 'App Name',

@@ -284,6 +284,7 @@ export interface PayloadMigration {
 export interface Project {
   id: string;
   testnet?: boolean | null;
+  logo?: string | Media | null;
   name: string;
   description?: string | null;
   updatedAt?: string | null;

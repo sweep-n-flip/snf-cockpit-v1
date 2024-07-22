@@ -8,7 +8,7 @@ import { Nav, Typography, Logos, Layouts } from '@/lib/ui/components'
 import { Registry } from '@/app/Registry'
 import { Web3Provider } from '@/lib/web3/components'
 import { ServiceProvider } from '@/lib/services/api/components'
-import { networks } from '@/lib/payloadcms/services'
+import { networks, settings } from '@/lib/payloadcms/services'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,8 +17,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: ReactNode
 }>) {
-  const data = await networks.getChains()
-  console.log(data)
+  const chains = await networks.getChains()
+  const project = await settings.getProject()
+  console.log(chains)
+  console.log(project)
   return (
     <html>
       <body>
