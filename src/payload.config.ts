@@ -7,7 +7,7 @@ import sharp from 'sharp'
 
 import { Users } from './lib/payloadcms/collections/Users'
 import { Media } from './lib/payloadcms/collections/Media'
-import { web3 } from './lib/payloadcms/plugins'
+import { snf } from './lib/payloadcms/plugins'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -29,5 +29,5 @@ export default buildConfig({
     url: process.env.DATABASE_URI || '',
   }),
   sharp,
-  plugins: [web3.plugin()],
+  plugins: [snf.plugin()],
 })
