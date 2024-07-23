@@ -1,14 +1,11 @@
 import type { Config } from 'payload'
 import { fields } from '../../fields'
 import map from 'lodash/map'
-import { Media } from '@/payload-types'
-// import path from 'path'
+import { Media } from '@/lib/payloadcms/types/payload-types'
 
 export type Chains = {
   collections: Config['collections']
 }
-
-// const uploadDir = path.join(process.cwd(), 'public', 'uploads')
 
 export const upload = ({ collections }: Chains): Chains['collections'] => {
   return map(collections, (collection) => {
@@ -19,8 +16,6 @@ export const upload = ({ collections }: Chains): Chains['collections'] => {
       }
       collection.upload = {
         ...(typeof collection.upload === `object` ? collection.upload : {}),
-        // staticDir: uploadDir,
-        // mimeTypes: [`image/*`],
         adminThumbnail: ({ doc }) => {
           const media = doc as unknown as Media
           if (
