@@ -1,28 +1,29 @@
-import { ChainId, allowedChains } from '@/lib/web3/config/chains'
 import { find, filter } from 'lodash'
 import { useMemo } from 'react'
-import appConfig from '@/lib/config'
+import { useChains } from 'wagmi'
 
 export type UseChainConfigProps = {
-  chainId?: ChainId
+  chainId?: number
+  defaultChainId: number
 }
 
-const checkChainNotEqual = (chainToCheck: ChainId, chainId?: ChainId) => {
+const checkChainNotEqual = (chainToCheck: number, chainId?: number) => {
   return chainToCheck !== chainId
 }
 
-export function useChainConfig({ chainId }: UseChainConfigProps) {
-  const chainIdRefined = useMemo(() => find(allowedChains, { id: chainId }), [chainId])
+export function useChainConfig({ chainId, defaultChainId }: UseChainConfigProps) {
+  const chains = useChains()
+  const chainIdRefined = useMemo(() => find(chains, { id: chainId }), [chains, chainId])
 
   const defaultConfig = useMemo(
-    () => allowedChains?.[chainIdRefined?.id || appConfig.networks.defaultChainId],
-    [chainIdRefined],
+    () => chains?.[chainIdRefined?.id || defaultChainId],
+    [chainIdRefined, chains, defaultChainId],
   )
 
   /// returns only chains != chainId
   const remainingChains = useMemo(
-    () => filter(allowedChains, (chain) => checkChainNotEqual(chain?.id, chainId)),
-    [chainId],
+    () => filter(chains, (chain) => checkChainNotEqual(chain?.id, chainId)),
+    [chainId, chains],
   )
 
   return {

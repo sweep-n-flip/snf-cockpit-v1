@@ -136,7 +136,7 @@ export interface Chains {
   id: string;
   chainId: number;
   name: string;
-  logo?: string | Media | null;
+  logo: string | Media;
   testnet?: boolean | null;
   nativeCurrency: {
     name: string;
@@ -197,6 +197,7 @@ export interface Contracts {
   name: string;
   blockCreated?: number | null;
   slug: string;
+  abi: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -287,6 +288,10 @@ export interface Project {
   logo?: string | Media | null;
   name: string;
   description?: string | null;
+  url?: string | null;
+  networks: {
+    defaultChainId: string | Chains;
+  };
   footer?: {
     copyright?: string | null;
   };

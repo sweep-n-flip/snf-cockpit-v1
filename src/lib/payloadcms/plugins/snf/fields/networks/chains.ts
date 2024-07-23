@@ -21,6 +21,7 @@ export const chains = (): CollectionConfig['fields'] => {
       label: 'Logo',
       type: 'upload',
       relationTo: 'media',
+      required: true,
     },
     {
       name: 'testnet',

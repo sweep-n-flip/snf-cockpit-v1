@@ -30,5 +30,11 @@ export const contracts = (): CollectionConfig['fields'] => {
         position: 'sidebar',
       },
     },
+    {
+      type: 'textarea',
+      name: 'abi',
+      label: 'ABI',
+      required: true,
+    },
   ]
 }

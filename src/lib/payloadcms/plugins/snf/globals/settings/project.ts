@@ -51,6 +51,24 @@ export const project = ({ globals }: Project): Project['globals'] => {
           label: 'App Description',
         },
         {
+          type: 'text',
+          name: 'url',
+          label: 'App URL',
+        },
+        {
+          type: 'group',
+          name: 'networks',
+          fields: [
+            {
+              type: 'relationship',
+              name: 'defaultChainId',
+              label: 'Default Chain',
+              relationTo: 'chains',
+              required: true,
+            },
+          ],
+        },
+        {
           type: 'group',
           name: 'footer',
           fields: [
