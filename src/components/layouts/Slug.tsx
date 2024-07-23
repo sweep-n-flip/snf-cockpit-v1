@@ -28,7 +28,7 @@ export default async function SlugLayout({
       }}
       footerProps={{
         copyRightProps: {
-          text: ` Created by {appConfig.builder.createdBy}`,
+          text: project.footer?.copyright,
         },
         socialProps: {
           include: appConfig.social,
