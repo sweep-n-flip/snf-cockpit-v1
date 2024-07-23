@@ -7,22 +7,23 @@ export type UseNetworkProps = {
 }
 
 export function useNetwork({ defaultChainId }: UseNetworkProps) {
-  const { chain } = useAccount()
+  const { chain, chainId } = useAccount()
+
   const chains = useChains()
 
   const { error, switchChain, status } = useSwitchChain()
 
   const { config, remainingChains } = useChainConfig({
     defaultChainId,
-    chainId: chain?.id || defaultChainId,
+    chainId: chainId || defaultChainId,
   })
 
   return {
-    error,
+    chain: chain as Chain | undefined,
     loading: status === 'pending',
+    error,
     status,
     chains,
-    chain: chain as Chain | undefined,
     switchChain,
     config,
     remainingChains,

@@ -1,7 +1,7 @@
 import { Inter } from 'next/font/google'
 import { ReactNode } from 'react'
 import { appConfig } from '@/lib/config'
-import { Wallet } from '@/lib/web3/components'
+// import { Wallet } from '@/lib/web3/components'
 import { Nav, Logos, Layouts } from '@/lib/ui/components'
 import { settings } from '@/lib/payloadcms/services'
 
@@ -20,7 +20,7 @@ export default async function SlugLayout({
         toolbar: (
           <>
             <Nav.Main />
-            <Wallet.Toolbar />
+            {/* <Wallet.Toolbar /> */}
           </>
         ),
         logo: <Logos.Default />,
