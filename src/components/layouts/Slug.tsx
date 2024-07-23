@@ -1,15 +1,13 @@
 import { Inter } from 'next/font/google'
-import '@/lib/ui/styles/default.css'
-
 import { ReactNode } from 'react'
 import { appConfig } from '@/lib/config'
 import { Wallet } from '@/lib/web3/components'
-import { Nav, Typography, Logos, Layouts } from '@/lib/ui/components'
+import { Nav, Logos, Layouts } from '@/lib/ui/components'
 import { settings } from '@/lib/payloadcms/services'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default async function RootLayout({
+export default async function SlugLayout({
   children,
 }: Readonly<{
   children: ReactNode
@@ -30,11 +28,7 @@ export default async function RootLayout({
       }}
       footerProps={{
         copyRightProps: {
-          text: (
-            <Typography.Paragraph as="span">
-              Created by {appConfig.builder.createdBy}
-            </Typography.Paragraph>
-          ),
+          text: ` Created by {appConfig.builder.createdBy}`,
         },
         socialProps: {
           include: appConfig.social,

@@ -50,6 +50,17 @@ export const project = ({ globals }: Project): Project['globals'] => {
           name: 'description',
           label: 'App Description',
         },
+        {
+          type: 'group',
+          name: 'footer',
+          fields: [
+            {
+              type: 'text',
+              name: 'copyright',
+              label: 'Copyright',
+            },
+          ],
+        },
       ],
     },
   ]

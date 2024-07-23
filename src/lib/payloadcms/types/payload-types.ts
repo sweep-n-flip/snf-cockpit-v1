@@ -287,6 +287,9 @@ export interface Project {
   logo?: string | Media | null;
   name: string;
   description?: string | null;
+  footer?: {
+    copyright?: string | null;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
