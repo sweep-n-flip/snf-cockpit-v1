@@ -18,6 +18,7 @@ export const chains = ({ collections }: Chains): Chains['collections'] => {
       typescript: {
         interface: `Chains`,
       },
+      disableDuplicate: true,
       admin: {
         useAsTitle: `name`,
         defaultColumns: ['name', 'testnet'],

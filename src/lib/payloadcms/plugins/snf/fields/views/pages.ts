@@ -15,10 +15,37 @@ export const pages = (): CollectionConfig['fields'] => {
       required: true,
     },
     {
-      type: 'textarea',
+      type: 'text',
       name: 'excerpt',
       label: 'Excerpt',
       required: true,
+    },
+    {
+      name: 'publishedDate',
+      type: 'date',
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      type: 'tabs',
+      tabs: [
+        {
+          label: 'Content',
+          fields: [
+            {
+              name: 'layout',
+              type: 'blocks',
+              blocks: [
+                {
+                  slug: 'widget',
+                  fields: [],
+                },
+              ],
+            },
+          ],
+        },
+      ],
     },
   ]
 }

@@ -63,6 +63,19 @@ export const project = ({ globals }: Project): Project['globals'] => {
         },
         {
           type: 'group',
+          name: 'views',
+          fields: [
+            {
+              type: 'relationship',
+              name: 'defaultView',
+              label: 'Default View',
+              relationTo: 'pages',
+              required: true,
+            },
+          ],
+        },
+        {
+          type: 'group',
           name: 'networks',
           fields: [
             {

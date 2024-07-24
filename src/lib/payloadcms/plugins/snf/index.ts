@@ -20,6 +20,7 @@ export const plugin = () => {
           'upload',
           'collections',
           'pages',
+          'users',
         ],
         (acc, method) => ({
           ...acc,

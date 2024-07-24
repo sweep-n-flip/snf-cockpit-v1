@@ -15,6 +15,7 @@ export const collections = ({ collections }: Collections): Collections['collecti
         singular: `Collection`,
         plural: `Collections`,
       },
+      disableDuplicate: true,
       typescript: {
         interface: `Collections`,
       },

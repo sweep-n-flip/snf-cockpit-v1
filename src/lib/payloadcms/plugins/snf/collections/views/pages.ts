@@ -5,6 +5,9 @@ export type Pages = {
 }
 
 import { fields } from '../../fields'
+import { beforeChange } from '../../hooks/utils/beforeChange'
+import { afterRead } from '../../hooks/utils/afterRead'
+import { admins, anyone } from '../../utils/validateRole'
 
 export const pages = ({ collections }: Pages): Pages['collections'] => {
   const collectionsWithPages = [
@@ -20,24 +23,20 @@ export const pages = ({ collections }: Pages): Pages['collections'] => {
       },
       admin: {
         useAsTitle: `title`,
-        defaultColumns: ['title', 'slug'],
+        defaultColumns: [`title`, `slug`],
         group: `Views`,
       },
-      versions: {
-        drafts: true,
+      hooks: {
+        beforeChange: [beforeChange.slugfy(), beforeChange.populatePublishedDate()],
+        afterRead: [afterRead.homepageResolver()],
       },
-      // hooks: {
-      //   beforeChange: [populatePublishedDate],
-      //   afterChange: [revalidatePage],
-      //   afterRead: [homepageResolver],
-      // },
+      timestamps: true,
       fields: fields.pages(),
-      /// todo: change access
       access: {
-        read: () => true,
-        create: () => true,
-        update: () => true,
-        delete: () => true,
+        read: anyone,
+        create: admins,
+        update: admins,
+        delete: admins,
       },
     },
   ]

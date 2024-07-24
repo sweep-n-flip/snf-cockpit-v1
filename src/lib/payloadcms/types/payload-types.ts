@@ -56,6 +56,9 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: string;
+  name?: string | null;
+  alias?: string | null;
+  roles?: ('admin' | 'user')[] | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -257,6 +260,14 @@ export interface Pages {
   slug: string;
   title: string;
   excerpt: string;
+  publishedDate?: string | null;
+  layout?:
+    | {
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'widget';
+      }[]
+    | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -264,7 +275,6 @@ export interface Pages {
   };
   updatedAt: string;
   createdAt: string;
-  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -311,6 +321,9 @@ export interface Project {
   name: string;
   description: string;
   url: string;
+  views: {
+    defaultView: string | Pages;
+  };
   networks: {
     defaultChain: string | Chains;
   };
