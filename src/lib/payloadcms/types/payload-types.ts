@@ -19,6 +19,7 @@ export interface Config {
     contracts: Contracts;
     blockExplorers: BlockExplorers;
     collections: Collections;
+    pages: Pages;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -246,6 +247,18 @@ export interface Collections {
   slug: string;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Pages {
+  id: string;
+  slug?: string | null;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

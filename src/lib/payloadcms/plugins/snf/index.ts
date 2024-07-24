@@ -11,7 +11,16 @@ export const plugin = () => {
     (incomingConfig: Config) => merge({}, incomingConfig), // Make a shallow copy of incomingConfig
     (config: Config) =>
       reduce<keyof typeof collections, Config>(
-        ['chains', 'rpcs', 'marketplaces', 'contracts', 'blockExplorers', 'upload', 'collections'],
+        [
+          'chains',
+          'rpcs',
+          'marketplaces',
+          'contracts',
+          'blockExplorers',
+          'upload',
+          'collections',
+          'pages',
+        ],
         (acc, method) => ({
           ...acc,
           collections: collections[method]({ collections: acc.collections }),
