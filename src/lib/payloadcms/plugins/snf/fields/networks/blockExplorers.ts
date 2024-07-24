@@ -1,7 +1,13 @@
 import type { CollectionConfig } from 'payload'
+import { slug } from '../utils/slug'
 
 export const blockExplorers = (): CollectionConfig['fields'] => {
   return [
+    ...slug({
+      fieldToFormat: 'name',
+      index: false,
+      unique: true,
+    }),
     {
       type: 'text',
       name: 'name',
@@ -25,15 +31,6 @@ export const blockExplorers = (): CollectionConfig['fields'] => {
       type: 'upload',
       relationTo: 'media',
       required: true,
-    },
-    {
-      type: 'text',
-      name: 'slug',
-      label: 'Slug',
-      required: true,
-      admin: {
-        position: 'sidebar',
-      },
     },
   ]
 }

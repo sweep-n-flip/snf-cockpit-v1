@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import { zeroAddress } from 'viem'
+import { slug } from '../utils/slug'
 
 export const chains = (): CollectionConfig['fields'] => {
   return [
@@ -58,6 +59,11 @@ export const chains = (): CollectionConfig['fields'] => {
       name: 'custom',
       label: 'Custom',
       fields: [
+        ...slug({
+          fieldToFormat: 'name',
+          index: true,
+          unique: true,
+        }),
         {
           name: 'logo',
           label: 'Logo',
@@ -65,13 +71,7 @@ export const chains = (): CollectionConfig['fields'] => {
           relationTo: 'media',
           required: true,
         },
-        {
-          type: 'text',
-          name: 'slug',
-          label: 'Slug',
-          required: true,
-          unique: true,
-        },
+
         {
           name: 'marketplaces',
           label: 'Marketplaces',

@@ -1,7 +1,13 @@
 import type { CollectionConfig } from 'payload'
+import { slug } from '../utils/slug'
 
 export const collections = (): CollectionConfig['fields'] => {
   return [
+    ...slug({
+      fieldToFormat: 'name',
+      index: false,
+      unique: false,
+    }),
     {
       type: 'text',
       name: 'address',
@@ -31,16 +37,6 @@ export const collections = (): CollectionConfig['fields'] => {
       type: 'richText',
       name: 'description',
       label: 'Description',
-    },
-    {
-      type: 'text',
-      name: 'slug',
-      label: 'Slug',
-      required: true,
-      unique: true,
-      admin: {
-        position: 'sidebar',
-      },
     },
   ]
 }

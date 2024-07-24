@@ -1,18 +1,29 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, TextField } from 'payload'
 
 import { formatSlug } from '../../hooks/utils/beforeValidate/formatSlug'
 
-export const slug = (slugField: string): CollectionConfig['fields'] => {
+export type SlugParams = Partial<TextField> & {
+  fieldToFormat: string
+  unique?: boolean
+}
+
+export const slug = ({
+  fieldToFormat,
+  unique = true,
+  ...fieldProps
+}: SlugParams): CollectionConfig['fields'] => {
   return [
     {
+      ...(fieldProps as TextField),
+      unique,
       name: `slug`,
       type: `text`,
-      index: true,
+      required: true,
       admin: {
         position: `sidebar`,
       },
       hooks: {
-        beforeValidate: [formatSlug(slugField)],
+        beforeValidate: [formatSlug(fieldToFormat)],
       },
     },
   ]

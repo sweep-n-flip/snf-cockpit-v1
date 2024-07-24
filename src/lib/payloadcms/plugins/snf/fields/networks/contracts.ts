@@ -1,7 +1,13 @@
 import type { CollectionConfig } from 'payload'
+import { slug } from '../utils/slug'
 
 export const contracts = (): CollectionConfig['fields'] => {
   return [
+    ...slug({
+      fieldToFormat: 'name',
+      index: false,
+      unique: true,
+    }),
     {
       unique: true,
       name: 'address',
@@ -19,15 +25,6 @@ export const contracts = (): CollectionConfig['fields'] => {
       name: 'blockCreated',
       label: 'Block Created',
       type: 'number',
-    },
-    {
-      type: 'text',
-      name: 'slug',
-      label: 'Slug',
-      required: true,
-      admin: {
-        position: 'sidebar',
-      },
     },
     {
       type: 'textarea',

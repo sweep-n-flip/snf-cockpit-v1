@@ -3,7 +3,11 @@ import { slug } from '../utils/slug'
 
 export const pages = (): CollectionConfig['fields'] => {
   return [
-    ...slug('name'),
+    ...slug({
+      fieldToFormat: 'name',
+      index: true,
+      unique: true,
+    }),
     {
       type: 'text',
       name: 'name',

@@ -145,8 +145,8 @@ export interface Chains {
     address: string;
   };
   custom: {
-    logo: string | Media;
     slug: string;
+    logo: string | Media;
     marketplaces?: (string | Marketplaces)[] | null;
   };
   rpcs: (string | RPCS)[];
@@ -161,12 +161,12 @@ export interface Chains {
  */
 export interface Marketplaces {
   id: string;
+  slug: string;
   name: string;
   url: string;
   urlTokenIdPath: string;
   urlTokenPath: string;
   logo: string | Media;
-  slug: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -176,6 +176,7 @@ export interface Marketplaces {
  */
 export interface RPCS {
   id: string;
+  slug: string;
   name: string;
   http: {
     url: string;
@@ -187,7 +188,6 @@ export interface RPCS {
         id?: string | null;
       }[]
     | null;
-  slug: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -197,10 +197,10 @@ export interface RPCS {
  */
 export interface Contracts {
   id: string;
+  slug: string;
   address: string;
   name: string;
   blockCreated?: number | null;
-  slug: string;
   abi: string;
   updatedAt: string;
   createdAt: string;
@@ -211,11 +211,11 @@ export interface Contracts {
  */
 export interface BlockExplorers {
   id: string;
+  slug: string;
   name: string;
   url: string;
   apiUrl?: string | null;
   logo: string | Media;
-  slug: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -225,6 +225,7 @@ export interface BlockExplorers {
  */
 export interface Collections {
   id: string;
+  slug: string;
   address: string;
   chain: string | Chains;
   name: string;
@@ -244,7 +245,6 @@ export interface Collections {
     };
     [k: string]: unknown;
   } | null;
-  slug: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -254,7 +254,7 @@ export interface Collections {
  */
 export interface Pages {
   id: string;
-  slug?: string | null;
+  slug: string;
   name: string;
   updatedAt: string;
   createdAt: string;
