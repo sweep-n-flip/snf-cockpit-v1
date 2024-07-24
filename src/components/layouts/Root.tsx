@@ -24,8 +24,6 @@ export default async function Root({
 
   const normalizedChains = toWagmiChain({ chains, project })
 
-  console.log(normalizedChains)
-
   return (
     <ServiceProvider>
       <Web3Provider

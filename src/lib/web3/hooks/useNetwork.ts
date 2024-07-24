@@ -1,22 +1,12 @@
 import { useAccount, useSwitchChain, useChains } from 'wagmi'
-import { useChainConfig } from './useChainConfig'
 import { Chain } from '@/lib/web3/types'
 
-export type UseNetworkProps = {
-  defaultChainId: number
-}
+export type UseNetworkProps = {}
 
-export function useNetwork({ defaultChainId }: UseNetworkProps) {
-  const { chain, chainId } = useAccount()
-
+export function useNetwork() {
   const chains = useChains()
-
+  const { chain } = useAccount()
   const { error, switchChain, status } = useSwitchChain()
-
-  const { config, remainingChains } = useChainConfig({
-    defaultChainId,
-    chainId: chainId || defaultChainId,
-  })
 
   return {
     chain: chain as Chain | undefined,
@@ -25,8 +15,6 @@ export function useNetwork({ defaultChainId }: UseNetworkProps) {
     status,
     chains,
     switchChain,
-    config,
-    remainingChains,
   }
 }
 
