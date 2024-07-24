@@ -136,7 +136,6 @@ export interface Chains {
   id: string;
   chainId: number;
   name: string;
-  logo: string | Media;
   testnet?: boolean | null;
   nativeCurrency: {
     name: string;
@@ -144,10 +143,28 @@ export interface Chains {
     decimals: number;
     address: string;
   };
+  custom: {
+    logo: string | Media;
+    slug: string;
+    marketplaces?: (string | Marketplaces)[] | null;
+  };
   rpcs: (string | RPCS)[];
-  marketplaces?: (string | Marketplaces)[] | null;
   contracts?: (string | Contracts)[] | null;
   blockExplorers?: (string | BlockExplorers)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "marketplaces".
+ */
+export interface Marketplaces {
+  id: string;
+  name: string;
+  url: string;
+  urlTokenIdPath: string;
+  urlTokenPath: string;
+  logo: string | Media;
   slug: string;
   updatedAt: string;
   createdAt: string;
@@ -175,20 +192,6 @@ export interface RPCS {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "marketplaces".
- */
-export interface Marketplaces {
-  id: string;
-  name: string;
-  url: string;
-  urlTokenIdPath?: string | null;
-  logo?: string | Media | null;
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "contracts".
  */
 export interface Contracts {
@@ -210,7 +213,7 @@ export interface BlockExplorers {
   name: string;
   url: string;
   apiUrl?: string | null;
-  logo?: string | Media | null;
+  logo: string | Media;
   slug: string;
   updatedAt: string;
   createdAt: string;
@@ -285,15 +288,15 @@ export interface PayloadMigration {
 export interface Project {
   id: string;
   testnet?: boolean | null;
-  logo?: string | Media | null;
+  logo: string | Media;
   name: string;
-  description?: string | null;
-  url?: string | null;
+  description: string;
+  url: string;
   networks: {
-    defaultChainId: string | Chains;
+    defaultChain: string | Chains;
   };
-  footer?: {
-    copyright?: string | null;
+  footer: {
+    copyright: string;
   };
   updatedAt?: string | null;
   createdAt?: string | null;

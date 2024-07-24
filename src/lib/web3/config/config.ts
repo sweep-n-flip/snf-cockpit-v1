@@ -1,22 +1,36 @@
 import { reduce, merge } from 'lodash'
 import { webSocket, createConfig, http, fallback, Config } from 'wagmi'
+import { mainnet } from 'wagmi/chains'
 import { Transport } from 'viem'
 import { getDefaultConfig } from 'connectkit'
 import { walletConnect, coinbaseWallet } from 'wagmi/connectors'
-import { Chains, Project } from '@/lib/payloadcms/types/payload-types'
 import { Chain } from '@/lib/web3/types'
-import { toWagmiChain } from '@/lib/payloadcms/utils/chains/toWagmiChain'
 
 export type ConfigParams = {
-  chains: Chains[]
-  project: Project
+  chains: [Chain, ...Chain[]]
+  appName: string
+  appDescription: string
+  appUrl: string
 }
 
-export const config = ({ chains, project }: ConfigParams): Config => {
-  const normalizedChains = toWagmiChain({ chains, project })
+export const fallbackChain: Chain = {
+  ...mainnet,
+  custom: {
+    logo: '',
+    slug: 'ethereum',
+    abis: {},
+    marketplaces: {},
+  },
+}
 
+export const config = ({
+  chains = [fallbackChain],
+  appName,
+  appDescription,
+  appUrl,
+}: ConfigParams): Config => {
   const transports = reduce(
-    normalizedChains,
+    chains,
     (
       acc: {
         [key: string]: Transport
@@ -43,10 +57,10 @@ export const config = ({ chains, project }: ConfigParams): Config => {
   return createConfig(
     getDefaultConfig({
       ssr: typeof window === 'undefined',
-      appName: project.name,
-      appDescription: String(project.description),
-      appUrl: String(project.url),
-      chains: normalizedChains,
+      appName: appName,
+      appDescription: appDescription,
+      appUrl: appUrl,
+      chains: chains,
       transports,
       /// todo: connectors from payload?
       connectors: [
@@ -56,7 +70,7 @@ export const config = ({ chains, project }: ConfigParams): Config => {
           showQrModal: false,
         }),
         coinbaseWallet({
-          appName: project.name,
+          appName: appName,
           darkMode: true,
           preference: 'smartWalletOnly',
         }),

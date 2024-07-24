@@ -26,13 +26,18 @@ export const toWagmiChain = ({ chains }: ToWagmiChainParams): [Chain, ...Chain[]
     name: chain.name,
     testnet: Boolean(chain.testnet),
     custom: {
-      logo: (chain.logo as Media)?.url ? (chain.logo as Media)?.url : undefined,
-      slug: chain.slug,
-      abis: map(chain.contracts as Contracts[], (contract) => ({
-        [contract.slug]: contract.abi,
-      })),
+      logo: (chain.custom.logo as Media)?.url ? (chain.custom.logo as Media)?.url : undefined,
+      slug: chain.custom.slug,
+      abis: reduce(
+        chain.contracts as Contracts[],
+        (acc, contract) => {
+          acc[contract.slug] = contract.abi
+          return acc
+        },
+        {} as ChainCustom['abis'],
+      ),
       marketplaces: reduce(
-        chain.marketplaces as Marketplaces[],
+        chain.custom.marketplaces as Marketplaces[],
         (acc, marketplace) => {
           acc[marketplace.slug] = marketplace
           return acc

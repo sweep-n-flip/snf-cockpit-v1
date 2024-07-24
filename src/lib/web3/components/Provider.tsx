@@ -3,21 +3,18 @@
 import { WagmiProvider } from 'wagmi'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ConnectKitProvider } from 'connectkit'
-import { config } from '@/lib/web3/config/config'
+import { config, ConfigParams } from '@/lib/web3/config/config'
 import { ReactNode } from 'react'
-import { Chains, Project } from '@/lib/payloadcms/types/payload-types'
 
 const queryClient = new QueryClient()
 
-export type Web3ProviderProps = {
+export type Web3ProviderProps = ConfigParams & {
   children: ReactNode
-  chains: Chains[]
-  project: Project
 }
 
-export const Web3Provider = ({ chains, project, children }: Web3ProviderProps) => {
+export const Web3Provider = ({ children, ...configProps }: Web3ProviderProps) => {
   return (
-    <WagmiProvider config={config({ chains, project })}>
+    <WagmiProvider config={config(configProps)}>
       <QueryClientProvider client={queryClient}>
         <ConnectKitProvider
           options={{

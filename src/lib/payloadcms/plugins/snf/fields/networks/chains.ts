@@ -16,13 +16,7 @@ export const chains = (): CollectionConfig['fields'] => {
       type: 'text',
       required: true,
     },
-    {
-      name: 'logo',
-      label: 'Logo',
-      type: 'upload',
-      relationTo: 'media',
-      required: true,
-    },
+
     {
       name: 'testnet',
       label: 'Testnet',
@@ -60,25 +54,49 @@ export const chains = (): CollectionConfig['fields'] => {
       ],
     },
     {
+      type: 'group',
+      name: 'custom',
+      label: 'Custom',
+      fields: [
+        {
+          name: 'logo',
+          label: 'Logo',
+          type: 'upload',
+          relationTo: 'media',
+          required: true,
+        },
+        {
+          type: 'text',
+          name: 'slug',
+          label: 'Slug',
+          required: true,
+          unique: true,
+        },
+        {
+          name: 'marketplaces',
+          label: 'Marketplaces',
+          type: 'relationship',
+          relationTo: 'marketplaces',
+          hasMany: true,
+        },
+      ],
+    },
+    {
       name: 'rpcs',
       label: 'RPCs',
       type: 'relationship',
       relationTo: 'rpcs',
       hasMany: true,
+      minRows: 1,
       required: true,
     },
-    {
-      name: 'marketplaces',
-      label: 'Marketplaces',
-      type: 'relationship',
-      relationTo: 'marketplaces',
-      hasMany: true,
-    },
+
     {
       name: 'contracts',
       label: 'Contracts',
       type: 'relationship',
       relationTo: 'contracts',
+      minRows: 1,
       hasMany: true,
     },
     {
@@ -86,17 +104,8 @@ export const chains = (): CollectionConfig['fields'] => {
       label: 'Block Explorers',
       type: 'relationship',
       relationTo: 'blockExplorers',
+      minRows: 1,
       hasMany: true,
-    },
-    {
-      type: 'text',
-      name: 'slug',
-      label: 'Slug',
-      required: true,
-      unique: true,
-      admin: {
-        position: 'sidebar',
-      },
     },
   ]
 }

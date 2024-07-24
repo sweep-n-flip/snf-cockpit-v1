@@ -38,6 +38,7 @@ export const project = ({ globals }: Project): Project['globals'] => {
           label: 'Logo',
           type: 'upload',
           relationTo: 'media',
+          required: true,
         },
         {
           type: 'text',
@@ -49,11 +50,13 @@ export const project = ({ globals }: Project): Project['globals'] => {
           type: 'text',
           name: 'description',
           label: 'App Description',
+          required: true,
         },
         {
           type: 'text',
           name: 'url',
           label: 'App URL',
+          required: true,
         },
         {
           type: 'group',
@@ -61,7 +64,7 @@ export const project = ({ globals }: Project): Project['globals'] => {
           fields: [
             {
               type: 'relationship',
-              name: 'defaultChainId',
+              name: 'defaultChain',
               label: 'Default Chain',
               relationTo: 'chains',
               required: true,
@@ -76,6 +79,7 @@ export const project = ({ globals }: Project): Project['globals'] => {
               type: 'text',
               name: 'copyright',
               label: 'Copyright',
+              required: true,
             },
           ],
         },

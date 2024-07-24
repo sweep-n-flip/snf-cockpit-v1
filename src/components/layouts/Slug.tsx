@@ -13,6 +13,7 @@ export default async function SlugLayout({
   children: ReactNode
 }>) {
   const project = await settings.getProject()
+
   return (
     <Layouts.Default
       className={inter.className}

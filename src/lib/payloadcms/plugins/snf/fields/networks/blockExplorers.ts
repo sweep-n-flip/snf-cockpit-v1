@@ -24,13 +24,13 @@ export const blockExplorers = (): CollectionConfig['fields'] => {
       label: 'Logo',
       type: 'upload',
       relationTo: 'media',
+      required: true,
     },
     {
       type: 'text',
       name: 'slug',
       label: 'Slug',
       required: true,
-      unique: true,
       admin: {
         position: 'sidebar',
       },

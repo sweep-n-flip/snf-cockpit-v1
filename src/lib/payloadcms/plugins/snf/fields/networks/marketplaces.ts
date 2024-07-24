@@ -18,9 +18,19 @@ export const marketplaces = (): CollectionConfig['fields'] => {
       type: 'text',
       name: 'urlTokenIdPath',
       label: 'URL Token Id Path',
+      required: true,
       admin: {
         description:
           'Eg: /{{address}}/{{tokenId}} to replace {{address}} with the collection address and {{tokenId}} with the token id',
+      },
+    },
+    {
+      type: 'text',
+      name: 'urlTokenPath',
+      label: 'URL Token Path',
+      required: true,
+      admin: {
+        description: 'Eg: /{{address}} to replace {{address}} with the collection address',
       },
     },
     {
@@ -28,13 +38,13 @@ export const marketplaces = (): CollectionConfig['fields'] => {
       label: 'Logo',
       type: 'upload',
       relationTo: 'media',
+      required: true,
     },
     {
       type: 'text',
       name: 'slug',
       label: 'Slug',
       required: true,
-      unique: true,
       admin: {
         position: 'sidebar',
       },
