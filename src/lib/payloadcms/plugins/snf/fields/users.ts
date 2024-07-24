@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import { beforeChange } from '../hooks/utils/beforeChange'
-// import { admins } from '../utils/validateRole'
+import { admins } from '../utils/validateRole'
 
 export type Users = {
   fields: CollectionConfig['fields']
@@ -40,11 +40,11 @@ export const users = ({ fields }: Users): CollectionConfig['fields'] => {
       hooks: {
         beforeChange: [beforeChange.ensureFirstUserIsAdmin()],
       },
-      // access: {
-      //   read: admins,
-      //   create: admins,
-      //   update: admins,
-      // },
+      access: {
+        read: admins,
+        create: admins,
+        update: admins,
+      },
     },
   ]
 }
