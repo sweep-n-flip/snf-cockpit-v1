@@ -8,11 +8,15 @@ import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { Users } from './lib/payloadcms/collections/Users'
 import { Media } from './lib/payloadcms/collections/Media'
 import { snf } from './lib/payloadcms/plugins'
+import { seoPlugin } from '@payloadcms/plugin-seo'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
+  /// todo: setup cors and csrf
+  /// csrf
+  //  cors
   admin: {
     user: Users.slug,
   },
@@ -40,5 +44,12 @@ export default buildConfig({
       token: process.env.BLOB_READ_WRITE_TOKEN!,
     }),
     snf.plugin(),
+
+    seoPlugin({
+      collections: [`pages`],
+      uploadsCollection: `media`,
+      generateTitle: ({ doc }) => `${doc.title}`,
+      generateDescription: ({ doc }) => doc.excerpt,
+    }),
   ],
 })

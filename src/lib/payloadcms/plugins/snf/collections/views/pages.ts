@@ -19,8 +19,8 @@ export const pages = ({ collections }: Pages): Pages['collections'] => {
         interface: `Pages`,
       },
       admin: {
-        useAsTitle: `name`,
-        defaultColumns: ['name', 'slug'],
+        useAsTitle: `title`,
+        defaultColumns: ['title', 'slug'],
         group: `Views`,
       },
       versions: {

@@ -28,6 +28,7 @@ export const project = ({ globals }: Project): Project['globals'] => {
           type: 'checkbox',
           name: 'testnet',
           label: 'Testnet Mode',
+          defaultValue: false,
           admin: {
             position: 'sidebar',
             description: `Enable testnet mode for the current environment`,
@@ -44,6 +45,7 @@ export const project = ({ globals }: Project): Project['globals'] => {
           type: 'text',
           name: 'name',
           label: 'App Name',
+          defaultValue: process.env.DEFAULT_APP_NAME,
           required: true,
         },
         {
@@ -56,6 +58,7 @@ export const project = ({ globals }: Project): Project['globals'] => {
           type: 'text',
           name: 'url',
           label: 'App URL',
+          defaultValue: process.env.DEFAULT_APP_URL,
           required: true,
         },
         {

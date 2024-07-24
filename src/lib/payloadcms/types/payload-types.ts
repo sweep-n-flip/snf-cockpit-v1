@@ -255,7 +255,13 @@ export interface Collections {
 export interface Pages {
   id: string;
   slug: string;
-  name: string;
+  title: string;
+  excerpt: string;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    image?: string | Media | null;
+  };
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
