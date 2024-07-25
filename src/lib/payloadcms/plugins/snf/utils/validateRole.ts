@@ -8,7 +8,7 @@ export const adminsAndUser = ({ id, req: { user } }: AccessArgs) => {
       return true
     }
 
-    // Only current user can access theirself data
+    // Only current user can access their self data
     if (id === user.id) {
       return true
     }

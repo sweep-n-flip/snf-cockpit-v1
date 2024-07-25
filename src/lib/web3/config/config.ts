@@ -37,7 +37,7 @@ export const config = ({
       },
       chain: Chain,
     ) => {
-      const websockets = Object.values(chain.rpcUrls)
+      const webSockets = Object.values(chain.rpcUrls)
         .filter((rpc) => !!rpc.webSocket?.length)
         .map((rpc) => rpc.webSocket!.map((wsData) => webSocket(wsData)))
         .flat()
@@ -48,7 +48,7 @@ export const config = ({
         .flat()
 
       return merge(acc, {
-        [chain.id]: fallback([...websockets, ...https]),
+        [chain.id]: fallback([...webSockets, ...https]),
       })
     },
     {},
