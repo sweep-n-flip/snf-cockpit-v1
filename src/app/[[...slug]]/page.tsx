@@ -1,54 +1,57 @@
-import { Pages } from '@/lib/payloadcms/types/payload-types'
-import { settings } from '@/lib/payloadcms/services'
-import { views } from '@/lib/payloadcms/services/'
-import { notFound } from 'next/navigation'
+// import { Pages } from '@/lib/payloadcms/types/payload-types'
+// import { settings } from '@/lib/payloadcms/services'
+// import { views } from '@/lib/payloadcms/services/'
+// import { notFound } from 'next/navigation'
 
-interface PageProps {
-  params: { slug: string }
-}
+// interface PageProps {
+//   params: { slug: string }
+// }
 
 export async function generateStaticParams() {
-  const pages = await views.getPages()
-  const slugs: { slug: string }[] = []
+  // const pages = await views.getPages()
+  // const slugs: { slug: string }[] = []
 
-  if (pages && pages.length > 0) {
-    for (const doc of pages) {
-      if (doc.slug) {
-        slugs.push({ slug: doc.slug })
-      }
-    }
-  }
+  // if (pages && pages.length > 0) {
+  //   for (const doc of pages) {
+  //     if (doc.slug) {
+  //       slugs.push({ slug: doc.slug })
+  //     }
+  //   }
+  // }
 
-  return slugs
+  // return slugs
+  return []
 }
 
-export async function Page({ params: { slug } }: PageProps) {
-  if (!slug || slug === '') {
-    const project = await settings.getProject()
-    const defaultView = project.views.defaultView as Pages
+// export async function generateMetadata() {
+//   return {}
+// }
 
-    if (defaultView) {
-      slug = defaultView.slug
-    }
-  }
+export default async function Page() {
+  // if (!slug || slug === '') {
+  //   const project = await settings.getProject()
+  //   const defaultView = project.views.defaultView as Pages
 
-  const page = await views.getPage({
-    where: {
-      slug: {
-        equals: slug,
-      },
-    },
-  })
+  //   if (defaultView) {
+  //     slug = defaultView.slug
+  //   }
+  // }
 
-  if (!page) {
-    return notFound()
-  }
+  // const page = await views.getPage({
+  //   where: {
+  //     slug: {
+  //       equals: slug,
+  //     },
+  //   },
+  // })
+
+  // if (!page) {
+  //   return notFound()
+  // }
 
   return (
     <div className="container">
-      <h1>Page {JSON.stringify(page)}</h1>
+      <h1>Page</h1>
     </div>
   )
 }
-
-export default Page

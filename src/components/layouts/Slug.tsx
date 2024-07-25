@@ -11,6 +11,7 @@ import { networks, settings } from '@/lib/payloadcms/services'
 import { toWagmiChain } from '@/lib/payloadcms/utils/chains/toWagmiChain'
 import Registry from '@/app/Registry'
 import { Viewport } from 'next'
+// import { Wallet } from '@/lib/web3/components'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -55,6 +56,7 @@ export default async function SlugLayout({
               toolbar: (
                 <>
                   <Nav.Main />
+                  {/* <Wallet.Toolbar /> */}
                 </>
               ),
             }}
