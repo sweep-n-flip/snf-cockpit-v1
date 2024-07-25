@@ -44,11 +44,9 @@ export async function Page({ params: { slug } }: PageProps) {
     return notFound()
   }
 
-  console.log('page', page)
-
   return (
-    <div>
-      <h1>Page</h1>
+    <div className="container">
+      <h1>Page {JSON.stringify(page)}</h1>
     </div>
   )
 }

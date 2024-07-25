@@ -48,7 +48,9 @@ export default buildConfig({
     seoPlugin({
       collections: [`pages`],
       uploadsCollection: `media`,
-      generateTitle: ({ doc }) => `${doc.title}`,
+      generateTitle: async ({ doc }) => {
+        return `${doc.title} `
+      },
       generateDescription: ({ doc }) => doc.excerpt,
     }),
   ],
