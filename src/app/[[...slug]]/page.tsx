@@ -1,53 +1,52 @@
-// import { Pages } from '@/lib/payloadcms/types/payload-types'
-// import { settings } from '@/lib/payloadcms/services'
-// import { views } from '@/lib/payloadcms/services/'
-// import { notFound } from 'next/navigation'
+import { Pages } from '@/lib/payloadcms/types/payload-types'
+import { settings } from '@/lib/payloadcms/services'
+import { views } from '@/lib/payloadcms/services/'
+import { notFound } from 'next/navigation'
 
-// interface PageProps {
-//   params: { slug: string }
-// }
-
-export async function generateStaticParams() {
-  // const pages = await views.getPages()
-  // const slugs: { slug: string }[] = []
-
-  // if (pages && pages.length > 0) {
-  //   for (const doc of pages) {
-  //     if (doc.slug) {
-  //       slugs.push({ slug: doc.slug })
-  //     }
-  //   }
-  // }
-
-  // return slugs
-  return []
+interface PageProps {
+  params: { slug: string }
 }
 
-// export async function generateMetadata() {
-//   return {}
-// }
+export async function generateStaticParams() {
+  const pages = await views.getPages()
+  const slugs: { slug: string }[] = []
 
-export default async function Page() {
-  // if (!slug || slug === '') {
-  //   const project = await settings.getProject()
-  //   const defaultView = project.views.defaultView as Pages
+  if (pages && pages.length > 0) {
+    for (const doc of pages) {
+      if (doc.slug) {
+        slugs.push({ slug: doc.slug })
+      }
+    }
+  }
 
-  //   if (defaultView) {
-  //     slug = defaultView.slug
-  //   }
-  // }
+  return slugs
+}
 
-  // const page = await views.getPage({
-  //   where: {
-  //     slug: {
-  //       equals: slug,
-  //     },
-  //   },
-  // })
+export async function generateMetadata() {
+  return {}
+}
 
-  // if (!page) {
-  //   return notFound()
-  // }
+export default async function Page({ params: { slug } }: PageProps) {
+  if (!slug || slug === '') {
+    const project = await settings.getProject()
+    const defaultView = project.views.defaultView as Pages
+
+    if (defaultView) {
+      slug = defaultView.slug
+    }
+  }
+
+  const page = await views.getPage({
+    where: {
+      slug: {
+        equals: slug,
+      },
+    },
+  })
+
+  if (!page) {
+    return notFound()
+  }
 
   return (
     <div className="container">
