@@ -8,7 +8,7 @@ import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { Users } from './lib/payloadcms/collections/Users'
 import { Media } from './lib/payloadcms/collections/Media'
 import { snf } from './lib/payloadcms/plugins'
-import { Pages } from './lib/payloadcms/types/payload-types'
+// import { Pages } from './lib/payloadcms/types/payload-types'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 
 const filename = fileURLToPath(import.meta.url)
@@ -54,15 +54,16 @@ export default buildConfig({
       generateDescription: ({ doc }) => doc.excerpt,
     }),
   ],
-  async onInit(payload) {
-    const project = await payload.findGlobal({
-      slug: 'project',
-    })
+  // async onInit(payload) {
+  //   if (payload.config.custom.defaultViewId) return
+  //   const project = await payload.findGlobal({
+  //     slug: 'project',
+  //   })
 
-    /// get default view from project globals and set it as custom in payload config custom
-    const defaultViewId = (project.views.defaultView as Pages).id
-    if (defaultViewId) {
-      payload.config.custom.defaultViewId = defaultViewId
-    }
-  },
+  //   /// get default view from project globals and set it as custom in payload config custom
+  //   const defaultViewId = (project.views.defaultView as Pages).id
+  //   if (defaultViewId) {
+  //     payload.config.custom.defaultViewId = defaultViewId
+  //   }
+  // },
 })

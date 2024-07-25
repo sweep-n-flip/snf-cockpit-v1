@@ -6,7 +6,7 @@ export type Pages = {
 
 import { fields } from '../../fields'
 import { beforeChange } from '../../hooks/utils/beforeChange'
-import { afterRead } from '../../hooks/utils/afterRead'
+// import { afterRead } from '../../hooks/utils/afterRead'
 import { admins, anyone } from '../../utils/validateRole'
 
 export const pages = ({ collections }: Pages): Pages['collections'] => {
@@ -28,7 +28,7 @@ export const pages = ({ collections }: Pages): Pages['collections'] => {
       },
       hooks: {
         beforeChange: [beforeChange.slugfy(), beforeChange.populatePublishedDate()],
-        afterRead: [afterRead.homepageResolver()],
+        // afterRead: [afterRead.homepageResolver()],
       },
       timestamps: true,
       fields: fields.pages(),

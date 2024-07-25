@@ -9,22 +9,12 @@ interface PageProps {
 
 export async function generateStaticParams() {
   const pages = await views.getPages()
-  const slugs: { slug: string }[] = []
-
-  if (pages && pages.length > 0) {
-    for (const doc of pages) {
-      if (doc.slug) {
-        slugs.push({ slug: doc.slug })
-      }
-    }
-  }
-
-  return slugs
+  return pages.filter((page) => page.slug).map((page) => page.slug)
 }
 
-export async function generateMetadata() {
-  return {}
-}
+// export async function generateMetadata() {
+//   return {}
+// }
 
 export default async function Page({ params: { slug } }: PageProps) {
   if (!slug || slug === '') {
@@ -50,7 +40,7 @@ export default async function Page({ params: { slug } }: PageProps) {
 
   return (
     <div className="container">
-      <h1>Page</h1>
+      <h1>Page {JSON.stringify(page)}</h1>
     </div>
   )
 }
