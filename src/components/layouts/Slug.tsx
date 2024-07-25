@@ -10,8 +10,14 @@ import { Media } from '@/lib/payloadcms/types/payload-types'
 import { networks, settings } from '@/lib/payloadcms/services'
 import { toWagmiChain } from '@/lib/payloadcms/utils/chains/toWagmiChain'
 import Registry from '@/app/Registry'
+import { Viewport } from 'next'
 
 const inter = Inter({ subsets: ['latin'] })
+
+export const viewport: Viewport = {
+  width: `device-width`,
+  initialScale: 1,
+}
 
 export default async function SlugLayout({
   children,

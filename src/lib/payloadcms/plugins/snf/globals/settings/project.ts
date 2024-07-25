@@ -1,4 +1,5 @@
 import type { Config } from 'payload'
+import { admins, anyone } from '../../utils/validateRole'
 
 export type Project = {
   globals: Config['globals']
@@ -18,10 +19,9 @@ export const project = ({ globals }: Project): Project['globals'] => {
       admin: {
         group: `Settings`,
       },
-      /// todo: change access
       access: {
-        read: () => true,
-        update: () => true,
+        read: anyone,
+        update: admins,
       },
       fields: [
         {

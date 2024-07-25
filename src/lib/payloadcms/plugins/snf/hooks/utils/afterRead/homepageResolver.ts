@@ -11,13 +11,8 @@ import { PayloadRequest } from 'payload'
 export const homepageResolver =
   () =>
   async ({ doc, req: { payload, user } }: { doc: Pages; req: PayloadRequest }): Promise<Pages> => {
-    const project = await payload.findGlobal({
-      slug: 'project',
-    })
-    if (
-      !checkRole([`admin`], user ? user : undefined) &&
-      doc.id === (project.views.defaultView as Pages).id
-    ) {
+    if (checkRole([`admin`], user ? user : undefined)) return doc
+    if (doc.id === (payload.config.custom.defaultViewId as string)) {
       doc.slug = ``
     }
 
