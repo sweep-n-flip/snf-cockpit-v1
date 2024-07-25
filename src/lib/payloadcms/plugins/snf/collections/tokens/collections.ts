@@ -5,6 +5,7 @@ export type Collections = {
 }
 
 import { fields } from '../../fields'
+import { admins, anyone } from '../../utils/validateRole'
 
 export const collections = ({ collections }: Collections): Collections['collections'] => {
   const collectionsWithCollections = [
@@ -25,12 +26,11 @@ export const collections = ({ collections }: Collections): Collections['collecti
         group: `Tokens`,
       },
       fields: fields.collections(),
-      /// todo: change access
       access: {
-        read: () => true,
-        create: () => true,
-        update: () => true,
-        delete: () => true,
+        read: anyone,
+        create: admins,
+        update: admins,
+        delete: admins,
       },
     },
   ]

@@ -1,5 +1,6 @@
 import type { Config } from 'payload'
 import { fields } from '../../fields'
+import { admins, anyone } from '../../utils/validateRole'
 
 export type Chains = {
   collections: Config['collections']
@@ -24,12 +25,11 @@ export const marketplaces = ({ collections }: Chains): Chains['collections'] => 
         group: `Network`,
       },
       fields: fields.marketplaces(),
-      /// todo: change access
       access: {
-        read: () => true,
-        create: () => true,
-        update: () => true,
-        delete: () => true,
+        read: anyone,
+        create: admins,
+        update: admins,
+        delete: admins,
       },
     },
   ]
