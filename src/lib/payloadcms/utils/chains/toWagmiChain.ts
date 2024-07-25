@@ -31,7 +31,9 @@ export const toWagmiChain = ({ chains }: ToWagmiChainParams): [Chain, ...Chain[]
       abis: reduce(
         chain.contracts as Contracts[],
         (acc, contract) => {
-          acc[contract.slug] = contract.abi
+          if (contract.abi) {
+            acc[contract.slug] = contract.abi
+          }
           return acc
         },
         {} as ChainCustom['abis'],
