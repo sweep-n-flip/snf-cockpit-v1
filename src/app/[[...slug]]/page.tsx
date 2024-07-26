@@ -9,12 +9,7 @@ interface PageProps {
   params: { slug: string }
 }
 
-export async function generateStaticParams() {
-  const pages = await views.getPages()
-  return pages.filter((page) => page.slug).map((page) => page.slug)
-}
-
-export async function generateMetadata({ params: { slug } }: PageProps): Promise<Metadata> {
+const _getViewData = async (slug: string) => {
   const project = await settings.getProject()
   const isHomepage = !slug || slug === ''
 
@@ -34,6 +29,18 @@ export async function generateMetadata({ params: { slug } }: PageProps): Promise
     },
   })
 
+  if (!page) return { isHomepage, project, page: null }
+  return { page, isHomepage, project }
+}
+
+export async function generateStaticParams() {
+  const pages = await views.getPages()
+  return pages.filter((page) => page.slug).map((page) => page.slug)
+}
+
+export async function generateMetadata({ params: { slug } }: PageProps): Promise<Metadata> {
+  const { page, isHomepage, project } = await _getViewData(slug)
+
   if (!page) return {}
 
   return metadataGenerate({
@@ -45,24 +52,7 @@ export async function generateMetadata({ params: { slug } }: PageProps): Promise
 }
 
 export default async function Page({ params: { slug } }: PageProps) {
-  const isHomepage = !slug || slug === ''
-
-  if (isHomepage) {
-    const project = await settings.getProject()
-    const defaultView = project.views.defaultView as Pages
-
-    if (defaultView) {
-      slug = defaultView.slug
-    }
-  }
-
-  const page = await views.getPage({
-    where: {
-      slug: {
-        equals: slug,
-      },
-    },
-  })
+  const { page } = await _getViewData(slug)
 
   if (!page) {
     return notFound()
