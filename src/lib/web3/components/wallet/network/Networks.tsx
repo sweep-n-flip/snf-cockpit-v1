@@ -1,5 +1,5 @@
 'use client'
-import { Children, HTMLProps, useMemo } from 'react'
+import { Children, HTMLProps } from 'react'
 import { useNetwork } from '@/lib/web3/hooks'
 import { Network } from './Network'
 import { filter } from 'lodash'
@@ -9,10 +9,7 @@ export type NetworksProps = HTMLProps<HTMLUListElement> & {}
 export const Networks = (props: NetworksProps) => {
   const { chain, chains } = useNetwork()
 
-  const remainingChains = useMemo(
-    () => filter(chains, (chainToCheck) => chainToCheck.id !== chain?.id),
-    [chain, chains],
-  )
+  const remainingChains = filter(chains, (chainToCheck) => chainToCheck.id !== chain?.id)
 
   return (
     <ul {...props}>
