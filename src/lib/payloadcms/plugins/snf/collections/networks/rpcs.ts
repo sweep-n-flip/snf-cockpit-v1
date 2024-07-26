@@ -23,7 +23,17 @@ export const rpcs = ({ collections }: Chains): Chains['collections'] => {
         defaultColumns: ['name'],
         group: `Network`,
       },
-      fields: fields.rpcs(),
+      fields: fields.rpcs({
+        fieldsBefore: [
+          ...fields.slug({
+            slugFieldProps: {
+              fieldToFormat: 'name',
+              index: false,
+              unique: true,
+            },
+          }),
+        ],
+      }),
       access: {
         read: anyone,
         create: admins,

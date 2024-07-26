@@ -25,7 +25,17 @@ export const contracts = ({ collections }: Chains): Chains['collections'] => {
 
         group: `Network`,
       },
-      fields: fields.contracts(),
+      fields: fields.contracts({
+        fieldsBefore: [
+          ...fields.slug({
+            slugFieldProps: {
+              fieldToFormat: 'name',
+              index: false,
+              unique: true,
+            },
+          }),
+        ],
+      }),
       access: {
         read: anyone,
         create: admins,

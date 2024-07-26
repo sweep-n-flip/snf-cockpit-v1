@@ -25,7 +25,17 @@ export const collections = ({ collections }: Collections): Collections['collecti
         defaultColumns: ['name'],
         group: `Tokens`,
       },
-      fields: fields.collections(),
+      fields: fields.collections({
+        fieldsBefore: [
+          ...fields.slug({
+            slugFieldProps: {
+              fieldToFormat: 'name',
+              index: false,
+              unique: false,
+            },
+          }),
+        ],
+      }),
       access: {
         read: anyone,
         create: admins,

@@ -1,13 +1,16 @@
 import type { CollectionConfig } from 'payload'
-import { slug } from '../utils/slug'
 
-export const collections = (): CollectionConfig['fields'] => {
+export type CollectionsParams = {
+  fieldsBefore?: CollectionConfig['fields']
+  fieldsAfter?: CollectionConfig['fields']
+}
+
+export const collections = (params?: CollectionsParams): CollectionConfig['fields'] => {
+  const { fieldsBefore = [], fieldsAfter = [] } = params || {}
+
   return [
-    ...slug({
-      fieldToFormat: 'name',
-      index: false,
-      unique: false,
-    }),
+    ...fieldsBefore,
+
     {
       type: 'text',
       name: 'address',
@@ -38,5 +41,6 @@ export const collections = (): CollectionConfig['fields'] => {
       name: 'description',
       label: 'Description',
     },
+    ...fieldsAfter,
   ]
 }

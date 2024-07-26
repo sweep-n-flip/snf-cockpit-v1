@@ -1,13 +1,14 @@
 import type { CollectionConfig } from 'payload'
-import { slug } from '../utils/slug'
 
-export const blockExplorers = (): CollectionConfig['fields'] => {
+export type BlockExplorersParams = {
+  fieldsBefore?: CollectionConfig['fields']
+  fieldsAfter?: CollectionConfig['fields']
+}
+
+export const blockExplorers = (params?: BlockExplorersParams): CollectionConfig['fields'] => {
+  const { fieldsBefore = [], fieldsAfter = [] } = params || {}
   return [
-    ...slug({
-      fieldToFormat: 'name',
-      index: false,
-      unique: true,
-    }),
+    ...fieldsBefore,
     {
       type: 'text',
       name: 'name',
@@ -32,5 +33,6 @@ export const blockExplorers = (): CollectionConfig['fields'] => {
       relationTo: 'media',
       required: true,
     },
+    ...fieldsAfter,
   ]
 }

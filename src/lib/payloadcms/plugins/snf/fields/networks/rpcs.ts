@@ -1,13 +1,14 @@
 import type { CollectionConfig } from 'payload'
-import { slug } from '../utils/slug'
 
-export const rpcs = (): CollectionConfig['fields'] => {
+export type RpcsParams = {
+  fieldsAfter?: CollectionConfig['fields']
+  fieldsBefore?: CollectionConfig['fields']
+}
+
+export const rpcs = (params?: RpcsParams): CollectionConfig['fields'] => {
+  const { fieldsBefore = [], fieldsAfter = [] } = params || {}
   return [
-    ...slug({
-      fieldToFormat: 'name',
-      index: false,
-      unique: true,
-    }),
+    ...fieldsBefore,
     {
       type: 'text',
       name: 'name',
@@ -50,5 +51,6 @@ export const rpcs = (): CollectionConfig['fields'] => {
         },
       ],
     },
+    ...fieldsAfter,
   ]
 }

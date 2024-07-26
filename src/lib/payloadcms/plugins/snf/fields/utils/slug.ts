@@ -2,17 +2,21 @@ import type { CollectionConfig, TextField } from 'payload'
 
 import { formatSlug } from '../../hooks/utils/beforeValidate/formatSlug'
 
-export type SlugParams = Partial<TextField> & {
-  fieldToFormat: string
-  unique?: boolean
+export type SlugParams = {
+  fieldsBefore?: CollectionConfig['fields']
+  fieldsAfter?: CollectionConfig['fields']
+  slugFieldProps: {
+    fieldToFormat: string
+    unique?: boolean
+  } & Partial<TextField>
 }
 
-export const slug = ({
-  fieldToFormat,
-  unique = true,
-  ...fieldProps
-}: SlugParams): CollectionConfig['fields'] => {
+export const slug = (params?: SlugParams): CollectionConfig['fields'] => {
+  const { fieldsBefore = [], fieldsAfter = [], slugFieldProps } = params || {}
+  const { fieldToFormat = 'title', unique = true, ...fieldProps } = slugFieldProps || {}
+
   return [
+    ...fieldsBefore,
     {
       ...(fieldProps as TextField),
       unique,
@@ -26,5 +30,6 @@ export const slug = ({
         beforeValidate: [formatSlug(fieldToFormat)],
       },
     },
+    ...fieldsAfter,
   ]
 }

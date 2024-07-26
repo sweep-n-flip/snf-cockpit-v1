@@ -25,7 +25,17 @@ export const chains = ({ collections }: Chains): Chains['collections'] => {
         defaultColumns: ['name', 'testnet'],
         group: `Network`,
       },
-      fields: fields.chains(),
+      fields: fields.chains({
+        fieldsBefore: [
+          ...fields.slug({
+            slugFieldProps: {
+              fieldToFormat: 'name',
+              index: true,
+              unique: true,
+            },
+          }),
+        ],
+      }),
       access: {
         read: anyone,
         create: admins,

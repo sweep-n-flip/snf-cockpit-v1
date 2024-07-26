@@ -1,13 +1,15 @@
 import type { CollectionConfig } from 'payload'
-import { slug } from '../utils/slug'
 
-export const pages = (): CollectionConfig['fields'] => {
+export type PagesParams = {
+  fieldsAfter?: CollectionConfig['fields']
+  fieldsBefore?: CollectionConfig['fields']
+}
+
+export const pages = (params?: PagesParams): CollectionConfig['fields'] => {
+  const { fieldsBefore = [], fieldsAfter = [] } = params || {}
+
   return [
-    ...slug({
-      fieldToFormat: 'title',
-      index: true,
-      unique: true,
-    }),
+    ...fieldsBefore,
     {
       type: 'text',
       name: 'title',
@@ -27,25 +29,6 @@ export const pages = (): CollectionConfig['fields'] => {
         position: 'sidebar',
       },
     },
-    {
-      type: 'tabs',
-      tabs: [
-        {
-          label: 'Content',
-          fields: [
-            {
-              name: 'layout',
-              type: 'blocks',
-              blocks: [
-                {
-                  slug: 'widget',
-                  fields: [],
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    ...fieldsAfter,
   ]
 }

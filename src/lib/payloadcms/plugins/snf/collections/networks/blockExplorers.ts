@@ -23,7 +23,17 @@ export const blockExplorers = ({ collections }: Chains): Chains['collections'] =
         useAsTitle: `name`,
         group: `Network`,
       },
-      fields: fields.blockExplorers(),
+      fields: fields.blockExplorers({
+        fieldsBefore: [
+          ...fields.slug({
+            slugFieldProps: {
+              fieldToFormat: 'name',
+              index: false,
+              unique: true,
+            },
+          }),
+        ],
+      }),
       access: {
         read: anyone,
         create: admins,

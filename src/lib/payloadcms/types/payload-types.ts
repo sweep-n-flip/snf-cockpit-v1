@@ -138,6 +138,7 @@ export interface Media {
  */
 export interface Chains {
   id: string;
+  slug: string;
   chainId: number;
   name: string;
   testnet?: boolean | null;
@@ -148,7 +149,6 @@ export interface Chains {
     address: string;
   };
   custom: {
-    slug: string;
     logo: string | Media;
     marketplaces?: (string | Marketplaces)[] | null;
   };

@@ -27,7 +27,7 @@ export const toWagmiChain = ({ chains }: ToWagmiChainParams): [Chain, ...Chain[]
     testnet: Boolean(chain.testnet),
     custom: {
       logo: (chain.custom.logo as Media)?.url ? (chain.custom.logo as Media)?.url : undefined,
-      slug: chain.custom.slug,
+      slug: chain.slug,
       abis: reduce(
         chain.contracts as Contracts[],
         (acc, contract) => {
