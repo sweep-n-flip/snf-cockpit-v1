@@ -4,11 +4,12 @@ import { useNetwork } from '@/lib/web3/hooks'
 import { Typography } from '@/lib/ui/components'
 import { CheckIcon } from '@heroicons/react/24/outline'
 import classNames from 'classnames'
-import { Chain } from '@/lib/web3/types'
+import { Chain as ChainEntity } from '@/lib/web3/types'
+import { Chain } from '@/lib/web3/components/icons/chains'
 
 export type NetworkProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  currentChain?: Chain
-  chain?: Chain
+  currentChain?: ChainEntity
+  chain?: ChainEntity
 }
 
 export const Network = ({ chain, currentChain, className, ...props }: NetworkProps) => {
@@ -34,8 +35,7 @@ export const Network = ({ chain, currentChain, className, ...props }: NetworkPro
       }
     >
       <div className="flex space-x-2">
-        {/* <Chain chainId={chain?.id} size={24} /> */}
-        {chain?.id}
+        <Chain chainId={chain?.id} size={24} />
         <Typography.Paragraph
           size="sm"
           className={chain?.unsupported ? 'text-red-500' : 'text-gray-900'}

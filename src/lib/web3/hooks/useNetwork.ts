@@ -10,10 +10,10 @@ export function useNetwork() {
 
   return {
     chain: chain as Chain | undefined,
+    chains: chains as [Chain, ...Chain[]],
     loading: status === 'pending',
     error,
     status,
-    chains,
     switchChain,
   }
 }

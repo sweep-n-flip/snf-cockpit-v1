@@ -1,8 +1,9 @@
 'use client'
+
 import { type HTMLProps } from 'react'
 import { ChevronDownIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import classNames from 'classnames'
-// import { Chain } from '@/lib/web3/components/icons/chains'
+import { Chain } from '@/lib/web3/components/icons/chains'
 import { useNetwork } from '@/lib/web3/hooks'
 
 export type ThumbnailProps = HTMLProps<HTMLDivElement> & {
@@ -22,8 +23,7 @@ export const Thumbnail = ({ isOpen, ...props }: ThumbnailProps) => {
               className={isOpen ? 'text-gray-400' : 'text-red-400'}
             />
           ) : (
-            // <Chain chainId={chain.id} size={24} />
-            chain.id
+            <Chain chainId={chain.id} size={24} />
           )}
         </div>
         <div>
