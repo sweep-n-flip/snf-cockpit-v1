@@ -22,7 +22,7 @@ export const Networks = (props: NetworksProps) => {
       </li>
       {Children.toArray(
         remainingChains.map((remainingChain) => (
-          <li>
+          <li key={remainingChain.id}>
             <Network
               currentChain={chain}
               chain={remainingChain}

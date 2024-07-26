@@ -14,8 +14,6 @@ export const Chain = ({ chainId, size = 16 }: ChainProps) => {
   const { chains } = useNetwork()
   const chain: ChainEntity | undefined = find(chains, { id: chainId })
 
-  console.log(chain)
-
   return (
     <div className="rounded-full bg-black/80">
       {chain && chain?.custom?.logo ? (
