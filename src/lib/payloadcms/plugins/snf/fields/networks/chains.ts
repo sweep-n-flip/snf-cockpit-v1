@@ -4,13 +4,15 @@ import { zeroAddress } from 'viem'
 export type ChainsParams = {
   fieldsBefore?: CollectionConfig['fields']
   fieldsAfter?: CollectionConfig['fields']
+  customAfter?: CollectionConfig['fields']
+  customBefore?: CollectionConfig['fields']
 }
 
 export const chains = (params?: ChainsParams): CollectionConfig['fields'] => {
-  const { fieldsBefore = [], fieldsAfter = [] } = params || {}
+  const { fieldsBefore = [], fieldsAfter = [], customAfter = [], customBefore = [] } = params || {}
+
   return [
     ...fieldsBefore,
-
     {
       unique: true,
       name: 'chainId',
@@ -66,6 +68,7 @@ export const chains = (params?: ChainsParams): CollectionConfig['fields'] => {
       name: 'custom',
       label: 'Custom',
       fields: [
+        ...customBefore,
         {
           name: 'logo',
           label: 'Logo',
@@ -80,6 +83,7 @@ export const chains = (params?: ChainsParams): CollectionConfig['fields'] => {
           relationTo: 'marketplaces',
           hasMany: true,
         },
+        ...customAfter,
       ],
     },
     {
