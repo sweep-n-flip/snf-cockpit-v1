@@ -1,12 +1,18 @@
 'use client'
-import { HTMLProps } from 'react'
+import { Children, HTMLProps, useMemo } from 'react'
 import { useNetwork } from '@/lib/web3/hooks'
 import { Network } from './Network'
+import { filter } from 'lodash'
 
 export type NetworksProps = HTMLProps<HTMLUListElement> & {}
 
 export const Networks = (props: NetworksProps) => {
-  const { chain } = useNetwork()
+  const { chain, chains } = useNetwork()
+
+  const remainingChains = useMemo(
+    () => filter(chains, (chainToCheck) => chainToCheck.id !== chain?.id),
+    [chain, chains],
+  )
 
   return (
     <ul {...props}>
@@ -17,7 +23,7 @@ export const Networks = (props: NetworksProps) => {
           className={'w-full rounded-md p-2 hover:bg-gray-100'}
         />
       </li>
-      {/* {Children.toArray(
+      {Children.toArray(
         remainingChains.map((remainingChain) => (
           <li>
             <Network
@@ -27,7 +33,7 @@ export const Networks = (props: NetworksProps) => {
             />
           </li>
         )),
-      )} */}
+      )}
     </ul>
   )
 }
