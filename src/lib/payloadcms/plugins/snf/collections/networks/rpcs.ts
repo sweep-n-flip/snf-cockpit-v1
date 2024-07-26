@@ -23,9 +23,9 @@ export const rpcs = ({ collections }: Chains): Chains['collections'] => {
         defaultColumns: ['name'],
         group: `Network`,
       },
-      fields: fields.rpcs({
+      fields: fields.networks.rpcs({
         fieldsBefore: [
-          ...fields.slug({
+          ...fields.utils.slug({
             slugFieldProps: {
               fieldToFormat: 'name',
               index: false,

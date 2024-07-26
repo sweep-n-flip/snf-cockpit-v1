@@ -8,13 +8,13 @@ export const formatSlug =
       return formatToSlug(value)
     }
 
-    if (operation && [`create`, 'update'].includes(operation)) {
-      const fallbackData = data?.[fallback] || originalDoc?.[fallback]
+    if (!operation || ![`create`, 'update'].includes(operation)) return
 
-      if (fallbackData && typeof fallbackData === `string`) {
-        return formatToSlug(fallbackData)
-      }
+    const fallbackData = data?.[fallback] || originalDoc?.[fallback]
+    if (fallbackData && typeof fallbackData === `string`) {
+      return formatToSlug(fallbackData)
     }
+
     return value
   }
 

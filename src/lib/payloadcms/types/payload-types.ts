@@ -20,6 +20,7 @@ export interface Config {
     blockExplorers: BlockExplorers;
     collections: Collections;
     pages: Pages;
+    bridges: Bridges;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -272,6 +273,21 @@ export interface Pages {
     title?: string | null;
     description?: string | null;
     image?: string | Media | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bridges".
+ */
+export interface Bridges {
+  id: string;
+  slug: string;
+  name: string;
+  description?: string | null;
+  setup: {
+    version: number;
   };
   updatedAt: string;
   createdAt: string;

@@ -25,9 +25,9 @@ export const contracts = ({ collections }: Chains): Chains['collections'] => {
 
         group: `Network`,
       },
-      fields: fields.contracts({
+      fields: fields.networks.contracts({
         fieldsBefore: [
-          ...fields.slug({
+          ...fields.utils.slug({
             slugFieldProps: {
               fieldToFormat: 'name',
               index: false,

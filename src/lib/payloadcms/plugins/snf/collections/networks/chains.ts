@@ -25,9 +25,9 @@ export const chains = ({ collections }: Chains): Chains['collections'] => {
         defaultColumns: ['name', 'testnet'],
         group: `Network`,
       },
-      fields: fields.chains({
+      fields: fields.networks.chains({
         fieldsBefore: [
-          ...fields.slug({
+          ...fields.utils.slug({
             slugFieldProps: {
               fieldToFormat: 'name',
               index: true,

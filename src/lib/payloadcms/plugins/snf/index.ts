@@ -21,6 +21,7 @@ export const plugin = () => {
           'collections',
           'pages',
           'users',
+          'bridge',
         ],
         (acc, method) => ({
           ...acc,

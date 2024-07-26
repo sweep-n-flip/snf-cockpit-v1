@@ -1,4 +1,4 @@
-import type { AccessArgs, Access, FieldAccess } from 'payload'
+import type { AccessArgs } from 'payload'
 import { checkRole } from './checkRole'
 
 export const adminsAndUser = ({ id, req: { user } }: AccessArgs) => {
@@ -17,7 +17,7 @@ export const adminsAndUser = ({ id, req: { user } }: AccessArgs) => {
   return false
 }
 
-export const adminsOrPublished: Access = ({ req: { user } }) => {
+export const adminsOrPublished = ({ req: { user } }: AccessArgs) => {
   if (user && checkRole([`admin`], user)) {
     return true
   }
@@ -29,8 +29,10 @@ export const adminsOrPublished: Access = ({ req: { user } }) => {
   }
 }
 
-export const admins: FieldAccess = ({ req: { user } }) => {
+export const admins = ({ req: { user } }: AccessArgs) => {
   return checkRole([`admin`], user ? user : undefined)
 }
 
-export const anyone: Access = () => true
+export const anyone = () => true
+
+export const noOne = () => false

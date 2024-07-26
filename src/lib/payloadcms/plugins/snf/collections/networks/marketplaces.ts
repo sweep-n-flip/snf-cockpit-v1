@@ -24,9 +24,9 @@ export const marketplaces = ({ collections }: Chains): Chains['collections'] => 
         defaultColumns: ['name'],
         group: `Network`,
       },
-      fields: fields.marketplaces({
+      fields: fields.networks.marketplaces({
         fieldsBefore: [
-          ...fields.slug({
+          ...fields.utils.slug({
             slugFieldProps: {
               fieldToFormat: 'name',
               index: false,

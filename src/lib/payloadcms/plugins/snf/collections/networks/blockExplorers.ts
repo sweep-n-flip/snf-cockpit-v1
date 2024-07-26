@@ -23,9 +23,9 @@ export const blockExplorers = ({ collections }: Chains): Chains['collections'] =
         useAsTitle: `name`,
         group: `Network`,
       },
-      fields: fields.blockExplorers({
+      fields: fields.networks.blockExplorers({
         fieldsBefore: [
-          ...fields.slug({
+          ...fields.utils.slug({
             slugFieldProps: {
               fieldToFormat: 'name',
               index: false,

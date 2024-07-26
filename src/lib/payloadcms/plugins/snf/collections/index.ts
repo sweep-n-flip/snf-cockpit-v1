@@ -4,6 +4,7 @@ import { media } from './media'
 import { tokens } from './tokens'
 import { views } from './views'
 import { users } from './users'
+import { widgets } from './widgets'
 
 export type Globals = {
   collections: Config['collections']
@@ -14,5 +15,6 @@ export const collections = {
   ...media,
   ...tokens,
   ...views,
-  users,
+  users: users.override,
+  ...widgets,
 }

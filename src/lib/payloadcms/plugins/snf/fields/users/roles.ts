@@ -1,21 +1,17 @@
 import type { CollectionConfig } from 'payload'
-import { beforeChange } from '../hooks/utils/beforeChange'
-import { admins } from '../utils/validateRole'
+import { beforeChange } from '../../hooks/utils/beforeChange'
+import { admins } from '../../utils/validateRole'
 
 export type Users = {
   fields: CollectionConfig['fields']
 }
 
-export const users = ({ fields }: Users): CollectionConfig['fields'] => {
+export const roles = ({ fields }: Users): CollectionConfig['fields'] => {
   return [
     ...fields,
     {
       name: `name`,
       type: `text`,
-    },
-    {
-      name: `email`,
-      type: `email`,
     },
     {
       name: 'alias',

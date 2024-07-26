@@ -29,9 +29,9 @@ export const pages = ({ collections }: Pages): Pages['collections'] => {
         beforeChange: [beforeChange.slugfy(), beforeChange.populatePublishedDate()],
       },
       timestamps: true,
-      fields: fields.pages({
+      fields: fields.views.pages({
         fieldsBefore: [
-          ...fields.slug({
+          ...fields.utils.slug({
             slugFieldProps: {
               fieldToFormat: 'title',
               index: true,
@@ -39,7 +39,7 @@ export const pages = ({ collections }: Pages): Pages['collections'] => {
             },
           }),
         ],
-        fieldsAfter: [...fields.blocks()],
+        fieldsAfter: [...fields.layout.blocks()],
       }),
       access: {
         read: anyone,
