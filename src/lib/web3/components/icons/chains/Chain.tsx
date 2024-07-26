@@ -15,23 +15,25 @@ export const Chain = ({ chainId, size = 16 }: ChainProps) => {
   const chain: ChainEntity | undefined = find(chains, { id: chainId })
 
   return (
-    <div className="rounded-full bg-black/80">
-      {chain && chain?.custom?.logo ? (
-        <Image src={`${chain.custom.logo}`} width={size} height={size} alt={chain.name} />
-      ) : (
-        <>
-          <style jsx>
-            {`
-              div {
-                width: ${size}px;
-                height: ${size}px;
-              }
-            `}
-          </style>
-          <div className="-m-px rounded-full bg-zinc-200" />
-        </>
-      )}
-    </div>
+    <>
+      <style jsx>
+        {`
+          .chain {
+            width: ${size}px;
+            height: ${size}px;
+          }
+        `}
+      </style>
+      <div className="chain flex items-center justify-center rounded-full bg-black/80">
+        {chain && chain?.custom?.logo ? (
+          <Image src={`${chain.custom.logo}`} width={size} height={size} alt={chain.name} />
+        ) : (
+          <>
+            <div className="-m-px rounded-full bg-zinc-200" />
+          </>
+        )}
+      </div>
+    </>
   )
 }
 
