@@ -11,10 +11,10 @@ export type Globals = {
 }
 
 export const collections = {
+  users: users.override,
   ...networks,
   ...media,
   ...tokens,
   ...views,
-  users: users.override,
   ...widgets,
 }

@@ -6,22 +6,6 @@ export type WidgetParams = {
   fieldsAfter?: CollectionConfig['fields']
 }
 
-// export const handleVersion =
-//   (): FieldHook =>
-//   async ({ operation, value, originalDoc, data, req }) => {
-//     if (typeof value ==='string' && value.length > 0) return value
-
-//     if (!operation || !['create', 'read'].includes(operation)) return
-
-//     const latestVersion = await req.payload.find({
-//       collection: 'bridges',
-//       limit: 1,
-//       sort: '-version',
-//     })
-
-//     return value
-//   }
-
 export const bridge = (params?: WidgetParams): CollectionConfig['fields'] => {
   const { fieldsBefore = [], fieldsAfter = [] } = params || {}
 

@@ -23,21 +23,13 @@ export const blocks = (params?: BlocksParams): CollectionConfig['fields'] => {
               type: 'blocks',
               blocks: [
                 ...blocksBefore,
-                {
-                  slug: 'bridges',
-                  labels: {
-                    singular: 'Bridge',
-                    plural: 'Bridges',
-                  },
-                  fields: [
-                    {
-                      type: 'relationship',
-                      name: 'widget',
-                      label: 'Widget',
-                      relationTo: 'bridges',
-                    },
-                  ],
-                },
+                /// dev: custom blocks here
+                /**
+                 * eg:
+                 * ...containers
+                 * ...grid
+                 * ...card
+                 */
                 ...blocksAfter,
               ],
             },
