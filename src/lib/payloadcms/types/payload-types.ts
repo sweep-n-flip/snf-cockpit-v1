@@ -264,9 +264,10 @@ export interface Pages {
   publishedDate?: string | null;
   layout?:
     | {
+        widget?: (string | null) | Bridges;
         id?: string | null;
         blockName?: string | null;
-        blockType: 'widget';
+        blockType: 'bridges';
       }[]
     | null;
   meta?: {

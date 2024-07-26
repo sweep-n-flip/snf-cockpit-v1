@@ -24,8 +24,19 @@ export const blocks = (params?: BlocksParams): CollectionConfig['fields'] => {
               blocks: [
                 ...blocksBefore,
                 {
-                  slug: 'widget',
-                  fields: [],
+                  slug: 'bridges',
+                  labels: {
+                    singular: 'Bridge',
+                    plural: 'Bridges',
+                  },
+                  fields: [
+                    {
+                      type: 'relationship',
+                      name: 'widget',
+                      label: 'Widget',
+                      relationTo: 'bridges',
+                    },
+                  ],
                 },
                 ...blocksAfter,
               ],
