@@ -1,5 +1,5 @@
-import { widgets } from './widgets'
+import { bridges } from './bridges'
 
 export const blocks = {
-  widgets,
+  bridges,
 }

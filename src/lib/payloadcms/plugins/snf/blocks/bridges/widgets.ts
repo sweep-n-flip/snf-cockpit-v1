@@ -1,11 +1,11 @@
 import type { Block } from 'payload'
 
-export type BridgeParams = {
+export type WidgetParams = {
   blocksAfter?: Block[]
   blocksBefore?: Block[]
 }
 
-export const bridge = (params?: BridgeParams): Block[] => {
+export const widgets = (params?: WidgetParams): Block[] => {
   const { blocksBefore = [], blocksAfter = [] } = params || {}
 
   return [
@@ -21,7 +21,7 @@ export const bridge = (params?: BridgeParams): Block[] => {
           type: 'relationship',
           name: 'widget',
           label: 'Widget',
-          relationTo: 'bridges',
+          relationTo: 'bridgeWidgets',
         },
       ],
     },

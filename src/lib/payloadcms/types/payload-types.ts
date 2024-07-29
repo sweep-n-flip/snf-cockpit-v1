@@ -20,7 +20,8 @@ export interface Config {
     blockExplorers: BlockExplorers;
     collections: Collections;
     pages: Pages;
-    bridges: Bridges;
+    bridgeWidgets: BridgeWidget;
+    bridgeCategories: BridgeCategories;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -264,7 +265,7 @@ export interface Pages {
   publishedDate?: string | null;
   layout?:
     | {
-        widget?: (string | null) | Bridges;
+        widget?: (string | null) | BridgeWidget;
         id?: string | null;
         blockName?: string | null;
         blockType: 'bridges';
@@ -280,16 +281,29 @@ export interface Pages {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "bridges".
+ * via the `definition` "bridgeWidgets".
  */
-export interface Bridges {
+export interface BridgeWidget {
   id: string;
   slug: string;
   name: string;
   description?: string | null;
   setup: {
+    category: string | BridgeCategories;
     version: number;
   };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bridgeCategories".
+ */
+export interface BridgeCategories {
+  id: string;
+  slug: string;
+  name: string;
+  description?: string | null;
   updatedAt: string;
   createdAt: string;
 }

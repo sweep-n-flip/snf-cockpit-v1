@@ -37,6 +37,14 @@ type Query {
   Pages(draft: Boolean, where: Page_where, limit: Int, page: Int, sort: String): Pages
   countPages(draft: Boolean, where: Page_where): countPages
   docAccessPage(id: String!): pagesDocAccess
+  BridgeWidget(id: String!, draft: Boolean): BridgeWidget
+  BridgeWidgets(draft: Boolean, where: BridgeWidget_where, limit: Int, page: Int, sort: String): BridgeWidgets
+  countBridgeWidgets(draft: Boolean, where: BridgeWidget_where): countBridgeWidgets
+  docAccessBridgeWidget(id: String!): bridgeWidgetsDocAccess
+  BridgeCategory(id: String!, draft: Boolean): BridgeCategory
+  BridgeCategories(draft: Boolean, where: BridgeCategory_where, limit: Int, page: Int, sort: String): BridgeCategories
+  countBridgeCategories(draft: Boolean, where: BridgeCategory_where): countBridgeCategories
+  docAccessBridgeCategory(id: String!): bridgeCategoriesDocAccess
   PayloadPreference(id: String!, draft: Boolean): PayloadPreference
   PayloadPreferences(draft: Boolean, where: PayloadPreference_where, limit: Int, page: Int, sort: String): PayloadPreferences
   countPayloadPreferences(draft: Boolean, where: PayloadPreference_where): countPayloadPreferences
@@ -2361,6 +2369,7 @@ type MediaDeleteDocAccess {
 
 type Chain {
   id: String
+  slug: String!
   chainId: Float!
   name: String!
   testnet: Boolean
@@ -2381,7 +2390,6 @@ type Chain_NativeCurrency {
 }
 
 type Chain_Custom {
-  slug: String
   logo(where: Chain_Custom_Logo_where): Media
   marketplaces: [Marketplace!]
 }
@@ -4285,6 +4293,7 @@ type Chains {
 }
 
 input Chain_where {
+  slug: Chain_slug_operator
   chainId: Chain_chainId_operator
   name: Chain_name_operator
   testnet: Chain_testnet_operator
@@ -4292,7 +4301,6 @@ input Chain_where {
   nativeCurrency__symbol: Chain_nativeCurrency__symbol_operator
   nativeCurrency__decimals: Chain_nativeCurrency__decimals_operator
   nativeCurrency__address: Chain_nativeCurrency__address_operator
-  custom__slug: Chain_custom__slug_operator
   custom__logo: Chain_custom__logo_operator
   custom__marketplaces: Chain_custom__marketplaces_operator
   rpcs: Chain_rpcs_operator
@@ -4303,6 +4311,16 @@ input Chain_where {
   id: Chain_id_operator
   AND: [Chain_where_and]
   OR: [Chain_where_or]
+}
+
+input Chain_slug_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
 }
 
 input Chain_chainId_operator {
@@ -4360,16 +4378,6 @@ input Chain_nativeCurrency__decimals_operator {
 }
 
 input Chain_nativeCurrency__address_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input Chain_custom__slug_operator {
   equals: String
   not_equals: String
   like: String
@@ -4458,6 +4466,7 @@ input Chain_id_operator {
 }
 
 input Chain_where_and {
+  slug: Chain_slug_operator
   chainId: Chain_chainId_operator
   name: Chain_name_operator
   testnet: Chain_testnet_operator
@@ -4465,7 +4474,6 @@ input Chain_where_and {
   nativeCurrency__symbol: Chain_nativeCurrency__symbol_operator
   nativeCurrency__decimals: Chain_nativeCurrency__decimals_operator
   nativeCurrency__address: Chain_nativeCurrency__address_operator
-  custom__slug: Chain_custom__slug_operator
   custom__logo: Chain_custom__logo_operator
   custom__marketplaces: Chain_custom__marketplaces_operator
   rpcs: Chain_rpcs_operator
@@ -4479,6 +4487,7 @@ input Chain_where_and {
 }
 
 input Chain_where_or {
+  slug: Chain_slug_operator
   chainId: Chain_chainId_operator
   name: Chain_name_operator
   testnet: Chain_testnet_operator
@@ -4486,7 +4495,6 @@ input Chain_where_or {
   nativeCurrency__symbol: Chain_nativeCurrency__symbol_operator
   nativeCurrency__decimals: Chain_nativeCurrency__decimals_operator
   nativeCurrency__address: Chain_nativeCurrency__address_operator
-  custom__slug: Chain_custom__slug_operator
   custom__logo: Chain_custom__logo_operator
   custom__marketplaces: Chain_custom__marketplaces_operator
   rpcs: Chain_rpcs_operator
@@ -4512,6 +4520,7 @@ type chainsDocAccess {
 }
 
 type ChainsDocAccessFields {
+  slug: ChainsDocAccessFields_slug
   chainId: ChainsDocAccessFields_chainId
   name: ChainsDocAccessFields_name
   testnet: ChainsDocAccessFields_testnet
@@ -4522,6 +4531,29 @@ type ChainsDocAccessFields {
   blockExplorers: ChainsDocAccessFields_blockExplorers
   updatedAt: ChainsDocAccessFields_updatedAt
   createdAt: ChainsDocAccessFields_createdAt
+}
+
+type ChainsDocAccessFields_slug {
+  create: ChainsDocAccessFields_slug_Create
+  read: ChainsDocAccessFields_slug_Read
+  update: ChainsDocAccessFields_slug_Update
+  delete: ChainsDocAccessFields_slug_Delete
+}
+
+type ChainsDocAccessFields_slug_Create {
+  permission: Boolean!
+}
+
+type ChainsDocAccessFields_slug_Read {
+  permission: Boolean!
+}
+
+type ChainsDocAccessFields_slug_Update {
+  permission: Boolean!
+}
+
+type ChainsDocAccessFields_slug_Delete {
+  permission: Boolean!
 }
 
 type ChainsDocAccessFields_chainId {
@@ -4741,32 +4773,8 @@ type ChainsDocAccessFields_custom_Delete {
 }
 
 type ChainsDocAccessFields_custom_Fields {
-  slug: ChainsDocAccessFields_custom_slug
   logo: ChainsDocAccessFields_custom_logo
   marketplaces: ChainsDocAccessFields_custom_marketplaces
-}
-
-type ChainsDocAccessFields_custom_slug {
-  create: ChainsDocAccessFields_custom_slug_Create
-  read: ChainsDocAccessFields_custom_slug_Read
-  update: ChainsDocAccessFields_custom_slug_Update
-  delete: ChainsDocAccessFields_custom_slug_Delete
-}
-
-type ChainsDocAccessFields_custom_slug_Create {
-  permission: Boolean!
-}
-
-type ChainsDocAccessFields_custom_slug_Read {
-  permission: Boolean!
-}
-
-type ChainsDocAccessFields_custom_slug_Update {
-  permission: Boolean!
-}
-
-type ChainsDocAccessFields_custom_slug_Delete {
-  permission: Boolean!
 }
 
 type ChainsDocAccessFields_custom_logo {
@@ -6822,12 +6830,37 @@ type Page {
   createdAt: DateTime
 }
 
-union Page_Layout = Widget
+union Page_Layout = Bridges
 
-type Widget {
+type Bridges {
+  widget: BridgeWidget
   id: String
   blockName: String
   blockType: String
+}
+
+type BridgeWidget {
+  id: String
+  slug: String!
+  name: String!
+  description: String
+  setup: BridgeWidget_Setup
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+type BridgeWidget_Setup {
+  category: BridgeCategory
+  version: Float
+}
+
+type BridgeCategory {
+  id: String
+  slug: String!
+  name: String!
+  description: String
+  updatedAt: DateTime
+  createdAt: DateTime
 }
 
 type Page_Meta {
@@ -7903,6 +7936,631 @@ type PagesUpdateDocAccess {
 }
 
 type PagesDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type BridgeWidgets {
+  docs: [BridgeWidget]
+  hasNextPage: Boolean
+  hasPrevPage: Boolean
+  limit: Int
+  nextPage: Int
+  offset: Int
+  page: Int
+  pagingCounter: Int
+  prevPage: Int
+  totalDocs: Int
+  totalPages: Int
+}
+
+input BridgeWidget_where {
+  slug: BridgeWidget_slug_operator
+  name: BridgeWidget_name_operator
+  description: BridgeWidget_description_operator
+  setup__category: BridgeWidget_setup__category_operator
+  setup__version: BridgeWidget_setup__version_operator
+  updatedAt: BridgeWidget_updatedAt_operator
+  createdAt: BridgeWidget_createdAt_operator
+  id: BridgeWidget_id_operator
+  AND: [BridgeWidget_where_and]
+  OR: [BridgeWidget_where_or]
+}
+
+input BridgeWidget_slug_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input BridgeWidget_name_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input BridgeWidget_description_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  exists: Boolean
+}
+
+input BridgeWidget_setup__category_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+}
+
+input BridgeWidget_setup__version_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+}
+
+input BridgeWidget_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input BridgeWidget_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input BridgeWidget_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input BridgeWidget_where_and {
+  slug: BridgeWidget_slug_operator
+  name: BridgeWidget_name_operator
+  description: BridgeWidget_description_operator
+  setup__category: BridgeWidget_setup__category_operator
+  setup__version: BridgeWidget_setup__version_operator
+  updatedAt: BridgeWidget_updatedAt_operator
+  createdAt: BridgeWidget_createdAt_operator
+  id: BridgeWidget_id_operator
+  AND: [BridgeWidget_where_and]
+  OR: [BridgeWidget_where_or]
+}
+
+input BridgeWidget_where_or {
+  slug: BridgeWidget_slug_operator
+  name: BridgeWidget_name_operator
+  description: BridgeWidget_description_operator
+  setup__category: BridgeWidget_setup__category_operator
+  setup__version: BridgeWidget_setup__version_operator
+  updatedAt: BridgeWidget_updatedAt_operator
+  createdAt: BridgeWidget_createdAt_operator
+  id: BridgeWidget_id_operator
+  AND: [BridgeWidget_where_and]
+  OR: [BridgeWidget_where_or]
+}
+
+type countBridgeWidgets {
+  totalDocs: Int
+}
+
+type bridgeWidgetsDocAccess {
+  fields: BridgeWidgetsDocAccessFields
+  create: BridgeWidgetsCreateDocAccess
+  read: BridgeWidgetsReadDocAccess
+  update: BridgeWidgetsUpdateDocAccess
+  delete: BridgeWidgetsDeleteDocAccess
+}
+
+type BridgeWidgetsDocAccessFields {
+  slug: BridgeWidgetsDocAccessFields_slug
+  name: BridgeWidgetsDocAccessFields_name
+  description: BridgeWidgetsDocAccessFields_description
+  setup: BridgeWidgetsDocAccessFields_setup
+  updatedAt: BridgeWidgetsDocAccessFields_updatedAt
+  createdAt: BridgeWidgetsDocAccessFields_createdAt
+}
+
+type BridgeWidgetsDocAccessFields_slug {
+  create: BridgeWidgetsDocAccessFields_slug_Create
+  read: BridgeWidgetsDocAccessFields_slug_Read
+  update: BridgeWidgetsDocAccessFields_slug_Update
+  delete: BridgeWidgetsDocAccessFields_slug_Delete
+}
+
+type BridgeWidgetsDocAccessFields_slug_Create {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_slug_Read {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_slug_Update {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_slug_Delete {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_name {
+  create: BridgeWidgetsDocAccessFields_name_Create
+  read: BridgeWidgetsDocAccessFields_name_Read
+  update: BridgeWidgetsDocAccessFields_name_Update
+  delete: BridgeWidgetsDocAccessFields_name_Delete
+}
+
+type BridgeWidgetsDocAccessFields_name_Create {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_name_Read {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_name_Update {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_name_Delete {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_description {
+  create: BridgeWidgetsDocAccessFields_description_Create
+  read: BridgeWidgetsDocAccessFields_description_Read
+  update: BridgeWidgetsDocAccessFields_description_Update
+  delete: BridgeWidgetsDocAccessFields_description_Delete
+}
+
+type BridgeWidgetsDocAccessFields_description_Create {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_description_Read {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_description_Update {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_description_Delete {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_setup {
+  create: BridgeWidgetsDocAccessFields_setup_Create
+  read: BridgeWidgetsDocAccessFields_setup_Read
+  update: BridgeWidgetsDocAccessFields_setup_Update
+  delete: BridgeWidgetsDocAccessFields_setup_Delete
+  fields: BridgeWidgetsDocAccessFields_setup_Fields
+}
+
+type BridgeWidgetsDocAccessFields_setup_Create {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_setup_Read {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_setup_Update {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_setup_Delete {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_setup_Fields {
+  category: BridgeWidgetsDocAccessFields_setup_category
+  version: BridgeWidgetsDocAccessFields_setup_version
+}
+
+type BridgeWidgetsDocAccessFields_setup_category {
+  create: BridgeWidgetsDocAccessFields_setup_category_Create
+  read: BridgeWidgetsDocAccessFields_setup_category_Read
+  update: BridgeWidgetsDocAccessFields_setup_category_Update
+  delete: BridgeWidgetsDocAccessFields_setup_category_Delete
+}
+
+type BridgeWidgetsDocAccessFields_setup_category_Create {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_setup_category_Read {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_setup_category_Update {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_setup_category_Delete {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_setup_version {
+  create: BridgeWidgetsDocAccessFields_setup_version_Create
+  read: BridgeWidgetsDocAccessFields_setup_version_Read
+  update: BridgeWidgetsDocAccessFields_setup_version_Update
+  delete: BridgeWidgetsDocAccessFields_setup_version_Delete
+}
+
+type BridgeWidgetsDocAccessFields_setup_version_Create {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_setup_version_Read {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_setup_version_Update {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_setup_version_Delete {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_updatedAt {
+  create: BridgeWidgetsDocAccessFields_updatedAt_Create
+  read: BridgeWidgetsDocAccessFields_updatedAt_Read
+  update: BridgeWidgetsDocAccessFields_updatedAt_Update
+  delete: BridgeWidgetsDocAccessFields_updatedAt_Delete
+}
+
+type BridgeWidgetsDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_createdAt {
+  create: BridgeWidgetsDocAccessFields_createdAt_Create
+  read: BridgeWidgetsDocAccessFields_createdAt_Read
+  update: BridgeWidgetsDocAccessFields_createdAt_Update
+  delete: BridgeWidgetsDocAccessFields_createdAt_Delete
+}
+
+type BridgeWidgetsDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type BridgeWidgetsDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type BridgeWidgetsCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type BridgeWidgetsReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type BridgeWidgetsUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type BridgeWidgetsDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type BridgeCategories {
+  docs: [BridgeCategory]
+  hasNextPage: Boolean
+  hasPrevPage: Boolean
+  limit: Int
+  nextPage: Int
+  offset: Int
+  page: Int
+  pagingCounter: Int
+  prevPage: Int
+  totalDocs: Int
+  totalPages: Int
+}
+
+input BridgeCategory_where {
+  slug: BridgeCategory_slug_operator
+  name: BridgeCategory_name_operator
+  description: BridgeCategory_description_operator
+  updatedAt: BridgeCategory_updatedAt_operator
+  createdAt: BridgeCategory_createdAt_operator
+  id: BridgeCategory_id_operator
+  AND: [BridgeCategory_where_and]
+  OR: [BridgeCategory_where_or]
+}
+
+input BridgeCategory_slug_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input BridgeCategory_name_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input BridgeCategory_description_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  exists: Boolean
+}
+
+input BridgeCategory_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input BridgeCategory_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input BridgeCategory_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input BridgeCategory_where_and {
+  slug: BridgeCategory_slug_operator
+  name: BridgeCategory_name_operator
+  description: BridgeCategory_description_operator
+  updatedAt: BridgeCategory_updatedAt_operator
+  createdAt: BridgeCategory_createdAt_operator
+  id: BridgeCategory_id_operator
+  AND: [BridgeCategory_where_and]
+  OR: [BridgeCategory_where_or]
+}
+
+input BridgeCategory_where_or {
+  slug: BridgeCategory_slug_operator
+  name: BridgeCategory_name_operator
+  description: BridgeCategory_description_operator
+  updatedAt: BridgeCategory_updatedAt_operator
+  createdAt: BridgeCategory_createdAt_operator
+  id: BridgeCategory_id_operator
+  AND: [BridgeCategory_where_and]
+  OR: [BridgeCategory_where_or]
+}
+
+type countBridgeCategories {
+  totalDocs: Int
+}
+
+type bridgeCategoriesDocAccess {
+  fields: BridgeCategoriesDocAccessFields
+  create: BridgeCategoriesCreateDocAccess
+  read: BridgeCategoriesReadDocAccess
+  update: BridgeCategoriesUpdateDocAccess
+  delete: BridgeCategoriesDeleteDocAccess
+}
+
+type BridgeCategoriesDocAccessFields {
+  slug: BridgeCategoriesDocAccessFields_slug
+  name: BridgeCategoriesDocAccessFields_name
+  description: BridgeCategoriesDocAccessFields_description
+  updatedAt: BridgeCategoriesDocAccessFields_updatedAt
+  createdAt: BridgeCategoriesDocAccessFields_createdAt
+}
+
+type BridgeCategoriesDocAccessFields_slug {
+  create: BridgeCategoriesDocAccessFields_slug_Create
+  read: BridgeCategoriesDocAccessFields_slug_Read
+  update: BridgeCategoriesDocAccessFields_slug_Update
+  delete: BridgeCategoriesDocAccessFields_slug_Delete
+}
+
+type BridgeCategoriesDocAccessFields_slug_Create {
+  permission: Boolean!
+}
+
+type BridgeCategoriesDocAccessFields_slug_Read {
+  permission: Boolean!
+}
+
+type BridgeCategoriesDocAccessFields_slug_Update {
+  permission: Boolean!
+}
+
+type BridgeCategoriesDocAccessFields_slug_Delete {
+  permission: Boolean!
+}
+
+type BridgeCategoriesDocAccessFields_name {
+  create: BridgeCategoriesDocAccessFields_name_Create
+  read: BridgeCategoriesDocAccessFields_name_Read
+  update: BridgeCategoriesDocAccessFields_name_Update
+  delete: BridgeCategoriesDocAccessFields_name_Delete
+}
+
+type BridgeCategoriesDocAccessFields_name_Create {
+  permission: Boolean!
+}
+
+type BridgeCategoriesDocAccessFields_name_Read {
+  permission: Boolean!
+}
+
+type BridgeCategoriesDocAccessFields_name_Update {
+  permission: Boolean!
+}
+
+type BridgeCategoriesDocAccessFields_name_Delete {
+  permission: Boolean!
+}
+
+type BridgeCategoriesDocAccessFields_description {
+  create: BridgeCategoriesDocAccessFields_description_Create
+  read: BridgeCategoriesDocAccessFields_description_Read
+  update: BridgeCategoriesDocAccessFields_description_Update
+  delete: BridgeCategoriesDocAccessFields_description_Delete
+}
+
+type BridgeCategoriesDocAccessFields_description_Create {
+  permission: Boolean!
+}
+
+type BridgeCategoriesDocAccessFields_description_Read {
+  permission: Boolean!
+}
+
+type BridgeCategoriesDocAccessFields_description_Update {
+  permission: Boolean!
+}
+
+type BridgeCategoriesDocAccessFields_description_Delete {
+  permission: Boolean!
+}
+
+type BridgeCategoriesDocAccessFields_updatedAt {
+  create: BridgeCategoriesDocAccessFields_updatedAt_Create
+  read: BridgeCategoriesDocAccessFields_updatedAt_Read
+  update: BridgeCategoriesDocAccessFields_updatedAt_Update
+  delete: BridgeCategoriesDocAccessFields_updatedAt_Delete
+}
+
+type BridgeCategoriesDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type BridgeCategoriesDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type BridgeCategoriesDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type BridgeCategoriesDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type BridgeCategoriesDocAccessFields_createdAt {
+  create: BridgeCategoriesDocAccessFields_createdAt_Create
+  read: BridgeCategoriesDocAccessFields_createdAt_Read
+  update: BridgeCategoriesDocAccessFields_createdAt_Update
+  delete: BridgeCategoriesDocAccessFields_createdAt_Delete
+}
+
+type BridgeCategoriesDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type BridgeCategoriesDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type BridgeCategoriesDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type BridgeCategoriesDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type BridgeCategoriesCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type BridgeCategoriesReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type BridgeCategoriesUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type BridgeCategoriesDeleteDocAccess {
   permission: Boolean!
   where: JSONObject
 }
@@ -9181,6 +9839,8 @@ type Access {
   blockExplorers: blockExplorersAccess
   collections: collectionsAccess
   pages: pagesAccess
+  bridgeWidgets: bridgeWidgetsAccess
+  bridgeCategories: bridgeCategoriesAccess
   payload_preferences: payload_preferencesAccess
   project: projectAccess
 }
@@ -10630,6 +11290,7 @@ type chainsAccess {
 }
 
 type ChainsFields {
+  slug: ChainsFields_slug
   chainId: ChainsFields_chainId
   name: ChainsFields_name
   testnet: ChainsFields_testnet
@@ -10640,6 +11301,29 @@ type ChainsFields {
   blockExplorers: ChainsFields_blockExplorers
   updatedAt: ChainsFields_updatedAt
   createdAt: ChainsFields_createdAt
+}
+
+type ChainsFields_slug {
+  create: ChainsFields_slug_Create
+  read: ChainsFields_slug_Read
+  update: ChainsFields_slug_Update
+  delete: ChainsFields_slug_Delete
+}
+
+type ChainsFields_slug_Create {
+  permission: Boolean!
+}
+
+type ChainsFields_slug_Read {
+  permission: Boolean!
+}
+
+type ChainsFields_slug_Update {
+  permission: Boolean!
+}
+
+type ChainsFields_slug_Delete {
+  permission: Boolean!
 }
 
 type ChainsFields_chainId {
@@ -10859,32 +11543,8 @@ type ChainsFields_custom_Delete {
 }
 
 type ChainsFields_custom_Fields {
-  slug: ChainsFields_custom_slug
   logo: ChainsFields_custom_logo
   marketplaces: ChainsFields_custom_marketplaces
-}
-
-type ChainsFields_custom_slug {
-  create: ChainsFields_custom_slug_Create
-  read: ChainsFields_custom_slug_Read
-  update: ChainsFields_custom_slug_Update
-  delete: ChainsFields_custom_slug_Delete
-}
-
-type ChainsFields_custom_slug_Create {
-  permission: Boolean!
-}
-
-type ChainsFields_custom_slug_Read {
-  permission: Boolean!
-}
-
-type ChainsFields_custom_slug_Update {
-  permission: Boolean!
-}
-
-type ChainsFields_custom_slug_Delete {
-  permission: Boolean!
 }
 
 type ChainsFields_custom_logo {
@@ -12490,6 +13150,384 @@ type PagesDeleteAccess {
   where: JSONObject
 }
 
+type bridgeWidgetsAccess {
+  fields: BridgeWidgetsFields
+  create: BridgeWidgetsCreateAccess
+  read: BridgeWidgetsReadAccess
+  update: BridgeWidgetsUpdateAccess
+  delete: BridgeWidgetsDeleteAccess
+}
+
+type BridgeWidgetsFields {
+  slug: BridgeWidgetsFields_slug
+  name: BridgeWidgetsFields_name
+  description: BridgeWidgetsFields_description
+  setup: BridgeWidgetsFields_setup
+  updatedAt: BridgeWidgetsFields_updatedAt
+  createdAt: BridgeWidgetsFields_createdAt
+}
+
+type BridgeWidgetsFields_slug {
+  create: BridgeWidgetsFields_slug_Create
+  read: BridgeWidgetsFields_slug_Read
+  update: BridgeWidgetsFields_slug_Update
+  delete: BridgeWidgetsFields_slug_Delete
+}
+
+type BridgeWidgetsFields_slug_Create {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_slug_Read {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_slug_Update {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_slug_Delete {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_name {
+  create: BridgeWidgetsFields_name_Create
+  read: BridgeWidgetsFields_name_Read
+  update: BridgeWidgetsFields_name_Update
+  delete: BridgeWidgetsFields_name_Delete
+}
+
+type BridgeWidgetsFields_name_Create {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_name_Read {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_name_Update {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_name_Delete {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_description {
+  create: BridgeWidgetsFields_description_Create
+  read: BridgeWidgetsFields_description_Read
+  update: BridgeWidgetsFields_description_Update
+  delete: BridgeWidgetsFields_description_Delete
+}
+
+type BridgeWidgetsFields_description_Create {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_description_Read {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_description_Update {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_description_Delete {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_setup {
+  create: BridgeWidgetsFields_setup_Create
+  read: BridgeWidgetsFields_setup_Read
+  update: BridgeWidgetsFields_setup_Update
+  delete: BridgeWidgetsFields_setup_Delete
+  fields: BridgeWidgetsFields_setup_Fields
+}
+
+type BridgeWidgetsFields_setup_Create {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_setup_Read {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_setup_Update {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_setup_Delete {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_setup_Fields {
+  category: BridgeWidgetsFields_setup_category
+  version: BridgeWidgetsFields_setup_version
+}
+
+type BridgeWidgetsFields_setup_category {
+  create: BridgeWidgetsFields_setup_category_Create
+  read: BridgeWidgetsFields_setup_category_Read
+  update: BridgeWidgetsFields_setup_category_Update
+  delete: BridgeWidgetsFields_setup_category_Delete
+}
+
+type BridgeWidgetsFields_setup_category_Create {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_setup_category_Read {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_setup_category_Update {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_setup_category_Delete {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_setup_version {
+  create: BridgeWidgetsFields_setup_version_Create
+  read: BridgeWidgetsFields_setup_version_Read
+  update: BridgeWidgetsFields_setup_version_Update
+  delete: BridgeWidgetsFields_setup_version_Delete
+}
+
+type BridgeWidgetsFields_setup_version_Create {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_setup_version_Read {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_setup_version_Update {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_setup_version_Delete {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_updatedAt {
+  create: BridgeWidgetsFields_updatedAt_Create
+  read: BridgeWidgetsFields_updatedAt_Read
+  update: BridgeWidgetsFields_updatedAt_Update
+  delete: BridgeWidgetsFields_updatedAt_Delete
+}
+
+type BridgeWidgetsFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_createdAt {
+  create: BridgeWidgetsFields_createdAt_Create
+  read: BridgeWidgetsFields_createdAt_Read
+  update: BridgeWidgetsFields_createdAt_Update
+  delete: BridgeWidgetsFields_createdAt_Delete
+}
+
+type BridgeWidgetsFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type BridgeWidgetsFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type BridgeWidgetsCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type BridgeWidgetsReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type BridgeWidgetsUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type BridgeWidgetsDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type bridgeCategoriesAccess {
+  fields: BridgeCategoriesFields
+  create: BridgeCategoriesCreateAccess
+  read: BridgeCategoriesReadAccess
+  update: BridgeCategoriesUpdateAccess
+  delete: BridgeCategoriesDeleteAccess
+}
+
+type BridgeCategoriesFields {
+  slug: BridgeCategoriesFields_slug
+  name: BridgeCategoriesFields_name
+  description: BridgeCategoriesFields_description
+  updatedAt: BridgeCategoriesFields_updatedAt
+  createdAt: BridgeCategoriesFields_createdAt
+}
+
+type BridgeCategoriesFields_slug {
+  create: BridgeCategoriesFields_slug_Create
+  read: BridgeCategoriesFields_slug_Read
+  update: BridgeCategoriesFields_slug_Update
+  delete: BridgeCategoriesFields_slug_Delete
+}
+
+type BridgeCategoriesFields_slug_Create {
+  permission: Boolean!
+}
+
+type BridgeCategoriesFields_slug_Read {
+  permission: Boolean!
+}
+
+type BridgeCategoriesFields_slug_Update {
+  permission: Boolean!
+}
+
+type BridgeCategoriesFields_slug_Delete {
+  permission: Boolean!
+}
+
+type BridgeCategoriesFields_name {
+  create: BridgeCategoriesFields_name_Create
+  read: BridgeCategoriesFields_name_Read
+  update: BridgeCategoriesFields_name_Update
+  delete: BridgeCategoriesFields_name_Delete
+}
+
+type BridgeCategoriesFields_name_Create {
+  permission: Boolean!
+}
+
+type BridgeCategoriesFields_name_Read {
+  permission: Boolean!
+}
+
+type BridgeCategoriesFields_name_Update {
+  permission: Boolean!
+}
+
+type BridgeCategoriesFields_name_Delete {
+  permission: Boolean!
+}
+
+type BridgeCategoriesFields_description {
+  create: BridgeCategoriesFields_description_Create
+  read: BridgeCategoriesFields_description_Read
+  update: BridgeCategoriesFields_description_Update
+  delete: BridgeCategoriesFields_description_Delete
+}
+
+type BridgeCategoriesFields_description_Create {
+  permission: Boolean!
+}
+
+type BridgeCategoriesFields_description_Read {
+  permission: Boolean!
+}
+
+type BridgeCategoriesFields_description_Update {
+  permission: Boolean!
+}
+
+type BridgeCategoriesFields_description_Delete {
+  permission: Boolean!
+}
+
+type BridgeCategoriesFields_updatedAt {
+  create: BridgeCategoriesFields_updatedAt_Create
+  read: BridgeCategoriesFields_updatedAt_Read
+  update: BridgeCategoriesFields_updatedAt_Update
+  delete: BridgeCategoriesFields_updatedAt_Delete
+}
+
+type BridgeCategoriesFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type BridgeCategoriesFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type BridgeCategoriesFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type BridgeCategoriesFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type BridgeCategoriesFields_createdAt {
+  create: BridgeCategoriesFields_createdAt_Create
+  read: BridgeCategoriesFields_createdAt_Read
+  update: BridgeCategoriesFields_createdAt_Update
+  delete: BridgeCategoriesFields_createdAt_Delete
+}
+
+type BridgeCategoriesFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type BridgeCategoriesFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type BridgeCategoriesFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type BridgeCategoriesFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type BridgeCategoriesCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type BridgeCategoriesReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type BridgeCategoriesUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type BridgeCategoriesDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type payload_preferencesAccess {
   fields: PayloadPreferencesFields
   create: PayloadPreferencesCreateAccess
@@ -13024,6 +14062,12 @@ type Mutation {
   updatePage(id: String!, autosave: Boolean, data: mutationPageUpdateInput!, draft: Boolean): Page
   deletePage(id: String!): Page
   duplicatePage(id: String!): Page
+  createBridgeWidget(data: mutationBridgeWidgetInput!, draft: Boolean): BridgeWidget
+  updateBridgeWidget(id: String!, autosave: Boolean, data: mutationBridgeWidgetUpdateInput!, draft: Boolean): BridgeWidget
+  deleteBridgeWidget(id: String!): BridgeWidget
+  createBridgeCategory(data: mutationBridgeCategoryInput!, draft: Boolean): BridgeCategory
+  updateBridgeCategory(id: String!, autosave: Boolean, data: mutationBridgeCategoryUpdateInput!, draft: Boolean): BridgeCategory
+  deleteBridgeCategory(id: String!): BridgeCategory
   createPayloadPreference(data: mutationPayloadPreferenceInput!, draft: Boolean): PayloadPreference
   updatePayloadPreference(id: String!, autosave: Boolean, data: mutationPayloadPreferenceUpdateInput!, draft: Boolean): PayloadPreference
   deletePayloadPreference(id: String!): PayloadPreference
@@ -13237,6 +14281,7 @@ input mutationMediaUpdate_Sizes_LargeInput {
 }
 
 input mutationChainInput {
+  slug: String!
   chainId: Float!
   name: String!
   testnet: Boolean
@@ -13257,12 +14302,12 @@ input mutationChain_NativeCurrencyInput {
 }
 
 input mutationChain_CustomInput {
-  slug: String!
   logo: String!
   marketplaces: [String]
 }
 
 input mutationChainUpdateInput {
+  slug: String
   chainId: Float
   name: String
   testnet: Boolean
@@ -13283,7 +14328,6 @@ input mutationChainUpdate_NativeCurrencyInput {
 }
 
 input mutationChainUpdate_CustomInput {
-  slug: String!
   logo: String!
   marketplaces: [String]
 }
@@ -13442,6 +14486,50 @@ input mutationPageUpdate_MetaInput {
   title: String
   description: String
   image: String
+}
+
+input mutationBridgeWidgetInput {
+  slug: String!
+  name: String!
+  description: String
+  setup: mutationBridgeWidget_SetupInput!
+  updatedAt: String
+  createdAt: String
+}
+
+input mutationBridgeWidget_SetupInput {
+  category: String
+  version: Float
+}
+
+input mutationBridgeWidgetUpdateInput {
+  slug: String
+  name: String
+  description: String
+  setup: mutationBridgeWidgetUpdate_SetupInput!
+  updatedAt: String
+  createdAt: String
+}
+
+input mutationBridgeWidgetUpdate_SetupInput {
+  category: String
+  version: Float
+}
+
+input mutationBridgeCategoryInput {
+  slug: String!
+  name: String!
+  description: String
+  updatedAt: String
+  createdAt: String
+}
+
+input mutationBridgeCategoryUpdateInput {
+  slug: String
+  name: String
+  description: String
+  updatedAt: String
+  createdAt: String
 }
 
 input mutationPayloadPreferenceInput {

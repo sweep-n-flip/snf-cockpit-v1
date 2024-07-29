@@ -7,25 +7,25 @@ export type Collections = {
 import { fields } from '../../fields'
 import { admins, anyone } from '../../utils/validateRole'
 
-export const bridge = ({ collections }: Collections): Collections['collections'] => {
+export const categories = ({ collections }: Collections): Collections['collections'] => {
   const collectionsWithCollections = [
     ...(collections ? collections : []),
     {
-      slug: `bridges`,
+      slug: `bridgeCategories`,
       labels: {
-        singular: `Bridge`,
-        plural: `Bridges`,
+        singular: `Categorie`,
+        plural: `Categories`,
       },
       disableDuplicate: true,
       typescript: {
-        interface: `Bridges`,
+        interface: `BridgeCategories`,
       },
       admin: {
         useAsTitle: `name`,
         defaultColumns: ['name'],
-        group: `Widgets`,
+        group: `Bridges`,
       },
-      fields: fields.widgets.bridge({
+      fields: fields.bridges.categories({
         fieldsBefore: [
           ...fields.utils.slug({
             slugFieldProps: {

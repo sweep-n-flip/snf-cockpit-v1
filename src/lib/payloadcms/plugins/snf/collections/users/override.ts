@@ -13,7 +13,7 @@ export const override = ({ collections }: OverrideParams): OverrideParams['colle
     if (collection.slug === `users`) {
       collection.timestamps = true
       collection.fields = fields.users.roles({
-        fields: collection.fields,
+        fieldsBefore: collection.fields,
       })
     }
 

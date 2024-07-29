@@ -12,16 +12,20 @@ export const plugin = () => {
     (config: Config) =>
       reduce<keyof typeof collections, Config>(
         [
+          /// networks
           'chains',
           'rpcs',
           'marketplaces',
           'contracts',
           'blockExplorers',
+          /// general
           'upload',
           'collections',
           'pages',
           'users',
-          'bridge',
+          /// bridge
+          'bridge_widgets',
+          'bridge_categories',
         ],
         (acc, method) => ({
           ...acc,

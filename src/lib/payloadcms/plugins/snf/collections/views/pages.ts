@@ -42,7 +42,7 @@ export const pages = ({ collections }: Pages): Pages['collections'] => {
         ],
         fieldsAfter: [
           ...fields.layout.blocks({
-            blocksBefore: [...blocks.widgets.bridge()],
+            blocksBefore: [...blocks.bridges.widgets()],
           }),
         ],
       }),

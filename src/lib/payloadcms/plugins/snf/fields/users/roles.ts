@@ -2,13 +2,16 @@ import type { CollectionConfig } from 'payload'
 import { beforeChange } from '../../hooks/utils/beforeChange'
 import { admins } from '../../utils/validateRole'
 
-export type Users = {
-  fields: CollectionConfig['fields']
+export type RolesParams = {
+  fieldsBefore?: CollectionConfig['fields']
+  fieldsAfter?: CollectionConfig['fields']
 }
 
-export const roles = ({ fields }: Users): CollectionConfig['fields'] => {
+export const roles = (params?: RolesParams): CollectionConfig['fields'] => {
+  const { fieldsBefore = [], fieldsAfter = [] } = params || {}
+
   return [
-    ...fields,
+    ...fieldsBefore,
     {
       name: `name`,
       type: `text`,
@@ -42,5 +45,6 @@ export const roles = ({ fields }: Users): CollectionConfig['fields'] => {
         update: admins,
       },
     },
+    ...fieldsAfter,
   ]
 }
