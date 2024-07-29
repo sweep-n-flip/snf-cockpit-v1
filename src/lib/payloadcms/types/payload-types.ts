@@ -295,8 +295,8 @@ export interface BridgeWidget {
   routing: {
     paths: {
       sourceChain: string | Chains;
-      targetChain: string | Chains;
       sourceContract: string | Contracts;
+      targetChain: string | Chains;
       id?: string | null;
     }[];
   };

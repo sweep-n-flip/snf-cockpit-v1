@@ -5,10 +5,6 @@ import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import { metadataGenerate } from '@/lib/payloadcms/utils/metadata/generate'
 
-interface PageProps {
-  params: { slug: string }
-}
-
 const _getViewData = async (slug: string) => {
   const project = await settings.getProject()
   const isHomepage = !slug || slug === ''
@@ -38,8 +34,12 @@ export async function generateStaticParams() {
   return pages.filter((page) => page.slug).map((page) => page.slug)
 }
 
-export async function generateMetadata({ params: { slug } }: PageProps): Promise<Metadata> {
-  const { page, isHomepage, project } = await _getViewData(slug)
+export async function generateMetadata({
+  params: { slug = [] },
+}: {
+  params: { slug?: string[] }
+}): Promise<Metadata> {
+  const { page, isHomepage, project } = await _getViewData(slug?.[0])
 
   if (!page) return {}
 
@@ -51,8 +51,8 @@ export async function generateMetadata({ params: { slug } }: PageProps): Promise
   })
 }
 
-export default async function Page({ params: { slug } }: PageProps) {
-  const { page } = await _getViewData(slug)
+export default async function Page({ params: { slug = [] } }: { params: { slug?: string[] } }) {
+  const { page } = await _getViewData(slug?.[0])
 
   if (!page) {
     return notFound()

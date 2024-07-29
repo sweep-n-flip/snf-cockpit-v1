@@ -34,6 +34,11 @@ export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
           label: 'Category',
           required: true,
           relationTo: 'bridgeCategories',
+          access: {
+            create: admins,
+            update: noOne,
+            read: anyone,
+          },
         },
         {
           type: 'number',
@@ -100,6 +105,11 @@ export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
           label: 'Paths',
           minRows: 1,
           required: true,
+          access: {
+            create: admins,
+            update: noOne,
+            read: anyone,
+          },
           /**
            * 1. Only allow target chains that are not the same as the source chain
            * 2. If a source contract is selected, only allow target contracts that are not the same as the source contract
@@ -114,6 +124,17 @@ export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
             },
             {
               type: 'relationship',
+              name: 'sourceContract',
+              label: 'Source Contract',
+              relationTo: 'contracts',
+              required: true,
+              /// maybe hook to filter results here? is that possible?
+              // filterOptions(args) {
+              //   console.log(args)
+              // },
+            },
+            {
+              type: 'relationship',
               name: 'targetChain',
               label: 'Target Chain',
               required: true,
@@ -125,13 +146,6 @@ export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
 
                 return true
               },
-            },
-            {
-              type: 'relationship',
-              name: 'sourceContract',
-              label: 'Source Contract',
-              relationTo: 'contracts',
-              required: true,
             },
           ],
         },

@@ -11,7 +11,6 @@ export const contracts = (params?: ContractsParams): CollectionConfig['fields'] 
     ...fieldsBefore,
 
     {
-      unique: true,
       name: 'address',
       label: 'Address',
       type: 'text',
