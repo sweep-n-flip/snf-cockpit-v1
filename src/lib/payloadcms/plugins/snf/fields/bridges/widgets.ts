@@ -128,10 +128,12 @@ export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
               label: 'Source Contract',
               relationTo: 'contracts',
               required: true,
-              /// maybe hook to filter results here? is that possible?
-              // filterOptions(args) {
-              //   console.log(args)
-              // },
+            },
+            {
+              type: 'text',
+              name: 'method',
+              label: 'Method',
+              required: true,
             },
             {
               type: 'relationship',

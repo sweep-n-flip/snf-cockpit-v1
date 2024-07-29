@@ -26,6 +26,7 @@ export const pages = ({ collections }: Pages): Pages['collections'] => {
         defaultColumns: [`title`, `slug`],
         group: `Views`,
       },
+      disableDuplicate: true,
       hooks: {
         beforeChange: [beforeChange.slugfy(), beforeChange.populatePublishedDate()],
       },
