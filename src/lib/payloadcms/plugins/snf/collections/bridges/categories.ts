@@ -13,7 +13,7 @@ export const categories = ({ collections }: Collections): Collections['collectio
     {
       slug: `bridgeCategories`,
       labels: {
-        singular: `Categorie`,
+        singular: `Category`,
         plural: `Categories`,
       },
       disableDuplicate: true,
