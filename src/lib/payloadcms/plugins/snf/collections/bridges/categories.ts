@@ -22,7 +22,7 @@ export const categories = ({ collections }: Collections): Collections['collectio
       },
       admin: {
         useAsTitle: `name`,
-        defaultColumns: ['name'],
+        defaultColumns: ['name', 'setup.version'],
         group: `Bridges`,
       },
       fields: fields.bridges.categories({

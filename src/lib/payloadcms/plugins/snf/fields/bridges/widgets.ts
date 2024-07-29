@@ -59,13 +59,15 @@ export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
               const latestVersion = await req.payload.find({
                 collection: 'bridgeWidgets',
                 limit: 1,
-                sort: '-version',
+                sort: '-setup.version',
                 where: {
                   'setup.category': {
                     equals: category,
                   },
                 },
               })
+
+              console.log('latestVersion', JSON.stringify(latestVersion))
 
               if (latestVersion.totalDocs === 0) {
                 if (value !== 1) {
@@ -76,8 +78,6 @@ export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
               }
 
               const latestVersionNumber = latestVersion.docs[0]?.setup.version || 0
-
-              console.log(latestVersionNumber)
 
               if (value <= latestVersionNumber) {
                 return 'Version must be greater than the latest version'
