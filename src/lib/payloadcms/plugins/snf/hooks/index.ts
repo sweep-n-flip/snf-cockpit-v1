@@ -1,5 +1,2 @@
-import { utils } from './utils'
-
-export const hooks = {
-  ...utils,
-}
+export * as collections from './collections'
+export * as fields from './fields'

@@ -67,8 +67,6 @@ export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
                 },
               })
 
-              console.log('latestVersion', JSON.stringify(latestVersion))
-
               if (latestVersion.totalDocs === 0) {
                 if (value !== 1) {
                   return 'Version must be 1'
@@ -88,6 +86,34 @@ export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
 
             return true
           },
+        },
+      ],
+    },
+    {
+      type: 'group',
+      label: 'Routing',
+      name: 'routing',
+      fields: [
+        {
+          type: 'array',
+          name: 'paths',
+          label: 'Paths',
+          fields: [
+            {
+              type: 'relationship',
+              name: 'sourceChain',
+              label: 'Source Chain',
+              required: true,
+              relationTo: 'chains',
+            },
+            {
+              type: 'relationship',
+              name: 'targetChain',
+              label: 'Target Chain',
+              required: true,
+              relationTo: 'chains',
+            },
+          ],
         },
       ],
     },

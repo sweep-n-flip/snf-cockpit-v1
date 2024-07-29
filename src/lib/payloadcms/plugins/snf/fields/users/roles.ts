@@ -1,5 +1,4 @@
 import type { CollectionConfig } from 'payload'
-import { beforeChange } from '../../hooks/utils/beforeChange'
 import { admins } from '../../utils/validateRole'
 
 export type RolesParams = {
@@ -37,7 +36,22 @@ export const roles = (params?: RolesParams): CollectionConfig['fields'] => {
         },
       ],
       hooks: {
-        beforeChange: [beforeChange.ensureFirstUserIsAdmin()],
+        beforeChange: [
+          async ({ req, operation, value }) => {
+            if (operation === `create`) {
+              /// dev: ensure first user is admin
+              const users = await req.payload.find({ collection: `users`, limit: 0, depth: 0 })
+              if (users.totalDocs === 0) {
+                // if `admin` not in array of values, add it
+                if (!(value || []).includes(`admin`)) {
+                  return [...(value || []), `admin`]
+                }
+              }
+            }
+
+            return value
+          },
+        ],
       },
       access: {
         read: admins,

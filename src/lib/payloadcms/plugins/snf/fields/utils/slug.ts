@@ -1,6 +1,6 @@
 import type { CollectionConfig, TextField } from 'payload'
 
-import { formatSlug } from '../../hooks/utils/beforeValidate/formatSlug'
+import { beforeValidate } from '../../hooks/fields/beforeValidate'
 
 export type SlugParams = {
   fieldsBefore?: CollectionConfig['fields']
@@ -27,7 +27,7 @@ export const slug = (params?: SlugParams): CollectionConfig['fields'] => {
         position: `sidebar`,
       },
       hooks: {
-        beforeValidate: [formatSlug(fieldToFormat)],
+        beforeValidate: [beforeValidate.formatSlug(fieldToFormat)],
       },
     },
     ...fieldsAfter,

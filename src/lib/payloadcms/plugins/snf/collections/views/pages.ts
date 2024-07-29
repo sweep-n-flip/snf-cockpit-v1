@@ -5,7 +5,7 @@ export type Pages = {
 }
 
 import { fields } from '../../fields'
-import { beforeChange } from '../../hooks/utils/beforeChange'
+import { beforeChange } from '../../hooks/collections/beforeChange'
 import { admins, anyone } from '../../utils/validateRole'
 import { blocks } from '../../blocks'
 
