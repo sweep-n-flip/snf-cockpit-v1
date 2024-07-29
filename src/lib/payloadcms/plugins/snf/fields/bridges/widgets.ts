@@ -98,6 +98,12 @@ export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
           type: 'array',
           name: 'paths',
           label: 'Paths',
+          minRows: 1,
+          required: true,
+          /**
+           * 1. Only allow target chains that are not the same as the source chain
+           * 2. If a source contract is selected, only allow target contracts that are not the same as the source contract
+           */
           fields: [
             {
               type: 'relationship',
@@ -112,6 +118,20 @@ export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
               label: 'Target Chain',
               required: true,
               relationTo: 'chains',
+              validate: async (value: string, { siblingData }) => {
+                if (value === siblingData?.sourceChain) {
+                  return 'Target chain must be different from the source chain'
+                }
+
+                return true
+              },
+            },
+            {
+              type: 'relationship',
+              name: 'sourceContract',
+              label: 'Source Contract',
+              relationTo: 'contracts',
+              required: true,
             },
           ],
         },

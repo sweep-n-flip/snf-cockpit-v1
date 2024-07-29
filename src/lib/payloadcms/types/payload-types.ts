@@ -292,14 +292,13 @@ export interface BridgeWidget {
     category: string | BridgeCategories;
     version: number;
   };
-  routing?: {
-    paths?:
-      | {
-          sourceChain: string | Chains;
-          targetChain: string | Chains;
-          id?: string | null;
-        }[]
-      | null;
+  routing: {
+    paths: {
+      sourceChain: string | Chains;
+      targetChain: string | Chains;
+      sourceContract: string | Contracts;
+      id?: string | null;
+    }[];
   };
   updatedAt: string;
   createdAt: string;
