@@ -1,9 +1,9 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, FieldWithMany, RelationshipField } from 'payload'
 import { admins, anyone, noOne } from '../../utils/validateRole'
 import { BridgeCategories } from '@/lib/payloadcms/types/payload-types'
 
 export type WidgetParams = {
-  fieldsBefore?: CollectionConfig['fields']
+  fieldsBefore?: CollectionConfig['fields'] & FieldWithMany
   fieldsAfter?: CollectionConfig['fields']
 }
 
@@ -127,8 +127,18 @@ export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
               name: 'sourceContract',
               label: 'Source Contract',
               relationTo: 'contracts',
+              hasMany: false,
               required: true,
-            },
+              filterOptions({ relationTo, siblingData }) {
+                if (relationTo === 'contracts') {
+                  return {
+                    chain: {
+                      equals: (siblingData as any)?.sourceChain,
+                    },
+                  }
+                }
+              },
+            } as RelationshipField,
             {
               type: 'relationship',
               name: 'targetChain',

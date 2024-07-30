@@ -9,8 +9,6 @@ export type NetworksProps = HTMLProps<HTMLUListElement> & {}
 export const Networks = (props: NetworksProps) => {
   const { chain, chains } = useNetwork()
 
-  console.log(chain, chains)
-
   const remainingChains = filter(chains, (chainToCheck) => chainToCheck.id !== chain?.id)
 
   return (

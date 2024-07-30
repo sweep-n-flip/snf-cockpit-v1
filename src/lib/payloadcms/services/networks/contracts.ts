@@ -8,8 +8,6 @@ export const getContracts = async (
     collection: 'contracts',
   })
 
-  console.log('result', result)
-
   const data = result.docs
 
   return data
