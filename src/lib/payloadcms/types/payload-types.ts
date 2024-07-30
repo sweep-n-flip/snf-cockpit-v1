@@ -287,6 +287,7 @@ export interface BridgeWidgets {
   id: string;
   slug: string;
   name: string;
+  title: string;
   description?: string | null;
   setup: {
     category: string | BridgeCategories;

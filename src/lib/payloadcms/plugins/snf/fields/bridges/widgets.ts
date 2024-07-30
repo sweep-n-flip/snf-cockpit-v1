@@ -19,6 +19,12 @@ export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
       required: true,
     },
     {
+      type: 'text',
+      name: 'title',
+      label: 'Title',
+      required: true,
+    },
+    {
       type: 'textarea',
       name: 'description',
       label: 'Description',

@@ -6,16 +6,20 @@ export type WidgetProps = {
 }
 
 export const Widget = ({ widget }: WidgetProps) => {
-  console.log(widget)
+  const { title, description } = (widget || {}) as Partial<BridgeWidgets>
+
   return (
     <Card.Default className="flex w-full flex-col gap-4 lg:max-w-[30rem]">
       <div>
-        <Typography.Heading as="h3" size="h4" className="flex items-center justify-between gap-8">
-          <Typography.Paragraph size="default" variant="default">
-            Bridge
-          </Typography.Paragraph>
-        </Typography.Heading>
-        <Typography.Paragraph>Send NFTs across chains</Typography.Paragraph>
+        {title && (
+          <Typography.Heading as="h3" size="h4" className="flex items-center justify-between gap-8">
+            <Typography.Paragraph size="default" variant="default">
+              {title}
+            </Typography.Paragraph>
+          </Typography.Heading>
+        )}
+
+        {description && <Typography.Paragraph>{description}</Typography.Paragraph>}
       </div>
     </Card.Default>
   )
