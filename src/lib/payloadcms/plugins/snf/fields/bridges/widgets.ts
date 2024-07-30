@@ -119,6 +119,7 @@ export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
               type: 'relationship',
               name: 'sourceChain',
               label: 'Source Chain',
+              hasMany: false,
               required: true,
               relationTo: 'chains',
             },
@@ -143,6 +144,7 @@ export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
               type: 'relationship',
               name: 'targetChain',
               label: 'Target Chain',
+              hasMany: false,
               required: true,
               relationTo: 'chains',
               validate: async (value: string, { siblingData }) => {
