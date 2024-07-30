@@ -3,8 +3,8 @@ import { admins, anyone, noOne } from '../../utils/validateRole'
 import { BridgeCategories } from '@/lib/payloadcms/types/payload-types'
 
 export type WidgetParams = {
-  fieldsBefore?: CollectionConfig['fields'] & FieldWithMany
-  fieldsAfter?: CollectionConfig['fields']
+  fieldsBefore?: CollectionConfig['fields'] | FieldWithMany[]
+  fieldsAfter?: CollectionConfig['fields'] | FieldWithMany[]
 }
 
 export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
