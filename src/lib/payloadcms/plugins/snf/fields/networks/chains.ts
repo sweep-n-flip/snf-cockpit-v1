@@ -76,42 +76,11 @@ export const chains = (params?: ChainsParams): CollectionConfig['fields'] => {
           relationTo: 'media',
           required: true,
         },
-        {
-          name: 'marketplaces',
-          label: 'Marketplaces',
-          type: 'relationship',
-          relationTo: 'marketplaces',
-          hasMany: true,
-        },
+
         ...customAfter,
       ],
     },
-    {
-      name: 'rpcs',
-      label: 'RPCs',
-      type: 'relationship',
-      relationTo: 'rpcs',
-      hasMany: true,
-      minRows: 1,
-      required: true,
-    },
 
-    {
-      name: 'contracts',
-      label: 'Contracts',
-      type: 'relationship',
-      relationTo: 'contracts',
-      minRows: 1,
-      hasMany: true,
-    },
-    {
-      name: 'blockExplorers',
-      label: 'Block Explorers',
-      type: 'relationship',
-      relationTo: 'blockExplorers',
-      minRows: 1,
-      hasMany: true,
-    },
     ...fieldsAfter,
   ]
 }

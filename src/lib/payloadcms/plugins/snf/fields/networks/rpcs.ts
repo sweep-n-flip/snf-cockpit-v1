@@ -51,6 +51,13 @@ export const rpcs = (params?: RpcsParams): CollectionConfig['fields'] => {
         },
       ],
     },
+    {
+      name: 'chain',
+      type: 'relationship',
+      relationTo: 'chains',
+      label: 'Chain',
+      required: true,
+    },
     ...fieldsAfter,
   ]
 }

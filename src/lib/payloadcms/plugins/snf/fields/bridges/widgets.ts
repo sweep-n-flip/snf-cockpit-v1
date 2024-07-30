@@ -33,7 +33,7 @@ export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
           name: 'category',
           label: 'Category',
           required: true,
-          relationTo: 'bridgeCategories',
+          relationTo: 'bridge_categories',
           access: {
             create: admins,
             update: noOne,
@@ -62,7 +62,7 @@ export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
               }
 
               const latestVersion = await req.payload.find({
-                collection: 'bridgeWidgets',
+                collection: 'bridge_widgets',
                 limit: 1,
                 sort: '-setup.version',
                 where: {
@@ -127,12 +127,6 @@ export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
               name: 'sourceContract',
               label: 'Source Contract',
               relationTo: 'contracts',
-              required: true,
-            },
-            {
-              type: 'text',
-              name: 'method',
-              label: 'Method',
               required: true,
             },
             {

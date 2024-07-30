@@ -33,6 +33,13 @@ export const contracts = (params?: ContractsParams): CollectionConfig['fields'] 
       label: 'ABI',
       required: true,
     },
+    {
+      name: 'chain',
+      type: 'relationship',
+      relationTo: 'chains',
+      label: 'Chain',
+      required: true,
+    },
     ...fieldsAfter,
   ]
 }

@@ -17,11 +17,11 @@ export interface Config {
     rpcs: RPCS;
     marketplaces: Marketplaces;
     contracts: Contracts;
-    blockExplorers: BlockExplorers;
+    block_explorers: BlockExplorers;
     collections: Collections;
     pages: Pages;
-    bridgeWidgets: BridgeWidget;
-    bridgeCategories: BridgeCategories;
+    bridge_widgets: BridgeWidgets;
+    bridge_categories: BridgeCategories;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -152,26 +152,7 @@ export interface Chains {
   };
   custom: {
     logo: string | Media;
-    marketplaces?: (string | Marketplaces)[] | null;
   };
-  rpcs: (string | RPCS)[];
-  contracts?: (string | Contracts)[] | null;
-  blockExplorers?: (string | BlockExplorers)[] | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "marketplaces".
- */
-export interface Marketplaces {
-  id: string;
-  slug: string;
-  name: string;
-  url: string;
-  urlTokenIdPath: string;
-  urlTokenPath: string;
-  logo: string | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -193,6 +174,23 @@ export interface RPCS {
         id?: string | null;
       }[]
     | null;
+  chain: string | Chains;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "marketplaces".
+ */
+export interface Marketplaces {
+  id: string;
+  slug: string;
+  name: string;
+  url: string;
+  urlTokenIdPath: string;
+  urlTokenPath: string;
+  logo: string | Media;
+  chain: string | Chains;
   updatedAt: string;
   createdAt: string;
 }
@@ -207,12 +205,13 @@ export interface Contracts {
   name: string;
   blockCreated?: number | null;
   abi: string;
+  chain: string | Chains;
   updatedAt: string;
   createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "blockExplorers".
+ * via the `definition` "block_explorers".
  */
 export interface BlockExplorers {
   id: string;
@@ -221,6 +220,7 @@ export interface BlockExplorers {
   url: string;
   apiUrl?: string | null;
   logo: string | Media;
+  chain: string | Chains;
   updatedAt: string;
   createdAt: string;
 }
@@ -265,7 +265,7 @@ export interface Pages {
   publishedDate?: string | null;
   layout?:
     | {
-        widget?: (string | null) | BridgeWidget;
+        widget?: (string | null) | BridgeWidgets;
         id?: string | null;
         blockName?: string | null;
         blockType: 'bridges';
@@ -281,9 +281,9 @@ export interface Pages {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "bridgeWidgets".
+ * via the `definition` "bridge_widgets".
  */
-export interface BridgeWidget {
+export interface BridgeWidgets {
   id: string;
   slug: string;
   name: string;
@@ -305,7 +305,7 @@ export interface BridgeWidget {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "bridgeCategories".
+ * via the `definition` "bridge_categories".
  */
 export interface BridgeCategories {
   id: string;

@@ -11,7 +11,7 @@ export const blockExplorers = ({ collections }: Chains): Chains['collections'] =
     ...(collections ? collections : []),
 
     {
-      slug: `blockExplorers`,
+      slug: `block_explorers`,
       labels: {
         singular: `Block Explorer`,
         plural: `Block Explorers`,

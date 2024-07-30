@@ -11,14 +11,14 @@ export const widgets = ({ collections }: Collections): Collections['collections'
   const collectionsWithCollections = [
     ...(collections ? collections : []),
     {
-      slug: `bridgeWidgets`,
+      slug: `bridge_widgets`,
       labels: {
         singular: `Widget`,
         plural: `Widgets`,
       },
       disableDuplicate: true,
       typescript: {
-        interface: `BridgeWidget`,
+        interface: `BridgeWidgets`,
       },
       admin: {
         useAsTitle: `name`,

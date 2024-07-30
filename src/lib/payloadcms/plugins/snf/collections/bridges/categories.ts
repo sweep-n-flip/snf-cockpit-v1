@@ -11,7 +11,7 @@ export const categories = ({ collections }: Collections): Collections['collectio
   const collectionsWithCollections = [
     ...(collections ? collections : []),
     {
-      slug: `bridgeCategories`,
+      slug: `bridge_categories`,
       labels: {
         singular: `Category`,
         plural: `Categories`,

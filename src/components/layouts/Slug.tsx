@@ -12,6 +12,7 @@ import { toWagmiChain } from '@/lib/payloadcms/utils/chains/toWagmiChain'
 import Registry from '@/app/Registry'
 import { Viewport } from 'next'
 import { Wallet } from '@/lib/web3/components'
+import { map } from 'lodash'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -35,7 +36,47 @@ export default async function SlugLayout({
     },
   })
 
-  const normalizedChains = toWagmiChain({ chains, project })
+  const normalizedChains = toWagmiChain({
+    chains: await Promise.all(
+      map(chains, async (chain) => {
+        return {
+          ...chain,
+          contracts: await networks.getContracts({
+            where: {
+              'chain.id': {
+                equals: chain.id,
+              },
+            },
+          }),
+          rpcs: await networks.getRpcs({
+            where: {
+              'chain.id': {
+                equals: chain.id,
+              },
+            },
+          }),
+          blockExplorers: await networks.getBlockExplorers({
+            where: {
+              'chain.id': {
+                equals: chain.id,
+              },
+            },
+          }),
+          custom: {
+            ...chain.custom,
+            marketplaces: await networks.getMarketplaces({
+              where: {
+                'chain.id': {
+                  equals: chain.id,
+                },
+              },
+            }),
+          },
+        }
+      }),
+    ),
+  })
+
   const logo = project.logo as Media
 
   return (

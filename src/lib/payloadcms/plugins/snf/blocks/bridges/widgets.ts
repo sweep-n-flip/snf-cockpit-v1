@@ -21,7 +21,7 @@ export const widgets = (params?: WidgetParams): Block[] => {
           type: 'relationship',
           name: 'widget',
           label: 'Widget',
-          relationTo: 'bridgeWidgets',
+          relationTo: 'bridge_widgets',
         },
       ],
     },

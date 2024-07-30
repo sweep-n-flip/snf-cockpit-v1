@@ -5,7 +5,6 @@ import {
   Chains,
   Contracts,
   RPCS,
-  Project,
   Marketplaces,
   Media,
 } from '@/lib/payloadcms/types/payload-types'
@@ -16,8 +15,14 @@ import { Chain } from '@/lib/web3/types'
 import { Address } from 'viem'
 
 export type ToWagmiChainParams = {
-  chains: Chains[]
-  project: Project
+  chains: (Chains & {
+    blockExplorers: BlockExplorers[]
+    contracts: Contracts[]
+    rpcs: RPCS[]
+    custom: {
+      marketplaces: Marketplaces[]
+    }
+  })[]
 }
 
 export const toWagmiChain = ({ chains }: ToWagmiChainParams): [Chain, ...Chain[]] => {

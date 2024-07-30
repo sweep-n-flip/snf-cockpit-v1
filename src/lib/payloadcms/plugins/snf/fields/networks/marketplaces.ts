@@ -46,6 +46,13 @@ export const marketplaces = (params?: MarketplacesParams): CollectionConfig['fie
       relationTo: 'media',
       required: true,
     },
+    {
+      name: 'chain',
+      type: 'relationship',
+      relationTo: 'chains',
+      label: 'Chain',
+      required: true,
+    },
     ...fieldsAfter,
   ]
 }
