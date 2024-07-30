@@ -4,6 +4,7 @@ import { views } from '@/lib/payloadcms/services/'
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import { metadataGenerate } from '@/lib/payloadcms/utils/metadata/generate'
+import { Block } from '@/lib/ui/components/blocks'
 
 const _getViewData = async (slug: string) => {
   const project = await settings.getProject()
@@ -58,9 +59,5 @@ export default async function Page({ params: { slug = [] } }: { params: { slug?:
     return notFound()
   }
 
-  return (
-    <div className="container">
-      <h1>Page {JSON.stringify(page)}</h1>
-    </div>
-  )
+  return <Block layout={page.layout} />
 }

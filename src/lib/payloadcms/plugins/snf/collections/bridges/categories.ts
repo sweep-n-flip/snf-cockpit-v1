@@ -16,7 +16,6 @@ export const categories = ({ collections }: Collections): Collections['collectio
         singular: `Category`,
         plural: `Categories`,
       },
-      /// prefix?
       disableDuplicate: true,
       typescript: {
         interface: `BridgeCategories`,
