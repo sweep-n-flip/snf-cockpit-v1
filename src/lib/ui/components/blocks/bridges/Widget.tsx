@@ -6,22 +6,37 @@ export type WidgetProps = {
 }
 
 export const Widget = ({ widget }: WidgetProps) => {
-  const { title, description } = (widget || {}) as Partial<BridgeWidgets>
+  const { title, description, setup } = (widget || {}) as Partial<BridgeWidgets>
 
   return (
-    <Card.Default className="flex w-full flex-col gap-4 lg:max-w-[30rem]">
-      <div>
-        {title && (
-          <Typography.Heading as="h3" size="h4" className="flex items-center justify-between gap-8">
-            <Typography.Paragraph size="default" variant="default">
-              {title}
-            </Typography.Paragraph>
-          </Typography.Heading>
-        )}
+    <div className="flex h-full items-center justify-center">
+      <div className="flex flex-col gap-2">
+        <Card.Default className="flex w-full flex-col gap-4 lg:max-w-[30rem]">
+          <div>
+            {title && (
+              <Typography.Heading
+                as="h3"
+                size="h4"
+                className="flex items-center justify-between gap-8"
+              >
+                <Typography.Paragraph size="default" variant="default">
+                  {title}
+                </Typography.Paragraph>
+              </Typography.Heading>
+            )}
 
-        {description && <Typography.Paragraph>{description}</Typography.Paragraph>}
+            {description && <Typography.Paragraph>{description}</Typography.Paragraph>}
+          </div>
+        </Card.Default>
+        <div className="text-center">
+          {setup?.version && (
+            <Typography.Paragraph size="xs" className="text-gray-400">
+              widget version {setup?.version}
+            </Typography.Paragraph>
+          )}
+        </div>
       </div>
-    </Card.Default>
+    </div>
   )
 }
 

@@ -8,7 +8,6 @@ export type BlockProps = {
 }
 
 export const Block = ({ layout }: BlockProps) => {
-  console.log('layout', layout)
   return Children.toArray(
     layout?.map((layout) => (
       <>{{ bridges: <Bridges.Widget widget={layout.widget} /> }[layout.blockType]}</>
