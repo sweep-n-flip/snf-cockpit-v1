@@ -29,7 +29,9 @@
     "filesize",
     "RPCS",
     "rpcs",
-    "slugfy"
+    "slugfy",
+    "Moralis",
+    "moralis"
   ],
   "import": []
 }

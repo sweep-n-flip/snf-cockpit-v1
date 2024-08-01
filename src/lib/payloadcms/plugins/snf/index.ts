@@ -35,10 +35,19 @@ export const plugin = () => {
       ),
     (config: Config) =>
       reduce<keyof typeof globals, Config>(
-        [`project`],
+        [
+          /// project setup
+          'project',
+          'evm',
+          'layer_zero',
+          'cmc',
+          'moralis',
+          'opensea',
+          'reservoir',
+        ],
         (acc, method) => ({
           ...acc,
-          globals: globals[method]({ globals: config.globals }),
+          globals: globals[method]({ globals: acc.globals }),
         }),
         config,
       ),

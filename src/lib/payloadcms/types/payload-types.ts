@@ -30,6 +30,12 @@ export interface Config {
   };
   globals: {
     project: Project;
+    evm: Evm;
+    layer_zero: LayerZero;
+    cmc: Cmc;
+    moralis: Moralis;
+    opensea: Opensea;
+    reservoir: Reservoir;
   };
   locale: null;
   user: User & {
@@ -370,6 +376,127 @@ export interface Project {
   footer: {
     copyright: string;
   };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "evm".
+ */
+export interface Evm {
+  id: string;
+  Chains: (string | Chains)[];
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "layer_zero".
+ */
+export interface LayerZero {
+  id: string;
+  networks?:
+    | {
+        chain: string | Chains;
+        abstractChainId: number;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cmc".
+ */
+export interface Cmc {
+  id: string;
+  networks?:
+    | {
+        chain: string | Chains;
+        chainSlug: string;
+        apiKey: string;
+        apiUrl: string;
+        id?: string | null;
+      }[]
+    | null;
+  endpoints?:
+    | {
+        type: 'quote';
+        path: string;
+        slugPath: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "moralis".
+ */
+export interface Moralis {
+  id: string;
+  networks?:
+    | {
+        chain: string | Chains;
+        apiKey: string;
+        evmChainKey: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "opensea".
+ */
+export interface Opensea {
+  id: string;
+  networks?:
+    | {
+        chain: string | Chains;
+        apiKey: string;
+        apiUrl: string;
+        chainSlug: string;
+        id?: string | null;
+      }[]
+    | null;
+  endpoints?:
+    | {
+        type: 'nfts_by_account' | 'nfts_by_collection_slug';
+        path: string;
+        slugPath: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reservoir".
+ */
+export interface Reservoir {
+  id: string;
+  networks?:
+    | {
+        chain: string | Chains;
+        apiKey: string;
+        apiUrl: string;
+        id?: string | null;
+      }[]
+    | null;
+  endpoints?:
+    | {
+        type: 'users';
+        version: 'v4' | 'v10';
+        path: string;
+        slugPath: string;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }

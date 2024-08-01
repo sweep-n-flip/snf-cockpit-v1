@@ -153,7 +153,7 @@ export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
               hasMany: false,
               required: true,
               relationTo: 'chains',
-              validate: async (value: string, { siblingData }) => {
+              validate: (value: string, { siblingData }) => {
                 if (value === siblingData?.sourceChain) {
                   return 'Target chain must be different from the source chain'
                 }
