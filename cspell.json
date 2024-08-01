@@ -30,7 +30,8 @@
     "RPCS",
     "rpcs",
     "slugfy",
-    "Moralis"
+    "Moralis",
+    "moralis"
   ],
   "import": []
 }
