@@ -41,6 +41,7 @@ export const plugin = () => {
           'evm',
           'layer_zero',
           'cmc',
+          'moralis',
         ],
         (acc, method) => ({
           ...acc,

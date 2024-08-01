@@ -11,4 +11,5 @@ export const globals = {
   evm: providers.evm,
   layer_zero: providers.layerZero,
   cmc: providers.cmc,
+  moralis: providers.moralis,
 }

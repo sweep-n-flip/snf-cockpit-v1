@@ -33,6 +33,7 @@ export interface Config {
     evm: Evm;
     layer_zero: LayerZero;
     cmc: Cmc;
+    moralis: Moralis;
   };
   locale: null;
   user: User & {
@@ -422,6 +423,23 @@ export interface Cmc {
         type: 'quote';
         path: string;
         slugPath: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "moralis".
+ */
+export interface Moralis {
+  id: string;
+  networks?:
+    | {
+        chain: string | Chains;
+        apiKey: string;
+        evmChainKey: string;
         id?: string | null;
       }[]
     | null;
