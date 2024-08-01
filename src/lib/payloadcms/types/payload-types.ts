@@ -412,7 +412,7 @@ export interface Cmc {
     | {
         chain: string | Chains;
         chainSlug: string;
-        apikey: string;
+        apiKey: string;
         apiUrl: string;
         id?: string | null;
       }[]

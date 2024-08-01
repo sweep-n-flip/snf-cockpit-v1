@@ -10,7 +10,7 @@ export const cmc = ({ globals }: CmcParams): CmcParams['globals'] => {
     ...(globals ? globals : []),
     {
       slug: `cmc`,
-      label: 'CoinMarketCap',
+      label: 'Coin Market Cap',
       typescript: {
         interface: `Cmc`,
       },
@@ -41,13 +41,13 @@ export const cmc = ({ globals }: CmcParams): CmcParams['globals'] => {
             {
               type: 'text',
               name: 'chainSlug',
-              label: 'chainSlug',
+              label: 'Chain Slug',
               required: true,
               /// todo: filter options that is \not selected yet
             },
             {
               type: 'text',
-              name: 'apikey',
+              name: 'apiKey',
               label: 'API Key',
               required: true,
             },
