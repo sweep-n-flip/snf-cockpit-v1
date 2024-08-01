@@ -25,35 +25,85 @@ export const opensea = ({ globals }: OpenseaParams): OpenseaParams['globals'] =>
       },
       fields: [
         {
-          type: 'array',
-          name: 'networks',
-          label: 'Networks',
-          fields: [
+          type: 'tabs',
+          tabs: [
             {
-              type: 'relationship',
-              name: 'chain',
-              label: 'Chain',
-              relationTo: 'chains',
-              required: true,
-              /// todo: filter options that is \not selected yet
+              label: 'Networks',
+              fields: [
+                {
+                  type: 'array',
+                  name: 'networks',
+                  label: false,
+                  fields: [
+                    {
+                      type: 'relationship',
+                      name: 'chain',
+                      label: 'Chain',
+                      relationTo: 'chains',
+                      required: true,
+                      /// todo: filter options that is \not selected yet
+                    },
+                    {
+                      type: 'text',
+                      name: 'apiKey',
+                      label: 'API Key',
+                      required: true,
+                    },
+                    {
+                      type: 'text',
+                      name: 'apiUrl',
+                      label: 'API URL',
+                      required: true,
+                    },
+                    {
+                      type: 'text',
+                      name: 'chainSlug',
+                      label: 'Chain Slug',
+                      required: true,
+                    },
+                  ],
+                },
+              ],
             },
             {
-              type: 'text',
-              name: 'apiKey',
-              label: 'API Key',
-              required: true,
-            },
-            {
-              type: 'text',
-              name: 'apiUrl',
-              label: 'API URL',
-              required: true,
-            },
-            {
-              type: 'text',
-              name: 'slug',
-              label: 'Slug',
-              required: true,
+              label: 'Endpoints',
+              fields: [
+                {
+                  type: 'array',
+                  name: 'endpoints',
+                  label: false,
+                  fields: [
+                    {
+                      type: 'select',
+                      name: 'type',
+                      label: 'Type',
+                      required: true,
+                      options: [
+                        {
+                          label: 'NFTS By Account',
+                          value: 'nfts_by_account',
+                        },
+                      ],
+                    },
+                    {
+                      type: 'text',
+                      name: 'path',
+                      label: 'Path',
+                      required: true,
+                    },
+                    {
+                      type: 'text',
+                      name: 'slugPath',
+                      label: 'Slug Path',
+                      required: true,
+                      admin: {
+                        description:
+                          'Eg: /{{chain}}/account/{{address}}/nfts/ to replace with the chain slug and address',
+                      },
+                    },
+                  ],
+                },
+              ],
             },
           ],
         },

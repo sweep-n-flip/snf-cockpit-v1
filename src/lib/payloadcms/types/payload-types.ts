@@ -458,7 +458,15 @@ export interface Opensea {
         chain: string | Chains;
         apiKey: string;
         apiUrl: string;
-        slug: string;
+        chainSlug: string;
+        id?: string | null;
+      }[]
+    | null;
+  endpoints?:
+    | {
+        type: 'nfts_by_account';
+        path: string;
+        slugPath: string;
         id?: string | null;
       }[]
     | null;
