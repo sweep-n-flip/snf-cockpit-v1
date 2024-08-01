@@ -30,6 +30,7 @@ export interface Config {
   };
   globals: {
     project: Project;
+    evm: Evm;
   };
   locale: null;
   user: User & {
@@ -370,6 +371,16 @@ export interface Project {
   footer: {
     copyright: string;
   };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "evm".
+ */
+export interface Evm {
+  id: string;
+  Chains: (string | Chains)[];
   updatedAt?: string | null;
   createdAt?: string | null;
 }

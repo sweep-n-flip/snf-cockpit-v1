@@ -42,8 +42,7 @@ export const plugin = () => {
         ],
         (acc, method) => ({
           ...acc,
-
-          globals: globals[method]({ globals: config.globals }),
+          globals: globals[method]({ globals: acc.globals }),
         }),
         config,
       ),

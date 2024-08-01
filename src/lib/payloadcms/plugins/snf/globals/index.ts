@@ -7,6 +7,6 @@ export type Globals = {
 }
 
 export const globals = {
-  ...settings,
-  ...providers,
+  project: settings.project,
+  evm: providers.evm,
 }
