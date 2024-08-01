@@ -32,6 +32,7 @@ export interface Config {
     project: Project;
     evm: Evm;
     layer_zero: LayerZero;
+    cmc: Cmc;
   };
   locale: null;
   user: User & {
@@ -393,8 +394,26 @@ export interface LayerZero {
   id: string;
   networks?:
     | {
-        Chains: string | Chains;
+        chain: string | Chains;
         abstractChainId: number;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cmc".
+ */
+export interface Cmc {
+  id: string;
+  networks?:
+    | {
+        chain: string | Chains;
+        chainSlug: string;
+        apikey: string;
+        apiUrl: string;
         id?: string | null;
       }[]
     | null;

@@ -32,16 +32,18 @@ export const layerZero = ({ globals }: LayerZeroParams): LayerZeroParams['global
           fields: [
             {
               type: 'relationship',
-              name: 'Chains',
-              label: 'Chains',
+              name: 'chain',
+              label: 'Chain',
               relationTo: 'chains',
               required: true,
+              /// todo: filter options that is \not selected yet
             },
             {
               type: 'number',
               name: 'abstractChainId',
               label: 'Abstract Chain ID',
               required: true,
+              /// todo: filter options that is \not selected yet
             },
           ],
         },
