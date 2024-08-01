@@ -417,6 +417,13 @@ export interface Cmc {
         id?: string | null;
       }[]
     | null;
+  endpoints?:
+    | {
+        path: string;
+        slugPath: string;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
