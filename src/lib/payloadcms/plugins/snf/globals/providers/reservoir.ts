@@ -74,12 +74,24 @@ export const reservoir = ({ globals }: ReservoirParams): ReservoirParams['global
                       required: true,
                       options: [
                         {
-                          label: 'NFTS by account',
-                          value: 'nfts_by_account',
+                          label: 'users',
+                          value: 'users',
+                        },
+                      ],
+                    },
+                    {
+                      type: 'select',
+                      name: 'version',
+                      label: 'Version',
+                      required: true,
+                      options: [
+                        {
+                          label: 'v4',
+                          value: 'v4',
                         },
                         {
-                          label: 'NFTS by adddress',
-                          value: 'nfts_by_address',
+                          label: 'v10',
+                          value: 'v10',
                         },
                       ],
                     },

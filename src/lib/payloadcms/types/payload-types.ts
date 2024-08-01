@@ -490,7 +490,8 @@ export interface Reservoir {
     | null;
   endpoints?:
     | {
-        type: 'nfts_by_account' | 'nfts_by_address';
+        type: 'users';
+        version: 'v4' | 'v10';
         path: string;
         slugPath: string;
         id?: string | null;
