@@ -42,6 +42,7 @@ export const plugin = () => {
           'layer_zero',
           'cmc',
           'moralis',
+          'opensea',
         ],
         (acc, method) => ({
           ...acc,

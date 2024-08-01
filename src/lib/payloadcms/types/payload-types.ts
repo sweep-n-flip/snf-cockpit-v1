@@ -34,6 +34,7 @@ export interface Config {
     layer_zero: LayerZero;
     cmc: Cmc;
     moralis: Moralis;
+    opensea: Opensea;
   };
   locale: null;
   user: User & {
@@ -440,6 +441,24 @@ export interface Moralis {
         chain: string | Chains;
         apiKey: string;
         evmChainKey: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "opensea".
+ */
+export interface Opensea {
+  id: string;
+  networks?:
+    | {
+        chain: string | Chains;
+        apiKey: string;
+        apiUrl: string;
+        slug: string;
         id?: string | null;
       }[]
     | null;

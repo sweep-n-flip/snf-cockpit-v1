@@ -12,4 +12,5 @@ export const globals = {
   layer_zero: providers.layerZero,
   cmc: providers.cmc,
   moralis: providers.moralis,
+  opensea: providers.opensea,
 }
