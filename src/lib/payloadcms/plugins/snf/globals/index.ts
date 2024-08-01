@@ -13,4 +13,5 @@ export const globals = {
   cmc: providers.cmc,
   moralis: providers.moralis,
   opensea: providers.opensea,
+  reservoir: providers.reservoir,
 }

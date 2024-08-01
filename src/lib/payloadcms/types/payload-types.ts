@@ -35,6 +35,7 @@ export interface Config {
     cmc: Cmc;
     moralis: Moralis;
     opensea: Opensea;
+    reservoir: Reservoir;
   };
   locale: null;
   user: User & {
@@ -465,6 +466,31 @@ export interface Opensea {
   endpoints?:
     | {
         type: 'nfts_by_account' | 'nfts_by_collection_slug';
+        path: string;
+        slugPath: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reservoir".
+ */
+export interface Reservoir {
+  id: string;
+  networks?:
+    | {
+        chain: string | Chains;
+        apiKey: string;
+        apiUrl: string;
+        id?: string | null;
+      }[]
+    | null;
+  endpoints?:
+    | {
+        type: 'nfts_by_account' | 'nfts_by_address';
         path: string;
         slugPath: string;
         id?: string | null;
