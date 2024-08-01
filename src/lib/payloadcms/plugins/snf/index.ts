@@ -39,6 +39,7 @@ export const plugin = () => {
           /// project setup
           'project',
           'evm',
+          'layer_zero',
         ],
         (acc, method) => ({
           ...acc,

@@ -9,4 +9,5 @@ export type Globals = {
 export const globals = {
   project: settings.project,
   evm: providers.evm,
+  layer_zero: providers.layerZero,
 }

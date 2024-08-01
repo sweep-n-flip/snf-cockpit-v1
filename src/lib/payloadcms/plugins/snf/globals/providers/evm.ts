@@ -1,11 +1,11 @@
 import type { Config } from 'payload'
 import { admins, anyone } from '../../utils/validateRole'
 
-export type Project = {
+export type EvmParams = {
   globals: Config['globals']
 }
 
-export const evm = ({ globals }: Project): Project['globals'] => {
+export const evm = ({ globals }: EvmParams): EvmParams['globals'] => {
   return [
     ...(globals ? globals : []),
     {

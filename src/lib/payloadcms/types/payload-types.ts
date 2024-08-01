@@ -31,6 +31,7 @@ export interface Config {
   globals: {
     project: Project;
     evm: Evm;
+    layer_zero: LayerZero;
   };
   locale: null;
   user: User & {
@@ -381,6 +382,22 @@ export interface Project {
 export interface Evm {
   id: string;
   Chains: (string | Chains)[];
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "layer_zero".
+ */
+export interface LayerZero {
+  id: string;
+  networks?:
+    | {
+        Chains: string | Chains;
+        abstractChainId: number;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
