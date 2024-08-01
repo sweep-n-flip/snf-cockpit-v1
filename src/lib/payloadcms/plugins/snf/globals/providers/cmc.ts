@@ -41,6 +41,7 @@ export const cmc = ({ globals }: CmcParams): CmcParams['globals'] => {
                       name: 'chain',
                       label: 'Chain',
                       relationTo: 'chains',
+                      hasMany: false,
                       required: true,
                       /// todo: filter options that is \not selected yet
                     },
