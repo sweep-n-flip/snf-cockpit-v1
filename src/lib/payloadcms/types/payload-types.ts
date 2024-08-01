@@ -419,6 +419,7 @@ export interface Cmc {
     | null;
   endpoints?:
     | {
+        type: 'quote';
         path: string;
         slugPath: string;
         id?: string | null;

@@ -76,6 +76,18 @@ export const cmc = ({ globals }: CmcParams): CmcParams['globals'] => {
                   label: false,
                   fields: [
                     {
+                      type: 'select',
+                      name: 'type',
+                      label: 'Type',
+                      required: true,
+                      options: [
+                        {
+                          label: 'Quote',
+                          value: 'quote',
+                        },
+                      ],
+                    },
+                    {
                       type: 'text',
                       name: 'path',
                       label: 'Path',
