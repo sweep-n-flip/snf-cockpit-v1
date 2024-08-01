@@ -80,8 +80,12 @@ export const opensea = ({ globals }: OpenseaParams): OpenseaParams['globals'] =>
                       required: true,
                       options: [
                         {
-                          label: 'NFTS By Account',
+                          label: 'NFTS by account',
                           value: 'nfts_by_account',
+                        },
+                        {
+                          label: 'NFTS by collection slug',
+                          value: 'nfts_by_collection_slug',
                         },
                       ],
                     },
@@ -97,8 +101,7 @@ export const opensea = ({ globals }: OpenseaParams): OpenseaParams['globals'] =>
                       label: 'Slug Path',
                       required: true,
                       admin: {
-                        description:
-                          'Eg: /{{chain}}/account/{{address}}/nfts/ to replace with the chain slug and address',
+                        description: 'Eg: /{{chain}}/account/{{address}}/nfts',
                       },
                     },
                   ],

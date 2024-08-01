@@ -99,7 +99,7 @@ export const cmc = ({ globals }: CmcParams): CmcParams['globals'] => {
                       label: 'Slug Path',
                       required: true,
                       admin: {
-                        description: 'Eg: ?slug={{slug}} to replace with the chain slug',
+                        description: 'Eg: ?slug={{slug}}',
                       },
                     },
                   ],

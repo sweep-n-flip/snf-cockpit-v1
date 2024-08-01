@@ -464,7 +464,7 @@ export interface Opensea {
     | null;
   endpoints?:
     | {
-        type: 'nfts_by_account';
+        type: 'nfts_by_account' | 'nfts_by_collection_slug';
         path: string;
         slugPath: string;
         id?: string | null;
