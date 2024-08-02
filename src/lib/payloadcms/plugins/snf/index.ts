@@ -44,6 +44,7 @@ export const plugin = () => {
           'moralis',
           'opensea',
           'reservoir',
+          'alchemy',
         ],
         (acc, method) => ({
           ...acc,

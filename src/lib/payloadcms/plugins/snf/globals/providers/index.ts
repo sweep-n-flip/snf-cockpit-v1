@@ -4,12 +4,14 @@ import { cmc } from './cmc'
 import { moralis } from './moralis'
 import { opensea } from './opensea'
 import { reservoir } from './reservoir'
+import { alchemy } from './alchemy'
 
 export const providers = {
   evm,
-  layerZero,
+  layer_zero: layerZero,
   cmc,
   moralis,
   opensea,
   reservoir,
+  alchemy,
 }

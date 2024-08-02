@@ -7,11 +7,6 @@ export type Globals = {
 }
 
 export const globals = {
-  project: settings.project,
-  evm: providers.evm,
-  layer_zero: providers.layerZero,
-  cmc: providers.cmc,
-  moralis: providers.moralis,
-  opensea: providers.opensea,
-  reservoir: providers.reservoir,
+  ...settings,
+  ...providers,
 }
