@@ -386,7 +386,7 @@ export interface Project {
  */
 export interface Evm {
   id: string;
-  Chains: (string | Chains)[];
+  chains: (string | Chains)[];
   updatedAt?: string | null;
   createdAt?: string | null;
 }

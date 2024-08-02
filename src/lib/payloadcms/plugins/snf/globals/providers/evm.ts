@@ -26,7 +26,7 @@ export const evm = ({ globals }: EvmParams): EvmParams['globals'] => {
       fields: [
         {
           type: 'relationship',
-          name: 'Chains',
+          name: 'chains',
           label: 'Chains',
           relationTo: 'chains',
           hasMany: true,

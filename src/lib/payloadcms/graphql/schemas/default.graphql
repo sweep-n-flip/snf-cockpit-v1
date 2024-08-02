@@ -10089,7 +10089,7 @@ type ProjectUpdateDocAccess {
 }
 
 type Evm {
-  Chains: [Chain!]!
+  chains: [Chain!]!
   updatedAt: DateTime
   createdAt: DateTime
 }
@@ -10101,31 +10101,31 @@ type evmDocAccess {
 }
 
 type EvmDocAccessFields {
-  Chains: EvmDocAccessFields_Chains
+  chains: EvmDocAccessFields_chains
   updatedAt: EvmDocAccessFields_updatedAt
   createdAt: EvmDocAccessFields_createdAt
 }
 
-type EvmDocAccessFields_Chains {
-  create: EvmDocAccessFields_Chains_Create
-  read: EvmDocAccessFields_Chains_Read
-  update: EvmDocAccessFields_Chains_Update
-  delete: EvmDocAccessFields_Chains_Delete
+type EvmDocAccessFields_chains {
+  create: EvmDocAccessFields_chains_Create
+  read: EvmDocAccessFields_chains_Read
+  update: EvmDocAccessFields_chains_Update
+  delete: EvmDocAccessFields_chains_Delete
 }
 
-type EvmDocAccessFields_Chains_Create {
+type EvmDocAccessFields_chains_Create {
   permission: Boolean!
 }
 
-type EvmDocAccessFields_Chains_Read {
+type EvmDocAccessFields_chains_Read {
   permission: Boolean!
 }
 
-type EvmDocAccessFields_Chains_Update {
+type EvmDocAccessFields_chains_Update {
   permission: Boolean!
 }
 
-type EvmDocAccessFields_Chains_Delete {
+type EvmDocAccessFields_chains_Delete {
   permission: Boolean!
 }
 
@@ -16257,31 +16257,31 @@ type evmAccess {
 }
 
 type EvmFields {
-  Chains: EvmFields_Chains
+  chains: EvmFields_chains
   updatedAt: EvmFields_updatedAt
   createdAt: EvmFields_createdAt
 }
 
-type EvmFields_Chains {
-  create: EvmFields_Chains_Create
-  read: EvmFields_Chains_Read
-  update: EvmFields_Chains_Update
-  delete: EvmFields_Chains_Delete
+type EvmFields_chains {
+  create: EvmFields_chains_Create
+  read: EvmFields_chains_Read
+  update: EvmFields_chains_Update
+  delete: EvmFields_chains_Delete
 }
 
-type EvmFields_Chains_Create {
+type EvmFields_chains_Create {
   permission: Boolean!
 }
 
-type EvmFields_Chains_Read {
+type EvmFields_chains_Read {
   permission: Boolean!
 }
 
-type EvmFields_Chains_Update {
+type EvmFields_chains_Update {
   permission: Boolean!
 }
 
-type EvmFields_Chains_Delete {
+type EvmFields_chains_Delete {
   permission: Boolean!
 }
 
@@ -18509,7 +18509,7 @@ input mutationProject_FooterInput {
 }
 
 input mutationEvmInput {
-  Chains: [String]
+  chains: [String]
   updatedAt: String
   createdAt: String
 }
