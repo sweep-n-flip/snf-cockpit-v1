@@ -18,11 +18,13 @@ export const plugin = () => {
           'marketplaces',
           'contracts',
           'blockExplorers',
+
           /// general
           'upload',
           'collections',
           'pages',
           'users',
+
           /// bridge
           'bridge_widgets',
           'bridge_categories',
@@ -38,6 +40,8 @@ export const plugin = () => {
         [
           /// project setup
           'project',
+
+          /// providers setup
           'evm',
           'layer_zero',
           'cmc',
