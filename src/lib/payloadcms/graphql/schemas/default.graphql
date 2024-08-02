@@ -63,6 +63,8 @@ type Query {
   docAccessOpensea: openseaDocAccess
   Reservoir(draft: Boolean): Reservoir
   docAccessReservoir: reservoirDocAccess
+  Alchemy(draft: Boolean): Alchemy
+  docAccessAlchemy: alchemyDocAccess
   Access: Access
 }
 
@@ -11667,6 +11669,210 @@ type ReservoirUpdateDocAccess {
   where: JSONObject
 }
 
+type Alchemy {
+  networks: [Alchemy_Networks!]
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+type Alchemy_Networks {
+  chain: Chain
+  apiKey: String
+  evmChainKey: String
+  id: String
+}
+
+type alchemyDocAccess {
+  fields: AlchemyDocAccessFields
+  read: AlchemyReadDocAccess
+  update: AlchemyUpdateDocAccess
+}
+
+type AlchemyDocAccessFields {
+  networks: AlchemyDocAccessFields_networks
+  updatedAt: AlchemyDocAccessFields_updatedAt
+  createdAt: AlchemyDocAccessFields_createdAt
+}
+
+type AlchemyDocAccessFields_networks {
+  create: AlchemyDocAccessFields_networks_Create
+  read: AlchemyDocAccessFields_networks_Read
+  update: AlchemyDocAccessFields_networks_Update
+  delete: AlchemyDocAccessFields_networks_Delete
+  fields: AlchemyDocAccessFields_networks_Fields
+}
+
+type AlchemyDocAccessFields_networks_Create {
+  permission: Boolean!
+}
+
+type AlchemyDocAccessFields_networks_Read {
+  permission: Boolean!
+}
+
+type AlchemyDocAccessFields_networks_Update {
+  permission: Boolean!
+}
+
+type AlchemyDocAccessFields_networks_Delete {
+  permission: Boolean!
+}
+
+type AlchemyDocAccessFields_networks_Fields {
+  chain: AlchemyDocAccessFields_networks_chain
+  apiKey: AlchemyDocAccessFields_networks_apiKey
+  evmChainKey: AlchemyDocAccessFields_networks_evmChainKey
+  id: AlchemyDocAccessFields_networks_id
+}
+
+type AlchemyDocAccessFields_networks_chain {
+  create: AlchemyDocAccessFields_networks_chain_Create
+  read: AlchemyDocAccessFields_networks_chain_Read
+  update: AlchemyDocAccessFields_networks_chain_Update
+  delete: AlchemyDocAccessFields_networks_chain_Delete
+}
+
+type AlchemyDocAccessFields_networks_chain_Create {
+  permission: Boolean!
+}
+
+type AlchemyDocAccessFields_networks_chain_Read {
+  permission: Boolean!
+}
+
+type AlchemyDocAccessFields_networks_chain_Update {
+  permission: Boolean!
+}
+
+type AlchemyDocAccessFields_networks_chain_Delete {
+  permission: Boolean!
+}
+
+type AlchemyDocAccessFields_networks_apiKey {
+  create: AlchemyDocAccessFields_networks_apiKey_Create
+  read: AlchemyDocAccessFields_networks_apiKey_Read
+  update: AlchemyDocAccessFields_networks_apiKey_Update
+  delete: AlchemyDocAccessFields_networks_apiKey_Delete
+}
+
+type AlchemyDocAccessFields_networks_apiKey_Create {
+  permission: Boolean!
+}
+
+type AlchemyDocAccessFields_networks_apiKey_Read {
+  permission: Boolean!
+}
+
+type AlchemyDocAccessFields_networks_apiKey_Update {
+  permission: Boolean!
+}
+
+type AlchemyDocAccessFields_networks_apiKey_Delete {
+  permission: Boolean!
+}
+
+type AlchemyDocAccessFields_networks_evmChainKey {
+  create: AlchemyDocAccessFields_networks_evmChainKey_Create
+  read: AlchemyDocAccessFields_networks_evmChainKey_Read
+  update: AlchemyDocAccessFields_networks_evmChainKey_Update
+  delete: AlchemyDocAccessFields_networks_evmChainKey_Delete
+}
+
+type AlchemyDocAccessFields_networks_evmChainKey_Create {
+  permission: Boolean!
+}
+
+type AlchemyDocAccessFields_networks_evmChainKey_Read {
+  permission: Boolean!
+}
+
+type AlchemyDocAccessFields_networks_evmChainKey_Update {
+  permission: Boolean!
+}
+
+type AlchemyDocAccessFields_networks_evmChainKey_Delete {
+  permission: Boolean!
+}
+
+type AlchemyDocAccessFields_networks_id {
+  create: AlchemyDocAccessFields_networks_id_Create
+  read: AlchemyDocAccessFields_networks_id_Read
+  update: AlchemyDocAccessFields_networks_id_Update
+  delete: AlchemyDocAccessFields_networks_id_Delete
+}
+
+type AlchemyDocAccessFields_networks_id_Create {
+  permission: Boolean!
+}
+
+type AlchemyDocAccessFields_networks_id_Read {
+  permission: Boolean!
+}
+
+type AlchemyDocAccessFields_networks_id_Update {
+  permission: Boolean!
+}
+
+type AlchemyDocAccessFields_networks_id_Delete {
+  permission: Boolean!
+}
+
+type AlchemyDocAccessFields_updatedAt {
+  create: AlchemyDocAccessFields_updatedAt_Create
+  read: AlchemyDocAccessFields_updatedAt_Read
+  update: AlchemyDocAccessFields_updatedAt_Update
+  delete: AlchemyDocAccessFields_updatedAt_Delete
+}
+
+type AlchemyDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type AlchemyDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type AlchemyDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type AlchemyDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type AlchemyDocAccessFields_createdAt {
+  create: AlchemyDocAccessFields_createdAt_Create
+  read: AlchemyDocAccessFields_createdAt_Read
+  update: AlchemyDocAccessFields_createdAt_Update
+  delete: AlchemyDocAccessFields_createdAt_Delete
+}
+
+type AlchemyDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type AlchemyDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type AlchemyDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type AlchemyDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type AlchemyReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type AlchemyUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type Access {
   canAccessAdmin: Boolean!
   users: usersAccess
@@ -11688,6 +11894,7 @@ type Access {
   moralis: moralisAccess
   opensea: openseaAccess
   reservoir: reservoirAccess
+  alchemy: alchemyAccess
 }
 
 type usersAccess {
@@ -17509,6 +17716,197 @@ type ReservoirUpdateAccess {
   where: JSONObject
 }
 
+type alchemyAccess {
+  fields: AlchemyFields
+  read: AlchemyReadAccess
+  update: AlchemyUpdateAccess
+}
+
+type AlchemyFields {
+  networks: AlchemyFields_networks
+  updatedAt: AlchemyFields_updatedAt
+  createdAt: AlchemyFields_createdAt
+}
+
+type AlchemyFields_networks {
+  create: AlchemyFields_networks_Create
+  read: AlchemyFields_networks_Read
+  update: AlchemyFields_networks_Update
+  delete: AlchemyFields_networks_Delete
+  fields: AlchemyFields_networks_Fields
+}
+
+type AlchemyFields_networks_Create {
+  permission: Boolean!
+}
+
+type AlchemyFields_networks_Read {
+  permission: Boolean!
+}
+
+type AlchemyFields_networks_Update {
+  permission: Boolean!
+}
+
+type AlchemyFields_networks_Delete {
+  permission: Boolean!
+}
+
+type AlchemyFields_networks_Fields {
+  chain: AlchemyFields_networks_chain
+  apiKey: AlchemyFields_networks_apiKey
+  evmChainKey: AlchemyFields_networks_evmChainKey
+  id: AlchemyFields_networks_id
+}
+
+type AlchemyFields_networks_chain {
+  create: AlchemyFields_networks_chain_Create
+  read: AlchemyFields_networks_chain_Read
+  update: AlchemyFields_networks_chain_Update
+  delete: AlchemyFields_networks_chain_Delete
+}
+
+type AlchemyFields_networks_chain_Create {
+  permission: Boolean!
+}
+
+type AlchemyFields_networks_chain_Read {
+  permission: Boolean!
+}
+
+type AlchemyFields_networks_chain_Update {
+  permission: Boolean!
+}
+
+type AlchemyFields_networks_chain_Delete {
+  permission: Boolean!
+}
+
+type AlchemyFields_networks_apiKey {
+  create: AlchemyFields_networks_apiKey_Create
+  read: AlchemyFields_networks_apiKey_Read
+  update: AlchemyFields_networks_apiKey_Update
+  delete: AlchemyFields_networks_apiKey_Delete
+}
+
+type AlchemyFields_networks_apiKey_Create {
+  permission: Boolean!
+}
+
+type AlchemyFields_networks_apiKey_Read {
+  permission: Boolean!
+}
+
+type AlchemyFields_networks_apiKey_Update {
+  permission: Boolean!
+}
+
+type AlchemyFields_networks_apiKey_Delete {
+  permission: Boolean!
+}
+
+type AlchemyFields_networks_evmChainKey {
+  create: AlchemyFields_networks_evmChainKey_Create
+  read: AlchemyFields_networks_evmChainKey_Read
+  update: AlchemyFields_networks_evmChainKey_Update
+  delete: AlchemyFields_networks_evmChainKey_Delete
+}
+
+type AlchemyFields_networks_evmChainKey_Create {
+  permission: Boolean!
+}
+
+type AlchemyFields_networks_evmChainKey_Read {
+  permission: Boolean!
+}
+
+type AlchemyFields_networks_evmChainKey_Update {
+  permission: Boolean!
+}
+
+type AlchemyFields_networks_evmChainKey_Delete {
+  permission: Boolean!
+}
+
+type AlchemyFields_networks_id {
+  create: AlchemyFields_networks_id_Create
+  read: AlchemyFields_networks_id_Read
+  update: AlchemyFields_networks_id_Update
+  delete: AlchemyFields_networks_id_Delete
+}
+
+type AlchemyFields_networks_id_Create {
+  permission: Boolean!
+}
+
+type AlchemyFields_networks_id_Read {
+  permission: Boolean!
+}
+
+type AlchemyFields_networks_id_Update {
+  permission: Boolean!
+}
+
+type AlchemyFields_networks_id_Delete {
+  permission: Boolean!
+}
+
+type AlchemyFields_updatedAt {
+  create: AlchemyFields_updatedAt_Create
+  read: AlchemyFields_updatedAt_Read
+  update: AlchemyFields_updatedAt_Update
+  delete: AlchemyFields_updatedAt_Delete
+}
+
+type AlchemyFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type AlchemyFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type AlchemyFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type AlchemyFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type AlchemyFields_createdAt {
+  create: AlchemyFields_createdAt_Create
+  read: AlchemyFields_createdAt_Read
+  update: AlchemyFields_createdAt_Update
+  delete: AlchemyFields_createdAt_Delete
+}
+
+type AlchemyFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type AlchemyFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type AlchemyFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type AlchemyFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type AlchemyReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type AlchemyUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type Mutation {
   createUser(data: mutationUserInput!, draft: Boolean): User
   updateUser(id: String!, autosave: Boolean, data: mutationUserUpdateInput!, draft: Boolean): User
@@ -17565,6 +17963,7 @@ type Mutation {
   updateMoralis(data: mutationMoralisInput!, draft: Boolean): Moralis
   updateOpensea(data: mutationOpenseaInput!, draft: Boolean): Opensea
   updateReservoir(data: mutationReservoirInput!, draft: Boolean): Reservoir
+  updateAlchemy(data: mutationAlchemyInput!, draft: Boolean): Alchemy
 }
 
 input mutationUserInput {
@@ -18222,4 +18621,17 @@ enum Reservoir_Endpoints_type_MutationInput {
 enum Reservoir_Endpoints_version_MutationInput {
   v4
   v10
+}
+
+input mutationAlchemyInput {
+  networks: [mutationAlchemy_NetworksInput]
+  updatedAt: String
+  createdAt: String
+}
+
+input mutationAlchemy_NetworksInput {
+  chain: String
+  apiKey: String!
+  evmChainKey: String!
+  id: String
 }
