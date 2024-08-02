@@ -13,6 +13,7 @@ import Registry from '@/app/Registry'
 import { Viewport } from 'next'
 import { Wallet } from '@/lib/web3/components'
 import { map } from 'lodash'
+import { Where } from 'payload'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -28,13 +29,19 @@ export default async function SlugLayout({
 }>) {
   const project = await settings.getProject()
 
-  const chains = await networks.getChains({
-    where: {
-      testnet: {
-        equals: project.testnet,
-      },
-    },
-  })
+  const chainsWhere: Where = project.testnet
+    ? {
+        testnet: {
+          equals: true,
+        },
+      }
+    : {
+        testnet: {
+          not_equals: true,
+        },
+      }
+
+  const chains = await networks.getChains({ where: chainsWhere })
 
   const normalizedChains = toWagmiChain({
     chains: await Promise.all(
