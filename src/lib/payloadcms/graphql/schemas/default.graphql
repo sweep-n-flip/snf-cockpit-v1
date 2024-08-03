@@ -10739,6 +10739,7 @@ type Moralis_Networks {
   chain: Chain
   apiKey: String
   evmChainKey: String
+  maxRetries: Float
   id: String
 }
 
@@ -10782,6 +10783,7 @@ type MoralisDocAccessFields_networks_Fields {
   chain: MoralisDocAccessFields_networks_chain
   apiKey: MoralisDocAccessFields_networks_apiKey
   evmChainKey: MoralisDocAccessFields_networks_evmChainKey
+  maxRetries: MoralisDocAccessFields_networks_maxRetries
   id: MoralisDocAccessFields_networks_id
 }
 
@@ -10851,6 +10853,29 @@ type MoralisDocAccessFields_networks_evmChainKey_Update {
 }
 
 type MoralisDocAccessFields_networks_evmChainKey_Delete {
+  permission: Boolean!
+}
+
+type MoralisDocAccessFields_networks_maxRetries {
+  create: MoralisDocAccessFields_networks_maxRetries_Create
+  read: MoralisDocAccessFields_networks_maxRetries_Read
+  update: MoralisDocAccessFields_networks_maxRetries_Update
+  delete: MoralisDocAccessFields_networks_maxRetries_Delete
+}
+
+type MoralisDocAccessFields_networks_maxRetries_Create {
+  permission: Boolean!
+}
+
+type MoralisDocAccessFields_networks_maxRetries_Read {
+  permission: Boolean!
+}
+
+type MoralisDocAccessFields_networks_maxRetries_Update {
+  permission: Boolean!
+}
+
+type MoralisDocAccessFields_networks_maxRetries_Delete {
   permission: Boolean!
 }
 
@@ -16887,6 +16912,7 @@ type MoralisFields_networks_Fields {
   chain: MoralisFields_networks_chain
   apiKey: MoralisFields_networks_apiKey
   evmChainKey: MoralisFields_networks_evmChainKey
+  maxRetries: MoralisFields_networks_maxRetries
   id: MoralisFields_networks_id
 }
 
@@ -16956,6 +16982,29 @@ type MoralisFields_networks_evmChainKey_Update {
 }
 
 type MoralisFields_networks_evmChainKey_Delete {
+  permission: Boolean!
+}
+
+type MoralisFields_networks_maxRetries {
+  create: MoralisFields_networks_maxRetries_Create
+  read: MoralisFields_networks_maxRetries_Read
+  update: MoralisFields_networks_maxRetries_Update
+  delete: MoralisFields_networks_maxRetries_Delete
+}
+
+type MoralisFields_networks_maxRetries_Create {
+  permission: Boolean!
+}
+
+type MoralisFields_networks_maxRetries_Read {
+  permission: Boolean!
+}
+
+type MoralisFields_networks_maxRetries_Update {
+  permission: Boolean!
+}
+
+type MoralisFields_networks_maxRetries_Delete {
   permission: Boolean!
 }
 
@@ -18562,6 +18611,7 @@ input mutationMoralis_NetworksInput {
   chain: String
   apiKey: String!
   evmChainKey: String!
+  maxRetries: Float!
   id: String
 }
 

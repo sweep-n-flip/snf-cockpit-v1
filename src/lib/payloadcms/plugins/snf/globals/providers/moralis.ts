@@ -49,6 +49,13 @@ export const moralis = ({ globals }: MoralisParams): MoralisParams['globals'] =>
               label: 'EVM Chain Key',
               required: true,
             },
+            {
+              type: 'number',
+              name: 'maxRetries',
+              label: 'Max Retries',
+              required: true,
+              defaultValue: 3,
+            },
           ],
         },
       ],
