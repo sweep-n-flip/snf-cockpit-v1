@@ -2,14 +2,14 @@
 import { ButtonHTMLAttributes } from 'react'
 import { useNetwork } from '@/lib/web3/hooks'
 import { Typography } from '@/lib/ui/components'
-import { Chain } from '@/lib/web3/components/icons/chains'
 import { CheckIcon } from '@heroicons/react/24/outline'
-import { ChainConfig } from '@/lib/web3/hooks/useNetwork'
 import classNames from 'classnames'
+import { Chain as ChainEntity } from '@/lib/web3/types'
+import { Chain } from '@/lib/web3/components/icons/chains'
 
 export type NetworkProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  currentChain?: ChainConfig
-  chain?: ChainConfig
+  currentChain?: ChainEntity
+  chain?: ChainEntity
 }
 
 export const Network = ({ chain, currentChain, className, ...props }: NetworkProps) => {

@@ -1,8 +1,18 @@
 import type { CollectionConfig } from 'payload'
 import { zeroAddress } from 'viem'
 
-export const chains = (): CollectionConfig['fields'] => {
+export type ChainsParams = {
+  fieldsBefore?: CollectionConfig['fields']
+  fieldsAfter?: CollectionConfig['fields']
+  customAfter?: CollectionConfig['fields']
+  customBefore?: CollectionConfig['fields']
+}
+
+export const chains = (params?: ChainsParams): CollectionConfig['fields'] => {
+  const { fieldsBefore = [], fieldsAfter = [], customAfter = [], customBefore = [] } = params || {}
+
   return [
+    ...fieldsBefore,
     {
       unique: true,
       name: 'chainId',
@@ -16,12 +26,7 @@ export const chains = (): CollectionConfig['fields'] => {
       type: 'text',
       required: true,
     },
-    {
-      name: 'logo',
-      label: 'Logo',
-      type: 'upload',
-      relationTo: 'media',
-    },
+
     {
       name: 'testnet',
       label: 'Testnet',
@@ -59,43 +64,23 @@ export const chains = (): CollectionConfig['fields'] => {
       ],
     },
     {
-      name: 'rpcs',
-      label: 'RPCs',
-      type: 'relationship',
-      relationTo: 'rpcs',
-      hasMany: true,
-      required: true,
+      type: 'group',
+      name: 'custom',
+      label: 'Custom',
+      fields: [
+        ...customBefore,
+        {
+          name: 'logo',
+          label: 'Logo',
+          type: 'upload',
+          relationTo: 'media',
+          required: true,
+        },
+
+        ...customAfter,
+      ],
     },
-    {
-      name: 'marketplaces',
-      label: 'Marketplaces',
-      type: 'relationship',
-      relationTo: 'marketplaces',
-      hasMany: true,
-    },
-    {
-      name: 'contracts',
-      label: 'Contracts',
-      type: 'relationship',
-      relationTo: 'contracts',
-      hasMany: true,
-    },
-    {
-      name: 'blockExplorers',
-      label: 'Block Explorers',
-      type: 'relationship',
-      relationTo: 'blockExplorers',
-      hasMany: true,
-    },
-    {
-      type: 'text',
-      name: 'slug',
-      label: 'Slug',
-      required: true,
-      unique: true,
-      admin: {
-        position: 'sidebar',
-      },
-    },
+
+    ...fieldsAfter,
   ]
 }

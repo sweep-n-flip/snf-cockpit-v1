@@ -5,6 +5,7 @@ export type Collections = {
 }
 
 import { fields } from '../../fields'
+import { admins, anyone } from '../../utils/validateRole'
 
 export const collections = ({ collections }: Collections): Collections['collections'] => {
   const collectionsWithCollections = [
@@ -15,6 +16,7 @@ export const collections = ({ collections }: Collections): Collections['collecti
         singular: `Collection`,
         plural: `Collections`,
       },
+      disableDuplicate: true,
       typescript: {
         interface: `Collections`,
       },
@@ -23,13 +25,22 @@ export const collections = ({ collections }: Collections): Collections['collecti
         defaultColumns: ['name'],
         group: `Tokens`,
       },
-      fields: fields.collections(),
-      /// todo: change access
+      fields: fields.tokens.collections({
+        fieldsBefore: [
+          ...fields.utils.slug({
+            slugFieldProps: {
+              fieldToFormat: 'name',
+              index: false,
+              unique: false,
+            },
+          }),
+        ],
+      }),
       access: {
-        read: () => true,
-        create: () => true,
-        update: () => true,
-        delete: () => true,
+        read: anyone,
+        create: admins,
+        update: admins,
+        delete: admins,
       },
     },
   ]

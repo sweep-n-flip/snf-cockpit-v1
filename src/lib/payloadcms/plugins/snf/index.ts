@@ -11,7 +11,24 @@ export const plugin = () => {
     (incomingConfig: Config) => merge({}, incomingConfig), // Make a shallow copy of incomingConfig
     (config: Config) =>
       reduce<keyof typeof collections, Config>(
-        ['chains', 'rpcs', 'marketplaces', 'contracts', 'blockExplorers', 'upload', 'collections'],
+        [
+          /// networks
+          'chains',
+          'rpcs',
+          'marketplaces',
+          'contracts',
+          'blockExplorers',
+
+          /// general
+          'upload',
+          'collections',
+          'pages',
+          'users',
+
+          /// bridge
+          'bridge_widgets',
+          'bridge_categories',
+        ],
         (acc, method) => ({
           ...acc,
           collections: collections[method]({ collections: acc.collections }),
@@ -20,10 +37,22 @@ export const plugin = () => {
       ),
     (config: Config) =>
       reduce<keyof typeof globals, Config>(
-        [`project`],
+        [
+          /// project setup
+          'project',
+
+          /// providers setup
+          'evm',
+          'layer_zero',
+          'cmc',
+          'moralis',
+          'opensea',
+          'reservoir',
+          'alchemy',
+        ],
         (acc, method) => ({
           ...acc,
-          globals: globals[method]({ globals: config.globals }),
+          globals: globals[method]({ globals: acc.globals }),
         }),
         config,
       ),

@@ -6,7 +6,7 @@ import { useToggle } from 'usehooks-ts'
 import { useOnClickOutside } from 'usehooks-ts'
 import classNames from 'classnames'
 import { Card } from '@/lib/ui/components'
-import Networks from './Networks'
+import { Networks } from './Networks'
 
 export type BarProps = HTMLProps<HTMLDivElement> & {}
 

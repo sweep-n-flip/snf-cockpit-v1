@@ -1,5 +1,6 @@
 import type { Config } from 'payload'
 import { fields } from '../../fields'
+import { admins, anyone } from '../../utils/validateRole'
 
 export type Chains = {
   collections: Config['collections']
@@ -10,7 +11,7 @@ export const blockExplorers = ({ collections }: Chains): Chains['collections'] =
     ...(collections ? collections : []),
 
     {
-      slug: `blockExplorers`,
+      slug: `block_explorers`,
       labels: {
         singular: `Block Explorer`,
         plural: `Block Explorers`,
@@ -22,13 +23,22 @@ export const blockExplorers = ({ collections }: Chains): Chains['collections'] =
         useAsTitle: `name`,
         group: `Network`,
       },
-      fields: fields.blockExplorers(),
-      /// todo: change access
+      fields: fields.networks.blockExplorers({
+        fieldsBefore: [
+          ...fields.utils.slug({
+            slugFieldProps: {
+              fieldToFormat: 'name',
+              index: false,
+              unique: true,
+            },
+          }),
+        ],
+      }),
       access: {
-        read: () => true,
-        create: () => true,
-        update: () => true,
-        delete: () => true,
+        read: anyone,
+        create: admins,
+        update: admins,
+        delete: admins,
       },
     },
   ]

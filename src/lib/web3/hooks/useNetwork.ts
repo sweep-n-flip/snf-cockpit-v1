@@ -1,30 +1,20 @@
-import { useAccount, useSwitchChain } from 'wagmi'
-import useChainConfig from './useChainConfig'
-import { Chain } from '@/lib/web3/types/chain'
-import appConfig from '@/lib/config'
+import { useAccount, useSwitchChain, useChains } from 'wagmi'
+import { Chain } from '@/lib/web3/types'
 
-export interface ChainConfig extends Chain {
-  unsupported?: boolean
-}
+export type UseNetworkProps = {}
 
 export function useNetwork() {
+  const chains = useChains()
   const { chain } = useAccount()
-
-  const { chains, error, switchChain, status } = useSwitchChain()
-
-  const { config, remainingChains } = useChainConfig({
-    chainId: chain?.id || appConfig.networks.defaultChainId,
-  })
+  const { error, switchChain, status } = useSwitchChain()
 
   return {
-    error,
+    chain: chain as Chain | undefined,
+    chains: chains as [Chain, ...Chain[]],
     loading: status === 'pending',
+    error,
     status,
-    chains,
-    chain: chain as ChainConfig | undefined,
     switchChain,
-    config,
-    remainingChains,
   }
 }
 

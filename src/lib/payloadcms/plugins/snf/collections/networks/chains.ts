@@ -5,6 +5,7 @@ export type Chains = {
 }
 
 import { fields } from '../../fields'
+import { admins, anyone } from '../../utils/validateRole'
 
 export const chains = ({ collections }: Chains): Chains['collections'] => {
   const collectionsWithChain = [
@@ -18,18 +19,28 @@ export const chains = ({ collections }: Chains): Chains['collections'] => {
       typescript: {
         interface: `Chains`,
       },
+      disableDuplicate: true,
       admin: {
         useAsTitle: `name`,
         defaultColumns: ['name', 'testnet'],
         group: `Network`,
       },
-      fields: fields.chains(),
-      /// todo: change access
+      fields: fields.networks.chains({
+        fieldsBefore: [
+          ...fields.utils.slug({
+            slugFieldProps: {
+              fieldToFormat: 'name',
+              index: true,
+              unique: true,
+            },
+          }),
+        ],
+      }),
       access: {
-        read: () => true,
-        create: () => true,
-        update: () => true,
-        delete: () => true,
+        read: anyone,
+        create: admins,
+        update: admins,
+        delete: admins,
       },
     },
   ]

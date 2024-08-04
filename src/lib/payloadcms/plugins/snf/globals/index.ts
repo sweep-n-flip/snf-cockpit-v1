@@ -1,4 +1,5 @@
 import type { Config } from 'payload'
+import { providers } from './providers'
 import { settings } from './settings'
 
 export type Globals = {
@@ -7,4 +8,5 @@ export type Globals = {
 
 export const globals = {
   ...settings,
+  ...providers,
 }

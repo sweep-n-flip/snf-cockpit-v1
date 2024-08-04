@@ -1,7 +1,6 @@
 export * as Footer from './footer'
 export * as Header from './header'
 export * as Layouts from './layouts'
-export * as Logos from './logos'
 export * as Typography from './typography'
 export * as Nav from './nav'
 export * as Card from './card'

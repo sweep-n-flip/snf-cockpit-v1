@@ -1,7 +1,14 @@
 import type { CollectionConfig } from 'payload'
 
-export const blockExplorers = (): CollectionConfig['fields'] => {
+export type BlockExplorersParams = {
+  fieldsBefore?: CollectionConfig['fields']
+  fieldsAfter?: CollectionConfig['fields']
+}
+
+export const blockExplorers = (params?: BlockExplorersParams): CollectionConfig['fields'] => {
+  const { fieldsBefore = [], fieldsAfter = [] } = params || {}
   return [
+    ...fieldsBefore,
     {
       type: 'text',
       name: 'name',
@@ -24,16 +31,15 @@ export const blockExplorers = (): CollectionConfig['fields'] => {
       label: 'Logo',
       type: 'upload',
       relationTo: 'media',
+      required: true,
     },
     {
-      type: 'text',
-      name: 'slug',
-      label: 'Slug',
+      name: 'chain',
+      type: 'relationship',
+      relationTo: 'chains',
+      label: 'Chain',
       required: true,
-      unique: true,
-      admin: {
-        position: 'sidebar',
-      },
     },
+    ...fieldsAfter,
   ]
 }

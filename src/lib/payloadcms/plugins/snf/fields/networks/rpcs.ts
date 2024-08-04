@@ -1,7 +1,14 @@
 import type { CollectionConfig } from 'payload'
 
-export const rpcs = (): CollectionConfig['fields'] => {
+export type RpcsParams = {
+  fieldsAfter?: CollectionConfig['fields']
+  fieldsBefore?: CollectionConfig['fields']
+}
+
+export const rpcs = (params?: RpcsParams): CollectionConfig['fields'] => {
+  const { fieldsBefore = [], fieldsAfter = [] } = params || {}
   return [
+    ...fieldsBefore,
     {
       type: 'text',
       name: 'name',
@@ -45,14 +52,12 @@ export const rpcs = (): CollectionConfig['fields'] => {
       ],
     },
     {
-      type: 'text',
-      name: 'slug',
-      label: 'Slug',
-      unique: true,
+      name: 'chain',
+      type: 'relationship',
+      relationTo: 'chains',
+      label: 'Chain',
       required: true,
-      admin: {
-        position: 'sidebar',
-      },
     },
+    ...fieldsAfter,
   ]
 }

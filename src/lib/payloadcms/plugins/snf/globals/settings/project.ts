@@ -1,4 +1,5 @@
 import type { Config } from 'payload'
+import { admins, anyone } from '../../utils/validateRole'
 
 export type Project = {
   globals: Config['globals']
@@ -18,16 +19,16 @@ export const project = ({ globals }: Project): Project['globals'] => {
       admin: {
         group: `Settings`,
       },
-      /// todo: change access
       access: {
-        read: () => true,
-        update: () => true,
+        read: anyone,
+        update: admins,
       },
       fields: [
         {
           type: 'checkbox',
           name: 'testnet',
           label: 'Testnet Mode',
+          defaultValue: false,
           admin: {
             position: 'sidebar',
             description: `Enable testnet mode for the current environment`,
@@ -38,17 +39,53 @@ export const project = ({ globals }: Project): Project['globals'] => {
           label: 'Logo',
           type: 'upload',
           relationTo: 'media',
+          required: true,
         },
         {
           type: 'text',
           name: 'name',
           label: 'App Name',
+          defaultValue: process.env.DEFAULT_APP_NAME,
           required: true,
         },
         {
           type: 'text',
           name: 'description',
           label: 'App Description',
+          required: true,
+        },
+        {
+          type: 'text',
+          name: 'url',
+          label: 'App URL',
+          defaultValue: process.env.DEFAULT_APP_URL,
+          required: true,
+        },
+        {
+          type: 'group',
+          name: 'views',
+          fields: [
+            {
+              type: 'relationship',
+              name: 'defaultView',
+              label: 'Default View',
+              relationTo: 'pages',
+              required: true,
+            },
+          ],
+        },
+        {
+          type: 'group',
+          name: 'networks',
+          fields: [
+            {
+              type: 'relationship',
+              name: 'defaultChain',
+              label: 'Default Chain',
+              relationTo: 'chains',
+              required: true,
+            },
+          ],
         },
         {
           type: 'group',
@@ -58,6 +95,7 @@ export const project = ({ globals }: Project): Project['globals'] => {
               type: 'text',
               name: 'copyright',
               label: 'Copyright',
+              required: true,
             },
           ],
         },

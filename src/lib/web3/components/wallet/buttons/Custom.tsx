@@ -4,14 +4,13 @@ import { Default, DefaultProps } from '@/lib/ui/components/button/Default'
 import { useNetwork, useWallet } from '@/lib/web3/hooks'
 import { MouseEvent, ReactNode, useEffect, useMemo, useState } from 'react'
 import { useModal } from 'connectkit'
-import appConfig from '@/lib/config'
-import { ChainId } from '@/lib/web3/types/chain'
+import { Chain } from '@/lib/web3/types'
 
 export type CustomProps = DefaultProps & {
-  forceChainId?: ChainId
+  chainId: Chain['id']
 }
 
-export const Custom = ({ children, onClick, forceChainId, type, ...props }: CustomProps) => {
+export const Custom = ({ children, onClick, chainId, type, ...props }: CustomProps) => {
   const [text, setText] = useState<ReactNode>(<>Connect</>)
 
   const { setOpen } = useModal()
@@ -19,9 +18,8 @@ export const Custom = ({ children, onClick, forceChainId, type, ...props }: Cust
   const { isConnected, isConnecting, isReady } = useWallet()
 
   const mustSwitchChain = useMemo(
-    () =>
-      (isReady && isConnected && !chain) || (forceChainId && chain && chain.id !== forceChainId),
-    [chain, isReady, isConnected, forceChainId],
+    () => (isReady && isConnected && !chain) || (chainId && chain && chain.id !== chainId),
+    [chain, isReady, isConnected, chainId],
   )
 
   const buttonType = useMemo(() => {
@@ -39,7 +37,7 @@ export const Custom = ({ children, onClick, forceChainId, type, ...props }: Cust
     /// if must switch chain and switchChain is available, switch chain to default chain
     if (mustSwitchChain && switchChain) {
       switchChain({
-        chainId: forceChainId || appConfig.networks.defaultChainId,
+        chainId: chainId,
       })
       return
     }

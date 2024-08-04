@@ -61,7 +61,7 @@ export const upload = ({ collections }: Chains): Chains['collections'] => {
         ],
       }
 
-      collection.fields = fields.upload({
+      collection.fields = fields.media.upload({
         fields: collection.fields,
       })
     }

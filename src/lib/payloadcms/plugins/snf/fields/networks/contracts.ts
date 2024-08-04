@@ -1,9 +1,16 @@
 import type { CollectionConfig } from 'payload'
 
-export const contracts = (): CollectionConfig['fields'] => {
+export type ContractsParams = {
+  fieldsBefore?: CollectionConfig['fields']
+  fieldsAfter?: CollectionConfig['fields']
+}
+
+export const contracts = (params?: ContractsParams): CollectionConfig['fields'] => {
+  const { fieldsBefore = [], fieldsAfter = [] } = params || {}
   return [
+    ...fieldsBefore,
+
     {
-      unique: true,
       name: 'address',
       label: 'Address',
       type: 'text',
@@ -21,14 +28,18 @@ export const contracts = (): CollectionConfig['fields'] => {
       type: 'number',
     },
     {
-      type: 'text',
-      name: 'slug',
-      label: 'Slug',
-      unique: true,
+      type: 'textarea',
+      name: 'abi',
+      label: 'ABI',
       required: true,
-      admin: {
-        position: 'sidebar',
-      },
     },
+    {
+      name: 'chain',
+      type: 'relationship',
+      relationTo: 'chains',
+      label: 'Chain',
+      required: true,
+    },
+    ...fieldsAfter,
   ]
 }

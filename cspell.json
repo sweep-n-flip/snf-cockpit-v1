@@ -28,7 +28,10 @@
     "payloadcms",
     "filesize",
     "RPCS",
-    "rpcs"
+    "rpcs",
+    "slugfy",
+    "Moralis",
+    "moralis"
   ],
   "import": []
 }

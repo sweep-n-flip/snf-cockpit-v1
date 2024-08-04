@@ -1,13 +1,15 @@
 'use client'
 import { Children, HTMLProps } from 'react'
-import { useChainConfig, useNetwork } from '@/lib/web3/hooks'
+import { useNetwork } from '@/lib/web3/hooks'
 import { Network } from './Network'
+import { filter } from 'lodash'
 
 export type NetworksProps = HTMLProps<HTMLUListElement> & {}
 
 export const Networks = (props: NetworksProps) => {
-  const { chain } = useNetwork()
-  const { remainingChains } = useChainConfig({ chainId: chain?.id })
+  const { chain, chains } = useNetwork()
+
+  const remainingChains = filter(chains, (chainToCheck) => chainToCheck.id !== chain?.id)
 
   return (
     <ul {...props}>
@@ -20,7 +22,7 @@ export const Networks = (props: NetworksProps) => {
       </li>
       {Children.toArray(
         remainingChains.map((remainingChain) => (
-          <li>
+          <li key={remainingChain.id}>
             <Network
               currentChain={chain}
               chain={remainingChain}
