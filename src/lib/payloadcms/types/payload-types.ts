@@ -8,524 +8,525 @@
 
 export interface Config {
   auth: {
-    users: UserAuthOperations
-  }
+    users: UserAuthOperations;
+  };
   collections: {
-    users: User
-    media: Media
-    chains: Chains
-    rpcs: RPCS
-    marketplaces: Marketplaces
-    contracts: Contracts
-    block_explorers: BlockExplorers
-    collections: Collections
-    pages: Pages
-    bridge_widgets: BridgeWidgets
-    bridge_categories: BridgeCategories
-    'payload-preferences': PayloadPreference
-    'payload-migrations': PayloadMigration
-  }
+    users: User;
+    media: Media;
+    chains: Chains;
+    rpcs: RPCS;
+    marketplaces: Marketplaces;
+    contracts: Contracts;
+    block_explorers: BlockExplorers;
+    collections: Collections;
+    pages: Pages;
+    bridge_widgets: BridgeWidgets;
+    bridge_categories: BridgeCategories;
+    'payload-preferences': PayloadPreference;
+    'payload-migrations': PayloadMigration;
+  };
   db: {
-    defaultIDType: string
-  }
+    defaultIDType: string;
+  };
   globals: {
-    project: Project
-    evm: Evm
-    layer_zero: LayerZero
-    cmc: Cmc
-    moralis: Moralis
-    opensea: Opensea
-    reservoir: Reservoir
-    alchemy: Alchemy
-  }
-  locale: null
+    project: Project;
+    evm: Evm;
+    layer_zero: LayerZero;
+    cmc: Cmc;
+    moralis: Moralis;
+    opensea: Opensea;
+    reservoir: Reservoir;
+    alchemy: Alchemy;
+  };
+  locale: null;
   user: User & {
-    collection: 'users'
-  }
+    collection: 'users';
+  };
 }
 export interface UserAuthOperations {
   forgotPassword: {
-    email: string
-  }
+    email: string;
+  };
   login: {
-    email: string
-    password: string
-  }
+    email: string;
+    password: string;
+  };
   registerFirstUser: {
-    email: string
-    password: string
-  }
+    email: string;
+    password: string;
+  };
   unlock: {
-    email: string
-  }
+    email: string;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
-  id: string
-  name?: string | null
-  alias?: string | null
-  roles?: ('admin' | 'user')[] | null
-  updatedAt: string
-  createdAt: string
-  email: string
-  resetPasswordToken?: string | null
-  resetPasswordExpiration?: string | null
-  salt?: string | null
-  hash?: string | null
-  loginAttempts?: number | null
-  lockUntil?: string | null
-  password?: string | null
+  id: string;
+  name?: string | null;
+  alias?: string | null;
+  roles?: ('admin' | 'user')[] | null;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
-  id: string
-  alt: string
-  caption?: string | null
-  updatedAt: string
-  createdAt: string
-  url?: string | null
-  thumbnailURL?: string | null
-  filename?: string | null
-  mimeType?: string | null
-  filesize?: number | null
-  width?: number | null
-  height?: number | null
-  focalX?: number | null
-  focalY?: number | null
+  id: string;
+  alt: string;
+  caption?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
   sizes?: {
     icon?: {
-      url?: string | null
-      width?: number | null
-      height?: number | null
-      mimeType?: string | null
-      filesize?: number | null
-      filename?: string | null
-    }
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
     thumbnail?: {
-      url?: string | null
-      width?: number | null
-      height?: number | null
-      mimeType?: string | null
-      filesize?: number | null
-      filename?: string | null
-    }
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
     small?: {
-      url?: string | null
-      width?: number | null
-      height?: number | null
-      mimeType?: string | null
-      filesize?: number | null
-      filename?: string | null
-    }
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
     medium?: {
-      url?: string | null
-      width?: number | null
-      height?: number | null
-      mimeType?: string | null
-      filesize?: number | null
-      filename?: string | null
-    }
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
     large?: {
-      url?: string | null
-      width?: number | null
-      height?: number | null
-      mimeType?: string | null
-      filesize?: number | null
-      filename?: string | null
-    }
-  }
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "chains".
  */
 export interface Chains {
-  id: string
-  slug: string
-  chainId: number
-  name: string
-  testnet?: boolean | null
+  id: string;
+  slug: string;
+  chainId: number;
+  name: string;
+  testnet?: boolean | null;
   nativeCurrency: {
-    name: string
-    symbol: string
-    decimals: number
-    address: string
-  }
+    name: string;
+    symbol: string;
+    decimals: number;
+    address: string;
+  };
   custom: {
-    logo: string | Media
-  }
-  updatedAt: string
-  createdAt: string
+    logo: string | Media;
+  };
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "rpcs".
  */
 export interface RPCS {
-  id: string
-  slug: string
-  name: string
+  id: string;
+  slug: string;
+  name: string;
   http: {
-    url: string
-    id?: string | null
-  }[]
+    url: string;
+    id?: string | null;
+  }[];
   webSocket?:
     | {
-        url: string
-        id?: string | null
+        url: string;
+        id?: string | null;
       }[]
-    | null
-  chain: string | Chains
-  updatedAt: string
-  createdAt: string
+    | null;
+  chain: string | Chains;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "marketplaces".
  */
 export interface Marketplaces {
-  id: string
-  slug: string
-  name: string
-  url: string
-  urlTokenIdPath: string
-  urlTokenPath: string
-  logo: string | Media
-  chain: string | Chains
-  updatedAt: string
-  createdAt: string
+  id: string;
+  slug: string;
+  name: string;
+  url: string;
+  urlTokenIdPath: string;
+  urlTokenPath: string;
+  logo: string | Media;
+  chain: string | Chains;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "contracts".
  */
 export interface Contracts {
-  id: string
-  slug: string
-  address: string
-  name: string
-  blockCreated?: number | null
-  abi: string
-  chain: string | Chains
-  updatedAt: string
-  createdAt: string
+  id: string;
+  slug: string;
+  address: string;
+  name: string;
+  blockCreated?: number | null;
+  abi: string;
+  chain: string | Chains;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "block_explorers".
  */
 export interface BlockExplorers {
-  id: string
-  slug: string
-  name: string
-  url: string
-  apiUrl?: string | null
-  logo: string | Media
-  chain: string | Chains
-  updatedAt: string
-  createdAt: string
+  id: string;
+  slug: string;
+  name: string;
+  url: string;
+  apiUrl?: string | null;
+  logo: string | Media;
+  chain: string | Chains;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "collections".
  */
 export interface Collections {
-  id: string
-  slug: string
-  address: string
-  chain: string | Chains
-  name: string
-  symbol: string
+  id: string;
+  slug: string;
+  address: string;
+  chain: string | Chains;
+  name: string;
+  symbol: string;
   description?: {
     root: {
-      type: string
+      type: string;
       children: {
-        type: string
-        version: number
-        [k: string]: unknown
-      }[]
-      direction: ('ltr' | 'rtl') | null
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
-      indent: number
-      version: number
-    }
-    [k: string]: unknown
-  } | null
-  updatedAt: string
-  createdAt: string
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
 export interface Pages {
-  id: string
-  slug: string
-  title: string
-  excerpt: string
-  publishedDate?: string | null
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  publishedDate?: string | null;
   layout?:
     | {
-        widget?: (string | null) | BridgeWidgets
-        id?: string | null
-        blockName?: string | null
-        blockType: 'bridges'
+        widget?: (string | null) | BridgeWidgets;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'bridges';
       }[]
-    | null
+    | null;
   meta?: {
-    title?: string | null
-    description?: string | null
-    image?: string | Media | null
-  }
-  updatedAt: string
-  createdAt: string
+    title?: string | null;
+    description?: string | null;
+    image?: string | Media | null;
+  };
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "bridge_widgets".
  */
 export interface BridgeWidgets {
-  id: string
-  slug: string
-  name: string
-  title: string
-  description?: string | null
+  id: string;
+  slug: string;
+  name: string;
+  title: string;
+  description?: string | null;
   setup: {
-    category: string | BridgeCategories
-    version: number
-  }
+    category: string | BridgeCategories;
+    version: number;
+  };
   routing: {
     paths: {
-      sourceChain: string | Chains
-      sourceContract: string | Contracts
-      targetChain: string | Chains
-      id?: string | null
-    }[]
-  }
-  updatedAt: string
-  createdAt: string
+      sourceChain: string | Chains;
+      sourceContract: string | Contracts;
+      targetChain: string | Chains;
+      id?: string | null;
+    }[];
+  };
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "bridge_categories".
  */
 export interface BridgeCategories {
-  id: string
-  slug: string
-  name: string
-  description?: string | null
-  updatedAt: string
-  createdAt: string
+  id: string;
+  slug: string;
+  name: string;
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: string
+  id: string;
   user: {
-    relationTo: 'users'
-    value: string | User
-  }
-  key?: string | null
+    relationTo: 'users';
+    value: string | User;
+  };
+  key?: string | null;
   value?:
     | {
-        [k: string]: unknown
+        [k: string]: unknown;
       }
     | unknown[]
     | string
     | number
     | boolean
-    | null
-  updatedAt: string
-  createdAt: string
+    | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: string
-  name?: string | null
-  batch?: number | null
-  updatedAt: string
-  createdAt: string
+  id: string;
+  name?: string | null;
+  batch?: number | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "project".
  */
 export interface Project {
-  id: string
-  testnet?: boolean | null
-  logo: string | Media
-  name: string
-  description: string
-  url: string
+  id: string;
+  testnet?: boolean | null;
+  logo: string | Media;
+  name: string;
+  description: string;
+  url: string;
   views: {
-    defaultView: string | Pages
-  }
+    defaultView: string | Pages;
+  };
   networks: {
-    defaultChain: string | Chains
-  }
+    defaultChain: string | Chains;
+  };
   footer: {
-    copyright: string
-  }
-  updatedAt?: string | null
-  createdAt?: string | null
+    copyright: string;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "evm".
  */
 export interface Evm {
-  id: string
-  chains: (string | Chains)[]
-  updatedAt?: string | null
-  createdAt?: string | null
+  id: string;
+  chains: (string | Chains)[];
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "layer_zero".
  */
 export interface LayerZero {
-  id: string
+  id: string;
   networks?:
     | {
-        chain: string | Chains
-        abstractChainId: number
-        id?: string | null
+        chain: string | Chains;
+        abstractChainId: number;
+        id?: string | null;
       }[]
-    | null
-  updatedAt?: string | null
-  createdAt?: string | null
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "cmc".
  */
 export interface Cmc {
-  id: string
+  id: string;
   networks?:
     | {
-        chain: string | Chains
-        chainSlug: string
-        apiKey: string
-        apiUrl: string
-        id?: string | null
+        chain: string | Chains;
+        chainSlug: string;
+        apiKey: string;
+        apiUrl: string;
+        id?: string | null;
       }[]
-    | null
+    | null;
   endpoints?:
     | {
-        type: 'quote'
-        path: string
-        slugPath: string
-        id?: string | null
+        type: 'quote';
+        path: string;
+        slugPath: string;
+        id?: string | null;
       }[]
-    | null
-  updatedAt?: string | null
-  createdAt?: string | null
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "moralis".
  */
 export interface Moralis {
-  id: string
+  id: string;
   networks?:
     | {
-        chain: string | Chains
-        apiKey: string
-        evmChainKey: string
-        maxRetries: number
-        id?: string | null
+        chain: string | Chains;
+        apiKey: string;
+        evmChainKey: string;
+        maxRetries: number;
+        id?: string | null;
       }[]
-    | null
-  updatedAt?: string | null
-  createdAt?: string | null
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "opensea".
  */
 export interface Opensea {
-  id: string
+  id: string;
   networks?:
     | {
-        chain: string | Chains
-        apiKey: string
-        apiUrl: string
-        chainSlug: string
-        id?: string | null
+        chain: string | Chains;
+        apiKey: string;
+        apiUrl: string;
+        chainSlug: string;
+        id?: string | null;
       }[]
-    | null
+    | null;
   endpoints?:
     | {
-        type: 'nfts_by_account' | 'nfts_by_collection_slug'
-        path: string
-        slugPath: string
-        id?: string | null
+        type: 'nfts_by_account' | 'nfts_by_collection_slug';
+        path: string;
+        slugPath: string;
+        id?: string | null;
       }[]
-    | null
-  updatedAt?: string | null
-  createdAt?: string | null
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "reservoir".
  */
 export interface Reservoir {
-  id: string
+  id: string;
   networks?:
     | {
-        chain: string | Chains
-        apiKey: string
-        apiUrl: string
-        id?: string | null
+        chain: string | Chains;
+        apiKey: string;
+        apiUrl: string;
+        id?: string | null;
       }[]
-    | null
+    | null;
   endpoints?:
     | {
-        type: 'users'
-        version: 'v4' | 'v10'
-        path: string
-        slugPath: string
-        id?: string | null
+        type: 'users';
+        version: 'v4' | 'v10';
+        path: string;
+        slugPath: string;
+        id?: string | null;
       }[]
-    | null
-  updatedAt?: string | null
-  createdAt?: string | null
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "alchemy".
  */
 export interface Alchemy {
-  id: string
+  id: string;
   networks?:
     | {
-        chain: string | Chains
-        apiKey: string
-        evmChainKey: string
-        id?: string | null
+        chain: string | Chains;
+        apiKey: string;
+        evmChainKey: string;
+        id?: string | null;
       }[]
-    | null
-  updatedAt?: string | null
-  createdAt?: string | null
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auth".
  */
 export interface Auth {
-  [k: string]: unknown
+  [k: string]: unknown;
 }
+
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}
