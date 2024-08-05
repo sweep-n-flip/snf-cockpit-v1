@@ -14,9 +14,8 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
-  /// todo: setup cors and csrf
-  /// csrf
-  //  cors
+  cors: [process.env.NEXT_PUBLIC_HEADLESS_API_URI!],
+  csrf: [process.env.NEXT_PUBLIC_HEADLESS_API_URI!],
   admin: {
     user: Users.slug,
   },
