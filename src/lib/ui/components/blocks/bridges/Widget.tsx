@@ -1,12 +1,31 @@
-import { BridgeWidgets } from '@/lib/payloadcms/types/payload-types'
+import { BridgeWidgets, Chains } from '@/lib/payloadcms/types/payload-types'
 import { Card, Typography } from '@/lib/ui/components'
+import Form from '@/lib/ui/components/blocks/bridges/form/Form'
+import { useMemo } from 'react'
 
 export type WidgetProps = {
   widget?: (string | null) | BridgeWidgets
 }
 
 export const Widget = ({ widget }: WidgetProps) => {
-  const { title, description, setup } = (widget || {}) as Partial<BridgeWidgets>
+  const { title, description, setup, routing } = (widget || {}) as Partial<BridgeWidgets>
+
+  // Get the source and target chains
+  const { sourceChains, targetChains } = useMemo(() => {
+    // Map the chains from the paths
+    const sourceChains = routing?.paths.map((path) => {
+      return path.sourceChain as Chains
+    })
+
+    const targetChains = routing?.paths.map((path) => {
+      return path.targetChain as Chains
+    })
+
+    return {
+      sourceChains: sourceChains ?? [],
+      targetChains: targetChains ?? [],
+    }
+  }, [routing?.paths])
 
   return (
     <div className="flex h-full items-center justify-center">
@@ -28,6 +47,7 @@ export const Widget = ({ widget }: WidgetProps) => {
             {description && <Typography.Paragraph>{description}</Typography.Paragraph>}
           </div>
         </Card.Default>
+        <Form sourceChains={sourceChains} targetChains={targetChains} />
         <div className="text-center">
           {setup?.version && (
             <Typography.Paragraph size="xs" className="text-gray-400">
