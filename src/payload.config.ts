@@ -20,7 +20,10 @@ export default buildConfig({
     user: Users.slug,
   },
   graphQL: {
-    schemaOutputFile: path.resolve(dirname, 'lib/payloadcms/graphql/schemas/default.graphql'),
+    schemaOutputFile: path.resolve(
+      dirname,
+      'lib/payloadcms/plugins/snf/graphql/schemas/default.graphql',
+    ),
   },
   collections: [Users, Media],
   editor: lexicalEditor(),
