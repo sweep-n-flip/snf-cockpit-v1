@@ -1,5 +1,4 @@
 import { Address } from 'viem'
-import { Chains } from '@/lib/payloadcms/types/payload-types'
 
 export enum TokenType {
   TokenIn = 'tokenIn',
@@ -8,7 +7,7 @@ export enum TokenType {
 
 export type FormDataType = {
   [key in TokenType]: {
-    chain: Chains
+    chainId: number
     collectionAddress: Address
     tokenIds: (Address | string | number)[]
   }

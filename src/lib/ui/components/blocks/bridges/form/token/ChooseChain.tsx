@@ -14,12 +14,12 @@ import {
 } from '@/lib/ui/components/blocks/bridges/utils/constants/fields'
 import { Chains } from '@/lib/payloadcms/types/payload-types'
 
-export type ChooseChainIdProps = {
+export type ChooseChainProps = {
   tokenType: TokenType
   chains: Chains[]
 }
 
-export const ChooseChainId = ({ tokenType, chains }: ChooseChainIdProps) => {
+export const ChooseChain = ({ tokenType, chains }: ChooseChainProps) => {
   const idLocal = tokenType === TokenType.TokenIn ? CHAIN_ID_IN : CHAIN_ID_OUT
   const idRemote = tokenType === TokenType.TokenOut ? CHAIN_ID_IN : CHAIN_ID_OUT
 
@@ -65,4 +65,4 @@ export const ChooseChainId = ({ tokenType, chains }: ChooseChainIdProps) => {
   )
 }
 
-export default ChooseChainId
+export default ChooseChain

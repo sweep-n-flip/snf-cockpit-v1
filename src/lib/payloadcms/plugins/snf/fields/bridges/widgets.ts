@@ -66,33 +66,6 @@ export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
               if (category === undefined) {
                 return 'Category is required'
               }
-
-              const latestVersion = await req.payload.find({
-                collection: 'bridge_widgets',
-                limit: 1,
-                sort: '-setup.version',
-                where: {
-                  'setup.category': {
-                    equals: category,
-                  },
-                },
-              })
-
-              if (latestVersion.totalDocs === 0) {
-                if (value !== 1) {
-                  return 'Version must be 1'
-                }
-
-                return true
-              }
-
-              const latestVersionNumber = latestVersion.docs[0]?.setup.version || 0
-
-              if (value <= latestVersionNumber) {
-                return 'Version must be greater than the latest version'
-              }
-
-              return true
             }
 
             return true
@@ -113,7 +86,7 @@ export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
           required: true,
           access: {
             create: admins,
-            update: noOne,
+            update: admins,
             read: anyone,
           },
           /**

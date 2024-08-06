@@ -20,7 +20,8 @@ import {
 } from '@/lib/ui/components/blocks/bridges/utils/constants/fields'
 
 import { Rangebar } from '@/lib/ui/components/blocks/bridges/form/token'
-import { useChain } from '@/lib/ui/components/blocks/bridges/hooks/useChain'
+import { useNetwork } from '@/lib/web3'
+import { find } from 'lodash'
 
 export type ChooseTokenIdsProps = {
   tokenType: TokenType
@@ -44,7 +45,8 @@ export const ChooseTokenIds = ({ tokenType, tokens, loading }: ChooseTokenIdsPro
 
   const collectionDetails = useMemo(() => tokens?.[0], [tokens])
 
-  const { chain: chainIn } = useChain(chainIdInValue)
+  const { chains } = useNetwork()
+  const { chain: chainIn } = find(chains, { chainId: chainIdInValue }) || {}
 
   const handleOpenModal = () => {
     setIsModalOpen(true)

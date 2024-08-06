@@ -10,7 +10,7 @@ import {
   Rangebar,
   AssetValues,
 } from '@/lib/ui/components/blocks/bridges/form/token'
-import { ChooseChainIdProps } from '@/lib/ui/components/blocks/bridges/form/token/ChooseChainId'
+import { ChooseChainProps } from '@/lib/ui/components/blocks/bridges/form/token/ChooseChain'
 import { TokenType } from '@/lib/ui/components/blocks/bridges/types/bridge'
 import { useFormContext } from 'react-hook-form'
 import { COLLECTION_ADDRESS_IN } from '@/lib/ui/components/blocks/bridges/utils/constants/fields'
@@ -18,7 +18,7 @@ import gt from 'lodash/gt'
 
 export type FieldProps = {
   tokenType: TokenType
-  chains: ChooseChainIdProps['chains']
+  chains: ChooseChainProps['chains']
   collections: ERC721Collections
   tokens: ERC721Tokens
   loading?: boolean

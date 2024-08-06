@@ -45,9 +45,11 @@ export const Widget = ({ widget }: WidgetProps) => {
             )}
 
             {description && <Typography.Paragraph>{description}</Typography.Paragraph>}
+
+            <Form sourceChains={sourceChains} targetChains={targetChains} />
           </div>
         </Card.Default>
-        <Form sourceChains={sourceChains} targetChains={targetChains} />
+
         <div className="text-center">
           {setup?.version && (
             <Typography.Paragraph size="xs" className="text-gray-400">
