@@ -1,6 +1,6 @@
 import { ApolloClient, InMemoryCache, ApolloLink } from '@apollo/client'
 import { RetryLink } from '@apollo/client/link/retry'
-import { httpClient } from '@/lib/services/api/clients/client'
+import { httpServer } from '@/lib/services/api/clients/server'
 
 const retryLink = new RetryLink({
   delay: {
@@ -16,13 +16,13 @@ const retryLink = new RetryLink({
   },
 })
 
-const link = ApolloLink.from([httpClient, retryLink])
+const link = ApolloLink.from([httpServer, retryLink])
 const cache = new InMemoryCache()
 
-export const client = new ApolloClient({
-  ssrMode: false,
+export const serverClient = new ApolloClient({
+  ssrMode: true,
   link,
   cache,
 })
 
-export default client
+export default serverClient
