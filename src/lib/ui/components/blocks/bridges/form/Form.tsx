@@ -37,7 +37,6 @@ export const Form = ({ sourceChains, targetChains }: FormProps) => {
   const { errors } = formState
 
   const chainIdInValue = watch(CHAIN_ID_IN)
-  const chainIdOutValue = watch(CHAIN_ID_OUT)
   const collectionAddressInValue = watch(COLLECTION_ADDRESS_IN)
 
   const { collections, loading: loadingCollections } = useGetERC721CollectionsByAddress({
@@ -47,14 +46,14 @@ export const Form = ({ sourceChains, targetChains }: FormProps) => {
 
   const { tokens, loading: tokensLoading } = useGetERC721TokensByAddress({
     address,
-    chainId: chainIdOutValue,
+    chainId: chainIdInValue,
     collectionAddress: collectionAddressInValue,
     skip: !collectionAddressInValue,
   })
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log(event.target.value)
+    console.log(methods.getValues())
   }
 
   return (
