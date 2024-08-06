@@ -5,7 +5,6 @@ import { ReactNode, useEffect, useMemo, useState } from 'react'
 import { TokenType, BridgeStep } from '@/lib/ui/components/blocks/bridges/types/bridge'
 import { useWallet } from '@/lib/web3'
 import { useStep, useToggle } from 'usehooks-ts'
-import { useGetBridgeTransactionStatus } from '@/lib/services/api/entities/bridge/hooks/useGetBridgeTransactionStatus'
 import { Address } from 'viem'
 import { BridgeStatus } from '@/lib/services/api/entities/bridge/types'
 import { DEFAULT_FORM_STATE } from '@/lib/ui/components/blocks/bridges/utils/constants/form'
@@ -15,6 +14,9 @@ import { Steps } from '@/lib/ui/components/blocks/bridges/form/checkout'
 import { ERC721Tokens, ERC721Collections } from '@/lib/services/api/entities/ERC721/types'
 import classNames from 'classnames'
 import { Chains } from '@/lib/payloadcms/types/payload-types'
+import useBridge from '@/lib/ui/components/blocks/bridges/hooks/useBridge'
+import { useErc721IsApprovedForAll } from '@/lib/ui/components/blocks/bridges/hooks/useErc721IsApprovedForAll'
+import useErc721SetApprovalForAll from '@/lib/ui/components/blocks/bridges/hooks/useErc721SetApprovalForAll'
 
 export type BridgeData = {
   [key in TokenType]: {
@@ -33,42 +35,66 @@ export type ModalProps = {
   onCloseAfterBridge?: () => void
   tokens: ERC721Tokens
   collections: ERC721Collections
+  bridgeAddress?: Address
 }
 
-export const Modal = ({ children, onCloseAfterBridge, tokens, collections }: ModalProps) => {
+export const Modal = ({
+  children,
+  onCloseAfterBridge,
+  tokens,
+  collections,
+  bridgeAddress,
+}: ModalProps) => {
   const { address } = useWallet()
   const [isModalOpen, , setIsModalOpen] = useToggle()
 
-  const [formData, setFormaData] = useState<BridgeData>(DEFAULT_FORM_STATE)
+  const [formData, setFormData] = useState<BridgeData>(DEFAULT_FORM_STATE)
 
   const tokenInChain = useMemo(() => formData[TokenType.TokenIn].chain, [formData])
   const tokenOutChain = useMemo(() => formData[TokenType.TokenOut].chain, [formData])
 
   const {
-    getData: getBridgeTransactionStatus,
-    status: bridgeTransactionStatus,
-    loading: bridgeTransactionStatusLoading,
-  } = useGetBridgeTransactionStatus({
-    chainId: tokenInChain.chainId,
+    bridge,
+    loading: isBridgeLoading,
+    isBridgeDone,
     transactionHash,
+  } = useBridge({
+    collectionAddress: formData[TokenType.TokenIn].collectionAddress,
+    tokenIds: formData[TokenType.TokenIn].tokenIds,
+    bridgeAddress,
+    toChainId: formData[TokenType.TokenOut].chain.chainId,
+  })
+
+  const { isApprovedForAll, loading: getER721IsApprovedForAllLoading } = useErc721IsApprovedForAll({
+    operator: bridgeAddress,
+    contractAddress: formData[TokenType.TokenIn].collectionAddress,
+    // TODO: add erc721 abi
+    contractABI: '',
+    owner: address,
+  })
+
+  const {
+    approve,
+    loading: isApproveLoading,
+    isApprovalSet,
+  } = useErc721SetApprovalForAll({
+    collectionAddress: formData[TokenType.TokenIn].collectionAddress,
+    operator: bridgeAddress,
   })
 
   /// steps handler
   const [currentStep, helpers] = useStep(TOTAL_STEPS)
   const { goToNextStep, reset: resetSteps, goToPrevStep, setStep } = helpers
 
-  const isTransactionPending =
-    bridgeTransactionStatusLoading || bridgeTransactionStatus === BridgeStatus.Confirming
-
   const resetState = () => {
     resetSteps()
-    setFormaData(DEFAULT_FORM_STATE)
+    setFormData(DEFAULT_FORM_STATE)
   }
 
   const handleOpenBridge = (data: BridgeData) => {
     resetState()
     setIsModalOpen(true)
-    setFormaData((prev) => ({ ...prev, ...data }))
+    setFormData((prev) => ({ ...prev, ...data }))
   }
 
   const handleCloseBridge = () => {
@@ -80,7 +106,7 @@ export const Modal = ({ children, onCloseAfterBridge, tokens, collections }: Mod
   }
 
   const handleStepBack = () => {
-    const isSkipApproval = currentStep === BridgeStep.Bridge && isApprovedForAll
+    const isSkipApproval = currentStep === BridgeStep.Bridge && isBridgeDone
 
     if (isSkipApproval) {
       setStep(BridgeStep.Details)
@@ -108,39 +134,36 @@ export const Modal = ({ children, onCloseAfterBridge, tokens, collections }: Mod
   }
 
   useEffect(() => {
-    const alreadyApprovedForAll = isApprovedForAll && currentStep === BridgeStep.Approve
+    const alreadyApprovedForAll = isBridgeDone && currentStep === BridgeStep.Approve
 
     if (alreadyApprovedForAll) {
       goToNextStep()
     }
-  }, [goToNextStep, currentStep, isApprovedForAll])
+  }, [goToNextStep, currentStep, isBridgeDone])
 
   useEffect(() => {
-    const isApprovedForAllTransactionConfirmed =
-      currentStep === BridgeStep.Approve && isTransactionSeattleForIsApprovedForAll
+    const isApprovedForAllTransactionConfirmed = currentStep === BridgeStep.Approve && isApprovalSet
 
     if (isApprovedForAllTransactionConfirmed) {
       refetch()
     }
-  }, [isTransactionSeattleForIsApprovedForAll, currentStep, refetch])
+  }, [isApprovalSet, currentStep, refetch])
 
   useEffect(() => {
-    const isBridgeTransactionConfirmed =
-      isTransactionSeattleForBridge && currentStep === BridgeStep.Bridge
+    const isBridgeTransactionConfirmed = isBridgeDone && currentStep === BridgeStep.Bridge
 
     if (isBridgeTransactionConfirmed) {
       goToNextStep()
     }
-  }, [goToNextStep, currentStep, isTransactionSeattleForBridge])
+  }, [goToNextStep, currentStep, isBridgeDone])
 
   useEffect(() => {
-    const isTransactionStatusAvailable =
-      currentStep === BridgeStep.Success && isTransactionSeattleForBridge
+    const isTransactionStatusAvailable = currentStep === BridgeStep.Success && isBridgeDone
 
     if (isTransactionStatusAvailable) {
       getBridgeTransactionStatus()
     }
-  }, [currentStep, getBridgeTransactionStatus, isTransactionSeattleForBridge])
+  }, [currentStep, getBridgeTransactionStatus, isBridgeDone])
 
   return (
     <>
@@ -158,7 +181,7 @@ export const Modal = ({ children, onCloseAfterBridge, tokens, collections }: Mod
             !isApproveLoading &&
             !isBridgeLoading &&
             !getER721IsApprovedForAllLoading &&
-            !isTransactionPending
+            isApprovalSet
           }
         >
           <Steps.Default
