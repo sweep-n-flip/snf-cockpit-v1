@@ -1,27 +1,11 @@
-import { ApolloClient, InMemoryCache, ApolloLink } from '@apollo/client'
-import { RetryLink } from '@apollo/client/link/retry'
+import { ApolloClient, InMemoryCache } from '@apollo/client'
 import { httpClient } from '@/lib/services/api/clients/client'
 
-const retryLink = new RetryLink({
-  delay: {
-    initial: 1000,
-    max: Infinity,
-    jitter: true,
-  },
-  attempts: {
-    max: 20,
-    retryIf: (error) => {
-      return !!error
-    },
-  },
-})
-
-const link = ApolloLink.from([httpClient, retryLink])
 const cache = new InMemoryCache()
 
 export const client = new ApolloClient({
-  ssrMode: false,
-  link,
+  ssrMode: typeof window === 'undefined',
+  link: httpClient,
   cache,
 })
 
