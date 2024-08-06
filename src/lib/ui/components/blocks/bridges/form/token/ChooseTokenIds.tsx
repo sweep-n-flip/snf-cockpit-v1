@@ -2,9 +2,8 @@
 import { Children, useEffect, useMemo } from 'react'
 import { Default as Modal } from '@/lib/ui/components/modal/Default'
 import { Button, Typography } from '@/lib/ui/components'
-import { TokenType } from '@/lib/bridge/types/bridge'
+import { TokenType } from '@/lib/ui/components/blocks/bridges/types/bridge'
 import { useFormContext } from 'react-hook-form'
-import { useChainConfig } from '@/lib/web3'
 import { useIsomorphicLayoutEffect, useToggle } from 'usehooks-ts'
 import Image from 'next/image'
 import gt from 'lodash/gt'
@@ -18,9 +17,10 @@ import {
   TOKEN_IDS_IN,
   TOKEN_IDS_OUT,
   COLLECTION_ADDRESS_IN,
-} from '@/lib/bridge/utils/constants/fields'
+} from '@/lib/ui/components/blocks/bridges/utils/constants/fields'
 
-import { Rangebar } from '@/lib/bridge/components/widget/form/token'
+import { Rangebar } from '@/lib/ui/components/blocks/bridges/form/token'
+import { useChain } from '@/lib/ui/components/blocks/bridges/hooks/useChain'
 
 export type ChooseTokenIdsProps = {
   tokenType: TokenType
@@ -42,11 +42,9 @@ export const ChooseTokenIds = ({ tokenType, tokens, loading }: ChooseTokenIdsPro
 
   const chainIdInValue = watch(CHAIN_ID_IN)
 
-  const { config: chainConfig } = useChainConfig({
-    chainId: chainIdInValue,
-  })
-
   const collectionDetails = useMemo(() => tokens?.[0], [tokens])
+
+  const { chain: chainIn } = useChain(chainIdInValue)
 
   const handleOpenModal = () => {
     setIsModalOpen(true)
@@ -130,10 +128,10 @@ export const ChooseTokenIds = ({ tokenType, tokens, loading }: ChooseTokenIdsPro
       <Modal
         title={collectionDetails?.collectionName || 'Choose NFTs'}
         description={
-          chainConfig ? (
+          chainIn ? (
             <div className="flex items-center space-x-1">
-              <Chain chainId={chainIdInValue} />
-              <Typography.Paragraph size="sm">{chainConfig.name}</Typography.Paragraph>
+              <Chain chainId={chainIn?.chainId} />
+              <Typography.Paragraph size="sm">{chainIn.name}</Typography.Paragraph>
             </div>
           ) : undefined
         }

@@ -1,4 +1,4 @@
-import { BridgeStep } from '@/lib/bridge/types/bridge'
+import { BridgeStep } from '@/lib/ui/components/blocks/bridges/types/bridge'
 
 export const STEPS_DATA = [
   {

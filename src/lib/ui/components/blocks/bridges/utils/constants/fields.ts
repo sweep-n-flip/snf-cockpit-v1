@@ -1,4 +1,4 @@
-import { TokenType } from '@/lib/bridge/types/bridge'
+import { TokenType } from '@/lib/ui/components/blocks/bridges/types/bridge'
 
 export const CHAIN = 'chain'
 

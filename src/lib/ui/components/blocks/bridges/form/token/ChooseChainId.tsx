@@ -1,19 +1,22 @@
 'use client'
 
 import { Modal, Option } from '@/lib/ui/components/select/Modal'
-import { TokenType } from '@/lib/bridge/types/bridge'
-import { Chain } from '@/lib/web3/types/chain'
+import { TokenType } from '@/lib/ui/components/blocks/bridges/types/bridge'
 import { Chain as ChainComponent } from '@/lib/web3/components/icons/chains/Chain'
 import { useFormContext } from 'react-hook-form'
 import { useIsomorphicLayoutEffect } from 'usehooks-ts'
 import classNames from 'classnames'
 import gt from 'lodash/gt'
 
-import { CHAIN_ID_IN, CHAIN_ID_OUT } from '@/lib/bridge/utils/constants/fields'
+import {
+  CHAIN_ID_IN,
+  CHAIN_ID_OUT,
+} from '@/lib/ui/components/blocks/bridges/utils/constants/fields'
+import { Chains } from '@/lib/payloadcms/types/payload-types'
 
 export type ChooseChainIdProps = {
   tokenType: TokenType
-  chains: Chain[]
+  chains: Chains[]
 }
 
 export const ChooseChainId = ({ tokenType, chains }: ChooseChainIdProps) => {
@@ -50,11 +53,11 @@ export const ChooseChainId = ({ tokenType, chains }: ChooseChainIdProps) => {
           selectedOption={idLocalValue}
           buttonClassName={classNames(['p-px', idLocalErrors && 'rounded-xl bg-red-400/10 '])}
           options={chains
-            .filter((chain) => chain.id !== idRemoteValue)
+            .filter((chain) => chain.chainId !== idRemoteValue)
             .map((chain) => ({
               label: chain.name,
-              value: chain.id,
-              thumbnail: <ChainComponent chainId={chain.id} size={24} />,
+              value: chain.chainId,
+              thumbnail: <ChainComponent chainId={chain.chainId} size={24} />,
             }))}
         />
       </div>
