@@ -46,31 +46,6 @@ export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
             read: anyone,
           },
         },
-        {
-          type: 'number',
-          name: 'version',
-          label: 'Version',
-          required: true,
-          access: {
-            create: admins,
-            update: noOne,
-            read: anyone,
-          },
-          validate: async (value: number, { req, operation, siblingData }) => {
-            /**
-             * If we are creating a new bridge, we need to ensure the version is greater than the latest version
-             */
-            if (operation === 'create') {
-              const category = siblingData?.category as BridgeCategories
-
-              if (category === undefined) {
-                return 'Category is required'
-              }
-            }
-
-            return true
-          },
-        },
       ],
     },
     {
