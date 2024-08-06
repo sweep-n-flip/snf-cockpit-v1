@@ -24,6 +24,39 @@ export default buildConfig({
       dirname,
       'lib/payloadcms/plugins/snf/graphql/schemas/default.graphql',
     ),
+    queries: (GraphQL) => {
+      return {
+        GetBridgeTransactionStatus: {
+          type: new GraphQL.GraphQLObjectType({
+            name: 'getBridgeTransactionStatus',
+            fields: {
+              text: {
+                type: GraphQL.GraphQLString,
+              },
+              someNumberField: {
+                type: GraphQL.GraphQLFloat,
+              },
+            },
+          }),
+          args: {
+            chainId: {
+              type: GraphQL.GraphQLInt,
+            },
+            transactionHash: {
+              type: GraphQL.GraphQLString,
+            },
+          },
+          resolve: async (_, args, context) => {
+            const { chainId, transactionHash } = args
+            const { data } = await context.api.getBridgeTransactionStatus({
+              chainId,
+              transactionHash,
+            })
+            return data
+          },
+        },
+      }
+    },
   },
   collections: [Users, Media],
   editor: lexicalEditor(),
