@@ -2,15 +2,27 @@ import type { Config } from 'payload'
 import { collections } from './collections'
 import { globals } from './globals'
 import { graphql } from './graphql'
+import { ApolloClient, NormalizedCacheObject } from '@apollo/client'
 
 import flow from 'lodash/flow'
 import merge from 'lodash/merge'
 import reduce from 'lodash/reduce'
 
-export const plugin = () => {
+export type PluginParams = {
+  externalGraphQLClient: ApolloClient<NormalizedCacheObject>
+}
+
+export const plugin = ({ externalGraphQLClient }: PluginParams) => {
   return flow(
     /// @dev: Make a shallow copy of incomingConfig
     (incomingConfig: Config) => merge({}, incomingConfig),
+    /// @dev: inject externalGraphQLClient to config
+    (config: Config) => ({
+      ...config,
+      custom: {
+        externalGraphQLClient,
+      },
+    }),
     /// @dev: Inject collections
     (config: Config) =>
       reduce<keyof typeof collections, Config>(

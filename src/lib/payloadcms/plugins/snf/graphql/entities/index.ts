@@ -10,9 +10,10 @@ export type EntitiesParams = {
 export const entities = ({ graphQL }: EntitiesParams): EntitiesParams['graphQL'] => {
   return {
     ...graphQL,
+    /// @dev: Inject queries
     queries(...args) {
       return reduce(
-        [graphQL?.queries, bridge.transactions],
+        [graphQL?.queries, ...Object.values(bridge)],
         (acc, fn) => {
           return {
             ...acc,

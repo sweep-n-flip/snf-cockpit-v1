@@ -9,6 +9,7 @@ import { Users } from './lib/payloadcms/collections/Users'
 import { Media } from './lib/payloadcms/collections/Media'
 import { snf } from './lib/payloadcms/plugins'
 import { seoPlugin } from '@payloadcms/plugin-seo'
+import { serverClient } from './lib/services'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -46,7 +47,9 @@ export default buildConfig({
       // dev:Token provided by Vercel once Blob storage is added to your Vercel project
       token: process.env.BLOB_READ_WRITE_TOKEN!,
     }),
-    snf.plugin(),
+    snf.plugin({
+      externalGraphQLClient: serverClient,
+    }),
     seoPlugin({
       collections: [`pages`],
       uploadsCollection: `media`,

@@ -24,7 +24,7 @@ export const transactions: GraphQLExtension = (GraphQL) => {
         console.log('ALERT!!! Called!!!')
         // const { chainId, transactionHash } = args
         // const { data } = await context.api.getBridgeTransactionStatus({ chainId, transactionHash })
-        console.log(...arguments)
+        // console.log(...arguments)
         return 'pending'
       },
     },
