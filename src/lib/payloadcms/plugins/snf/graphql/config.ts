@@ -6,10 +6,11 @@ export type ConfigParams = {
 }
 
 export const config = ({ config, graphQL }: ConfigParams): Config => {
-  const { query, queries, mutate, mutations, subscribe, subscriptions } = graphQL || {}
-  if (!query || !mutate || !subscribe) {
+  if (!graphQL) {
     throw new Error('Missing GraphQL configuration')
   }
+
+  const { query, queries, mutate, mutations, subscribe, subscriptions } = graphQL
 
   return {
     ...config,
