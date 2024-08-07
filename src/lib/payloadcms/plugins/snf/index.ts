@@ -1,30 +1,22 @@
-import type { Config } from 'payload'
-import { collections } from './collections'
-import { globals } from './globals'
-import { graphql } from './graphql'
-import { ApolloClient, NormalizedCacheObject } from '@apollo/client'
-
+import type { Config, PluginParams } from '@/lib/payloadcms/plugins/snf/types'
+import { collections } from '@/lib/payloadcms/plugins/snf/collections'
+import { globals } from '@/lib/payloadcms/plugins/snf/globals'
+import { graphql } from '@/lib/payloadcms/plugins/snf/graphql'
+import { config as graphQLConfig } from '@/lib/payloadcms/plugins/snf/graphql/config'
 import flow from 'lodash/flow'
 import merge from 'lodash/merge'
 import reduce from 'lodash/reduce'
 
-export type PluginParams = {
-  externalGraphQLClient: ApolloClient<NormalizedCacheObject>
-}
-
-export const plugin = ({ externalGraphQLClient }: PluginParams) => {
+export const plugin = ({ graphQL }: PluginParams) => {
   return flow(
     /// @dev: Make a shallow copy of incomingConfig
     (incomingConfig: Config) => merge({}, incomingConfig),
-    /// @dev: inject externalGraphQLClient to config
-    (config: Config) => ({
-      ...config,
-      custom: {
-        externalGraphQLClient,
-      },
-    }),
+
+    /// @dev: inject external GraphQL to config
+    (config: Config): Config => graphQLConfig({ config, graphQL }),
+
     /// @dev: Inject collections
-    (config: Config) =>
+    (config: Config): Config =>
       reduce<keyof typeof collections, Config>(
         [
           /// networks
@@ -50,7 +42,7 @@ export const plugin = ({ externalGraphQLClient }: PluginParams) => {
       ),
 
     /// @dev: Inject globals
-    (config: Config) =>
+    (config: Config): Config =>
       reduce<keyof typeof globals, Config>(
         [
           /// project setup
@@ -70,11 +62,12 @@ export const plugin = ({ externalGraphQLClient }: PluginParams) => {
         }),
         config,
       ),
+
     /// @dev: Inject graphql
-    (config: Config) =>
+    (config: Config): Config =>
       reduce<keyof typeof graphql, Config>(
         [
-          /// bridge
+          /// graphql custom entities resolvers
           'entities',
         ],
         (acc, method) => ({

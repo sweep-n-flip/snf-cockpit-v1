@@ -34,7 +34,7 @@ export function useGetBridgeTransactionStatus({
   )
 
   useInterval(() => {
-    if (transactionHash && data?.getBridgeTransactionStatus?.status === BridgeStatus.Confirming) {
+    if (transactionHash && data?.getBridgeTransactionStatus?.status === BridgeStatus.CONFIRMING) {
       refetch()
     }
   }, 6000)

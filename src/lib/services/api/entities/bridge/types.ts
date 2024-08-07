@@ -1,7 +1,8 @@
 export enum BridgeStatus {
-  Delivered = 'DELIVERED',
-  Failed = 'FAILED',
-  Confirming = 'CONFIRMING',
+  DELIVERED = 'DELIVERED',
+  FAILED = 'FAILED',
+  CONFIRMING = 'CONFIRMING',
+  INFLIGHT = 'INFLIGHT',
 }
 
 export type BridgeTransactionStatus = {
