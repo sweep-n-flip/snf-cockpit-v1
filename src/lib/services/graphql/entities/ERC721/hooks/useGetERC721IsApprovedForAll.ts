@@ -1,8 +1,8 @@
 'use client'
 
 import { useQuery } from '@apollo/client'
-import { GET_ERC721_IS_APPROVED_FOR_ALL_QUERY } from '@/lib/services/api/entities/ERC721/queries'
-import { ERC721IsApprovedForAll } from '@/lib/services/api/entities/ERC721/types'
+import { GET_ERC721_IS_APPROVED_FOR_ALL_QUERY } from '@/lib/services/graphql/entities/ERC721/queries'
+import { ERC721IsApprovedForAll } from '@/lib/services/graphql/entities/ERC721/types'
 import { Address } from 'viem'
 
 type ERC721IsApprovedForAllQuery = {

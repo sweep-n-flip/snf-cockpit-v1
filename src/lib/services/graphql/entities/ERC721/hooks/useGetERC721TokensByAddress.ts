@@ -1,8 +1,8 @@
 'use client'
 
 import { useQuery } from '@apollo/client'
-import { GET_ERC721_TOKENS_BY_ADDRESS_QUERY } from '@/lib/services/api/entities/ERC721/queries'
-import { ERC721Tokens } from '@/lib/services/api/entities/ERC721/types'
+import { GET_ERC721_TOKENS_BY_ADDRESS_QUERY } from '@/lib/services/graphql/entities/ERC721/queries'
+import { ERC721Tokens } from '@/lib/services/graphql/entities/ERC721/types'
 
 type ERC721TokensByAddressQuery = {
   getERC721TokensByAddress?: ERC721Tokens

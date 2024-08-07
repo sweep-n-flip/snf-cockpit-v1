@@ -7,14 +7,15 @@ import sharp from 'sharp'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { Users } from '@/lib/payloadcms/collections/Users'
 import { Media } from '@/lib/payloadcms/collections/Media'
-import { snf } from '@/lib/payloadcms/plugins'
 import { seoPlugin } from '@payloadcms/plugin-seo'
-import { serverClient } from '@/lib/services'
+
+/// snf
+import { snf } from '@/lib/payloadcms/plugins'
+import { serverClient } from '@/lib/services/graphql/config/server'
+import { GET_BRIDGE_TRANSACTION_STATUS_QUERY } from '@/lib/services/graphql/entities/bridge/queries'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
-
-import { GET_BRIDGE_TRANSACTION_STATUS_QUERY } from '@/lib/services/api/entities/bridge'
 
 export default buildConfig({
   cors: [process.env.NEXT_PUBLIC_HEADLESS_API_URI!],

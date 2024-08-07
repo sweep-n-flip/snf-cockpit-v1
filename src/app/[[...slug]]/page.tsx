@@ -1,6 +1,8 @@
 import { Pages } from '@/lib/payloadcms/types/payload-types'
-import { settings } from '@/lib/payloadcms/services'
-import { views } from '@/lib/payloadcms/services/'
+
+import { settings } from '@/lib/services/local'
+import { views } from '@/lib/services/local'
+
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import { metadataGenerate } from '@/lib/payloadcms/utils/metadata/generate'

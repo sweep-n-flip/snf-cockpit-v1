@@ -1,7 +1,7 @@
-import type { Config as PayloadConfig, PayloadRequest } from 'payload'
-import { ApolloClient, DocumentNode, NormalizedCacheObject } from '@apollo/client/core'
+import type { Config as PayloadConfig, PayloadRequest, GraphQLExtension } from 'payload'
+import { ApolloClient, NormalizedCacheObject, DocumentNode } from '@apollo/client/core'
 
-export type { PayloadConfig, PayloadRequest }
+export type { PayloadConfig, PayloadRequest, GraphQLExtension }
 
 export type GraphQLConfigParams = {
   query: ApolloClient<NormalizedCacheObject>['query']
@@ -18,4 +18,12 @@ export type PluginParams = {
 
 export interface Config extends PayloadConfig {
   custom?: PluginParams & PayloadConfig['custom']
+}
+
+export type Context = {
+  req: PayloadRequest & {
+    payload: PayloadRequest['payload'] & {
+      config: Config
+    }
+  }
 }
