@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql } from '@apollo/client/core'
 
 export const GET_BRIDGE_TRANSACTION_STATUS_QUERY = gql`
   query GetBridgeTransactionStatus($chainId: Int!, $transactionHash: String!) {

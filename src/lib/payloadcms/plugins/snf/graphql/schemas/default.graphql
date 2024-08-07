@@ -66,6 +66,7 @@ type Query {
   Alchemy(draft: Boolean): Alchemy
   docAccessAlchemy: alchemyDocAccess
   Access: Access
+  getBridgeTransactionStatus(chainId: Int!, transactionHash: String!): getBridgeTransactionStatus
 }
 
 type User {
@@ -17954,6 +17955,10 @@ type AlchemyReadAccess {
 type AlchemyUpdateAccess {
   permission: Boolean!
   where: JSONObject
+}
+
+type getBridgeTransactionStatus {
+  status: String
 }
 
 type Mutation {

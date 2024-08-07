@@ -1,6 +1,6 @@
 'use client'
 
-import { useLazyQuery } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client/react/hooks/useLazyQuery'
 import { GET_BRIDGE_TRANSACTION_STATUS_QUERY } from '@/lib/services/api/entities/bridge/queries'
 import { BridgeStatus, BridgeTransactionStatus } from '@/lib/services/api/entities/bridge/types'
 import { Address } from 'viem'

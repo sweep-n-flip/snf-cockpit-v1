@@ -1,7 +1,7 @@
 import type { Config } from 'payload'
 
 import { bridge } from './bridge'
-import { reduce } from 'lodash'
+import reduce from 'lodash/reduce'
 
 export type EntitiesParams = {
   graphQL: Config['graphQL']

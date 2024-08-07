@@ -1,11 +1,10 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client'
-import { httpClient } from '@/lib/services/api/clients/client'
+import { ApolloClient, InMemoryCache } from '@apollo/client/core'
 
 const cache = new InMemoryCache()
 
 export const client = new ApolloClient({
   ssrMode: typeof window === 'undefined',
-  link: httpClient,
+  uri: '/api/graphql',
   cache,
 })
 
