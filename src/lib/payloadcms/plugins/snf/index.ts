@@ -12,7 +12,10 @@ export const plugin = ({ graphQL }: PluginParams) => {
     /// @dev: Make a shallow copy of incomingConfig
     (incomingConfig: Config) => merge({}, incomingConfig),
 
-    /// @dev: inject external GraphQL to config
+    /**
+     * @dev: inject external GraphQL adapter to config
+     * about `queries` method https://payloadcms.com/docs/beta/graphql/extending
+     */
     (config: Config): Config => graphQLConfig({ config, graphQL }),
 
     /// @dev: Inject collections

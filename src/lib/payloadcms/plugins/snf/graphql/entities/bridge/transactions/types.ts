@@ -1,6 +1,6 @@
 import { Address } from 'viem'
 
-export type BridgeTransactionStatusParams = {
+export type QueryParams = {
   chainId: number
   transactionHash: Address
 }

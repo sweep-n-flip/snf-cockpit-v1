@@ -5,8 +5,8 @@ export type { PayloadConfig, PayloadRequest }
 
 export type GraphQLConfigParams = {
   query: ApolloClient<NormalizedCacheObject>['query']
-  mutate?: ApolloClient<NormalizedCacheObject>['mutate']
-  subscribe?: ApolloClient<NormalizedCacheObject>['subscribe']
+  mutate: ApolloClient<NormalizedCacheObject>['mutate']
+  subscribe: ApolloClient<NormalizedCacheObject>['subscribe']
   queries?: Record<string, DocumentNode>
   mutations?: Record<string, DocumentNode>
   subscriptions?: Record<string, DocumentNode>

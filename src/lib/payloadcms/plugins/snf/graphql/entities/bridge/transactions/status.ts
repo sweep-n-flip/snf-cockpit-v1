@@ -1,12 +1,14 @@
 import type { GraphQLExtension } from 'payload'
 import { ResolverContext } from '@/lib/payloadcms/plugins/snf/graphql/entities/types'
-import { BridgeTransactionStatusParams } from '@/lib/payloadcms/plugins/snf/graphql/entities/bridge/types'
+import { QueryParams } from '@/lib/payloadcms/plugins/snf/graphql/entities/bridge/transactions/types'
 
-export const transactions: GraphQLExtension = (GraphQL) => {
+export const queryName = 'getBridgeTransactionStatus'
+
+export const status: GraphQLExtension = (GraphQL) => {
   return {
-    getBridgeTransactionStatus: {
+    [queryName]: {
       type: new GraphQL.GraphQLObjectType({
-        name: 'getBridgeTransactionStatus',
+        name: queryName,
         fields: {
           status: {
             type: GraphQL.GraphQLString,
@@ -21,22 +23,22 @@ export const transactions: GraphQLExtension = (GraphQL) => {
           type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
         },
       },
-      resolve: async (_: any, args: BridgeTransactionStatusParams, context: ResolverContext) => {
+      resolve: async (_: any, args: QueryParams, context: ResolverContext) => {
         const { chainId, transactionHash } = args
 
-        if (!context.req.payload.config.custom.graphQL?.queries?.getBridgeTransactionStatus) {
-          throw new Error('getBridgeTransactionStatus query is not defined')
+        if (!context.req.payload.config.custom.graphQL?.queries?.[queryName]) {
+          throw new Error(`${queryName} query is not defined`)
         }
 
         const result = await context.req.payload.config.custom.graphQL.query({
-          query: context.req.payload.config.custom.graphQL.queries.getBridgeTransactionStatus,
+          query: context.req.payload.config.custom.graphQL.queries[queryName],
           variables: {
             chainId,
             transactionHash,
           },
         })
 
-        return result?.data.getBridgeTransactionStatus
+        return result?.data[queryName]
       },
     },
   }
