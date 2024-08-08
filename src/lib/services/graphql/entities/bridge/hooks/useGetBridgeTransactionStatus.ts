@@ -12,7 +12,7 @@ import { queryName } from '@/lib/payloadcms/plugins/snf/graphql/entities/bridge/
 import { GET_BRIDGE_TRANSACTION_STATUS_QUERY } from '@/lib/services/graphql/entities/bridge/queries'
 
 /**
- * todo: we need to recreate this query, params should be inside the getData function instead of hook params
+ * todo: check if we need to recreate this query
  * */
 export function useGetBridgeTransactionStatus({ chainId, transactionHash }: QueryStatusParams) {
   const [getData, { data, loading, refetch }] = useLazyQuery<

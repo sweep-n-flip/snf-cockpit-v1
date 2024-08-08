@@ -9,6 +9,10 @@ import { useQuery } from '@apollo/client'
 import { GET_ERC721_IS_APPROVED_FOR_ALL_QUERY } from '@/lib/services/graphql/entities/ERC721/queries'
 import { queryName } from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/ownership/approval'
 
+/**
+ * todo: check if we need to recreate this query
+ * */
+
 type UseGetERC721IsApprovedForAllProps = Partial<IsApprovedForAllParams> & {
   skip?: boolean
 }

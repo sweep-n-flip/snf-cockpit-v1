@@ -7,7 +7,10 @@ import {
 
 export const queryName = 'getBridgeTransactionStatus'
 
-export const status: GraphQLExtension = (GraphQL) => {
+export const status: GraphQLExtension = (
+  GraphQL,
+  /// payload
+) => {
   return {
     [queryName]: {
       type: new GraphQL.GraphQLObjectType({
