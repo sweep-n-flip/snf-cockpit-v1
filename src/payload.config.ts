@@ -5,10 +5,19 @@ import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
-import { Users } from './lib/payloadcms/collections/Users'
-import { Media } from './lib/payloadcms/collections/Media'
-import { snf } from './lib/payloadcms/plugins'
+import { Users } from '@/lib/payloadcms/collections/Users'
+import { Media } from '@/lib/payloadcms/collections/Media'
 import { seoPlugin } from '@payloadcms/plugin-seo'
+
+/// snf
+import { snf } from '@/lib/payloadcms/plugins'
+import { serverClient } from '@/lib/services/graphql/config/server'
+import { GET_BRIDGE_TRANSACTION_STATUS_QUERY } from '@/lib/services/graphql/entities/bridge/queries'
+import {
+  GET_ERC721_TOKENS_BY_ADDRESS_QUERY,
+  GET_ERC721_COLLECTIONS_BY_ADDRESS_QUERY,
+  GET_ERC721_IS_APPROVED_FOR_ALL_QUERY,
+} from '@/lib/services/graphql/entities/ERC721/queries'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -20,7 +29,10 @@ export default buildConfig({
     user: Users.slug,
   },
   graphQL: {
-    schemaOutputFile: path.resolve(dirname, 'lib/payloadcms/graphql/schemas/default.graphql'),
+    schemaOutputFile: path.resolve(
+      dirname,
+      'lib/payloadcms/plugins/snf/graphql/schemas/default.graphql',
+    ),
   },
   collections: [Users, Media],
   editor: lexicalEditor(),
@@ -43,7 +55,24 @@ export default buildConfig({
       // dev:Token provided by Vercel once Blob storage is added to your Vercel project
       token: process.env.BLOB_READ_WRITE_TOKEN!,
     }),
-    snf.plugin(),
+    snf.plugin({
+      graphQL: {
+        query: serverClient.query,
+        mutate: serverClient.mutate,
+        subscribe: serverClient.subscribe,
+        queries: {
+          /// @dev: bridge transactions
+          getBridgeTransactionStatus: GET_BRIDGE_TRANSACTION_STATUS_QUERY,
+
+          /// @dev: ERC721
+          getERC721TokensByAddress: GET_ERC721_TOKENS_BY_ADDRESS_QUERY,
+          getERC721CollectionsByAddress: GET_ERC721_COLLECTIONS_BY_ADDRESS_QUERY,
+          getERC721IsApprovedForAll: GET_ERC721_IS_APPROVED_FOR_ALL_QUERY,
+        },
+        mutations: {},
+        subscriptions: {},
+      },
+    }),
     seoPlugin({
       collections: [`pages`],
       uploadsCollection: `media`,
