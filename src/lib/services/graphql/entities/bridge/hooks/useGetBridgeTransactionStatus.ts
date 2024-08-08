@@ -11,11 +11,13 @@ import { useLazyQuery } from '@apollo/client/react/hooks/useLazyQuery'
 import { queryName } from '@/lib/payloadcms/plugins/snf/graphql/entities/bridge/transactions/status'
 import { GET_BRIDGE_TRANSACTION_STATUS_QUERY } from '@/lib/services/graphql/entities/bridge/queries'
 
+/**
+ * todo: we need to recreate this query, params should be inside the getData function instead of hook params
+ * */
 export function useGetBridgeTransactionStatus({ chainId, transactionHash }: QueryStatusParams) {
   const [getData, { data, loading, refetch }] = useLazyQuery<
     { [queryName: string]: QueryStatusResponse },
     QueryStatusParams
-    /// todo: get it from payload config custom? make it only available in the plugin
   >(GET_BRIDGE_TRANSACTION_STATUS_QUERY, {
     context: {
       chainId,
