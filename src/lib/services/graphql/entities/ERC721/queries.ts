@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql } from '@apollo/client/core'
 
 export const GET_ERC721_TOKENS_BY_ADDRESS_QUERY = gql`
   query GetERC721TokensByAddress($chainId: Int!, $address: String!, $collectionAddress: String) {

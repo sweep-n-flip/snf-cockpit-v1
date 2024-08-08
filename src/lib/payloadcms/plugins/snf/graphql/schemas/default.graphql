@@ -67,6 +67,8 @@ type Query {
   docAccessAlchemy: alchemyDocAccess
   Access: Access
   getBridgeTransactionStatus(chainId: Int!, transactionHash: String!): getBridgeTransactionStatus
+  getERC721IsApprovedForAll(chainId: Int!, ownerAddress: String!, collectionAddress: String!, operatorAddress: String!): getERC721IsApprovedForAll
+  getERC721CollectionsByAddress(chainId: Int!, address: String!, collectionAddress: String): [getERC721CollectionsByAddress]
 }
 
 type User {
@@ -17959,6 +17961,17 @@ type AlchemyUpdateAccess {
 
 type getBridgeTransactionStatus {
   status: String
+}
+
+type getERC721IsApprovedForAll {
+  isApprovedForAll: Boolean
+}
+
+type getERC721CollectionsByAddress {
+  address: String
+  name: String
+  image: String
+  tokenCount: String
 }
 
 type Mutation {
