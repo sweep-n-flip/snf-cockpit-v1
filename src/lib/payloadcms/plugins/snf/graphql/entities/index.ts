@@ -1,7 +1,8 @@
 import type { Config } from 'payload'
+import reduce from 'lodash/reduce'
 
 import { bridge } from './bridge'
-import reduce from 'lodash/reduce'
+import { ERC721 } from './ERC721'
 
 export type EntitiesParams = {
   graphQL: Config['graphQL']
@@ -13,7 +14,13 @@ export const entities = ({ graphQL }: EntitiesParams): EntitiesParams['graphQL']
 
     queries(...args) {
       return reduce(
-        [graphQL?.queries, ...Object.values(bridge.transactions)],
+        [
+          graphQL?.queries,
+          /// @dev: bridge graphql queries
+          ...Object.values(bridge.transactions),
+          /// @dev: ERC721 graphql queries
+          ...Object.values(ERC721.ownership),
+        ],
         (acc, fn) => {
           return {
             ...acc,

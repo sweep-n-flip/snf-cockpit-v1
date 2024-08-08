@@ -13,6 +13,11 @@ import { seoPlugin } from '@payloadcms/plugin-seo'
 import { snf } from '@/lib/payloadcms/plugins'
 import { serverClient } from '@/lib/services/graphql/config/server'
 import { GET_BRIDGE_TRANSACTION_STATUS_QUERY } from '@/lib/services/graphql/entities/bridge/queries'
+import {
+  GET_ERC721_TOKENS_BY_ADDRESS_QUERY,
+  GET_ERC721_COLLECTIONS_BY_ADDRESS_QUERY,
+  GET_ERC721_IS_APPROVED_FOR_ALL_QUERY,
+} from '@/lib/services/graphql/entities/ERC721/queries'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -56,7 +61,13 @@ export default buildConfig({
         mutate: serverClient.mutate,
         subscribe: serverClient.subscribe,
         queries: {
+          /// @dev: bridge transactions
           getBridgeTransactionStatus: GET_BRIDGE_TRANSACTION_STATUS_QUERY,
+
+          /// @dev: ERC721
+          getERC721TokensByAddress: GET_ERC721_TOKENS_BY_ADDRESS_QUERY,
+          getERC721CollectionsByAddress: GET_ERC721_COLLECTIONS_BY_ADDRESS_QUERY,
+          getERC721IsApprovedForAll: GET_ERC721_IS_APPROVED_FOR_ALL_QUERY,
         },
         mutations: {},
         subscriptions: {},

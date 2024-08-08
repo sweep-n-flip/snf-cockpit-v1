@@ -18,7 +18,3 @@ export type ERC721Collection = {
 }
 
 export type ERC721Collections = ERC721Collection[]
-
-export type ERC721IsApprovedForAll = {
-  isApprovedForAll: boolean
-}

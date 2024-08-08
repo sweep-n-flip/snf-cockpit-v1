@@ -1,48 +1,44 @@
 'use client'
 
+import {
+  IsApprovedForAllParams,
+  IsApprovedForAllResponse,
+} from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/ownership/types'
+
 import { useQuery } from '@apollo/client'
 import { GET_ERC721_IS_APPROVED_FOR_ALL_QUERY } from '@/lib/services/graphql/entities/ERC721/queries'
-import { ERC721IsApprovedForAll } from '@/lib/services/graphql/entities/ERC721/types'
-import { Address } from 'viem'
+import { queryName } from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/ownership/approval'
 
-type ERC721IsApprovedForAllQuery = {
-  getERC721IsApprovedForAll?: ERC721IsApprovedForAll
-}
-
-type UseGetERC721IsApprovedForAllProps = {
-  chainId?: number
-  address?: Address
-  operatorAddress?: Address
-  collectionAddress?: Address
+type UseGetERC721IsApprovedForAllProps = Partial<IsApprovedForAllParams> & {
   skip?: boolean
 }
 
 export function useGetERC721IsApprovedForAll({
-  address,
+  ownerAddress,
   chainId,
   collectionAddress,
   operatorAddress,
   skip,
 }: UseGetERC721IsApprovedForAllProps) {
-  const { loading, data, refetch } = useQuery<ERC721IsApprovedForAllQuery>(
-    GET_ERC721_IS_APPROVED_FOR_ALL_QUERY,
-    {
-      context: {
-        chainId,
-      },
-      fetchPolicy: 'no-cache',
-      skip: skip || !address || !chainId || !collectionAddress || !operatorAddress,
-      variables: {
-        collectionAddress,
-        operatorAddress,
-        ownerAddress: address,
-        chainId,
-      },
+  const { loading, data, refetch } = useQuery<
+    { [queryName: string]: IsApprovedForAllResponse },
+    IsApprovedForAllParams
+  >(GET_ERC721_IS_APPROVED_FOR_ALL_QUERY, {
+    context: {
+      chainId,
     },
-  )
+    fetchPolicy: 'no-cache',
+    skip: skip || !ownerAddress || !chainId || !collectionAddress || !operatorAddress,
+    variables: {
+      collectionAddress: collectionAddress!,
+      operatorAddress: operatorAddress!,
+      ownerAddress: ownerAddress!,
+      chainId: chainId!,
+    },
+  })
 
   return {
-    isApprovedForAll: data?.getERC721IsApprovedForAll?.isApprovedForAll || false,
+    isApprovedForAll: data?.[queryName]?.isApprovedForAll || false,
     loading,
     refetch,
   }

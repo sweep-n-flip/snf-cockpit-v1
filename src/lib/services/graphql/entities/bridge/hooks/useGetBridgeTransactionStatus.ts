@@ -15,6 +15,7 @@ export function useGetBridgeTransactionStatus({ chainId, transactionHash }: Quer
   const [getData, { data, loading, refetch }] = useLazyQuery<
     { [queryName: string]: QueryStatusResponse },
     QueryStatusParams
+    /// todo: get it from payload config custom? make it only available in the plugin
   >(GET_BRIDGE_TRANSACTION_STATUS_QUERY, {
     context: {
       chainId,
