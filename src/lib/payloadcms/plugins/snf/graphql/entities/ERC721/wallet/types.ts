@@ -14,3 +14,19 @@ export type CollectionsParams = {
 }
 
 export type CollectionsResponse = Collection[]
+
+export type TokensParams = {
+  chainId: number
+  address: string
+  collectionAddress?: string
+}
+
+export type Token = {
+  tokenId: Address | string
+  name: string
+  image?: string
+  collectionName: string
+  collectionImageUrl?: string
+}
+
+export type TokensResponse = Token[]
