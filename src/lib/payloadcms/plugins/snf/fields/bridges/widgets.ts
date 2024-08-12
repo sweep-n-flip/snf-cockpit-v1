@@ -1,10 +1,16 @@
-import type { CollectionConfig, FieldWithMany, RelationshipField } from 'payload'
+import type {
+  CollectionConfig,
+  Field,
+  RelationshipField,
+  NumberField,
+  ValidateOptions,
+} from 'payload'
 import { admins, anyone, noOne } from '../../utils/validateRole'
-import { BridgeCategories } from '@/lib/payloadcms/types/payload-types'
+import { BridgeWidgets } from '@/lib/payloadcms/types/payload-types'
 
 export type WidgetParams = {
-  fieldsBefore?: CollectionConfig['fields'] | FieldWithMany[]
-  fieldsAfter?: CollectionConfig['fields'] | FieldWithMany[]
+  fieldsBefore?: Field[]
+  fieldsAfter?: Field[]
 }
 
 export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
@@ -45,7 +51,66 @@ export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
             update: noOne,
             read: anyone,
           },
-        },
+        } as RelationshipField,
+        {
+          type: 'number',
+          name: 'version',
+          label: 'Version',
+          required: true,
+          access: {
+            create: admins,
+            update: noOne,
+            read: anyone,
+          },
+          async validate(
+            value: number,
+            {
+              req,
+              operation,
+              siblingData,
+            }: ValidateOptions<unknown, BridgeWidgets['setup'], {}, unknown>,
+          ) {
+            /**
+             * If we are creating a new bridge, we need to ensure the version is greater than the latest version
+             */
+            if (operation === 'create') {
+              const category = siblingData?.category
+
+              if (category === undefined) {
+                return 'Category is required'
+              }
+
+              const latestVersion = await req.payload.find({
+                collection: 'bridge_widgets',
+                limit: 1,
+                sort: '-setup.version',
+                where: {
+                  'setup.category': {
+                    equals: category,
+                  },
+                },
+              })
+
+              if (latestVersion.totalDocs === 0) {
+                if (value !== 1) {
+                  return 'Version must be 1'
+                }
+
+                return true
+              }
+
+              const latestVersionNumber = latestVersion.docs[0]?.setup.version || 0
+
+              if (value <= latestVersionNumber) {
+                return 'Version must be greater than the latest version'
+              }
+
+              return true
+            }
+
+            return true
+          },
+        } as NumberField,
       ],
     },
     {
@@ -76,7 +141,7 @@ export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
               hasMany: false,
               required: true,
               relationTo: 'chains',
-            },
+            } as RelationshipField,
             {
               type: 'relationship',
               name: 'sourceContract',
@@ -84,11 +149,11 @@ export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
               relationTo: 'contracts',
               hasMany: false,
               required: true,
-              filterOptions({ relationTo, siblingData }) {
+              filterOptions({ relationTo, siblingData }: any) {
                 if (relationTo === 'contracts') {
                   return {
                     chain: {
-                      equals: (siblingData as any)?.sourceChain,
+                      equals: siblingData?.sourceChain,
                     },
                   }
                 }
@@ -101,14 +166,14 @@ export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
               hasMany: false,
               required: true,
               relationTo: 'chains',
-              validate: (value: string, { siblingData }) => {
+              validate: (value: string, { siblingData }: any) => {
                 if (value === siblingData?.sourceChain) {
                   return 'Target chain must be different from the source chain'
                 }
 
                 return true
               },
-            },
+            } as RelationshipField,
           ],
         },
       ],
