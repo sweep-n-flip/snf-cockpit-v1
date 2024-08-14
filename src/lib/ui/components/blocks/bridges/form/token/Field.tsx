@@ -2,7 +2,7 @@
 
 import { Card } from '@/lib/ui/components'
 import {
-  ChooseChainId,
+  ChooseChain,
   InputQty,
   ChooseTokenIds,
   ChooseCollection,
@@ -34,7 +34,7 @@ export const Field = ({ tokenType, chains, collections, tokens, loading }: Field
 
   return (
     <Card.Default variant="primary" className="flex flex-col gap-2">
-      <ChooseChainId tokenType={tokenType} chains={chains} />
+      <ChooseChain tokenType={tokenType} chains={chains} />
       <div className="flex justify-between gap-2">
         <div className="flex flex-col justify-center">
           <InputQty tokenType={tokenType} />

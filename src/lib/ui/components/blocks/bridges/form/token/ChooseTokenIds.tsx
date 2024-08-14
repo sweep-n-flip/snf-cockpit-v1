@@ -46,7 +46,7 @@ export const ChooseTokenIds = ({ tokenType, tokens, loading }: ChooseTokenIdsPro
   const collectionDetails = useMemo(() => tokens?.[0], [tokens])
 
   const { chains } = useNetwork()
-  const { chain: chainIn } = find(chains, { chainId: chainIdInValue }) || {}
+  const { chain: chainIn } = find(chains, { chainId: chainIdInValue.chainId }) || {}
 
   const handleOpenModal = () => {
     setIsModalOpen(true)

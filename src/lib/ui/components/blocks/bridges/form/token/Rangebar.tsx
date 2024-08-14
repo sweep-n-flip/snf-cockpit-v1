@@ -11,14 +11,14 @@ import {
   TOKEN_IDS_OUT,
 } from '@/lib/ui/components/blocks/bridges/utils/constants/fields'
 
-import { ERC721Tokens } from '@/lib/services/api/entities/ERC721/types'
 import { MinusCircleIcon, PlusCircleIcon } from '@heroicons/react/24/outline'
 import classNames from 'classnames'
 import { isArray } from 'lodash'
+import { Token } from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/wallet/types'
 
 export type RangebarProps = {
   tokenType: TokenType
-  tokens: ERC721Tokens
+  tokens: Token[]
 }
 
 export const Rangebar = ({ tokenType, tokens }: RangebarProps) => {

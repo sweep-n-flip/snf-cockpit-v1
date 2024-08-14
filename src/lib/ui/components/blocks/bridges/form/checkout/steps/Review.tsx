@@ -24,6 +24,7 @@ export const Review = ({
   selectedTokens,
   selectedCollection,
 }: ReviewProps) => {
+  console.log(chainIn, chainOut)
   return (
     <div className="flex gap-8 max-md:flex-col md:min-w-[50rem]">
       <div className="flex flex-col space-y-6">

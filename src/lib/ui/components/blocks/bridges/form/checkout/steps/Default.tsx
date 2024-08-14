@@ -13,7 +13,7 @@ export type DefaultProps = {
   currentStep: number
   isFinished?: boolean
   tokens: Token[]
-  collections: Collection[]
+  selectedCollection: Collection | undefined
   chainIn?: Chains
   chainOut?: Chains
   transactionHash?: string
@@ -23,17 +23,13 @@ export const Default = ({
   currentStep,
   isFinished,
   tokens,
-  collections,
+  selectedCollection,
   collectionAddress,
   tokensIds,
   chainIn,
   chainOut,
   transactionHash,
 }: DefaultProps) => {
-  const selectedCollection = collections.find(
-    (collection) => collection.address === collectionAddress,
-  )
-
   const selectedTokens: Token[] = tokens.filter((token) => tokensIds.includes(token.tokenId))
 
   return (

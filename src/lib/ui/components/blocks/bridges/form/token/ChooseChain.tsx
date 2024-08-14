@@ -39,7 +39,9 @@ export const ChooseChain = ({ tokenType, chains }: ChooseChainProps) => {
   useIsomorphicLayoutEffect(() => {
     register(idLocal, {
       required: true,
-      validate: (value) => gt(value, 0),
+      validate: (value) => {
+        return gt((value as Chains).chainId, 0)
+      },
     })
   }, [idLocal, register])
 
@@ -56,7 +58,7 @@ export const ChooseChain = ({ tokenType, chains }: ChooseChainProps) => {
             .filter((chain) => chain.chainId !== idRemoteValue)
             .map((chain) => ({
               label: chain.name,
-              value: chain.chainId,
+              value: chain,
               thumbnail: <ChainComponent chainId={chain.chainId} size={24} />,
             }))}
         />

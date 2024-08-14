@@ -1,4 +1,4 @@
-export { default as ChooseChainId } from './ChooseChain'
+export { default as ChooseChain } from './ChooseChain'
 export { default as InputQty } from './InputQty'
 export { default as ChooseTokenIds } from './ChooseTokenIds'
 export { default as ChooseCollection } from './ChooseCollection'

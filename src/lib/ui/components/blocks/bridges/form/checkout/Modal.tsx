@@ -1,7 +1,7 @@
 'use client'
 
 import { Default } from '@/lib/ui/components/modal'
-import { useEffect, useMemo, useState } from 'react'
+import { ReactNode, useEffect, useMemo, useState } from 'react'
 import { TokenType, BridgeStep } from '@/lib/ui/components/blocks/bridges/types/bridge'
 import { useWallet } from '@/lib/web3'
 import { useStep, useToggle } from 'usehooks-ts'
@@ -33,20 +33,18 @@ export type ModalChildrenRenderProps = {
 }
 
 export type ModalProps = {
-  openBridge: boolean
-  bridgeData: BridgeData
+  children: (props: ModalChildrenRenderProps) => ReactNode
   onCloseAfterBridge?: () => void
   tokens: Token[]
-  collections: Collection[]
+  selectedCollection: Collection | undefined
   bridgeAddress?: Address
 }
 
 export const Modal = ({
-  openBridge,
-  bridgeData,
+  children,
   onCloseAfterBridge,
   tokens,
-  collections,
+  selectedCollection,
   bridgeAddress,
 }: ModalProps) => {
   const { address } = useWallet()
@@ -165,16 +163,11 @@ export const Modal = ({
     }
   }, [goToNextStep, currentStep, isBridgeDone])
 
-  useEffect(() => {
-    if (openBridge) {
-      handleOpenBridge(bridgeData)
-    }
-  }, [openBridge, bridgeData, handleOpenBridge])
-
   const isTransactionPending = isBridgeLoading
 
   return (
     <>
+      {children({ openBridge: handleOpenBridge })}
       {isModalOpen && formData && (
         <Default
           className={classNames([
@@ -195,7 +188,7 @@ export const Modal = ({
             chainIn={tokenInChain}
             chainOut={tokenOutChain}
             tokens={tokens}
-            collections={collections}
+            selectedCollection={selectedCollection}
             collectionAddress={formData[TokenType.TokenIn].collectionAddress}
             tokensIds={formData[TokenType.TokenIn].tokenIds}
             currentStep={currentStep}
