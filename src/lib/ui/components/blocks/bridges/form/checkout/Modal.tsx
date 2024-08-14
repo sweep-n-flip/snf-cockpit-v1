@@ -1,22 +1,24 @@
 'use client'
 
 import { Default } from '@/lib/ui/components/modal'
-import { ReactNode, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { TokenType, BridgeStep } from '@/lib/ui/components/blocks/bridges/types/bridge'
 import { useWallet } from '@/lib/web3'
 import { useStep, useToggle } from 'usehooks-ts'
 import { Address } from 'viem'
-import { BridgeStatus } from '@/lib/services/api/entities/bridge/types'
 import { DEFAULT_FORM_STATE } from '@/lib/ui/components/blocks/bridges/utils/constants/form'
 import { TOTAL_STEPS } from '@/lib/ui/components/blocks/bridges/utils/constants/checkout'
 import { Steps } from '@/lib/ui/components/blocks/bridges/form/checkout'
 
-import { ERC721Tokens, ERC721Collections } from '@/lib/services/api/entities/ERC721/types'
 import classNames from 'classnames'
 import { Chains } from '@/lib/payloadcms/types/payload-types'
 import useBridge from '@/lib/ui/components/blocks/bridges/hooks/useBridge'
 import { useErc721IsApprovedForAll } from '@/lib/ui/components/blocks/bridges/hooks/useErc721IsApprovedForAll'
 import useErc721SetApprovalForAll from '@/lib/ui/components/blocks/bridges/hooks/useErc721SetApprovalForAll'
+import {
+  Collection,
+  Token,
+} from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/wallet/types'
 
 export type BridgeData = {
   [key in TokenType]: {
@@ -31,15 +33,17 @@ export type ModalChildrenRenderProps = {
 }
 
 export type ModalProps = {
-  children: (props: ModalChildrenRenderProps) => ReactNode
+  openBridge: boolean
+  bridgeData: BridgeData
   onCloseAfterBridge?: () => void
-  tokens: ERC721Tokens
-  collections: ERC721Collections
+  tokens: Token[]
+  collections: Collection[]
   bridgeAddress?: Address
 }
 
 export const Modal = ({
-  children,
+  openBridge,
+  bridgeData,
   onCloseAfterBridge,
   tokens,
   collections,
@@ -65,7 +69,11 @@ export const Modal = ({
     toChainId: formData[TokenType.TokenOut].chain.chainId,
   })
 
-  const { isApprovedForAll, loading: getER721IsApprovedForAllLoading } = useErc721IsApprovedForAll({
+  const {
+    isApprovedForAll,
+    loading: getER721IsApprovedForAllLoading,
+    refetch: refetchIsApprovedForAll,
+  } = useErc721IsApprovedForAll({
     operator: bridgeAddress,
     contractAddress: formData[TokenType.TokenIn].collectionAddress,
     // TODO: add erc721 abi
@@ -106,7 +114,7 @@ export const Modal = ({
   }
 
   const handleStepBack = () => {
-    const isSkipApproval = currentStep === BridgeStep.Bridge && isBridgeDone
+    const isSkipApproval = currentStep === BridgeStep.Bridge && isApprovedForAll
 
     if (isSkipApproval) {
       setStep(BridgeStep.Details)
@@ -134,20 +142,20 @@ export const Modal = ({
   }
 
   useEffect(() => {
-    const alreadyApprovedForAll = isBridgeDone && currentStep === BridgeStep.Approve
+    const alreadyApprovedForAll = isApprovedForAll && currentStep === BridgeStep.Approve
 
     if (alreadyApprovedForAll) {
       goToNextStep()
     }
-  }, [goToNextStep, currentStep, isBridgeDone])
+  }, [goToNextStep, currentStep, isApprovedForAll])
 
   useEffect(() => {
     const isApprovedForAllTransactionConfirmed = currentStep === BridgeStep.Approve && isApprovalSet
 
     if (isApprovedForAllTransactionConfirmed) {
-      refetch()
+      refetchIsApprovedForAll()
     }
-  }, [isApprovalSet, currentStep, refetch])
+  }, [isApprovalSet, currentStep, refetchIsApprovedForAll])
 
   useEffect(() => {
     const isBridgeTransactionConfirmed = isBridgeDone && currentStep === BridgeStep.Bridge
@@ -158,16 +166,15 @@ export const Modal = ({
   }, [goToNextStep, currentStep, isBridgeDone])
 
   useEffect(() => {
-    const isTransactionStatusAvailable = currentStep === BridgeStep.Success && isBridgeDone
-
-    if (isTransactionStatusAvailable) {
-      getBridgeTransactionStatus()
+    if (openBridge) {
+      handleOpenBridge(bridgeData)
     }
-  }, [currentStep, getBridgeTransactionStatus, isBridgeDone])
+  }, [openBridge, bridgeData, handleOpenBridge])
+
+  const isTransactionPending = isBridgeLoading
 
   return (
     <>
-      {children({ openBridge: handleOpenBridge })}
       {isModalOpen && formData && (
         <Default
           className={classNames([
@@ -193,8 +200,7 @@ export const Modal = ({
             tokensIds={formData[TokenType.TokenIn].tokenIds}
             currentStep={currentStep}
             isFinished={
-              currentStep === BridgeStep.Success &&
-              bridgeTransactionStatus === BridgeStatus.Delivered
+              currentStep === BridgeStep.Success // TODO: check if bridge tx is done
             }
             transactionHash={transactionHash}
           />

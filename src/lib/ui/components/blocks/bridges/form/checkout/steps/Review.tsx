@@ -1,20 +1,18 @@
 import { Typography } from '@/lib/ui/components'
-import {
-  ERC721Tokens,
-  ERC721Collection,
-  ERC721Token,
-} from '@/lib/services/api/entities/ERC721/types'
 import { Address } from 'viem'
 import Image from 'next/image'
 import { Info } from '@/lib/ui/components/blocks/bridges/form/checkout'
-import { Children } from 'react'
 import { Chains } from '@/lib/payloadcms/types/payload-types'
+import {
+  Collection,
+  Token,
+} from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/wallet/types'
 
 export type ReviewProps = {
   collectionAddress: Address
   tokensIds: (Address | string | number)[]
-  selectedTokens: ERC721Tokens
-  selectedCollection?: ERC721Collection
+  selectedTokens: Token[]
+  selectedCollection?: Collection
   chainIn?: Chains
   chainOut?: Chains
 }
@@ -32,8 +30,8 @@ export const Review = ({
         <div className="relative size-52 overflow-hidden rounded-lg max-md:w-full">
           {selectedCollection?.image ? (
             <Image
-              src={selectedCollection?.image}
-              alt={selectedCollection?.name}
+              src={selectedCollection.image}
+              alt={selectedCollection.name}
               className="object-cover"
               sizes={`
                 (min-width: 1024px) 1024px,
@@ -78,27 +76,28 @@ export const Review = ({
           </div>
         </div>
         <div className="flex flex-wrap items-center justify-stretch gap-4">
-          {Children.toArray(
-            selectedTokens.map((token: ERC721Token) => (
-              <div className="flex items-center space-x-2">
-                <div className="relative size-24 overflow-hidden rounded-md bg-zinc-200">
-                  {token.image && (
-                    <Image
-                      src={token.image}
-                      alt={token.name}
-                      className="size-full rounded-md object-cover"
-                      fill
-                    />
-                  )}
-                  <div className="absolute bottom-2 left-2 rounded-md bg-zinc-800 px-2 py-px opacity-80">
-                    <Typography.Paragraph className="text-white" size="xs">
-                      #{token.tokenId}
-                    </Typography.Paragraph>
-                  </div>
+          {selectedTokens.map((token) => (
+            <div
+              key={`${token.collectionName}:${token.tokenId}`}
+              className="flex items-center space-x-2"
+            >
+              <div className="relative size-24 overflow-hidden rounded-md bg-zinc-200">
+                {token.image && (
+                  <Image
+                    src={token.image}
+                    alt={token.name}
+                    className="size-full rounded-md object-cover"
+                    fill
+                  />
+                )}
+                <div className="absolute bottom-2 left-2 rounded-md bg-zinc-800 px-2 py-px opacity-80">
+                  <Typography.Paragraph className="text-white" size="xs">
+                    #{token.tokenId}
+                  </Typography.Paragraph>
                 </div>
               </div>
-            )),
-          )}
+            </div>
+          ))}
         </div>
         <div>
           <Info.Chain chainIn={chainIn} chainOut={chainOut} />

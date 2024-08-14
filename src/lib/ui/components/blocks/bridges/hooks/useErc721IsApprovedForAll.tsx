@@ -13,7 +13,7 @@ export const useErc721IsApprovedForAll = ({
   owner,
   operator,
 }: UseErc721isApprovedForAllProps) => {
-  const { data, status } = useReadContract({
+  const { data, status, refetch } = useReadContract({
     address: contractAddress,
     abi: contractABI,
     functionName: 'isApprovedForAll',
@@ -29,5 +29,6 @@ export const useErc721IsApprovedForAll = ({
   return {
     isApprovedForAll: data,
     loading: status === 'pending',
+    refetch,
   }
 }

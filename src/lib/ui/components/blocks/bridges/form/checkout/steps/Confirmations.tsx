@@ -12,19 +12,19 @@ import {
   STEPS_DATA,
 } from '@/lib/ui/components/blocks/bridges/utils/constants/checkout'
 import { Info } from '@/lib/ui/components/blocks/bridges/form/checkout'
-import { ERC721Collection } from '@/lib/services/api/entities/ERC721/types'
 import Image from 'next/image'
 
 import Link from 'next/link'
 import stringUtils from '@/lib/utils/string'
 import { Chains } from '@/lib/payloadcms/types/payload-types'
+import { Collection } from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/wallet/types'
 
 export type ConfirmationsProps = {
   currentStep: number
   isFinished?: boolean
   chainIn?: Chains
   chainOut?: Chains
-  selectedCollection?: ERC721Collection
+  selectedCollection?: Collection
   transactionHash?: string
 }
 

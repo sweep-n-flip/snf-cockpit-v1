@@ -1,6 +1,6 @@
 import { BlockExplorers, Chains } from '@/lib/payloadcms/types/payload-types'
 import { useEffect, useState } from 'react'
-import { getChainBlockExplorers } from '@/lib/payloadcms/services/networks/blockExplorers'
+import { getChainBlockExplorers } from '@/lib/services/local/networks/blockExplorers'
 
 export const useBlockExplorers = (chain?: Chains) => {
   const [blockExplorers, setBlockExplorers] = useState<BlockExplorers[]>([])
@@ -13,8 +13,8 @@ export const useBlockExplorers = (chain?: Chains) => {
         return
       }
 
-      const blockExplorers = await getChainBlockExplorers(chain)
-      setBlockExplorers(blockExplorers)
+      // const blockExplorers = await getChainBlockExplorers(chain)
+      setBlockExplorers([])
       setLoading(false)
     }
 

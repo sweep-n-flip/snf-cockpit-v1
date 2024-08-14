@@ -1,17 +1,19 @@
 import { BridgeStep } from '@/lib/ui/components/blocks/bridges/types/bridge'
-import { ERC721Tokens, ERC721Collections } from '@/lib/services/api/entities/ERC721/types'
 import { Address } from 'viem'
 import { Steps } from '@/lib/ui/components/blocks/bridges/form/checkout'
-import { filter, find, map } from 'lodash'
 import { Chains } from '@/lib/payloadcms/types/payload-types'
+import {
+  Collection,
+  Token,
+} from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/wallet/types'
 
 export type DefaultProps = {
   collectionAddress: Address
   tokensIds: (Address | string | number)[]
   currentStep: number
   isFinished?: boolean
-  tokens: ERC721Tokens
-  collections: ERC721Collections
+  tokens: Token[]
+  collections: Collection[]
   chainIn?: Chains
   chainOut?: Chains
   transactionHash?: string
@@ -28,15 +30,11 @@ export const Default = ({
   chainOut,
   transactionHash,
 }: DefaultProps) => {
-  const selectedCollection = find(
-    collections,
+  const selectedCollection = collections.find(
     (collection) => collection.address === collectionAddress,
   )
 
-  const selectedTokens = filter(
-    map(tokensIds, (tokenId) => find(tokens, { tokenId })),
-    (token) => token,
-  ) as ERC721Tokens
+  const selectedTokens: Token[] = tokens.filter((token) => tokensIds.includes(token.tokenId))
 
   return (
     <div className="p-4">

@@ -5,19 +5,19 @@ import { Field } from '@/lib/ui/components/blocks/bridges/form/token'
 import { Switcher } from '@/lib/ui/components/blocks/bridges/form/Switcher'
 import { Buttons } from '@/lib/web3/components/wallet'
 import { useForm, FormProvider } from 'react-hook-form'
-import { Modal } from '@/lib/ui/components/blocks/bridges/form/checkout'
-import {
-  useGetERC721CollectionsByAddress,
-  useGetERC721TokensByAddress,
-} from '@/lib/services/api/entities'
 import { DEFAULT_FORM_STATE } from '@/lib/ui/components/blocks/bridges/utils/constants/form'
 import {
   CHAIN_ID_IN,
-  CHAIN_ID_OUT,
   COLLECTION_ADDRESS_IN,
 } from '@/lib/ui/components/blocks/bridges/utils/constants/fields'
 import { FormDataType, TokenType } from '@/lib/ui/components/blocks/bridges/types/bridge'
 import { Chains } from '@/lib/payloadcms/types/payload-types'
+import useGetERC721CollectionsByAddress from '@/lib/services/graphql/entities/ERC721/hooks/useGetERC721CollectionsByAddress'
+import useGetERC721TokensByAddress from '@/lib/services/graphql/entities/ERC721/hooks/useGetERC721TokensByAddress'
+import Modal, { BridgeData } from '@/lib/ui/components/blocks/bridges/form/checkout/Modal'
+import { noop } from 'lodash'
+import { useMemo, useState } from 'react'
+import { OldModal } from '@/lib/ui/components/blocks/bridges/form/checkout'
 
 export type FormProps = {
   sourceChains: Chains[]
@@ -26,6 +26,7 @@ export type FormProps = {
 
 export const Form = ({ sourceChains, targetChains }: FormProps) => {
   const { address } = useWallet()
+  const [bridgeData, setBridgeData] = useState<BridgeData | undefined>(undefined)
 
   const methods = useForm<FormDataType>({
     mode: 'all',
@@ -33,7 +34,7 @@ export const Form = ({ sourceChains, targetChains }: FormProps) => {
     defaultValues: DEFAULT_FORM_STATE,
   })
 
-  const { watch, formState, reset } = methods
+  const { watch, formState } = methods
   const { errors } = formState
 
   const chainIdInValue = watch(CHAIN_ID_IN)
@@ -43,6 +44,10 @@ export const Form = ({ sourceChains, targetChains }: FormProps) => {
     address,
     chainId: chainIdInValue,
   })
+
+  const selectedCollection = useMemo(() => {
+    return collections.find((collection) => collection.address === collectionAddressInValue)
+  }, [collectionAddressInValue, collections])
 
   const { tokens, loading: tokensLoading } = useGetERC721TokensByAddress({
     address,
@@ -54,6 +59,7 @@ export const Form = ({ sourceChains, targetChains }: FormProps) => {
   const handleSubmit = (event) => {
     event.preventDefault()
     console.log(methods.getValues())
+    setBridgeData(methods.getValues())
   }
 
   return (
@@ -78,9 +84,17 @@ export const Form = ({ sourceChains, targetChains }: FormProps) => {
           type="submit"
           forceChainId={chainIdInValue}
           disabled={Object.keys(errors).length > 0}
+          chainId={chainIdInValue}
         >
           Bridge
         </Buttons.Custom>
+        <OldModal
+          openBridge={true}
+          bridgeData={methods.getValues()}
+          tokens={tokens}
+          collections={collections}
+          bridgeAddress={address}
+        />
       </form>
     </FormProvider>
   )

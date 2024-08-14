@@ -1,6 +1,5 @@
 'use client'
 
-import { ERC721Collections, ERC721Tokens } from '@/lib/services/api/entities/ERC721/types'
 import { Card } from '@/lib/ui/components'
 import {
   ChooseChainId,
@@ -15,12 +14,16 @@ import { TokenType } from '@/lib/ui/components/blocks/bridges/types/bridge'
 import { useFormContext } from 'react-hook-form'
 import { COLLECTION_ADDRESS_IN } from '@/lib/ui/components/blocks/bridges/utils/constants/fields'
 import gt from 'lodash/gt'
+import {
+  Collection,
+  Token,
+} from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/wallet/types'
 
 export type FieldProps = {
   tokenType: TokenType
   chains: ChooseChainProps['chains']
-  collections: ERC721Collections
-  tokens: ERC721Tokens
+  collections: Collection[]
+  tokens: Token[]
   loading?: boolean
 }
 

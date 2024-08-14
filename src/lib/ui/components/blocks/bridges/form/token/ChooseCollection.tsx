@@ -14,12 +14,12 @@ import {
   COLLECTION_ADDRESS_IN,
   COLLECTION_ADDRESS_OUT,
 } from '@/lib/ui/components/blocks/bridges/utils/constants/fields'
-import { ERC721Collections } from '@/lib/services/api/entities/ERC721/types'
+import { Collection } from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/wallet/types'
 
 export type ChooseTokensProps = {
   disabled?: boolean
   tokenType: TokenType
-  collections: ERC721Collections
+  collections: Collection[]
   loading?: boolean
 }
 

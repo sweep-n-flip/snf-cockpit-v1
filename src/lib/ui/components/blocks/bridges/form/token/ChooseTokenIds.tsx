@@ -8,7 +8,6 @@ import { useIsomorphicLayoutEffect, useToggle } from 'usehooks-ts'
 import Image from 'next/image'
 import gt from 'lodash/gt'
 import { Chain } from '@/lib/web3/components/icons/chains'
-import { ERC721Tokens, ERC721Token } from '@/lib/services/api/entities/ERC721/types'
 
 import classNames from 'classnames'
 
@@ -22,10 +21,11 @@ import {
 import { Rangebar } from '@/lib/ui/components/blocks/bridges/form/token'
 import { useNetwork } from '@/lib/web3'
 import { find } from 'lodash'
+import { Token } from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/wallet/types'
 
 export type ChooseTokenIdsProps = {
   tokenType: TokenType
-  tokens: ERC721Tokens
+  tokens: Token[]
   loading?: boolean
 }
 
@@ -56,7 +56,7 @@ export const ChooseTokenIds = ({ tokenType, tokens, loading }: ChooseTokenIdsPro
     setIsModalOpen(false)
   }
 
-  const handleSelectToken = (token: ERC721Token) => {
+  const handleSelectToken = (token: Token) => {
     const alreadyExist = idLocalValue.some((selectedId) => selectedId === token.tokenId)
 
     if (alreadyExist) {

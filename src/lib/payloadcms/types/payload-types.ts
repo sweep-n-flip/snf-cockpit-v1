@@ -300,6 +300,7 @@ export interface BridgeWidgets {
   description?: string | null;
   setup: {
     category: string | BridgeCategories;
+    version: number;
   };
   routing: {
     paths: {

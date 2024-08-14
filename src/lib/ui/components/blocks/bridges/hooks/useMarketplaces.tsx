@@ -1,6 +1,6 @@
 import { Chains, Marketplaces } from '@/lib/payloadcms/types/payload-types'
 import { useEffect, useState } from 'react'
-import { getChainMarketplaces } from '@/lib/payloadcms/services/networks/marketplaces'
+import { getChainMarketplaces } from '@/lib/services/local/networks/marketplaces'
 
 export const useMarketplaces = (chain?: Chains) => {
   const [marketplaces, setMarketplaces] = useState<Marketplaces[]>([])
@@ -13,8 +13,8 @@ export const useMarketplaces = (chain?: Chains) => {
         return
       }
 
-      const marketplaces = await getChainMarketplaces(chain)
-      setMarketplaces(marketplaces)
+      // const marketplaces = await getChainMarketplaces(chain)
+      setMarketplaces([])
       setLoading(false)
     }
 
