@@ -1,25 +1,25 @@
-import { Chains, Marketplaces } from '@/lib/payloadcms/types/payload-types'
+import { Marketplaces } from '@/lib/payloadcms/types/payload-types'
 import { useEffect, useState } from 'react'
 import { getChainMarketplaces } from '@/lib/services/local/networks/marketplaces'
 
-export const useMarketplaces = (chain?: Chains) => {
+export const useMarketplaces = (chainId?: number) => {
   const [marketplaces, setMarketplaces] = useState<Marketplaces[]>([])
   const [loading, setLoading] = useState(true)
 
   // Get the block explorer for the chain
   useEffect(() => {
     const getMarketplaces = async () => {
-      if (!chain) {
+      if (!chainId) {
         return
       }
 
-      // const marketplaces = await getChainMarketplaces(chain)
-      setMarketplaces([])
+      const marketplaces = await getChainMarketplaces(chainId)
+      setMarketplaces(marketplaces)
       setLoading(false)
     }
 
     getMarketplaces()
-  }, [chain])
+  }, [chainId])
 
   return { marketplaces, loading }
 }

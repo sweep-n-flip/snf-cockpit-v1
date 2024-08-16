@@ -12,3 +12,13 @@ export const getContracts = async (
 
   return data
 }
+
+export const getChainContracts = async (chainId: number) => {
+  return getContracts({
+    where: {
+      chain: {
+        chainId,
+      },
+    },
+  })
+}

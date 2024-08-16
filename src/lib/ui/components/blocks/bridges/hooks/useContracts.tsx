@@ -1,24 +1,25 @@
 import { BlockExplorers } from '@/lib/payloadcms/types/payload-types'
 import { useEffect, useState } from 'react'
 import { getChainBlockExplorers } from '@/lib/services/local/networks/blockExplorers'
+import { getChainContracts } from '@/lib/services/local/networks/contracts'
 
-export const useBlockExplorers = (chainId?: number) => {
+export const useContracts = (chainId?: number) => {
   const [blockExplorers, setBlockExplorers] = useState<BlockExplorers[]>([])
   const [loading, setLoading] = useState(true)
 
   // Get the block explorer for the chain
   useEffect(() => {
-    const getBlockExplorers = async () => {
+    const getContracts = async () => {
       if (!chainId) {
         return
       }
 
-      const blockExplorers = await getChainBlockExplorers(chainId)
+      const blockExplorers = await getChainContracts(chainId)
       setBlockExplorers(blockExplorers)
       setLoading(false)
     }
 
-    getBlockExplorers()
+    getContracts()
   }, [chainId])
 
   return { blockExplorers, loading }

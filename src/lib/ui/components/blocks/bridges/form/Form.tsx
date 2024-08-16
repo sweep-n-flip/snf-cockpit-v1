@@ -33,7 +33,6 @@ export const Form = ({ sourceChains, targetChains }: FormProps) => {
 
   const { watch, formState } = methods
   const { errors } = formState
-  console.log(errors)
 
   const chainIdInValue = watch(CHAIN_ID_IN)
   const collectionAddressInValue = watch(COLLECTION_ADDRESS_IN)
@@ -60,7 +59,6 @@ export const Form = ({ sourceChains, targetChains }: FormProps) => {
         bridgeData={methods.getValues()}
         tokens={tokens}
         selectedCollection={selectedCollection}
-        bridgeAddress={address}
       >
         {({ openBridge }) => (
           <form

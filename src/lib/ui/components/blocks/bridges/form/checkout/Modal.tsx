@@ -37,16 +37,9 @@ export type ModalProps = {
   onCloseAfterBridge?: () => void
   tokens: Token[]
   selectedCollection: Collection | undefined
-  bridgeAddress?: Address
 }
 
-export const Modal = ({
-  children,
-  onCloseAfterBridge,
-  tokens,
-  selectedCollection,
-  bridgeAddress,
-}: ModalProps) => {
+export const Modal = ({ children, onCloseAfterBridge, tokens, selectedCollection }: ModalProps) => {
   const { address } = useWallet()
   const [isModalOpen, , setIsModalOpen] = useToggle()
 
@@ -69,7 +62,7 @@ export const Modal = ({
 
   const {
     isApprovedForAll,
-    loading: getER721IsApprovedForAllLoading,
+    loading: isApprovedForAllLoading,
     refetch: refetchIsApprovedForAll,
   } = useErc721IsApprovedForAll({
     operator: bridgeAddress,
@@ -81,7 +74,7 @@ export const Modal = ({
 
   const {
     approve,
-    loading: isApproveLoading,
+    loading: setIsApprovedForAllLoading,
     isApprovalSet,
   } = useErc721SetApprovalForAll({
     collectionAddress: formData[TokenType.TokenIn].collectionAddress,
@@ -139,6 +132,26 @@ export const Modal = ({
     }
   }
 
+  const isCurrentStepDisabled = () => {
+    if (currentStep === BridgeStep.Details) {
+      return false
+    } else if (currentStep === BridgeStep.Approve) {
+      return isApprovedForAllLoading || setIsApprovedForAllLoading
+    } else if (currentStep === BridgeStep.Bridge) {
+      return isBridgeLoading || isTransactionPending
+    }
+  }
+
+  const isCurrentStepLoading = () => {
+    if (currentStep === BridgeStep.Details) {
+      return false
+    } else if (currentStep === BridgeStep.Approve) {
+      return isApprovedForAllLoading || setIsApprovedForAllLoading
+    } else if (currentStep === BridgeStep.Bridge) {
+      return isBridgeLoading || isTransactionPending
+    }
+  }
+
   useEffect(() => {
     const alreadyApprovedForAll = isApprovedForAll && currentStep === BridgeStep.Approve
 
@@ -178,9 +191,9 @@ export const Modal = ({
           isOpen={isModalOpen}
           onClose={handleCloseBridge}
           closable={
-            !isApproveLoading &&
+            !setIsApprovedForAllLoading &&
             !isBridgeLoading &&
-            !getER721IsApprovedForAllLoading &&
+            !isApprovedForAllLoading &&
             isApprovalSet
           }
         >
@@ -203,31 +216,16 @@ export const Modal = ({
               <Steps.Back
                 label={'Back'}
                 onBack={handleStepBack}
-                disabled={
-                  isApproveLoading ||
-                  getER721IsApprovedForAllLoading ||
-                  isBridgeLoading ||
-                  isTransactionPending
-                }
-                loading={getER721IsApprovedForAllLoading || isBridgeLoading || isTransactionPending}
+                disabled={isCurrentStepDisabled()}
+                loading={isCurrentStepLoading()}
               />
             )}
 
             <Steps.Action
               label={'Confirm'}
               onConfirm={handleConfirm}
-              disabled={
-                isApproveLoading ||
-                getER721IsApprovedForAllLoading ||
-                isBridgeLoading ||
-                isTransactionPending
-              }
-              loading={
-                isApproveLoading ||
-                getER721IsApprovedForAllLoading ||
-                isBridgeLoading ||
-                isTransactionPending
-              }
+              disabled={isCurrentStepDisabled()}
+              loading={isCurrentStepLoading()}
             />
           </div>
         </Default>

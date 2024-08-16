@@ -13,7 +13,7 @@ import {
 } from '@/lib/ui/components/blocks/bridges/utils/constants/checkout'
 import { Info } from '@/lib/ui/components/blocks/bridges/form/checkout'
 import Image from 'next/image'
-
+import React from 'react'
 import Link from 'next/link'
 import stringUtils from '@/lib/utils/string'
 import { Chains } from '@/lib/payloadcms/types/payload-types'
@@ -42,8 +42,8 @@ export const Confirmations = ({
         <div className="relative size-8 overflow-hidden rounded-full">
           {selectedCollection?.image ? (
             <Image
-              src={selectedCollection?.image}
-              alt={selectedCollection?.name}
+              src={selectedCollection.image}
+              alt={selectedCollection.name}
               className="object-cover"
               sizes={`
                 (min-width: 1024px) 1024px,
@@ -107,7 +107,8 @@ export const Confirmations = ({
                   <Link
                     target="_blank"
                     href={stringUtils.shortCodeParser(
-                      `${config.blockExplorers?.default.url}/tx/{{transactionHash}}/`,
+                      // `${config.blockExplorers?.default.url}/tx/{{transactionHash}}`,
+                      '{{transactionHash}}',
                       {
                         transactionHash,
                       },
