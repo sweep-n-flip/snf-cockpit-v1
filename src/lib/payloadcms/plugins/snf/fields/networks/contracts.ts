@@ -40,6 +40,19 @@ export const contracts = (params?: ContractsParams): CollectionConfig['fields'] 
       label: 'Chain',
       required: true,
     },
+    {
+      name: 'type',
+      type: 'select',
+      label: 'Type',
+      required: true,
+      defaultValue: 'bridge',
+      options: [
+        {
+          label: 'Bridge',
+          value: 'bridge',
+        },
+      ],
+    },
     ...fieldsAfter,
   ]
 }

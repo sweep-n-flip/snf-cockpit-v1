@@ -8,17 +8,9 @@ export const getMarketplaces = async (
     collection: 'marketplaces',
   })
 
+  console.log(result)
+
   const data = result.docs
 
   return data
-}
-
-export const getChainMarketplaces = async (chainId: number) => {
-  return getMarketplaces({
-    where: {
-      chain: {
-        chainId,
-      },
-    },
-  })
 }

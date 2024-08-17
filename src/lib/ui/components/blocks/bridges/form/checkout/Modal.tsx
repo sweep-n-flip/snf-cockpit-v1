@@ -19,6 +19,7 @@ import {
   Collection,
   Token,
 } from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/wallet/types'
+import { useContracts } from '@/lib/services/rest/hooks/useContracts'
 
 export type BridgeData = {
   [key in TokenType]: {
@@ -48,6 +49,17 @@ export const Modal = ({ children, onCloseAfterBridge, tokens, selectedCollection
   const tokenInChain = useMemo(() => formData[TokenType.TokenIn].chain, [formData])
   const tokenOutChain = useMemo(() => formData[TokenType.TokenOut].chain, [formData])
 
+  const { contracts: bridgeContracts } = useContracts({
+    chainId: tokenInChain.chainId,
+    type: 'bridge',
+  })
+
+  const bridgeAddress = useMemo(
+    () => bridgeContracts?.[0].address as Address | undefined,
+    [bridgeContracts],
+  )
+  const bridgeAbi = useMemo(() => bridgeContracts?.[0].abi as string | undefined, [bridgeContracts])
+
   const {
     bridge,
     loading: isBridgeLoading,
@@ -67,8 +79,7 @@ export const Modal = ({ children, onCloseAfterBridge, tokens, selectedCollection
   } = useErc721IsApprovedForAll({
     operator: bridgeAddress,
     contractAddress: formData[TokenType.TokenIn].collectionAddress,
-    // TODO: add erc721 abi
-    contractABI: '',
+    contractABI: bridgeAbi,
     owner: address,
   })
 

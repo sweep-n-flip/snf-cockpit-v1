@@ -31,6 +31,7 @@
     "@payloadcms/richtext-lexical": "3.0.0-beta.76",
     "@payloadcms/storage-vercel-blob": "3.0.0-beta.76",
     "@tanstack/react-query": "^5.50.1",
+    "axios": "^1.7.4",
     "classnames": "^2.5.1",
     "connectkit": "^1.8.2",
     "cross-env": "^7.0.3",
@@ -47,6 +48,7 @@
     "react-hook-form": "^7.52.1",
     "react-jazzicon": "^1.0.4",
     "sharp": "0.32.6",
+    "swr": "^2.2.5",
     "usehooks-ts": "^3.1.0",
     "viem": "^2.17.3",
     "wagmi": "^2.10.10"

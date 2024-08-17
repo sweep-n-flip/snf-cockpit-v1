@@ -12,13 +12,3 @@ export const getBlockExplorers = async (
 
   return data
 }
-
-export const getChainBlockExplorers = async (chainId: number) => {
-  return getBlockExplorers({
-    where: {
-      chain: {
-        chainId,
-      },
-    },
-  })
-}

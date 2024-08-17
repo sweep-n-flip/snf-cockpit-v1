@@ -13,7 +13,6 @@ export const useErc721IsApprovedForAll = ({
   owner,
   operator,
 }: UseErc721isApprovedForAllProps) => {
-  console.log(contractABI)
   const { data, status, refetch } = useReadContract({
     address: contractAddress,
     abi: contractABI,
@@ -26,8 +25,6 @@ export const useErc721IsApprovedForAll = ({
       },
     },
   })
-
-  console.log(status)
 
   return {
     isApprovedForAll: data,
