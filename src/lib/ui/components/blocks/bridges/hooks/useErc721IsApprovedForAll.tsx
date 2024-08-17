@@ -1,29 +1,28 @@
 import { useReadContract } from 'wagmi'
+import { erc721Abi } from 'viem'
 
 interface UseErc721isApprovedForAllProps {
   contractAddress?: string
   owner?: string
   operator?: string
-  contractABI?: string
+  chainId?: number
 }
 
 export const useErc721IsApprovedForAll = ({
   contractAddress,
-  contractABI,
   owner,
   operator,
+  chainId,
 }: UseErc721isApprovedForAllProps) => {
   const { data, status, refetch } = useReadContract({
     address: contractAddress,
-    abi: contractABI,
+    abi: erc721Abi,
     functionName: 'isApprovedForAll',
     args: [owner, operator],
     query: {
-      enabled: !!contractAddress && !!contractABI && !!owner && !!operator,
-      select(data) {
-        return data
-      },
+      enabled: !!contractAddress && !!owner && !!operator && !!chainId,
     },
+    chainId,
   })
 
   return {

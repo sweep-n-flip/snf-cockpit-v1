@@ -6,6 +6,7 @@ export type UseBridgeProps = {
   collectionAddress?: Address
   tokenIds?: (Address | string | number)[]
   toChainId?: number
+  chainId?: number
   bridgeAddress?: Address
   bridgeABI?: unknown
 }
@@ -15,6 +16,7 @@ export function useBridge({
   tokenIds,
   bridgeAddress,
   toChainId,
+  chainId,
   bridgeABI,
 }: UseBridgeProps) {
   const { data: feeEstimative } = useReadContract({
@@ -22,6 +24,7 @@ export function useBridge({
     abi: bridgeABI,
     functionName: 'estimateFeeSendERC721UsingNative',
     args: [toChainId, collectionAddress, tokenIds],
+    chainId,
     query: {
       enabled: !!toChainId && !!collectionAddress && !!tokenIds && !!bridgeAddress,
       select(data) {
@@ -49,8 +52,8 @@ export function useBridge({
   })
 
   const handleBridge = async () => {
-    if (!bridgeAddress) {
-      throw new Error('Bridge address is required')
+    if (!chainId || !bridgeAddress || !bridgeABI) {
+      return
     }
 
     reset()
@@ -62,6 +65,7 @@ export function useBridge({
         functionName: 'sendERC721UsingNative',
         args: [toChainId, collectionAddress, tokenIds],
         value: feeEstimative,
+        chainId,
       })
     } catch (error) {
       reset()

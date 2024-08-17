@@ -31,7 +31,7 @@ export const Input = ({ tokenType }: InputProps) => {
           'disabled:cursor-not-allowed disabled:opacity-70',
           idLocalErrors ? `text-red-400 disabled:text-red-400` : 'disabled:text-zinc-500 ',
         ])}
-        defaultValue={idLocalValue.length}
+        value={idLocalValue.length}
         disabled
       />
     </div>

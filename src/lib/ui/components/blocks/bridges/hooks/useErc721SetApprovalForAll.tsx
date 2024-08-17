@@ -5,11 +5,13 @@ import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
 export type UseERC721SetApprovalForAllProps = {
   collectionAddress?: Address
   operator?: Address
+  chainId?: number
 }
 
 export function useErc721SetApprovalForAll({
   collectionAddress,
   operator,
+  chainId,
 }: UseERC721SetApprovalForAllProps) {
   const { writeContractAsync, status, data, reset } = useWriteContract()
 
@@ -24,7 +26,7 @@ export function useErc721SetApprovalForAll({
   })
 
   const handleApprove = async () => {
-    if (!collectionAddress || !operator) {
+    if (!collectionAddress || !operator || !chainId) {
       return
     }
     reset()
@@ -35,6 +37,7 @@ export function useErc721SetApprovalForAll({
         abi: erc721Abi,
         functionName: 'setApprovalForAll',
         args: [operator, true],
+        chainId,
       })
     } catch (error) {
       reset()

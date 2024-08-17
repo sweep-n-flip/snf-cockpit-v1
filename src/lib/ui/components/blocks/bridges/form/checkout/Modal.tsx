@@ -69,7 +69,9 @@ export const Modal = ({ children, onCloseAfterBridge, tokens, selectedCollection
     collectionAddress: formData[TokenType.TokenIn].collectionAddress,
     tokenIds: formData[TokenType.TokenIn].tokenIds,
     bridgeAddress,
-    toChainId: formData[TokenType.TokenOut].chain.chainId,
+    bridgeABI: bridgeAbi && JSON.parse(bridgeAbi),
+    chainId: tokenInChain.chainId,
+    toChainId: tokenOutChain.chainId,
   })
 
   const {
@@ -79,8 +81,8 @@ export const Modal = ({ children, onCloseAfterBridge, tokens, selectedCollection
   } = useErc721IsApprovedForAll({
     operator: bridgeAddress,
     contractAddress: formData[TokenType.TokenIn].collectionAddress,
-    contractABI: bridgeAbi,
     owner: address,
+    chainId: tokenInChain.chainId,
   })
 
   const {
@@ -90,6 +92,7 @@ export const Modal = ({ children, onCloseAfterBridge, tokens, selectedCollection
   } = useErc721SetApprovalForAll({
     collectionAddress: formData[TokenType.TokenIn].collectionAddress,
     operator: bridgeAddress,
+    chainId: tokenInChain.chainId,
   })
 
   /// steps handler
@@ -104,7 +107,7 @@ export const Modal = ({ children, onCloseAfterBridge, tokens, selectedCollection
   const handleOpenBridge = (data: BridgeData) => {
     resetState()
     setIsModalOpen(true)
-    setFormData((prev) => ({ ...prev, ...data }))
+    setFormData(data)
   }
 
   const handleCloseBridge = () => {

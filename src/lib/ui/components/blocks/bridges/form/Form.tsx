@@ -55,11 +55,7 @@ export const Form = ({ sourceChains, targetChains }: FormProps) => {
 
   return (
     <FormProvider {...methods}>
-      <Modal
-        bridgeData={methods.getValues()}
-        tokens={tokens}
-        selectedCollection={selectedCollection}
-      >
+      <Modal tokens={tokens} selectedCollection={selectedCollection}>
         {({ openBridge }) => (
           <form
             onSubmit={methods.handleSubmit(openBridge)}
