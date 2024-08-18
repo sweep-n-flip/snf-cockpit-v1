@@ -12,18 +12,18 @@ export const Widget = ({ widget }: WidgetProps) => {
 
   // Get the source and target chains
   const { sourceChains, targetChains } = useMemo(() => {
-    // Map the chains from the paths
-    const sourceChains = routing?.paths.map((path) => {
-      return path.sourceChain as Chains
-    })
+    const sourceChains = new Set<string | Chains>()
+    const targetChains = new Set<string | Chains>()
 
-    const targetChains = routing?.paths.map((path) => {
-      return path.targetChain as Chains
+    // Map the chains from the paths
+    routing?.paths.map((path) => {
+      sourceChains.add(path.sourceChain)
+      targetChains.add(path.targetChain)
     })
 
     return {
-      sourceChains: sourceChains ?? [],
-      targetChains: targetChains ?? [],
+      sourceChains: [...sourceChains],
+      targetChains: [...targetChains],
     }
   }, [routing?.paths])
 
