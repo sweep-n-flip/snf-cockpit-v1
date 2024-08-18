@@ -26,6 +26,7 @@ export type ConfirmationsProps = {
   chainOut?: Chains
   selectedCollection?: Collection
   transactionHash?: string
+  blockExplorerUrl?: string
 }
 
 export const Confirmations = ({
@@ -35,6 +36,7 @@ export const Confirmations = ({
   chainOut,
   transactionHash,
   selectedCollection,
+  blockExplorerUrl,
 }: ConfirmationsProps) => {
   return (
     <div className="flex flex-col space-y-6">
@@ -107,8 +109,7 @@ export const Confirmations = ({
                   <Link
                     target="_blank"
                     href={stringUtils.shortCodeParser(
-                      // `${config.blockExplorers?.default.url}/tx/{{transactionHash}}`,
-                      '{{transactionHash}}',
+                      `${blockExplorerUrl}/tx/{{transactionHash}}`,
                       {
                         transactionHash,
                       },
