@@ -15,10 +15,10 @@ export const useErc721IsApprovedForAll = ({
   chainId,
 }: UseErc721isApprovedForAllProps) => {
   const { data, status, refetch } = useReadContract({
-    address: contractAddress,
+    address: contractAddress as `0x${string}`,
     abi: erc721Abi,
     functionName: 'isApprovedForAll',
-    args: [owner, operator],
+    args: [owner as `0x${string}`, operator as `0x${string}`],
     query: {
       enabled: !!contractAddress && !!owner && !!operator && !!chainId,
     },

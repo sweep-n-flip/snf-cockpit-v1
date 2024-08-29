@@ -1,4 +1,4 @@
-import { Address } from 'viem'
+import { Abi, Address } from 'viem'
 import { useReadContract, useTransactionConfirmations } from 'wagmi'
 import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
 
@@ -8,7 +8,7 @@ export type UseBridgeProps = {
   toChainId?: number
   chainId?: number
   bridgeAddress?: Address
-  bridgeABI?: unknown
+  bridgeABI?: readonly unknown[] | Abi | undefined
 }
 
 export function useBridge({
@@ -64,7 +64,7 @@ export function useBridge({
         abi: bridgeABI,
         functionName: 'sendERC721UsingNative',
         args: [toChainId, collectionAddress, tokenIds],
-        value: feeEstimative,
+        value: feeEstimative as any,
         chainId,
       })
     } catch (error) {

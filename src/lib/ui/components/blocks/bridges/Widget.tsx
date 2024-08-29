@@ -46,7 +46,7 @@ export const Widget = ({ widget }: WidgetProps) => {
 
             {description && <Typography.Paragraph>{description}</Typography.Paragraph>}
 
-            <Form sourceChains={sourceChains} targetChains={targetChains} />
+            <Form sourceChains={sourceChains as Chains[]} targetChains={targetChains as Chains[]} />
           </div>
         </Card.Default>
 

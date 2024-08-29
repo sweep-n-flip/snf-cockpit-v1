@@ -20,7 +20,6 @@ import {
   Token,
 } from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/wallet/types'
 import { useContracts } from '@/lib/services/rest/hooks/useContracts'
-import { useBlockExplorers } from '@/lib/services/rest/hooks/useBlockExplorers'
 
 export type BridgeData = {
   [key in TokenType]: {
@@ -54,8 +53,6 @@ export const Modal = ({ children, onCloseAfterBridge, tokens, selectedCollection
     chainId: tokenInChain.chainId,
     type: 'bridge',
   })
-
-  const { blockExplorers } = useBlockExplorers({ chainId: tokenInChain.chainId })
 
   const bridgeAddress = useMemo(
     () => bridgeContracts?.[0].address as Address | undefined,
@@ -226,7 +223,6 @@ export const Modal = ({ children, onCloseAfterBridge, tokens, selectedCollection
               currentStep === BridgeStep.Success // TODO: check if bridge tx is done
             }
             transactionHash={transactionHash}
-            blockExplorerUrl={blockExplorers?.[0].url}
           />
 
           <div className="flex justify-end space-x-4 border-t border-zinc-200 p-4">

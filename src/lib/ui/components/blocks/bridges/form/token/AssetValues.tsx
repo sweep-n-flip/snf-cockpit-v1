@@ -1,11 +1,10 @@
 'use client'
 
 import { Typography } from '@/lib/ui/components'
-
-import { ERC721Tokens } from '@/lib/services/api/entities/ERC721/types'
+import { Token } from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/wallet/types'
 
 export type AssetValuesProps = {
-  tokens: ERC721Tokens
+  tokens: Token[]
 }
 
 export const AssetValues = ({ tokens }: AssetValuesProps) => {

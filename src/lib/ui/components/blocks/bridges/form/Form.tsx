@@ -34,7 +34,7 @@ export const Form = ({ sourceChains, targetChains }: FormProps) => {
   const { watch, formState } = methods
   const { errors } = formState
 
-  const chainIdInValue = watch(CHAIN_ID_IN)
+  const chainIdInValue = watch(CHAIN_ID_IN) as Chains
   const collectionAddressInValue = watch(COLLECTION_ADDRESS_IN)
 
   const { collections, loading: loadingCollections } = useGetERC721CollectionsByAddress({
@@ -79,7 +79,6 @@ export const Form = ({ sourceChains, targetChains }: FormProps) => {
             />
             <Buttons.Custom
               type="submit"
-              forceChainId={chainIdInValue}
               disabled={Object.keys(errors).length > 0}
               chainId={chainIdInValue.chainId}
             >

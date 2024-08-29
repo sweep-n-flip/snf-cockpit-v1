@@ -22,6 +22,7 @@ import { Rangebar } from '@/lib/ui/components/blocks/bridges/form/token'
 import { useNetwork } from '@/lib/web3'
 import { find } from 'lodash'
 import { Token } from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/wallet/types'
+import { Chains } from '@/lib/payloadcms/types/payload-types'
 
 export type ChooseTokenIdsProps = {
   tokenType: TokenType
@@ -46,7 +47,11 @@ export const ChooseTokenIds = ({ tokenType, tokens, loading }: ChooseTokenIdsPro
   const collectionDetails = useMemo(() => tokens?.[0], [tokens])
 
   const { chains } = useNetwork()
-  const { chain: chainIn } = find(chains, { chainId: chainIdInValue.chainId }) || {}
+  const { chain: chainIn } = (find(chains, {
+    chainId: chainIdInValue.chainId,
+  }) || {
+    chain: {},
+  }) as { chain: Chains }
 
   const handleOpenModal = () => {
     setIsModalOpen(true)
