@@ -215,6 +215,7 @@ export interface Contracts {
   blockCreated?: number | null;
   abi: string;
   chain: string | Chains;
+  type: 'bridge';
   updatedAt: string;
   createdAt: string;
 }

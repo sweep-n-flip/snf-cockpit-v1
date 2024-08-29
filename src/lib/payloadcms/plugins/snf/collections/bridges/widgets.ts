@@ -1,4 +1,4 @@
-import type { Config } from 'payload'
+import type { CollectionConfig, Config } from 'payload'
 
 export type Collections = {
   collections: Config['collections']
@@ -8,7 +8,7 @@ import { fields } from '../../fields'
 import { admins, anyone } from '../../utils/validateRole'
 
 export const widgets = ({ collections }: Collections): Collections['collections'] => {
-  const collectionsWithCollections = [
+  const collectionsWithCollections: CollectionConfig[] = [
     ...(collections ? collections : []),
     {
       slug: `bridge_widgets`,
@@ -41,6 +41,9 @@ export const widgets = ({ collections }: Collections): Collections['collections'
         create: admins,
         update: admins,
         delete: admins,
+      },
+      versions: {
+        drafts: false,
       },
     },
   ]

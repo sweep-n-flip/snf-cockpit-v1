@@ -126,7 +126,7 @@ export const widgets = (params?: WidgetParams): CollectionConfig['fields'] => {
           required: true,
           access: {
             create: admins,
-            update: noOne,
+            update: admins,
             read: anyone,
           },
           /**
