@@ -68,6 +68,7 @@ export function useBridge({
         chainId,
       })
     } catch (error) {
+      console.log(error)
       reset()
       throw error
     }
