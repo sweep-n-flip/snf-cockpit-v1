@@ -1,19 +1,28 @@
-import useSWR from 'swr'
 import { fetcherRest } from '@/lib/utils/fetcher'
+import useSWR from 'swr'
 import { BlockExplorers } from '@/lib/payloadcms/types/payload-types'
+import { stringify } from 'qs'
 
 interface UseBlockExplorersProps {
   chainId?: number
 }
 
 export const useBlockExplorers = ({ chainId }: UseBlockExplorersProps) => {
-  const uri = new URL('/api/block_explorers', window.location.origin)
-
-  if (chainId) {
-    uri.searchParams.set('chain.chain_id', chainId.toString())
+  const baseUrl = `${window.location.origin}/api/block_explorers`
+  const query: Record<string, any> = {
+    where: {},
   }
 
-  const { data, error, isLoading } = useSWR(uri.toString(), fetcherRest<BlockExplorers>)
+  if (chainId) {
+    query.where['chain.chainId'] = {
+      equals: chainId,
+    }
+  }
+
+  const queryString = stringify(query, { addQueryPrefix: true })
+  const url = queryString ? `${baseUrl}${queryString}` : baseUrl
+
+  const { data, error, isLoading } = useSWR(url, fetcherRest<BlockExplorers>)
 
   return { blockExplorers: (data ?? []) as BlockExplorers[], error, isLoading }
 }
