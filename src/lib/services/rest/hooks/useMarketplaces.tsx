@@ -1,19 +1,28 @@
 import { fetcherRest } from '@/lib/utils/fetcher'
 import useSWR from 'swr'
 import { Marketplaces } from '@/lib/payloadcms/types/payload-types'
+import { stringify } from 'qs'
 
 interface UseMarketplacesProps {
   chainId?: number
 }
 
 export const useMarketplaces = ({ chainId }: UseMarketplacesProps) => {
-  const uri = new URL('/api/marketplaces', window.location.origin)
-
-  if (chainId) {
-    uri.searchParams.set('chain.chain_id', chainId.toString())
+  const baseUrl = `${window.location.origin}/api/marketplaces`
+  const query: Record<string, any> = {
+    where: {},
   }
 
-  const { data, error, isLoading } = useSWR(uri.toString(), fetcherRest<Marketplaces>)
+  if (chainId) {
+    query.where['chain.chainId'] = {
+      equals: chainId,
+    }
+  }
 
-  return { marketplaces: data as Marketplaces[], error, isLoading }
+  const queryString = stringify(query, { addQueryPrefix: true })
+  const url = queryString ? `${baseUrl}${queryString}` : baseUrl
+
+  const { data, error, isLoading } = useSWR(url, fetcherRest<Marketplaces>)
+
+  return { marketplaces: (data ?? []) as Marketplaces[], error, isLoading }
 }

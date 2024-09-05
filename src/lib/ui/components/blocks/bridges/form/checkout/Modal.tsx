@@ -54,10 +54,9 @@ export const Modal = ({ children, onCloseAfterBridge, tokens, selectedCollection
     type: 'bridge',
   })
 
-  const bridgeAddress = useMemo(
-    () => bridgeContracts?.[0].address as Address | undefined,
-    [bridgeContracts],
-  )
+  const bridgeAddress = useMemo(() => {
+    return bridgeContracts?.[0].address as Address | undefined
+  }, [bridgeContracts])
   const bridgeAbi = useMemo(() => bridgeContracts?.[0].abi as string | undefined, [bridgeContracts])
 
   const {
