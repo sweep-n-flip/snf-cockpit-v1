@@ -47,7 +47,7 @@ export const Modal = ({ children, onCloseAfterBridge, tokens, selectedCollection
   const [formData, setFormData] = useState<BridgeData>(DEFAULT_FORM_STATE)
 
   const tokenInChain = useMemo(() => {
-    console.log(formData[TokenType.TokenIn].chain.chainId)
+    
     return formData[TokenType.TokenIn].chain
   }, [formData])
   const tokenOutChain = useMemo(() => formData[TokenType.TokenOut].chain, [formData])
