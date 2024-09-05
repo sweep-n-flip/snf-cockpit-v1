@@ -1,11 +1,13 @@
 import { fetcherRest } from '@/lib/utils/fetcher'
 import useSWR from 'swr'
 import { Contracts } from '@/lib/payloadcms/types/payload-types'
-import buildFindQueryString from '@/lib/ui/components/blocks/bridges/utils/constants/build-find-query-string'
+import { stringify } from 'qs'
+
+type ContractsType = Contracts['type']
 
 interface UseContractsProps {
   chainId?: number
-  type?: 'bridge'
+  type?: ContractsType
 }
 
 export const useContracts = ({ chainId, type }: UseContractsProps) => {
@@ -24,8 +26,8 @@ export const useContracts = ({ chainId, type }: UseContractsProps) => {
     }
   }
 
-  const queryString = buildFindQueryString(query)
-  const url = queryString ? `${baseUrl}?${queryString}` : baseUrl
+  const queryString = stringify(query, { addQueryPrefix: true })
+  const url = queryString ? `${baseUrl}/${queryString}` : baseUrl
 
   const { data, error, isLoading } = useSWR(url, fetcherRest<Contracts>)
 
