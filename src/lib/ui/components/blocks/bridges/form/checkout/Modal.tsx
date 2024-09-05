@@ -109,7 +109,6 @@ export const Modal = ({ children, onCloseAfterBridge, tokens, selectedCollection
   const handleOpenBridge = (data: BridgeData) => {
     resetState()
     setIsModalOpen(true)
-    console.log(data)
     setFormData(data)
   }
 
