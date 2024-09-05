@@ -12,16 +12,18 @@ interface UseContractsProps {
 
 export const useContracts = ({ chainId, type }: UseContractsProps) => {
   const baseUrl = `${window.location.origin}/api/contracts`
-  const query: Record<string, any> = {}
+  const query: Record<string, any> = {
+    where: {},
+  }
 
   if (chainId) {
-    query['chain.chainId'] = {
+    query.where['chain.chainId'] = {
       equals: chainId,
     }
   }
 
   if (type) {
-    query['type'] = {
+    query.where['type'] = {
       equals: type,
     }
   }
