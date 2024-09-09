@@ -12,6 +12,7 @@ import { seoPlugin } from '@payloadcms/plugin-seo'
 /// snf
 import { snf } from '@/lib/payloadcms/plugins'
 import { serverClient } from '@/lib/services/graphql/config/server'
+
 import { GET_BRIDGE_TRANSACTION_STATUS_QUERY } from '@/lib/services/graphql/entities/bridge/queries'
 import {
   GET_ERC721_TOKENS_BY_ADDRESS_QUERY,
