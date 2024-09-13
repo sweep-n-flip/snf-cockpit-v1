@@ -284,7 +284,7 @@ export interface Pages {
   meta?: {
     title?: string | null;
     description?: string | null;
-    image?: string | Media | null;
+    image?: (string | null) | Media;
   };
   updatedAt: string;
   createdAt: string;

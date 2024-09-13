@@ -1,8 +1,14 @@
-import nextPayloadCMS from '../config'
+import type { PaginatedDocs } from 'payload'
+import { getConfig } from '../config'
+import { Pages } from '@/lib/payloadcms/types/payload-types'
+import { Options } from 'node_modules/payload/dist/collections/operations/local/find'
 
-export const getPages = async (options?: Partial<Parameters<typeof nextPayloadCMS.find>[0]>) => {
+export const getPages = async (
+  options?: Partial<Options<'pages'>>,
+): Promise<PaginatedDocs<Pages>['docs']> => {
   try {
-    const result = await nextPayloadCMS.find({
+    const config = await getConfig()
+    const result = await config.find({
       ...(options || {}),
       collection: 'pages',
     })
@@ -15,7 +21,9 @@ export const getPages = async (options?: Partial<Parameters<typeof nextPayloadCM
   }
 }
 
-export const getPage = async (options?: Partial<Parameters<typeof nextPayloadCMS.find>[0]>) => {
+export const getPage = async (
+  options?: Partial<Options<'pages'>>,
+): Promise<PaginatedDocs<Pages>['docs'][0] | null> => {
   try {
     const docs = await getPages(options)
 
