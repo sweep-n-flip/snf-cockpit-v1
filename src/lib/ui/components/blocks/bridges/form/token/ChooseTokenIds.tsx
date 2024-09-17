@@ -26,7 +26,7 @@ import { Chains } from '@/lib/payloadcms/types/payload-types'
 
 export type ChooseTokenIdsProps = {
   tokenType: TokenType
-  tokens: Token[]
+  tokens: string[]
   loading?: boolean
 }
 

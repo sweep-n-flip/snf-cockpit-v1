@@ -14,7 +14,7 @@ import {
   COLLECTION_ADDRESS_IN,
   COLLECTION_ADDRESS_OUT,
 } from '@/lib/ui/components/blocks/bridges/utils/constants/fields'
-import { Collection } from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/wallet/types'
+import { Collection } from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/ownership/types'
 
 export type ChooseTokensProps = {
   disabled?: boolean

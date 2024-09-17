@@ -3,15 +3,12 @@ import { Address } from 'viem'
 import Image from 'next/image'
 import { Info } from '@/lib/ui/components/blocks/bridges/form/checkout'
 import { Chains } from '@/lib/payloadcms/types/payload-types'
-import {
-  Collection,
-  Token,
-} from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/wallet/types'
+import { Collection } from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/ownership/types'
 
 export type ReviewProps = {
   collectionAddress: Address
   tokensIds: (Address | string | number)[]
-  selectedTokens: Token[]
+  selectedTokens: string[]
   selectedCollection?: Collection
   chainIn?: Chains
   chainOut?: Chains
@@ -58,7 +55,7 @@ export const Review = ({
             <div>
               <Info.Marketplaces
                 chainIn={chainIn}
-                collectionAddress={selectedCollection?.address}
+                collectionAddress={selectedCollection?.address as Address | undefined}
               />
             </div>
           </div>
@@ -78,21 +75,21 @@ export const Review = ({
         <div className="flex flex-wrap items-center justify-stretch gap-4">
           {selectedTokens.map((token) => (
             <div
-              key={`${token.collectionName}:${token.tokenId}`}
+              key={`${selectedCollection?.name}:${token}`}
               className="flex items-center space-x-2"
             >
               <div className="relative size-24 overflow-hidden rounded-md bg-zinc-200">
-                {token.image && (
+                {selectedCollection?.image && (
                   <Image
-                    src={token.image}
-                    alt={token.name}
+                    src={selectedCollection.image}
+                    alt={selectedCollection.name}
                     className="size-full rounded-md object-cover"
                     fill
                   />
                 )}
                 <div className="absolute bottom-2 left-2 rounded-md bg-zinc-800 px-2 py-px opacity-80">
                   <Typography.Paragraph className="text-white" size="xs">
-                    #{token.tokenId}
+                    #{token}
                   </Typography.Paragraph>
                 </div>
               </div>

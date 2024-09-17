@@ -12,10 +12,10 @@ import {
 } from '@/lib/ui/components/blocks/bridges/utils/constants/fields'
 import { FormDataType, TokenType } from '@/lib/ui/components/blocks/bridges/types/bridge'
 import { Chains } from '@/lib/payloadcms/types/payload-types'
-import useGetERC721CollectionsByAddress from '@/lib/services/graphql/entities/ERC721/hooks/useGetERC721CollectionsByAddress'
-import useGetERC721TokensByAddress from '@/lib/services/graphql/entities/ERC721/hooks/useGetERC721TokensByAddress'
 import Modal from '@/lib/ui/components/blocks/bridges/form/checkout/Modal'
 import React, { useMemo } from 'react'
+import useGetERC721OwnerCollections from '@/lib/services/graphql/entities/ERC721/hooks/useGetERC721OwnerCollections'
+import useGetERC721Balance from '@/lib/services/graphql/entities/ERC721/hooks/useGetERC721Balance'
 
 export type FormProps = {
   sourceChains: Chains[]
@@ -37,7 +37,7 @@ export const Form = ({ sourceChains, targetChains }: FormProps) => {
   const chainIdInValue = watch(CHAIN_ID_IN) as Chains
   const collectionAddressInValue = watch(COLLECTION_ADDRESS_IN)
 
-  const { collections, loading: loadingCollections } = useGetERC721CollectionsByAddress({
+  const { collections, loading: loadingCollections } = useGetERC721OwnerCollections({
     address,
     chainId: chainIdInValue.chainId,
   })
@@ -46,8 +46,8 @@ export const Form = ({ sourceChains, targetChains }: FormProps) => {
     return collections.find((collection) => collection.address === collectionAddressInValue)
   }, [collectionAddressInValue, collections])
 
-  const { tokens, loading: tokensLoading } = useGetERC721TokensByAddress({
-    address,
+  const { balance, loading: tokensLoading } = useGetERC721Balance({
+    ownerAddress: address,
     chainId: chainIdInValue.chainId,
     collectionAddress: collectionAddressInValue,
     skip: !collectionAddressInValue,
@@ -55,7 +55,7 @@ export const Form = ({ sourceChains, targetChains }: FormProps) => {
 
   return (
     <FormProvider {...methods}>
-      <Modal tokens={tokens} selectedCollection={selectedCollection}>
+      <Modal tokens={balance?.tokenIds ?? []} selectedCollection={selectedCollection}>
         {({ openBridge }) => (
           <form
             onSubmit={methods.handleSubmit(openBridge)}
@@ -64,7 +64,7 @@ export const Form = ({ sourceChains, targetChains }: FormProps) => {
           >
             <Field
               collections={collections}
-              tokens={tokens}
+              tokens={balance?.tokenIds ?? []}
               loading={loadingCollections || tokensLoading}
               chains={sourceChains}
               tokenType={TokenType.TokenIn}
@@ -72,7 +72,7 @@ export const Form = ({ sourceChains, targetChains }: FormProps) => {
             <Switcher />
             <Field
               collections={collections}
-              tokens={tokens}
+              tokens={balance?.tokenIds ?? []}
               loading={loadingCollections || tokensLoading}
               chains={targetChains}
               tokenType={TokenType.TokenOut}

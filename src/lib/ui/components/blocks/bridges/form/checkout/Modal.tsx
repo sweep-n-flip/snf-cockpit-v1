@@ -36,7 +36,7 @@ export type ModalChildrenRenderProps = {
 export type ModalProps = {
   children: (props: ModalChildrenRenderProps) => ReactNode
   onCloseAfterBridge?: () => void
-  tokens: Token[]
+  tokens: string[]
   selectedCollection: Collection | undefined
 }
 

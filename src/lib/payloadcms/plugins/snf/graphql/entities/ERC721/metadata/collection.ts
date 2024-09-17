@@ -1,20 +1,29 @@
 import { Context, GraphQLExtension } from '@/lib/payloadcms/plugins/snf/types'
 
 import {
-  ApprovalParams,
-  ApprovalResponse,
-} from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/ownership/types'
+  CollectionMetadataParams,
+  CollectionMetadataResponse,
+} from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/metadata/types'
 
-export const queryName = 'getERC721IsApprovedForAll'
+export const queryName = 'getERC721CollectionMetadata'
 
-export const approval: GraphQLExtension = (GraphQL) => {
+export const collectionMetadata: GraphQLExtension = (GraphQL) => {
   return {
     [queryName]: {
       type: new GraphQL.GraphQLObjectType({
         name: queryName,
         fields: {
-          isApprovedForAll: {
-            type: GraphQL.GraphQLBoolean,
+          name: {
+            type: GraphQL.GraphQLString,
+          },
+          symbol: {
+            type: GraphQL.GraphQLString,
+          },
+          description: {
+            type: GraphQL.GraphQLString,
+          },
+          image: {
+            type: GraphQL.GraphQLString,
           },
         },
       }),
@@ -22,38 +31,29 @@ export const approval: GraphQLExtension = (GraphQL) => {
         chainId: {
           type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLInt),
         },
-        ownerAddress: {
-          type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
-        },
         collectionAddress: {
-          type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
-        },
-        operatorAddress: {
           type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
         },
       },
       resolve: async (
         _: any,
-        args: ApprovalParams,
+        args: CollectionMetadataParams,
         context: Context,
-      ): Promise<ApprovalResponse> => {
-        const { chainId, ownerAddress, collectionAddress, operatorAddress } = args
+      ): Promise<CollectionMetadataResponse> => {
+        const { chainId, collectionAddress } = args
 
         if (!context.req.payload.config.custom.graphQL?.queries?.[queryName]) {
-          /// todo: handle error
           throw new Error(`${queryName} query is not defined`)
         }
 
         const result = await context.req.payload.config.custom.graphQL.query<
-          { [queryName: string]: ApprovalResponse },
-          ApprovalParams
+          { [queryName: string]: CollectionMetadataResponse },
+          CollectionMetadataParams
         >({
           query: context.req.payload.config.custom.graphQL.queries?.[queryName],
           variables: {
             chainId,
-            ownerAddress,
             collectionAddress,
-            operatorAddress,
           },
         })
 

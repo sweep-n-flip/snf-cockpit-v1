@@ -1,20 +1,32 @@
 import { Context, GraphQLExtension } from '@/lib/payloadcms/plugins/snf/types'
 
 import {
-  ApprovalParams,
-  ApprovalResponse,
+  BalanceParams,
+  BalanceResponse,
 } from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/ownership/types'
 
-export const queryName = 'getERC721IsApprovedForAll'
+export const queryName = 'getERC721Balance'
 
-export const approval: GraphQLExtension = (GraphQL) => {
+export const balance: GraphQLExtension = (GraphQL) => {
   return {
     [queryName]: {
       type: new GraphQL.GraphQLObjectType({
         name: queryName,
         fields: {
-          isApprovedForAll: {
-            type: GraphQL.GraphQLBoolean,
+          tokenIds: {
+            type: new GraphQL.GraphQLList(GraphQL.GraphQLString),
+          },
+          collectionAddress: {
+            type: GraphQL.GraphQLString,
+          },
+          chainId: {
+            type: GraphQL.GraphQLInt,
+          },
+          ownerAddress: {
+            type: GraphQL.GraphQLString,
+          },
+          count: {
+            type: GraphQL.GraphQLInt,
           },
         },
       }),
@@ -28,32 +40,23 @@ export const approval: GraphQLExtension = (GraphQL) => {
         collectionAddress: {
           type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
         },
-        operatorAddress: {
-          type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
-        },
       },
-      resolve: async (
-        _: any,
-        args: ApprovalParams,
-        context: Context,
-      ): Promise<ApprovalResponse> => {
-        const { chainId, ownerAddress, collectionAddress, operatorAddress } = args
+      resolve: async (_: any, args: BalanceParams, context: Context): Promise<BalanceResponse> => {
+        const { chainId, ownerAddress, collectionAddress } = args
 
         if (!context.req.payload.config.custom.graphQL?.queries?.[queryName]) {
-          /// todo: handle error
           throw new Error(`${queryName} query is not defined`)
         }
 
         const result = await context.req.payload.config.custom.graphQL.query<
-          { [queryName: string]: ApprovalResponse },
-          ApprovalParams
+          { [queryName: string]: BalanceResponse },
+          BalanceParams
         >({
           query: context.req.payload.config.custom.graphQL.queries?.[queryName],
           variables: {
             chainId,
             ownerAddress,
             collectionAddress,
-            operatorAddress,
           },
         })
 

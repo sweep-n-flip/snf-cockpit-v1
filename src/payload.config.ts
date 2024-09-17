@@ -15,6 +15,7 @@ import {
   GET_ERC721_BALANCE_QUERY,
   GET_ERC721_APPROVAL_QUERY,
   GET_ERC721_COLLECTION_METADATA_QUERY,
+  GET_ERC721_OWNER_COLLECTIONS_QUERY,
 } from '@/lib/services/graphql/entities/ERC721/queries'
 
 const filename = fileURLToPath(import.meta.url)
@@ -64,6 +65,7 @@ export default buildConfig({
           getERC721Approval: GET_ERC721_APPROVAL_QUERY,
           getERC721Balance: GET_ERC721_BALANCE_QUERY,
           getERC721CollectionMetadata: GET_ERC721_COLLECTION_METADATA_QUERY,
+          getERC721Collections: GET_ERC721_OWNER_COLLECTIONS_QUERY,
         },
         mutations: {},
         subscriptions: {},

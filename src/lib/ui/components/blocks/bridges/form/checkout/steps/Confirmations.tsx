@@ -17,7 +17,7 @@ import React from 'react'
 import Link from 'next/link'
 import stringUtils from '@/lib/utils/string'
 import { Chains } from '@/lib/payloadcms/types/payload-types'
-import { Collection } from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/wallet/types'
+import { Collection } from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/ownership/types'
 
 export type ConfirmationsProps = {
   currentStep: number

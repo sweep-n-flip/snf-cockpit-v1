@@ -43,3 +43,15 @@ export const GET_ERC721_COLLECTION_METADATA_QUERY = gql`
     }
   }
 `
+
+export const GET_ERC721_OWNER_COLLECTIONS_QUERY = gql`
+  query GetERC721Collections($address: String!, $chainId: Int!) {
+    getERC721Collections(address: $address, chainId: $chainId) {
+      collections {
+        address
+        image
+        name
+      }
+    }
+  }
+`
