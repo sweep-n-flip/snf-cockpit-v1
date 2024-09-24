@@ -15,11 +15,8 @@ import { Chains } from '@/lib/payloadcms/types/payload-types'
 import useBridge from '@/lib/ui/components/blocks/bridges/hooks/useBridge'
 import { useErc721IsApprovedForAll } from '@/lib/ui/components/blocks/bridges/hooks/useErc721IsApprovedForAll'
 import useErc721SetApprovalForAll from '@/lib/ui/components/blocks/bridges/hooks/useErc721SetApprovalForAll'
-import {
-  Collection,
-  Token,
-} from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/wallet/types'
 import { useContracts } from '@/lib/services/rest/hooks/useContracts'
+import { Collection } from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/ownership/types'
 
 export type BridgeData = {
   [key in TokenType]: {

@@ -45,7 +45,7 @@ export const Confirmations = ({
           {selectedCollection?.image ? (
             <Image
               src={selectedCollection.image}
-              alt={selectedCollection.name}
+              alt={selectedCollection?.name || 'Collection'}
               className="object-cover"
               sizes={`
                 (min-width: 1024px) 1024px,

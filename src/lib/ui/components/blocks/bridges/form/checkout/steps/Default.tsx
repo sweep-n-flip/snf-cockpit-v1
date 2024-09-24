@@ -2,10 +2,7 @@ import { BridgeStep } from '@/lib/ui/components/blocks/bridges/types/bridge'
 import { Address } from 'viem'
 import { Steps } from '@/lib/ui/components/blocks/bridges/form/checkout'
 import { Chains } from '@/lib/payloadcms/types/payload-types'
-import {
-  Collection,
-  Token,
-} from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/wallet/types'
+import { Collection } from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/ownership/types'
 
 export type DefaultProps = {
   collectionAddress: Address

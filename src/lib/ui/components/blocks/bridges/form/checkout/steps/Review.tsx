@@ -28,7 +28,7 @@ export const Review = ({
           {selectedCollection?.image ? (
             <Image
               src={selectedCollection.image}
-              alt={selectedCollection.name}
+              alt={selectedCollection.name!}
               className="object-cover"
               sizes={`
                 (min-width: 1024px) 1024px,
@@ -82,7 +82,7 @@ export const Review = ({
                 {selectedCollection?.image && (
                   <Image
                     src={selectedCollection.image}
-                    alt={selectedCollection.name}
+                    alt={selectedCollection.name!}
                     className="size-full rounded-md object-cover"
                     fill
                   />
