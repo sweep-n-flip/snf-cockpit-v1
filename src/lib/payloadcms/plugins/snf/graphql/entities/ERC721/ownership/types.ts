@@ -30,9 +30,9 @@ export type CollectionsParams = {
 
 export type Collection = {
   address: string
-  name: string
+  name?: string
   image?: string
-  tokenCount: string
+  tokenCount?: string
 }
 
 export type CollectionsResponse = { collections: Collection[] }

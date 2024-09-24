@@ -42,7 +42,7 @@ export function useGetERC721OwnerCollections({
   })
 
   return {
-    collections: data?.getERC721OwnerCollections.collections || [],
+    collections: data?.getERC721OwnerCollections?.collections || [],
     loading,
     refetch,
   }

@@ -10,34 +10,29 @@ export const queryName = 'getERC721Collections'
 export const collections: GraphQLExtension = (GraphQL) => {
   return {
     [queryName]: {
-      type: new GraphQL.GraphQLList(
-        new GraphQL.GraphQLObjectType({
-          name: queryName,
-          fields: {
-            collections: {
-              type: new GraphQL.GraphQLList(
-                new GraphQL.GraphQLObjectType({
-                  name: 'ERC721OwnerCollection',
-                  fields: {
-                    address: {
-                      type: GraphQL.GraphQLString,
-                    },
-                    name: {
-                      type: GraphQL.GraphQLString,
-                    },
-                    image: {
-                      type: GraphQL.GraphQLString,
-                    },
-                    tokenCount: {
-                      type: GraphQL.GraphQLString,
-                    },
+      type: new GraphQL.GraphQLObjectType({
+        name: queryName,
+        fields: {
+          collections: {
+            type: new GraphQL.GraphQLList(
+              new GraphQL.GraphQLObjectType({
+                name: 'ERC721OwnerCollection',
+                fields: {
+                  address: {
+                    type: GraphQL.GraphQLString,
                   },
-                }),
-              ),
-            },
+                  name: {
+                    type: GraphQL.GraphQLString,
+                  },
+                  image: {
+                    type: GraphQL.GraphQLString,
+                  },
+                },
+              }),
+            ),
           },
-        }),
-      ),
+        },
+      }),
       args: {
         chainId: {
           type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLInt),
@@ -68,7 +63,9 @@ export const collections: GraphQLExtension = (GraphQL) => {
           },
         })
 
-        return result?.data[queryName]?.collections
+        console.log(result?.data[queryName])
+
+        return { collections: result?.data[queryName]?.collections || [] }
       },
     },
   }
