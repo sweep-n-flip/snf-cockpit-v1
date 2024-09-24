@@ -32,7 +32,6 @@ export type Collection = {
   address: string
   name?: string
   image?: string
-  tokenCount?: string
 }
 
 export type CollectionsResponse = { collections: Collection[] }

@@ -27,7 +27,7 @@ export function useGetERC721OwnerCollections({
   skip,
 }: UseGetERC721OwnerCollectionsProps) {
   const { loading, data, refetch } = useQuery<
-    { getERC721OwnerCollections: OwnerCollectionsResponse },
+    { getERC721Collections: OwnerCollectionsResponse },
     OwnerCollectionsParams
   >(GET_ERC721_OWNER_COLLECTIONS_QUERY, {
     context: {
@@ -42,7 +42,7 @@ export function useGetERC721OwnerCollections({
   })
 
   return {
-    collections: data?.getERC721OwnerCollections?.collections || [],
+    collections: data?.getERC721Collections?.collections || [],
     loading,
     refetch,
   }

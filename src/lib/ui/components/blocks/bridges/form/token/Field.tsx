@@ -30,6 +30,7 @@ export const Field = ({
   tokenType,
   chains,
   collections,
+  selectedCollection,
   tokens,
   loading,
   tokensCount,
@@ -37,6 +38,7 @@ export const Field = ({
   const { watch } = useFormContext()
 
   const collectionAddressInValue = watch(COLLECTION_ADDRESS_IN, '')
+  console.log(tokens, tokensCount)
 
   return (
     <Card.Default variant="primary" className="flex flex-col gap-2">
@@ -47,7 +49,11 @@ export const Field = ({
         </div>
         <div className="flex flex-none gap-4">
           {!!collectionAddressInValue && tokenType === TokenType.TokenIn && (
-            <ChooseTokenIds tokens={tokens} tokenType={tokenType} />
+            <ChooseTokenIds
+              tokens={tokens}
+              tokenType={tokenType}
+              collection={selectedCollection!}
+            />
           )}
           <ChooseCollection
             disabled={tokenType === TokenType.TokenOut}

@@ -28,7 +28,10 @@ export const GET_ERC721_BALANCE_QUERY = gql`
       ownerAddress: $ownerAddress
       collectionAddress: $collectionAddress
     ) {
-      balance
+      chainId
+      collectionAddress
+      count
+      tokenIds
     }
   }
 `

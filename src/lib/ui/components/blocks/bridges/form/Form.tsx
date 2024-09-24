@@ -66,7 +66,9 @@ export const Form = ({ sourceChains, targetChains }: FormProps) => {
               collections={collections}
               tokens={balance?.tokenIds ?? []}
               loading={loadingCollections || tokensLoading}
+              selectedCollection={selectedCollection}
               chains={sourceChains}
+              tokensCount={balance?.count ?? 0}
               tokenType={TokenType.TokenIn}
             />
             <Switcher />
@@ -74,7 +76,9 @@ export const Form = ({ sourceChains, targetChains }: FormProps) => {
               collections={collections}
               tokens={balance?.tokenIds ?? []}
               loading={loadingCollections || tokensLoading}
+              selectedCollection={selectedCollection}
               chains={targetChains}
+              tokensCount={balance?.count ?? 0}
               tokenType={TokenType.TokenOut}
             />
             <Buttons.Custom

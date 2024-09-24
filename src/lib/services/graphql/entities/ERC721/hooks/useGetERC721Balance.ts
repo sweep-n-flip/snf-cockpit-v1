@@ -33,6 +33,8 @@ export function useGetERC721Balance({
     },
   )
 
+  console.log(data)
+
   return {
     balance: data?.getERC721Balance || null,
     loading,
