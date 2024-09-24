@@ -1,54 +1,60 @@
 import { gql } from '@apollo/client/core'
 
-export const GET_ERC721_TOKENS_BY_ADDRESS_QUERY = gql`
-  query GetERC721TokensByAddress($chainId: Int!, $address: String!, $collectionAddress: String) {
-    getERC721TokensByAddress(
-      chainId: $chainId
-      address: $address
-      collectionAddress: $collectionAddress
-    ) {
-      tokenId
-      name
-      image
-      collectionName
-      collectionImageUrl
-    }
-  }
-`
-
-export const GET_ERC721_COLLECTIONS_BY_ADDRESS_QUERY = gql`
-  query GetERC721CollectionsByAddress(
+export const GET_ERC721_APPROVAL_QUERY = gql`
+  query GetERC721Approval(
     $chainId: Int!
-    $address: String!
-    $collectionAddress: String
-  ) {
-    getERC721CollectionsByAddress(
-      chainId: $chainId
-      address: $address
-      collectionAddress: $collectionAddress
-    ) {
-      address
-      name
-      image
-      tokenCount
-    }
-  }
-`
-
-export const GET_ERC721_IS_APPROVED_FOR_ALL_QUERY = gql`
-  query GetERC721IsApprovedForAll(
-    $chainId: Int!
-    $ownerAddress: String!
     $collectionAddress: String!
+    $ownerAddress: String!
     $operatorAddress: String!
   ) {
-    getERC721IsApprovedForAll(
+    getERC721Approval(
+      chainId: $chainId
+      collectionAddress: $collectionAddress
+      ownerAddress: $ownerAddress
+      operatorAddress: $operatorAddress
+    ) {
+      chainId
+      collectionAddress
+      ownerAddress
+      operatorAddress
+    }
+  }
+`
+
+export const GET_ERC721_BALANCE_QUERY = gql`
+  query GetERC721Balance($chainId: Int!, $ownerAddress: String!, $collectionAddress: String!) {
+    getERC721Balance(
       chainId: $chainId
       ownerAddress: $ownerAddress
       collectionAddress: $collectionAddress
-      operatorAddress: $operatorAddress
     ) {
-      isApprovedForAll
+      chainId
+      collectionAddress
+      count
+      tokenIds
+    }
+  }
+`
+
+export const GET_ERC721_COLLECTION_METADATA_QUERY = gql`
+  query GetERC721CollectionMetadata($chainId: Int!, $collectionAddress: String!) {
+    getERC721CollectionMetadata(chainId: $chainId, collectionAddress: $collectionAddress) {
+      name
+      symbol
+      description
+      image
+    }
+  }
+`
+
+export const GET_ERC721_OWNER_COLLECTIONS_QUERY = gql`
+  query GetERC721Collections($address: String!, $chainId: Int!) {
+    getERC721Collections(address: $address, chainId: $chainId) {
+      collections {
+        address
+        image
+        name
+      }
     }
   }
 `

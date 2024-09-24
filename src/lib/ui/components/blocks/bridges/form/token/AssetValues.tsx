@@ -1,13 +1,12 @@
 'use client'
 
 import { Typography } from '@/lib/ui/components'
-import { Token } from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/wallet/types'
 
 export type AssetValuesProps = {
-  tokens: Token[]
+  tokensCount: number
 }
 
-export const AssetValues = ({ tokens }: AssetValuesProps) => {
+export const AssetValues = ({ tokensCount }: AssetValuesProps) => {
   return (
     <div className="flex justify-between">
       <div>
@@ -19,7 +18,7 @@ export const AssetValues = ({ tokens }: AssetValuesProps) => {
       </div>
       <div>
         <Typography.Paragraph size="sm" className="text-zinc-400">
-          Balance: {tokens.length}
+          Balance: {tokensCount}
         </Typography.Paragraph>
       </div>
     </div>

@@ -68,45 +68,46 @@ export const cmc = ({ globals }: CmcParams): CmcParams['globals'] => {
                 },
               ],
             },
-            {
-              label: 'Endpoints',
-              fields: [
-                {
-                  type: 'array',
-                  name: 'endpoints',
-                  label: false,
-                  fields: [
-                    {
-                      type: 'select',
-                      name: 'type',
-                      label: 'Type',
-                      required: true,
-                      options: [
-                        {
-                          label: 'Quote',
-                          value: 'quote',
-                        },
-                      ],
-                    },
-                    {
-                      type: 'text',
-                      name: 'path',
-                      label: 'Path',
-                      required: true,
-                    },
-                    {
-                      type: 'text',
-                      name: 'slugPath',
-                      label: 'Slug Path',
-                      required: true,
-                      admin: {
-                        description: 'Eg: ?slug={{slug}}',
-                      },
-                    },
-                  ],
-                },
-              ],
-            },
+            // todo:
+            // {
+            //   label: 'Endpoints',
+            //   fields: [
+            //     {
+            //       type: 'array',
+            //       name: 'endpoints',
+            //       label: false,
+            //       fields: [
+            //         {
+            //           type: 'select',
+            //           name: 'type',
+            //           label: 'Type',
+            //           required: true,
+            //           options: [
+            //             {
+            //               label: 'Quote',
+            //               value: 'quote',
+            //             },
+            //           ],
+            //         },
+            //         {
+            //           type: 'text',
+            //           name: 'path',
+            //           label: 'Path',
+            //           required: true,
+            //         },
+            //         {
+            //           type: 'text',
+            //           name: 'slugPath',
+            //           label: 'Slug Path',
+            //           required: true,
+            //           admin: {
+            //             description: 'Eg: ?slug={{slug}}',
+            //           },
+            //         },
+            //       ],
+            //     },
+            //   ],
+            // },
           ],
         },
       ],

@@ -424,14 +424,6 @@ export interface Cmc {
         id?: string | null;
       }[]
     | null;
-  endpoints?:
-    | {
-        type: 'quote';
-        path: string;
-        slugPath: string;
-        id?: string | null;
-      }[]
-    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -468,14 +460,6 @@ export interface Opensea {
         id?: string | null;
       }[]
     | null;
-  endpoints?:
-    | {
-        type: 'nfts_by_account' | 'nfts_by_collection_slug';
-        path: string;
-        slugPath: string;
-        id?: string | null;
-      }[]
-    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -490,15 +474,6 @@ export interface Reservoir {
         chain: string | Chains;
         apiKey: string;
         apiUrl: string;
-        id?: string | null;
-      }[]
-    | null;
-  endpoints?:
-    | {
-        type: 'users';
-        version: 'v4' | 'v10';
-        path: string;
-        slugPath: string;
         id?: string | null;
       }[]
     | null;

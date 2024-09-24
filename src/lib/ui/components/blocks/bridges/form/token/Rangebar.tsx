@@ -14,11 +14,10 @@ import {
 import { MinusCircleIcon, PlusCircleIcon } from '@heroicons/react/24/outline'
 import classNames from 'classnames'
 import { isArray } from 'lodash'
-import { Token } from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/wallet/types'
 
 export type RangebarProps = {
   tokenType: TokenType
-  tokens: Token[]
+  tokens: string[]
 }
 
 export const Rangebar = ({ tokenType, tokens }: RangebarProps) => {
@@ -34,7 +33,7 @@ export const Rangebar = ({ tokenType, tokens }: RangebarProps) => {
   const handleOnChange = (value: number | number[]) => {
     const fieldValue = isArray(value) ? value[0] : value
 
-    const slicedTokens = tokens.slice(0, fieldValue).map((token) => token.tokenId)
+    const slicedTokens = tokens.slice(0, fieldValue)
 
     setValue(idLocal, slicedTokens, {
       shouldValidate: true,

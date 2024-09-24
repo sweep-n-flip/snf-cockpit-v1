@@ -20,7 +20,7 @@ export const entities = ({ graphQL }: EntitiesParams): EntitiesParams['graphQL']
           ...Object.values(bridge.transactions),
           /// @dev: ERC721 graphql queries
           ...Object.values(ERC721.ownership),
-          ...Object.values(ERC721.wallet),
+          ...Object.values(ERC721.metadata),
         ],
         (acc, fn) => {
           return {

@@ -8,15 +8,14 @@ import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { Users } from '@/lib/payloadcms/collections/Users'
 import { Media } from '@/lib/payloadcms/collections/Media'
 import { seoPlugin } from '@payloadcms/plugin-seo'
-
-/// snf
 import { snf } from '@/lib/payloadcms/plugins'
 import { serverClient } from '@/lib/services/graphql/config/server'
 import { GET_BRIDGE_TRANSACTION_STATUS_QUERY } from '@/lib/services/graphql/entities/bridge/queries'
 import {
-  GET_ERC721_TOKENS_BY_ADDRESS_QUERY,
-  GET_ERC721_COLLECTIONS_BY_ADDRESS_QUERY,
-  GET_ERC721_IS_APPROVED_FOR_ALL_QUERY,
+  GET_ERC721_BALANCE_QUERY,
+  GET_ERC721_APPROVAL_QUERY,
+  GET_ERC721_COLLECTION_METADATA_QUERY,
+  GET_ERC721_OWNER_COLLECTIONS_QUERY,
 } from '@/lib/services/graphql/entities/ERC721/queries'
 
 const filename = fileURLToPath(import.meta.url)
@@ -63,9 +62,10 @@ export default buildConfig({
           getBridgeTransactionStatus: GET_BRIDGE_TRANSACTION_STATUS_QUERY,
 
           /// @dev: ERC721
-          getERC721TokensByAddress: GET_ERC721_TOKENS_BY_ADDRESS_QUERY,
-          getERC721CollectionsByAddress: GET_ERC721_COLLECTIONS_BY_ADDRESS_QUERY,
-          getERC721IsApprovedForAll: GET_ERC721_IS_APPROVED_FOR_ALL_QUERY,
+          getERC721Approval: GET_ERC721_APPROVAL_QUERY,
+          getERC721Balance: GET_ERC721_BALANCE_QUERY,
+          getERC721CollectionMetadata: GET_ERC721_COLLECTION_METADATA_QUERY,
+          getERC721Collections: GET_ERC721_OWNER_COLLECTIONS_QUERY,
         },
         mutations: {},
         subscriptions: {},

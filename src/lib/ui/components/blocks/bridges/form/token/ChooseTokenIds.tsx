@@ -1,5 +1,5 @@
 'use client'
-import { Children, useEffect, useMemo } from 'react'
+import { Children, useEffect } from 'react'
 import { Default as Modal } from '@/lib/ui/components/modal/Default'
 import { Button, Typography } from '@/lib/ui/components'
 import { TokenType } from '@/lib/ui/components/blocks/bridges/types/bridge'
@@ -21,16 +21,17 @@ import {
 import { Rangebar } from '@/lib/ui/components/blocks/bridges/form/token'
 import { useNetwork } from '@/lib/web3'
 import { find } from 'lodash'
-import { Token } from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/wallet/types'
 import { Chains } from '@/lib/payloadcms/types/payload-types'
+import { Collection } from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/ownership/types'
 
 export type ChooseTokenIdsProps = {
   tokenType: TokenType
-  tokens: Token[]
+  collection: Collection
+  tokens: string[]
   loading?: boolean
 }
 
-export const ChooseTokenIds = ({ tokenType, tokens, loading }: ChooseTokenIdsProps) => {
+export const ChooseTokenIds = ({ tokenType, tokens, loading, collection }: ChooseTokenIdsProps) => {
   const idLocal = tokenType === TokenType.TokenIn ? TOKEN_IDS_IN : TOKEN_IDS_OUT
   const idRemote = tokenType === TokenType.TokenOut ? TOKEN_IDS_IN : TOKEN_IDS_OUT
 
@@ -43,8 +44,6 @@ export const ChooseTokenIds = ({ tokenType, tokens, loading }: ChooseTokenIdsPro
   const collectionAddressInValue = watch(COLLECTION_ADDRESS_IN, '')
 
   const chainIdInValue = watch(CHAIN_ID_IN)
-
-  const collectionDetails = useMemo(() => tokens?.[0], [tokens])
 
   const { chains } = useNetwork()
   const { chain: chainIn } = (find(chains, {
@@ -61,13 +60,13 @@ export const ChooseTokenIds = ({ tokenType, tokens, loading }: ChooseTokenIdsPro
     setIsModalOpen(false)
   }
 
-  const handleSelectToken = (token: Token) => {
-    const alreadyExist = idLocalValue.some((selectedId) => selectedId === token.tokenId)
+  const handleSelectToken = (tokenId: string) => {
+    const alreadyExist = idLocalValue.some((selectedId) => selectedId === tokenId)
 
     if (alreadyExist) {
       setValue(
         idLocal,
-        idLocalValue.filter((id) => id !== token.tokenId),
+        idLocalValue.filter((id) => id !== tokenId),
         {
           shouldValidate: true,
         },
@@ -75,7 +74,7 @@ export const ChooseTokenIds = ({ tokenType, tokens, loading }: ChooseTokenIdsPro
 
       setValue(
         idRemote,
-        idLocalValue.filter((id) => id !== token.tokenId),
+        idLocalValue.filter((id) => id !== tokenId),
         {
           shouldValidate: true,
         },
@@ -84,11 +83,11 @@ export const ChooseTokenIds = ({ tokenType, tokens, loading }: ChooseTokenIdsPro
       return
     }
 
-    setValue(idLocal, [...idLocalValue, token.tokenId], {
+    setValue(idLocal, [...idLocalValue, tokenId], {
       shouldValidate: true,
     })
 
-    setValue(idRemote, [...idLocalValue, token.tokenId], {
+    setValue(idRemote, [...idLocalValue, tokenId], {
       shouldValidate: true,
     })
   }
@@ -133,7 +132,7 @@ export const ChooseTokenIds = ({ tokenType, tokens, loading }: ChooseTokenIdsPro
         <span>NFTs</span>
       </Typography.Paragraph>
       <Modal
-        title={collectionDetails?.collectionName || 'Choose NFTs'}
+        title={collection?.name || 'Choose NFTs'}
         description={
           chainIn ? (
             <div className="flex items-center space-x-1">
@@ -143,11 +142,11 @@ export const ChooseTokenIds = ({ tokenType, tokens, loading }: ChooseTokenIdsPro
           ) : undefined
         }
         thumbnail={
-          (collectionDetails?.collectionImageUrl || collectionDetails?.image) && (
+          collection?.image && (
             <div className="size-11 rounded-md bg-zinc-200">
               <Image
-                src={collectionDetails.collectionImageUrl! || collectionDetails.image!}
-                alt={collectionDetails.collectionName || collectionDetails.name}
+                src={collection.image!}
+                alt={collection?.name ?? collection.address}
                 className="size-11 rounded-md"
                 width={44}
                 height={44}
@@ -178,14 +177,14 @@ export const ChooseTokenIds = ({ tokenType, tokens, loading }: ChooseTokenIdsPro
                         'relative size-24 cursor-pointer overflow-hidden rounded-md bg-zinc-200',
                         {
                           'outline-width-2 outline-style-solid outline outline-color-primary':
-                            idLocalValue.some((selectedId) => selectedId === token.tokenId),
+                            idLocalValue.some((selectedId) => selectedId === token),
                         },
                       ])}
                     >
-                      {token.image && (
+                      {collection.image && (
                         <Image
-                          src={token.image}
-                          alt={token.name}
+                          src={collection.image}
+                          alt={collection?.name ?? collection.address}
                           className="size-full rounded-md object-cover"
                           sizes={`
                             (min-width: 640px) 96px,
@@ -199,7 +198,7 @@ export const ChooseTokenIds = ({ tokenType, tokens, loading }: ChooseTokenIdsPro
                       )}
                       <div className="absolute bottom-2 left-2 rounded-md bg-zinc-800 px-2 py-px opacity-80">
                         <Typography.Paragraph className="text-white" size="xs">
-                          #{token.tokenId}
+                          #{token}
                         </Typography.Paragraph>
                       </div>
                     </div>

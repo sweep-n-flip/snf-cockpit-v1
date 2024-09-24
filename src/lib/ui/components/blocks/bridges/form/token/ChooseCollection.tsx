@@ -14,7 +14,7 @@ import {
   COLLECTION_ADDRESS_IN,
   COLLECTION_ADDRESS_OUT,
 } from '@/lib/ui/components/blocks/bridges/utils/constants/fields'
-import { Collection } from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/wallet/types'
+import { Collection } from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/ownership/types'
 
 export type ChooseTokensProps = {
   disabled?: boolean
@@ -66,12 +66,12 @@ export const ChooseTokens = ({ disabled, tokenType, collections, loading }: Choo
           options={
             collections
               ? collections?.map((collection) => ({
-                  label: collection.name,
+                  label: collection.name ?? collection.address,
                   value: collection.address,
                   thumbnail: collection.image ? (
                     <Image
                       src={collection.image}
-                      alt={collection.name}
+                      alt={collection?.name ?? collection.address}
                       className="size-6 rounded-full"
                       width={24}
                       height={24}

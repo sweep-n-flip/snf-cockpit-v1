@@ -65,49 +65,50 @@ export const opensea = ({ globals }: OpenseaParams): OpenseaParams['globals'] =>
                 },
               ],
             },
-            {
-              label: 'Endpoints',
-              fields: [
-                {
-                  type: 'array',
-                  name: 'endpoints',
-                  label: false,
-                  fields: [
-                    {
-                      type: 'select',
-                      name: 'type',
-                      label: 'Type',
-                      required: true,
-                      options: [
-                        {
-                          label: 'NFTS by account',
-                          value: 'nfts_by_account',
-                        },
-                        {
-                          label: 'NFTS by collection slug',
-                          value: 'nfts_by_collection_slug',
-                        },
-                      ],
-                    },
-                    {
-                      type: 'text',
-                      name: 'path',
-                      label: 'Path',
-                      required: true,
-                    },
-                    {
-                      type: 'text',
-                      name: 'slugPath',
-                      label: 'Slug Path',
-                      required: true,
-                      admin: {
-                        description: 'Eg: /{{chain}}/account/{{address}}/nfts',
-                      },
-                    },
-                  ],
-                },
-              ],
-            },
+            /// todo:
+            // {
+            //   label: 'Endpoints',
+            //   fields: [
+            //     {
+            //       type: 'array',
+            //       name: 'endpoints',
+            //       label: false,
+            //       fields: [
+            //         {
+            //           type: 'select',
+            //           name: 'type',
+            //           label: 'Type',
+            //           required: true,
+            //           options: [
+            //             {
+            //               label: 'NFTS by account',
+            //               value: 'nfts_by_account',
+            //             },
+            //             {
+            //               label: 'NFTS by collection slug',
+            //               value: 'nfts_by_collection_slug',
+            //             },
+            //           ],
+            //         },
+            //         {
+            //           type: 'text',
+            //           name: 'path',
+            //           label: 'Path',
+            //           required: true,
+            //         },
+            //         {
+            //           type: 'text',
+            //           name: 'slugPath',
+            //           label: 'Slug Path',
+            //           required: true,
+            //           admin: {
+            //             description: 'Eg: /{{chain}}/account/{{address}}/nfts',
+            //           },
+            //         },
+            //       ],
+            //     },
+            //   ],
+            // },
           ],
         },
       ],

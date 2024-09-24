@@ -59,61 +59,62 @@ export const reservoir = ({ globals }: ReservoirParams): ReservoirParams['global
                 },
               ],
             },
-            {
-              label: 'Endpoints',
-              fields: [
-                {
-                  type: 'array',
-                  name: 'endpoints',
-                  label: false,
-                  fields: [
-                    {
-                      type: 'select',
-                      name: 'type',
-                      label: 'Type',
-                      required: true,
-                      options: [
-                        {
-                          label: 'users',
-                          value: 'users',
-                        },
-                      ],
-                    },
-                    {
-                      type: 'select',
-                      name: 'version',
-                      label: 'Version',
-                      required: true,
-                      options: [
-                        {
-                          label: 'v4',
-                          value: 'v4',
-                        },
-                        {
-                          label: 'v10',
-                          value: 'v10',
-                        },
-                      ],
-                    },
-                    {
-                      type: 'text',
-                      name: 'path',
-                      label: 'Path',
-                      required: true,
-                    },
-                    {
-                      type: 'text',
-                      name: 'slugPath',
-                      label: 'Slug Path',
-                      required: true,
-                      admin: {
-                        description: 'Eg: ?collection={{collectionAddress}}&excludeSpam=true',
-                      },
-                    },
-                  ],
-                },
-              ],
-            },
+            /// todo
+            // {
+            //   label: 'Endpoints',
+            //   fields: [
+            //     {
+            //       type: 'array',
+            //       name: 'endpoints',
+            //       label: false,
+            //       fields: [
+            //         {
+            //           type: 'select',
+            //           name: 'type',
+            //           label: 'Type',
+            //           required: true,
+            //           options: [
+            //             {
+            //               label: 'users',
+            //               value: 'users',
+            //             },
+            //           ],
+            //         },
+            //         {
+            //           type: 'select',
+            //           name: 'version',
+            //           label: 'Version',
+            //           required: true,
+            //           options: [
+            //             {
+            //               label: 'v4',
+            //               value: 'v4',
+            //             },
+            //             {
+            //               label: 'v10',
+            //               value: 'v10',
+            //             },
+            //           ],
+            //         },
+            //         {
+            //           type: 'text',
+            //           name: 'path',
+            //           label: 'Path',
+            //           required: true,
+            //         },
+            //         {
+            //           type: 'text',
+            //           name: 'slugPath',
+            //           label: 'Slug Path',
+            //           required: true,
+            //           admin: {
+            //             description: 'Eg: ?collection={{collectionAddress}}&excludeSpam=true',
+            //           },
+            //         },
+            //       ],
+            //     },
+            //   ],
+            // },
           ],
         },
       ],
