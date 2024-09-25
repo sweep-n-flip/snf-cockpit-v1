@@ -6,11 +6,19 @@ import { RootLayout } from '@payloadcms/next/layouts'
 import React from 'react'
 
 import './custom.scss'
+import { generateImportMap } from 'payload'
+import config from '@payload-config'
 
 type Args = {
   children: React.ReactNode
 }
 
-const Layout = ({ children }: Args) => <RootLayout config={configPromise}>{children}</RootLayout>
+const importMap = generateImportMap(await config)
+
+const Layout = ({ children }: Args) => (
+  <RootLayout importMap={importMap} config={configPromise}>
+    {children}
+  </RootLayout>
+)
 
 export default Layout
