@@ -220,7 +220,7 @@ export const ChooseTokenIds = ({ tokenType, tokens, loading, collection }: Choos
               size="sm"
               type="button"
               onClick={handleConfirm}
-              disabled={idLocalValue.length === 0}
+              disabled={loading || idLocalValue.length === 0}
             >
               Confirm
             </Button.Default>

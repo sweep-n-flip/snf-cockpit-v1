@@ -111,7 +111,7 @@ export const Modal = ({
         </button>
       )}
       <ModalComponent title={title} onClose={handleClose} isOpen={isOpen}>
-        {options.length > 0 ? (
+        {options.length > 0 && (
           <ul>
             {Children.toArray(
               options.map((option) => (
@@ -137,7 +137,8 @@ export const Modal = ({
               )),
             )}
           </ul>
-        ) : (
+        )}
+        {options.length === 0 && (
           <Typography.Paragraph className="p-4">No options available</Typography.Paragraph>
         )}
       </ModalComponent>
