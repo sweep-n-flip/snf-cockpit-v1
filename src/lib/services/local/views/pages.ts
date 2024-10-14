@@ -1,8 +1,11 @@
 import nextPayloadCMS from '../config'
+import { Payload } from 'payload'
 
-export const getPages = async (options?: Partial<Parameters<typeof nextPayloadCMS.find>[0]>) => {
+export const getPages = async (options?: Partial<Parameters<Payload['find']>[0]>) => {
   try {
-    const result = await nextPayloadCMS.find({
+    const result = await (
+      await nextPayloadCMS()
+    ).find({
       ...(options || {}),
       collection: 'pages',
     })
@@ -15,7 +18,7 @@ export const getPages = async (options?: Partial<Parameters<typeof nextPayloadCM
   }
 }
 
-export const getPage = async (options?: Partial<Parameters<typeof nextPayloadCMS.find>[0]>) => {
+export const getPage = async (options?: Partial<Parameters<Payload['find']>[0]>) => {
   try {
     const docs = await getPages(options)
 

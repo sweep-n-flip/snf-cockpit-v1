@@ -1,7 +1,9 @@
 import nextPayloadCMS from '../config'
 
 export const getProject = async () => {
-  const result = await nextPayloadCMS.findGlobal({
+  const result = await (
+    await nextPayloadCMS()
+  ).findGlobal({
     slug: 'project',
   })
 

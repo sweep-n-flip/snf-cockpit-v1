@@ -1,9 +1,10 @@
 import nextPayloadCMS from '../config'
+import { Payload } from 'payload'
 
-export const getBlockExplorers = async (
-  options?: Partial<Parameters<typeof nextPayloadCMS.find>[0]>,
-) => {
-  const result = await nextPayloadCMS.find({
+export const getBlockExplorers = async (options?: Partial<Parameters<Payload['find']>[0]>) => {
+  const result = await (
+    await nextPayloadCMS()
+  ).find({
     ...(options || {}),
     collection: 'block_explorers',
   })

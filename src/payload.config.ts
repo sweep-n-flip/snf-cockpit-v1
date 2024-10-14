@@ -25,6 +25,7 @@ export default buildConfig({
   admin: {
     user: Users.slug,
   },
+  editor: lexicalEditor(),
   graphQL: {
     schemaOutputFile: path.resolve(
       dirname,
@@ -32,7 +33,6 @@ export default buildConfig({
     ),
   },
   collections: [Users, Media],
-  editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'lib/payloadcms/types/payload-types.ts'),

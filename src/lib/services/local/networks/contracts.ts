@@ -1,9 +1,10 @@
 import nextPayloadCMS from '../config'
+import { Payload } from 'payload'
 
-export const getContracts = async (
-  options?: Partial<Parameters<typeof nextPayloadCMS.find>[0]>,
-) => {
-  const result = await nextPayloadCMS.find({
+export const getContracts = async (options?: Partial<Parameters<Payload['find']>[0]>) => {
+  const result = await (
+    await nextPayloadCMS()
+  ).find({
     ...(options || {}),
     collection: 'contracts',
   })
