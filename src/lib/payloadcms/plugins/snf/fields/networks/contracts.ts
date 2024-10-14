@@ -15,6 +15,7 @@ export const contracts = (params?: ContractsParams): CollectionConfig['fields'] 
       label: 'Address',
       type: 'text',
       required: true,
+      unique: false,
     },
     {
       name: 'name',
