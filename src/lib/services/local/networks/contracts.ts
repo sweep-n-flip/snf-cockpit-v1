@@ -1,13 +1,10 @@
-import type { PaginatedDocs } from 'payload'
-import { getConfig } from '../config'
-import { Contracts } from '@/lib/payloadcms/types/payload-types'
-import { Options } from 'node_modules/payload/dist/collections/operations/local/find'
+import nextPayloadCMS from '../config'
+import { Payload } from 'payload'
 
-export const getContracts = async (
-  options?: Partial<Options<'contracts'>>,
-): Promise<PaginatedDocs<Contracts>['docs']> => {
-  const config = await getConfig()
-  const result = await config.find({
+export const getContracts = async (options?: Partial<Parameters<Payload['find']>[0]>) => {
+  const result = await (
+    await nextPayloadCMS()
+  ).find({
     ...(options || {}),
     collection: 'contracts',
   })

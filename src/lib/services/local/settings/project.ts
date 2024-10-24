@@ -1,10 +1,10 @@
-import { getConfig } from '../config'
+import nextPayloadCMS from '../config'
 
 export const getProject = async () => {
-  const config = await getConfig()
-  const result = await config.findGlobal({
+  const result = await (
+    await nextPayloadCMS()
+  ).findGlobal({
     slug: 'project',
-    depth: 1,
   })
 
   return result

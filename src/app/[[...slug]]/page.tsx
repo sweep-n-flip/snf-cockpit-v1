@@ -39,6 +39,7 @@ const getPageData = async (slug?: PageProps['params']['slug']) => {
 
 export async function generateStaticParams() {
   const pages = await views.getPages()
+  // @ts-ignore
   return pages.filter((page) => page.slug).map((page) => page.slug)
 }
 
