@@ -4,11 +4,11 @@ import Form from '@/lib/ui/components/blocks/bridges/form/Form'
 import { useMemo } from 'react'
 
 export type WidgetProps = {
-  data?: (string | null) | BridgeType
+  config?: (string | null) | BridgeType
 }
 
-export const Bridge = ({ data }: WidgetProps) => {
-  const { title, description, routing } = (data || {}) as Partial<BridgeType>
+export const Bridge = ({ config }: WidgetProps) => {
+  const { title, description, routing } = (config || {}) as Partial<BridgeType>
 
   // Get the source and target chains
   const { sourceChains, targetChains } = useMemo(() => {

@@ -1,7 +1,5 @@
-import type { Config, NumberField, RelationshipField, ValidateOptions } from 'payload'
-import { admins, anyone, noOne } from '../../utils/validateRole'
-import { fields } from '@/lib/payloadcms/plugins/snf/fields'
-import { BridgeWidgets } from '@/lib/payloadcms/types/payload-types'
+import type { Config, RelationshipField } from 'payload'
+import { admins, anyone } from '../../utils/validateRole'
 
 export type Project = {
   globals: Config['globals']
