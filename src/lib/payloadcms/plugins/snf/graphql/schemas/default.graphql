@@ -33,22 +33,14 @@ type Query {
   Collections(draft: Boolean, where: Collection_where, limit: Int, page: Int, sort: String): Collections
   countCollections(draft: Boolean, where: Collection_where): countCollections
   docAccessCollection(id: String!): collectionsDocAccess
-  Page(id: String!, draft: Boolean): Page
-  Pages(draft: Boolean, where: Page_where, limit: Int, page: Int, sort: String): Pages
-  countPages(draft: Boolean, where: Page_where): countPages
-  docAccessPage(id: String!): pagesDocAccess
-  Bridge_widget(id: String!, draft: Boolean): Bridge_widget
-  Bridge_widgets(draft: Boolean, where: Bridge_widget_where, limit: Int, page: Int, sort: String): Bridge_widgets
-  countBridge_widgets(draft: Boolean, where: Bridge_widget_where): countBridge_widgets
-  docAccessBridge_widget(id: String!): bridge_widgetsDocAccess
-  Bridge_category(id: String!, draft: Boolean): Bridge_category
-  Bridge_categories(draft: Boolean, where: Bridge_category_where, limit: Int, page: Int, sort: String): Bridge_categories
-  countBridge_categories(draft: Boolean, where: Bridge_category_where): countBridge_categories
-  docAccessBridge_category(id: String!): bridge_categoriesDocAccess
   PayloadPreference(id: String!, draft: Boolean): PayloadPreference
   PayloadPreferences(draft: Boolean, where: PayloadPreference_where, limit: Int, page: Int, sort: String): PayloadPreferences
   countPayloadPreferences(draft: Boolean, where: PayloadPreference_where): countPayloadPreferences
   docAccessPayloadPreference(id: String!): payload_preferencesDocAccess
+  Bridge(draft: Boolean): Bridge
+  docAccessBridge: bridgeDocAccess
+  versionBridge(id: String, draft: Boolean): BridgeVersion
+  versionsBridge(where: versionsBridge_where, limit: Int, page: Int, sort: String): versionsBridge
   Project(draft: Boolean): Project
   docAccessProject: projectDocAccess
   Evm(draft: Boolean): Evm
@@ -68,7 +60,9 @@ type Query {
   Access: Access
   getBridgeTransactionStatus(chainId: Int!, transactionHash: String!): getBridgeTransactionStatus
   getERC721IsApprovedForAll(chainId: Int!, ownerAddress: String!, collectionAddress: String!, operatorAddress: String!): getERC721IsApprovedForAll
-  getERC721CollectionsByAddress(chainId: Int!, address: String!, collectionAddress: String): [getERC721CollectionsByAddress]
+  getERC721Balance(chainId: Int!, ownerAddress: String!, collectionAddress: String!): getERC721Balance
+  getERC721Collections(chainId: Int!, address: String!): getERC721Collections
+  getERC721CollectionMetadata(chainId: Int!, collectionAddress: String!): getERC721CollectionMetadata
 }
 
 type User {
@@ -5081,8 +5075,13 @@ type Contract {
   blockCreated: Float
   abi: String!
   chain: Chain!
+  type: Contract_type!
   updatedAt: DateTime
   createdAt: DateTime
+}
+
+enum Contract_type {
+  bridge
 }
 
 type Contracts {
@@ -5106,6 +5105,7 @@ input Contract_where {
   blockCreated: Contract_blockCreated_operator
   abi: Contract_abi_operator
   chain: Contract_chain_operator
+  type: Contract_type_operator
   updatedAt: Contract_updatedAt_operator
   createdAt: Contract_createdAt_operator
   id: Contract_id_operator
@@ -5168,6 +5168,18 @@ input Contract_chain_operator {
   all: [JSON]
 }
 
+input Contract_type_operator {
+  equals: Contract_type_Input
+  not_equals: Contract_type_Input
+  in: [Contract_type_Input]
+  not_in: [Contract_type_Input]
+  all: [Contract_type_Input]
+}
+
+enum Contract_type_Input {
+  bridge
+}
+
 input Contract_updatedAt_operator {
   equals: DateTime
   not_equals: DateTime
@@ -5208,6 +5220,7 @@ input Contract_where_and {
   blockCreated: Contract_blockCreated_operator
   abi: Contract_abi_operator
   chain: Contract_chain_operator
+  type: Contract_type_operator
   updatedAt: Contract_updatedAt_operator
   createdAt: Contract_createdAt_operator
   id: Contract_id_operator
@@ -5222,6 +5235,7 @@ input Contract_where_or {
   blockCreated: Contract_blockCreated_operator
   abi: Contract_abi_operator
   chain: Contract_chain_operator
+  type: Contract_type_operator
   updatedAt: Contract_updatedAt_operator
   createdAt: Contract_createdAt_operator
   id: Contract_id_operator
@@ -5248,6 +5262,7 @@ type ContractsDocAccessFields {
   blockCreated: ContractsDocAccessFields_blockCreated
   abi: ContractsDocAccessFields_abi
   chain: ContractsDocAccessFields_chain
+  type: ContractsDocAccessFields_type
   updatedAt: ContractsDocAccessFields_updatedAt
   createdAt: ContractsDocAccessFields_createdAt
 }
@@ -5387,6 +5402,29 @@ type ContractsDocAccessFields_chain_Update {
 }
 
 type ContractsDocAccessFields_chain_Delete {
+  permission: Boolean!
+}
+
+type ContractsDocAccessFields_type {
+  create: ContractsDocAccessFields_type_Create
+  read: ContractsDocAccessFields_type_Read
+  update: ContractsDocAccessFields_type_Update
+  delete: ContractsDocAccessFields_type_Delete
+}
+
+type ContractsDocAccessFields_type_Create {
+  permission: Boolean!
+}
+
+type ContractsDocAccessFields_type_Read {
+  permission: Boolean!
+}
+
+type ContractsDocAccessFields_type_Update {
+  permission: Boolean!
+}
+
+type ContractsDocAccessFields_type_Delete {
   permission: Boolean!
 }
 
@@ -6832,2002 +6870,6 @@ type CollectionsDeleteDocAccess {
   where: JSONObject
 }
 
-type Page {
-  id: String
-  slug: String!
-  title: String!
-  excerpt: String!
-  publishedDate: DateTime
-  layout: [Page_Layout!]
-  meta: Page_Meta
-  updatedAt: DateTime
-  createdAt: DateTime
-}
-
-union Page_Layout = Bridges
-
-type Bridges {
-  widget: Bridge_widget
-  id: String
-  blockName: String
-  blockType: String
-}
-
-type Bridge_widget {
-  id: String
-  slug: String!
-  name: String!
-  title: String!
-  description: String
-  setup: Bridge_widget_Setup
-  routing: Bridge_widget_Routing
-  updatedAt: DateTime
-  createdAt: DateTime
-}
-
-type Bridge_widget_Setup {
-  category: Bridge_category
-  version: Float
-}
-
-type Bridge_category {
-  id: String
-  slug: String!
-  name: String!
-  description: String
-  updatedAt: DateTime
-  createdAt: DateTime
-}
-
-type Bridge_widget_Routing {
-  paths: [Bridge_widget_Routing_Paths!]
-}
-
-type Bridge_widget_Routing_Paths {
-  sourceChain: Chain
-  sourceContract: Contract
-  targetChain: Chain
-  id: String
-}
-
-type Page_Meta {
-  title: String
-  description: String
-  image(where: Page_Meta_Image_where): Media
-}
-
-input Page_Meta_Image_where {
-  alt: Page_Meta_Image_alt_operator
-  caption: Page_Meta_Image_caption_operator
-  updatedAt: Page_Meta_Image_updatedAt_operator
-  createdAt: Page_Meta_Image_createdAt_operator
-  url: Page_Meta_Image_url_operator
-  thumbnailURL: Page_Meta_Image_thumbnailURL_operator
-  filename: Page_Meta_Image_filename_operator
-  mimeType: Page_Meta_Image_mimeType_operator
-  filesize: Page_Meta_Image_filesize_operator
-  width: Page_Meta_Image_width_operator
-  height: Page_Meta_Image_height_operator
-  focalX: Page_Meta_Image_focalX_operator
-  focalY: Page_Meta_Image_focalY_operator
-  sizes__icon__url: Page_Meta_Image_sizes__icon__url_operator
-  sizes__icon__width: Page_Meta_Image_sizes__icon__width_operator
-  sizes__icon__height: Page_Meta_Image_sizes__icon__height_operator
-  sizes__icon__mimeType: Page_Meta_Image_sizes__icon__mimeType_operator
-  sizes__icon__filesize: Page_Meta_Image_sizes__icon__filesize_operator
-  sizes__icon__filename: Page_Meta_Image_sizes__icon__filename_operator
-  sizes__thumbnail__url: Page_Meta_Image_sizes__thumbnail__url_operator
-  sizes__thumbnail__width: Page_Meta_Image_sizes__thumbnail__width_operator
-  sizes__thumbnail__height: Page_Meta_Image_sizes__thumbnail__height_operator
-  sizes__thumbnail__mimeType: Page_Meta_Image_sizes__thumbnail__mimeType_operator
-  sizes__thumbnail__filesize: Page_Meta_Image_sizes__thumbnail__filesize_operator
-  sizes__thumbnail__filename: Page_Meta_Image_sizes__thumbnail__filename_operator
-  sizes__small__url: Page_Meta_Image_sizes__small__url_operator
-  sizes__small__width: Page_Meta_Image_sizes__small__width_operator
-  sizes__small__height: Page_Meta_Image_sizes__small__height_operator
-  sizes__small__mimeType: Page_Meta_Image_sizes__small__mimeType_operator
-  sizes__small__filesize: Page_Meta_Image_sizes__small__filesize_operator
-  sizes__small__filename: Page_Meta_Image_sizes__small__filename_operator
-  sizes__medium__url: Page_Meta_Image_sizes__medium__url_operator
-  sizes__medium__width: Page_Meta_Image_sizes__medium__width_operator
-  sizes__medium__height: Page_Meta_Image_sizes__medium__height_operator
-  sizes__medium__mimeType: Page_Meta_Image_sizes__medium__mimeType_operator
-  sizes__medium__filesize: Page_Meta_Image_sizes__medium__filesize_operator
-  sizes__medium__filename: Page_Meta_Image_sizes__medium__filename_operator
-  sizes__large__url: Page_Meta_Image_sizes__large__url_operator
-  sizes__large__width: Page_Meta_Image_sizes__large__width_operator
-  sizes__large__height: Page_Meta_Image_sizes__large__height_operator
-  sizes__large__mimeType: Page_Meta_Image_sizes__large__mimeType_operator
-  sizes__large__filesize: Page_Meta_Image_sizes__large__filesize_operator
-  sizes__large__filename: Page_Meta_Image_sizes__large__filename_operator
-  id: Page_Meta_Image_id_operator
-  AND: [Page_Meta_Image_where_and]
-  OR: [Page_Meta_Image_where_or]
-}
-
-input Page_Meta_Image_alt_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input Page_Meta_Image_caption_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Page_Meta_Image_updatedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Page_Meta_Image_createdAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Page_Meta_Image_url_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Page_Meta_Image_thumbnailURL_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Page_Meta_Image_filename_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Page_Meta_Image_mimeType_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Page_Meta_Image_filesize_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Page_Meta_Image_width_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Page_Meta_Image_height_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Page_Meta_Image_focalX_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Page_Meta_Image_focalY_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__icon__url_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__icon__width_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__icon__height_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__icon__mimeType_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__icon__filesize_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__icon__filename_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__thumbnail__url_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__thumbnail__width_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__thumbnail__height_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__thumbnail__mimeType_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__thumbnail__filesize_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__thumbnail__filename_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__small__url_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__small__width_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__small__height_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__small__mimeType_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__small__filesize_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__small__filename_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__medium__url_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__medium__width_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__medium__height_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__medium__mimeType_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__medium__filesize_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__medium__filename_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__large__url_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__large__width_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__large__height_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__large__mimeType_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__large__filesize_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Page_Meta_Image_sizes__large__filename_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Page_Meta_Image_id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Page_Meta_Image_where_and {
-  alt: Page_Meta_Image_alt_operator
-  caption: Page_Meta_Image_caption_operator
-  updatedAt: Page_Meta_Image_updatedAt_operator
-  createdAt: Page_Meta_Image_createdAt_operator
-  url: Page_Meta_Image_url_operator
-  thumbnailURL: Page_Meta_Image_thumbnailURL_operator
-  filename: Page_Meta_Image_filename_operator
-  mimeType: Page_Meta_Image_mimeType_operator
-  filesize: Page_Meta_Image_filesize_operator
-  width: Page_Meta_Image_width_operator
-  height: Page_Meta_Image_height_operator
-  focalX: Page_Meta_Image_focalX_operator
-  focalY: Page_Meta_Image_focalY_operator
-  sizes__icon__url: Page_Meta_Image_sizes__icon__url_operator
-  sizes__icon__width: Page_Meta_Image_sizes__icon__width_operator
-  sizes__icon__height: Page_Meta_Image_sizes__icon__height_operator
-  sizes__icon__mimeType: Page_Meta_Image_sizes__icon__mimeType_operator
-  sizes__icon__filesize: Page_Meta_Image_sizes__icon__filesize_operator
-  sizes__icon__filename: Page_Meta_Image_sizes__icon__filename_operator
-  sizes__thumbnail__url: Page_Meta_Image_sizes__thumbnail__url_operator
-  sizes__thumbnail__width: Page_Meta_Image_sizes__thumbnail__width_operator
-  sizes__thumbnail__height: Page_Meta_Image_sizes__thumbnail__height_operator
-  sizes__thumbnail__mimeType: Page_Meta_Image_sizes__thumbnail__mimeType_operator
-  sizes__thumbnail__filesize: Page_Meta_Image_sizes__thumbnail__filesize_operator
-  sizes__thumbnail__filename: Page_Meta_Image_sizes__thumbnail__filename_operator
-  sizes__small__url: Page_Meta_Image_sizes__small__url_operator
-  sizes__small__width: Page_Meta_Image_sizes__small__width_operator
-  sizes__small__height: Page_Meta_Image_sizes__small__height_operator
-  sizes__small__mimeType: Page_Meta_Image_sizes__small__mimeType_operator
-  sizes__small__filesize: Page_Meta_Image_sizes__small__filesize_operator
-  sizes__small__filename: Page_Meta_Image_sizes__small__filename_operator
-  sizes__medium__url: Page_Meta_Image_sizes__medium__url_operator
-  sizes__medium__width: Page_Meta_Image_sizes__medium__width_operator
-  sizes__medium__height: Page_Meta_Image_sizes__medium__height_operator
-  sizes__medium__mimeType: Page_Meta_Image_sizes__medium__mimeType_operator
-  sizes__medium__filesize: Page_Meta_Image_sizes__medium__filesize_operator
-  sizes__medium__filename: Page_Meta_Image_sizes__medium__filename_operator
-  sizes__large__url: Page_Meta_Image_sizes__large__url_operator
-  sizes__large__width: Page_Meta_Image_sizes__large__width_operator
-  sizes__large__height: Page_Meta_Image_sizes__large__height_operator
-  sizes__large__mimeType: Page_Meta_Image_sizes__large__mimeType_operator
-  sizes__large__filesize: Page_Meta_Image_sizes__large__filesize_operator
-  sizes__large__filename: Page_Meta_Image_sizes__large__filename_operator
-  id: Page_Meta_Image_id_operator
-  AND: [Page_Meta_Image_where_and]
-  OR: [Page_Meta_Image_where_or]
-}
-
-input Page_Meta_Image_where_or {
-  alt: Page_Meta_Image_alt_operator
-  caption: Page_Meta_Image_caption_operator
-  updatedAt: Page_Meta_Image_updatedAt_operator
-  createdAt: Page_Meta_Image_createdAt_operator
-  url: Page_Meta_Image_url_operator
-  thumbnailURL: Page_Meta_Image_thumbnailURL_operator
-  filename: Page_Meta_Image_filename_operator
-  mimeType: Page_Meta_Image_mimeType_operator
-  filesize: Page_Meta_Image_filesize_operator
-  width: Page_Meta_Image_width_operator
-  height: Page_Meta_Image_height_operator
-  focalX: Page_Meta_Image_focalX_operator
-  focalY: Page_Meta_Image_focalY_operator
-  sizes__icon__url: Page_Meta_Image_sizes__icon__url_operator
-  sizes__icon__width: Page_Meta_Image_sizes__icon__width_operator
-  sizes__icon__height: Page_Meta_Image_sizes__icon__height_operator
-  sizes__icon__mimeType: Page_Meta_Image_sizes__icon__mimeType_operator
-  sizes__icon__filesize: Page_Meta_Image_sizes__icon__filesize_operator
-  sizes__icon__filename: Page_Meta_Image_sizes__icon__filename_operator
-  sizes__thumbnail__url: Page_Meta_Image_sizes__thumbnail__url_operator
-  sizes__thumbnail__width: Page_Meta_Image_sizes__thumbnail__width_operator
-  sizes__thumbnail__height: Page_Meta_Image_sizes__thumbnail__height_operator
-  sizes__thumbnail__mimeType: Page_Meta_Image_sizes__thumbnail__mimeType_operator
-  sizes__thumbnail__filesize: Page_Meta_Image_sizes__thumbnail__filesize_operator
-  sizes__thumbnail__filename: Page_Meta_Image_sizes__thumbnail__filename_operator
-  sizes__small__url: Page_Meta_Image_sizes__small__url_operator
-  sizes__small__width: Page_Meta_Image_sizes__small__width_operator
-  sizes__small__height: Page_Meta_Image_sizes__small__height_operator
-  sizes__small__mimeType: Page_Meta_Image_sizes__small__mimeType_operator
-  sizes__small__filesize: Page_Meta_Image_sizes__small__filesize_operator
-  sizes__small__filename: Page_Meta_Image_sizes__small__filename_operator
-  sizes__medium__url: Page_Meta_Image_sizes__medium__url_operator
-  sizes__medium__width: Page_Meta_Image_sizes__medium__width_operator
-  sizes__medium__height: Page_Meta_Image_sizes__medium__height_operator
-  sizes__medium__mimeType: Page_Meta_Image_sizes__medium__mimeType_operator
-  sizes__medium__filesize: Page_Meta_Image_sizes__medium__filesize_operator
-  sizes__medium__filename: Page_Meta_Image_sizes__medium__filename_operator
-  sizes__large__url: Page_Meta_Image_sizes__large__url_operator
-  sizes__large__width: Page_Meta_Image_sizes__large__width_operator
-  sizes__large__height: Page_Meta_Image_sizes__large__height_operator
-  sizes__large__mimeType: Page_Meta_Image_sizes__large__mimeType_operator
-  sizes__large__filesize: Page_Meta_Image_sizes__large__filesize_operator
-  sizes__large__filename: Page_Meta_Image_sizes__large__filename_operator
-  id: Page_Meta_Image_id_operator
-  AND: [Page_Meta_Image_where_and]
-  OR: [Page_Meta_Image_where_or]
-}
-
-type Pages {
-  docs: [Page]
-  hasNextPage: Boolean
-  hasPrevPage: Boolean
-  limit: Int
-  nextPage: Int
-  offset: Int
-  page: Int
-  pagingCounter: Int
-  prevPage: Int
-  totalDocs: Int
-  totalPages: Int
-}
-
-input Page_where {
-  slug: Page_slug_operator
-  title: Page_title_operator
-  excerpt: Page_excerpt_operator
-  publishedDate: Page_publishedDate_operator
-  meta__title: Page_meta__title_operator
-  meta__description: Page_meta__description_operator
-  meta__image: Page_meta__image_operator
-  updatedAt: Page_updatedAt_operator
-  createdAt: Page_createdAt_operator
-  id: Page_id_operator
-  AND: [Page_where_and]
-  OR: [Page_where_or]
-}
-
-input Page_slug_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input Page_title_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input Page_excerpt_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input Page_publishedDate_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Page_meta__title_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Page_meta__description_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  exists: Boolean
-}
-
-input Page_meta__image_operator {
-  equals: String
-  not_equals: String
-  exists: Boolean
-}
-
-input Page_updatedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Page_createdAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Page_id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Page_where_and {
-  slug: Page_slug_operator
-  title: Page_title_operator
-  excerpt: Page_excerpt_operator
-  publishedDate: Page_publishedDate_operator
-  meta__title: Page_meta__title_operator
-  meta__description: Page_meta__description_operator
-  meta__image: Page_meta__image_operator
-  updatedAt: Page_updatedAt_operator
-  createdAt: Page_createdAt_operator
-  id: Page_id_operator
-  AND: [Page_where_and]
-  OR: [Page_where_or]
-}
-
-input Page_where_or {
-  slug: Page_slug_operator
-  title: Page_title_operator
-  excerpt: Page_excerpt_operator
-  publishedDate: Page_publishedDate_operator
-  meta__title: Page_meta__title_operator
-  meta__description: Page_meta__description_operator
-  meta__image: Page_meta__image_operator
-  updatedAt: Page_updatedAt_operator
-  createdAt: Page_createdAt_operator
-  id: Page_id_operator
-  AND: [Page_where_and]
-  OR: [Page_where_or]
-}
-
-type countPages {
-  totalDocs: Int
-}
-
-type pagesDocAccess {
-  fields: PagesDocAccessFields
-  create: PagesCreateDocAccess
-  read: PagesReadDocAccess
-  update: PagesUpdateDocAccess
-  delete: PagesDeleteDocAccess
-}
-
-type PagesDocAccessFields {
-  slug: PagesDocAccessFields_slug
-  title: PagesDocAccessFields_title
-  excerpt: PagesDocAccessFields_excerpt
-  publishedDate: PagesDocAccessFields_publishedDate
-  layout: PagesDocAccessFields_layout
-  meta: PagesDocAccessFields_meta
-  updatedAt: PagesDocAccessFields_updatedAt
-  createdAt: PagesDocAccessFields_createdAt
-}
-
-type PagesDocAccessFields_slug {
-  create: PagesDocAccessFields_slug_Create
-  read: PagesDocAccessFields_slug_Read
-  update: PagesDocAccessFields_slug_Update
-  delete: PagesDocAccessFields_slug_Delete
-}
-
-type PagesDocAccessFields_slug_Create {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_slug_Read {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_slug_Update {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_slug_Delete {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_title {
-  create: PagesDocAccessFields_title_Create
-  read: PagesDocAccessFields_title_Read
-  update: PagesDocAccessFields_title_Update
-  delete: PagesDocAccessFields_title_Delete
-}
-
-type PagesDocAccessFields_title_Create {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_title_Read {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_title_Update {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_title_Delete {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_excerpt {
-  create: PagesDocAccessFields_excerpt_Create
-  read: PagesDocAccessFields_excerpt_Read
-  update: PagesDocAccessFields_excerpt_Update
-  delete: PagesDocAccessFields_excerpt_Delete
-}
-
-type PagesDocAccessFields_excerpt_Create {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_excerpt_Read {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_excerpt_Update {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_excerpt_Delete {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_publishedDate {
-  create: PagesDocAccessFields_publishedDate_Create
-  read: PagesDocAccessFields_publishedDate_Read
-  update: PagesDocAccessFields_publishedDate_Update
-  delete: PagesDocAccessFields_publishedDate_Delete
-}
-
-type PagesDocAccessFields_publishedDate_Create {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_publishedDate_Read {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_publishedDate_Update {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_publishedDate_Delete {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_layout {
-  create: PagesDocAccessFields_layout_Create
-  read: PagesDocAccessFields_layout_Read
-  update: PagesDocAccessFields_layout_Update
-  delete: PagesDocAccessFields_layout_Delete
-}
-
-type PagesDocAccessFields_layout_Create {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_layout_Read {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_layout_Update {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_layout_Delete {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_meta {
-  create: PagesDocAccessFields_meta_Create
-  read: PagesDocAccessFields_meta_Read
-  update: PagesDocAccessFields_meta_Update
-  delete: PagesDocAccessFields_meta_Delete
-  fields: PagesDocAccessFields_meta_Fields
-}
-
-type PagesDocAccessFields_meta_Create {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_meta_Read {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_meta_Update {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_meta_Delete {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_meta_Fields {
-  title: PagesDocAccessFields_meta_title
-  description: PagesDocAccessFields_meta_description
-  image: PagesDocAccessFields_meta_image
-}
-
-type PagesDocAccessFields_meta_title {
-  create: PagesDocAccessFields_meta_title_Create
-  read: PagesDocAccessFields_meta_title_Read
-  update: PagesDocAccessFields_meta_title_Update
-  delete: PagesDocAccessFields_meta_title_Delete
-}
-
-type PagesDocAccessFields_meta_title_Create {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_meta_title_Read {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_meta_title_Update {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_meta_title_Delete {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_meta_description {
-  create: PagesDocAccessFields_meta_description_Create
-  read: PagesDocAccessFields_meta_description_Read
-  update: PagesDocAccessFields_meta_description_Update
-  delete: PagesDocAccessFields_meta_description_Delete
-}
-
-type PagesDocAccessFields_meta_description_Create {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_meta_description_Read {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_meta_description_Update {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_meta_description_Delete {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_meta_image {
-  create: PagesDocAccessFields_meta_image_Create
-  read: PagesDocAccessFields_meta_image_Read
-  update: PagesDocAccessFields_meta_image_Update
-  delete: PagesDocAccessFields_meta_image_Delete
-}
-
-type PagesDocAccessFields_meta_image_Create {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_meta_image_Read {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_meta_image_Update {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_meta_image_Delete {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_updatedAt {
-  create: PagesDocAccessFields_updatedAt_Create
-  read: PagesDocAccessFields_updatedAt_Read
-  update: PagesDocAccessFields_updatedAt_Update
-  delete: PagesDocAccessFields_updatedAt_Delete
-}
-
-type PagesDocAccessFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_createdAt {
-  create: PagesDocAccessFields_createdAt_Create
-  read: PagesDocAccessFields_createdAt_Read
-  update: PagesDocAccessFields_createdAt_Update
-  delete: PagesDocAccessFields_createdAt_Delete
-}
-
-type PagesDocAccessFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type PagesDocAccessFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type PagesCreateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type PagesReadDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type PagesUpdateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type PagesDeleteDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type Bridge_widgets {
-  docs: [Bridge_widget]
-  hasNextPage: Boolean
-  hasPrevPage: Boolean
-  limit: Int
-  nextPage: Int
-  offset: Int
-  page: Int
-  pagingCounter: Int
-  prevPage: Int
-  totalDocs: Int
-  totalPages: Int
-}
-
-input Bridge_widget_where {
-  slug: Bridge_widget_slug_operator
-  name: Bridge_widget_name_operator
-  title: Bridge_widget_title_operator
-  description: Bridge_widget_description_operator
-  setup__category: Bridge_widget_setup__category_operator
-  setup__version: Bridge_widget_setup__version_operator
-  routing__paths__sourceChain: Bridge_widget_routing__paths__sourceChain_operator
-  routing__paths__sourceContract: Bridge_widget_routing__paths__sourceContract_operator
-  routing__paths__targetChain: Bridge_widget_routing__paths__targetChain_operator
-  routing__paths__id: Bridge_widget_routing__paths__id_operator
-  updatedAt: Bridge_widget_updatedAt_operator
-  createdAt: Bridge_widget_createdAt_operator
-  id: Bridge_widget_id_operator
-  AND: [Bridge_widget_where_and]
-  OR: [Bridge_widget_where_or]
-}
-
-input Bridge_widget_slug_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input Bridge_widget_name_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input Bridge_widget_title_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input Bridge_widget_description_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  exists: Boolean
-}
-
-input Bridge_widget_setup__category_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
-}
-
-input Bridge_widget_setup__version_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-}
-
-input Bridge_widget_routing__paths__sourceChain_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
-}
-
-input Bridge_widget_routing__paths__sourceContract_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
-}
-
-input Bridge_widget_routing__paths__targetChain_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
-}
-
-input Bridge_widget_routing__paths__id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Bridge_widget_updatedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Bridge_widget_createdAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Bridge_widget_id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Bridge_widget_where_and {
-  slug: Bridge_widget_slug_operator
-  name: Bridge_widget_name_operator
-  title: Bridge_widget_title_operator
-  description: Bridge_widget_description_operator
-  setup__category: Bridge_widget_setup__category_operator
-  setup__version: Bridge_widget_setup__version_operator
-  routing__paths__sourceChain: Bridge_widget_routing__paths__sourceChain_operator
-  routing__paths__sourceContract: Bridge_widget_routing__paths__sourceContract_operator
-  routing__paths__targetChain: Bridge_widget_routing__paths__targetChain_operator
-  routing__paths__id: Bridge_widget_routing__paths__id_operator
-  updatedAt: Bridge_widget_updatedAt_operator
-  createdAt: Bridge_widget_createdAt_operator
-  id: Bridge_widget_id_operator
-  AND: [Bridge_widget_where_and]
-  OR: [Bridge_widget_where_or]
-}
-
-input Bridge_widget_where_or {
-  slug: Bridge_widget_slug_operator
-  name: Bridge_widget_name_operator
-  title: Bridge_widget_title_operator
-  description: Bridge_widget_description_operator
-  setup__category: Bridge_widget_setup__category_operator
-  setup__version: Bridge_widget_setup__version_operator
-  routing__paths__sourceChain: Bridge_widget_routing__paths__sourceChain_operator
-  routing__paths__sourceContract: Bridge_widget_routing__paths__sourceContract_operator
-  routing__paths__targetChain: Bridge_widget_routing__paths__targetChain_operator
-  routing__paths__id: Bridge_widget_routing__paths__id_operator
-  updatedAt: Bridge_widget_updatedAt_operator
-  createdAt: Bridge_widget_createdAt_operator
-  id: Bridge_widget_id_operator
-  AND: [Bridge_widget_where_and]
-  OR: [Bridge_widget_where_or]
-}
-
-type countBridge_widgets {
-  totalDocs: Int
-}
-
-type bridge_widgetsDocAccess {
-  fields: Bridge_widgetsDocAccessFields
-  create: Bridge_widgetsCreateDocAccess
-  read: Bridge_widgetsReadDocAccess
-  update: Bridge_widgetsUpdateDocAccess
-  delete: Bridge_widgetsDeleteDocAccess
-}
-
-type Bridge_widgetsDocAccessFields {
-  slug: Bridge_widgetsDocAccessFields_slug
-  name: Bridge_widgetsDocAccessFields_name
-  title: Bridge_widgetsDocAccessFields_title
-  description: Bridge_widgetsDocAccessFields_description
-  setup: Bridge_widgetsDocAccessFields_setup
-  routing: Bridge_widgetsDocAccessFields_routing
-  updatedAt: Bridge_widgetsDocAccessFields_updatedAt
-  createdAt: Bridge_widgetsDocAccessFields_createdAt
-}
-
-type Bridge_widgetsDocAccessFields_slug {
-  create: Bridge_widgetsDocAccessFields_slug_Create
-  read: Bridge_widgetsDocAccessFields_slug_Read
-  update: Bridge_widgetsDocAccessFields_slug_Update
-  delete: Bridge_widgetsDocAccessFields_slug_Delete
-}
-
-type Bridge_widgetsDocAccessFields_slug_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_slug_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_slug_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_slug_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_name {
-  create: Bridge_widgetsDocAccessFields_name_Create
-  read: Bridge_widgetsDocAccessFields_name_Read
-  update: Bridge_widgetsDocAccessFields_name_Update
-  delete: Bridge_widgetsDocAccessFields_name_Delete
-}
-
-type Bridge_widgetsDocAccessFields_name_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_name_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_name_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_name_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_title {
-  create: Bridge_widgetsDocAccessFields_title_Create
-  read: Bridge_widgetsDocAccessFields_title_Read
-  update: Bridge_widgetsDocAccessFields_title_Update
-  delete: Bridge_widgetsDocAccessFields_title_Delete
-}
-
-type Bridge_widgetsDocAccessFields_title_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_title_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_title_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_title_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_description {
-  create: Bridge_widgetsDocAccessFields_description_Create
-  read: Bridge_widgetsDocAccessFields_description_Read
-  update: Bridge_widgetsDocAccessFields_description_Update
-  delete: Bridge_widgetsDocAccessFields_description_Delete
-}
-
-type Bridge_widgetsDocAccessFields_description_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_description_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_description_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_description_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_setup {
-  create: Bridge_widgetsDocAccessFields_setup_Create
-  read: Bridge_widgetsDocAccessFields_setup_Read
-  update: Bridge_widgetsDocAccessFields_setup_Update
-  delete: Bridge_widgetsDocAccessFields_setup_Delete
-  fields: Bridge_widgetsDocAccessFields_setup_Fields
-}
-
-type Bridge_widgetsDocAccessFields_setup_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_setup_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_setup_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_setup_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_setup_Fields {
-  category: Bridge_widgetsDocAccessFields_setup_category
-  version: Bridge_widgetsDocAccessFields_setup_version
-}
-
-type Bridge_widgetsDocAccessFields_setup_category {
-  create: Bridge_widgetsDocAccessFields_setup_category_Create
-  read: Bridge_widgetsDocAccessFields_setup_category_Read
-  update: Bridge_widgetsDocAccessFields_setup_category_Update
-  delete: Bridge_widgetsDocAccessFields_setup_category_Delete
-}
-
-type Bridge_widgetsDocAccessFields_setup_category_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_setup_category_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_setup_category_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_setup_category_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_setup_version {
-  create: Bridge_widgetsDocAccessFields_setup_version_Create
-  read: Bridge_widgetsDocAccessFields_setup_version_Read
-  update: Bridge_widgetsDocAccessFields_setup_version_Update
-  delete: Bridge_widgetsDocAccessFields_setup_version_Delete
-}
-
-type Bridge_widgetsDocAccessFields_setup_version_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_setup_version_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_setup_version_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_setup_version_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_routing {
-  create: Bridge_widgetsDocAccessFields_routing_Create
-  read: Bridge_widgetsDocAccessFields_routing_Read
-  update: Bridge_widgetsDocAccessFields_routing_Update
-  delete: Bridge_widgetsDocAccessFields_routing_Delete
-  fields: Bridge_widgetsDocAccessFields_routing_Fields
-}
-
-type Bridge_widgetsDocAccessFields_routing_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_routing_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_routing_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_routing_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_routing_Fields {
-  paths: Bridge_widgetsDocAccessFields_routing_paths
-}
-
-type Bridge_widgetsDocAccessFields_routing_paths {
-  create: Bridge_widgetsDocAccessFields_routing_paths_Create
-  read: Bridge_widgetsDocAccessFields_routing_paths_Read
-  update: Bridge_widgetsDocAccessFields_routing_paths_Update
-  delete: Bridge_widgetsDocAccessFields_routing_paths_Delete
-  fields: Bridge_widgetsDocAccessFields_routing_paths_Fields
-}
-
-type Bridge_widgetsDocAccessFields_routing_paths_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_routing_paths_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_routing_paths_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_routing_paths_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_routing_paths_Fields {
-  sourceChain: Bridge_widgetsDocAccessFields_routing_paths_sourceChain
-  sourceContract: Bridge_widgetsDocAccessFields_routing_paths_sourceContract
-  targetChain: Bridge_widgetsDocAccessFields_routing_paths_targetChain
-  id: Bridge_widgetsDocAccessFields_routing_paths_id
-}
-
-type Bridge_widgetsDocAccessFields_routing_paths_sourceChain {
-  create: Bridge_widgetsDocAccessFields_routing_paths_sourceChain_Create
-  read: Bridge_widgetsDocAccessFields_routing_paths_sourceChain_Read
-  update: Bridge_widgetsDocAccessFields_routing_paths_sourceChain_Update
-  delete: Bridge_widgetsDocAccessFields_routing_paths_sourceChain_Delete
-}
-
-type Bridge_widgetsDocAccessFields_routing_paths_sourceChain_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_routing_paths_sourceChain_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_routing_paths_sourceChain_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_routing_paths_sourceChain_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_routing_paths_sourceContract {
-  create: Bridge_widgetsDocAccessFields_routing_paths_sourceContract_Create
-  read: Bridge_widgetsDocAccessFields_routing_paths_sourceContract_Read
-  update: Bridge_widgetsDocAccessFields_routing_paths_sourceContract_Update
-  delete: Bridge_widgetsDocAccessFields_routing_paths_sourceContract_Delete
-}
-
-type Bridge_widgetsDocAccessFields_routing_paths_sourceContract_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_routing_paths_sourceContract_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_routing_paths_sourceContract_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_routing_paths_sourceContract_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_routing_paths_targetChain {
-  create: Bridge_widgetsDocAccessFields_routing_paths_targetChain_Create
-  read: Bridge_widgetsDocAccessFields_routing_paths_targetChain_Read
-  update: Bridge_widgetsDocAccessFields_routing_paths_targetChain_Update
-  delete: Bridge_widgetsDocAccessFields_routing_paths_targetChain_Delete
-}
-
-type Bridge_widgetsDocAccessFields_routing_paths_targetChain_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_routing_paths_targetChain_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_routing_paths_targetChain_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_routing_paths_targetChain_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_routing_paths_id {
-  create: Bridge_widgetsDocAccessFields_routing_paths_id_Create
-  read: Bridge_widgetsDocAccessFields_routing_paths_id_Read
-  update: Bridge_widgetsDocAccessFields_routing_paths_id_Update
-  delete: Bridge_widgetsDocAccessFields_routing_paths_id_Delete
-}
-
-type Bridge_widgetsDocAccessFields_routing_paths_id_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_routing_paths_id_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_routing_paths_id_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_routing_paths_id_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_updatedAt {
-  create: Bridge_widgetsDocAccessFields_updatedAt_Create
-  read: Bridge_widgetsDocAccessFields_updatedAt_Read
-  update: Bridge_widgetsDocAccessFields_updatedAt_Update
-  delete: Bridge_widgetsDocAccessFields_updatedAt_Delete
-}
-
-type Bridge_widgetsDocAccessFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_createdAt {
-  create: Bridge_widgetsDocAccessFields_createdAt_Create
-  read: Bridge_widgetsDocAccessFields_createdAt_Read
-  update: Bridge_widgetsDocAccessFields_createdAt_Update
-  delete: Bridge_widgetsDocAccessFields_createdAt_Delete
-}
-
-type Bridge_widgetsDocAccessFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsDocAccessFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsCreateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type Bridge_widgetsReadDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type Bridge_widgetsUpdateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type Bridge_widgetsDeleteDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type Bridge_categories {
-  docs: [Bridge_category]
-  hasNextPage: Boolean
-  hasPrevPage: Boolean
-  limit: Int
-  nextPage: Int
-  offset: Int
-  page: Int
-  pagingCounter: Int
-  prevPage: Int
-  totalDocs: Int
-  totalPages: Int
-}
-
-input Bridge_category_where {
-  slug: Bridge_category_slug_operator
-  name: Bridge_category_name_operator
-  description: Bridge_category_description_operator
-  updatedAt: Bridge_category_updatedAt_operator
-  createdAt: Bridge_category_createdAt_operator
-  id: Bridge_category_id_operator
-  AND: [Bridge_category_where_and]
-  OR: [Bridge_category_where_or]
-}
-
-input Bridge_category_slug_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input Bridge_category_name_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input Bridge_category_description_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  exists: Boolean
-}
-
-input Bridge_category_updatedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Bridge_category_createdAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Bridge_category_id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Bridge_category_where_and {
-  slug: Bridge_category_slug_operator
-  name: Bridge_category_name_operator
-  description: Bridge_category_description_operator
-  updatedAt: Bridge_category_updatedAt_operator
-  createdAt: Bridge_category_createdAt_operator
-  id: Bridge_category_id_operator
-  AND: [Bridge_category_where_and]
-  OR: [Bridge_category_where_or]
-}
-
-input Bridge_category_where_or {
-  slug: Bridge_category_slug_operator
-  name: Bridge_category_name_operator
-  description: Bridge_category_description_operator
-  updatedAt: Bridge_category_updatedAt_operator
-  createdAt: Bridge_category_createdAt_operator
-  id: Bridge_category_id_operator
-  AND: [Bridge_category_where_and]
-  OR: [Bridge_category_where_or]
-}
-
-type countBridge_categories {
-  totalDocs: Int
-}
-
-type bridge_categoriesDocAccess {
-  fields: Bridge_categoriesDocAccessFields
-  create: Bridge_categoriesCreateDocAccess
-  read: Bridge_categoriesReadDocAccess
-  update: Bridge_categoriesUpdateDocAccess
-  delete: Bridge_categoriesDeleteDocAccess
-}
-
-type Bridge_categoriesDocAccessFields {
-  slug: Bridge_categoriesDocAccessFields_slug
-  name: Bridge_categoriesDocAccessFields_name
-  description: Bridge_categoriesDocAccessFields_description
-  updatedAt: Bridge_categoriesDocAccessFields_updatedAt
-  createdAt: Bridge_categoriesDocAccessFields_createdAt
-}
-
-type Bridge_categoriesDocAccessFields_slug {
-  create: Bridge_categoriesDocAccessFields_slug_Create
-  read: Bridge_categoriesDocAccessFields_slug_Read
-  update: Bridge_categoriesDocAccessFields_slug_Update
-  delete: Bridge_categoriesDocAccessFields_slug_Delete
-}
-
-type Bridge_categoriesDocAccessFields_slug_Create {
-  permission: Boolean!
-}
-
-type Bridge_categoriesDocAccessFields_slug_Read {
-  permission: Boolean!
-}
-
-type Bridge_categoriesDocAccessFields_slug_Update {
-  permission: Boolean!
-}
-
-type Bridge_categoriesDocAccessFields_slug_Delete {
-  permission: Boolean!
-}
-
-type Bridge_categoriesDocAccessFields_name {
-  create: Bridge_categoriesDocAccessFields_name_Create
-  read: Bridge_categoriesDocAccessFields_name_Read
-  update: Bridge_categoriesDocAccessFields_name_Update
-  delete: Bridge_categoriesDocAccessFields_name_Delete
-}
-
-type Bridge_categoriesDocAccessFields_name_Create {
-  permission: Boolean!
-}
-
-type Bridge_categoriesDocAccessFields_name_Read {
-  permission: Boolean!
-}
-
-type Bridge_categoriesDocAccessFields_name_Update {
-  permission: Boolean!
-}
-
-type Bridge_categoriesDocAccessFields_name_Delete {
-  permission: Boolean!
-}
-
-type Bridge_categoriesDocAccessFields_description {
-  create: Bridge_categoriesDocAccessFields_description_Create
-  read: Bridge_categoriesDocAccessFields_description_Read
-  update: Bridge_categoriesDocAccessFields_description_Update
-  delete: Bridge_categoriesDocAccessFields_description_Delete
-}
-
-type Bridge_categoriesDocAccessFields_description_Create {
-  permission: Boolean!
-}
-
-type Bridge_categoriesDocAccessFields_description_Read {
-  permission: Boolean!
-}
-
-type Bridge_categoriesDocAccessFields_description_Update {
-  permission: Boolean!
-}
-
-type Bridge_categoriesDocAccessFields_description_Delete {
-  permission: Boolean!
-}
-
-type Bridge_categoriesDocAccessFields_updatedAt {
-  create: Bridge_categoriesDocAccessFields_updatedAt_Create
-  read: Bridge_categoriesDocAccessFields_updatedAt_Read
-  update: Bridge_categoriesDocAccessFields_updatedAt_Update
-  delete: Bridge_categoriesDocAccessFields_updatedAt_Delete
-}
-
-type Bridge_categoriesDocAccessFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type Bridge_categoriesDocAccessFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type Bridge_categoriesDocAccessFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type Bridge_categoriesDocAccessFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type Bridge_categoriesDocAccessFields_createdAt {
-  create: Bridge_categoriesDocAccessFields_createdAt_Create
-  read: Bridge_categoriesDocAccessFields_createdAt_Read
-  update: Bridge_categoriesDocAccessFields_createdAt_Update
-  delete: Bridge_categoriesDocAccessFields_createdAt_Delete
-}
-
-type Bridge_categoriesDocAccessFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type Bridge_categoriesDocAccessFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type Bridge_categoriesDocAccessFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type Bridge_categoriesDocAccessFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type Bridge_categoriesCreateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type Bridge_categoriesReadDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type Bridge_categoriesUpdateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type Bridge_categoriesDeleteDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
 type PayloadPreference {
   id: String
   user: PayloadPreference_User_Relationship!
@@ -9113,13 +7155,500 @@ type PayloadPreferencesDeleteDocAccess {
   where: JSONObject
 }
 
+type Bridge {
+  title: String!
+  description: String
+  routing: Bridge_Routing
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+type Bridge_Routing {
+  paths: [Bridge_Routing_Paths!]
+}
+
+type Bridge_Routing_Paths {
+  sourceChain: Chain
+  sourceContract: Contract
+  targetChain: Chain
+  id: String
+}
+
+type bridgeDocAccess {
+  fields: BridgeDocAccessFields
+  read: BridgeReadDocAccess
+  update: BridgeUpdateDocAccess
+  readVersions: BridgeReadVersionsDocAccess
+}
+
+type BridgeDocAccessFields {
+  title: BridgeDocAccessFields_title
+  description: BridgeDocAccessFields_description
+  routing: BridgeDocAccessFields_routing
+  updatedAt: BridgeDocAccessFields_updatedAt
+  createdAt: BridgeDocAccessFields_createdAt
+}
+
+type BridgeDocAccessFields_title {
+  create: BridgeDocAccessFields_title_Create
+  read: BridgeDocAccessFields_title_Read
+  update: BridgeDocAccessFields_title_Update
+  delete: BridgeDocAccessFields_title_Delete
+}
+
+type BridgeDocAccessFields_title_Create {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_title_Read {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_title_Update {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_title_Delete {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_description {
+  create: BridgeDocAccessFields_description_Create
+  read: BridgeDocAccessFields_description_Read
+  update: BridgeDocAccessFields_description_Update
+  delete: BridgeDocAccessFields_description_Delete
+}
+
+type BridgeDocAccessFields_description_Create {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_description_Read {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_description_Update {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_description_Delete {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_routing {
+  create: BridgeDocAccessFields_routing_Create
+  read: BridgeDocAccessFields_routing_Read
+  update: BridgeDocAccessFields_routing_Update
+  delete: BridgeDocAccessFields_routing_Delete
+  fields: BridgeDocAccessFields_routing_Fields
+}
+
+type BridgeDocAccessFields_routing_Create {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_routing_Read {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_routing_Update {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_routing_Delete {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_routing_Fields {
+  paths: BridgeDocAccessFields_routing_paths
+}
+
+type BridgeDocAccessFields_routing_paths {
+  create: BridgeDocAccessFields_routing_paths_Create
+  read: BridgeDocAccessFields_routing_paths_Read
+  update: BridgeDocAccessFields_routing_paths_Update
+  delete: BridgeDocAccessFields_routing_paths_Delete
+  fields: BridgeDocAccessFields_routing_paths_Fields
+}
+
+type BridgeDocAccessFields_routing_paths_Create {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_routing_paths_Read {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_routing_paths_Update {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_routing_paths_Delete {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_routing_paths_Fields {
+  sourceChain: BridgeDocAccessFields_routing_paths_sourceChain
+  sourceContract: BridgeDocAccessFields_routing_paths_sourceContract
+  targetChain: BridgeDocAccessFields_routing_paths_targetChain
+  id: BridgeDocAccessFields_routing_paths_id
+}
+
+type BridgeDocAccessFields_routing_paths_sourceChain {
+  create: BridgeDocAccessFields_routing_paths_sourceChain_Create
+  read: BridgeDocAccessFields_routing_paths_sourceChain_Read
+  update: BridgeDocAccessFields_routing_paths_sourceChain_Update
+  delete: BridgeDocAccessFields_routing_paths_sourceChain_Delete
+}
+
+type BridgeDocAccessFields_routing_paths_sourceChain_Create {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_routing_paths_sourceChain_Read {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_routing_paths_sourceChain_Update {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_routing_paths_sourceChain_Delete {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_routing_paths_sourceContract {
+  create: BridgeDocAccessFields_routing_paths_sourceContract_Create
+  read: BridgeDocAccessFields_routing_paths_sourceContract_Read
+  update: BridgeDocAccessFields_routing_paths_sourceContract_Update
+  delete: BridgeDocAccessFields_routing_paths_sourceContract_Delete
+}
+
+type BridgeDocAccessFields_routing_paths_sourceContract_Create {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_routing_paths_sourceContract_Read {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_routing_paths_sourceContract_Update {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_routing_paths_sourceContract_Delete {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_routing_paths_targetChain {
+  create: BridgeDocAccessFields_routing_paths_targetChain_Create
+  read: BridgeDocAccessFields_routing_paths_targetChain_Read
+  update: BridgeDocAccessFields_routing_paths_targetChain_Update
+  delete: BridgeDocAccessFields_routing_paths_targetChain_Delete
+}
+
+type BridgeDocAccessFields_routing_paths_targetChain_Create {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_routing_paths_targetChain_Read {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_routing_paths_targetChain_Update {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_routing_paths_targetChain_Delete {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_routing_paths_id {
+  create: BridgeDocAccessFields_routing_paths_id_Create
+  read: BridgeDocAccessFields_routing_paths_id_Read
+  update: BridgeDocAccessFields_routing_paths_id_Update
+  delete: BridgeDocAccessFields_routing_paths_id_Delete
+}
+
+type BridgeDocAccessFields_routing_paths_id_Create {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_routing_paths_id_Read {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_routing_paths_id_Update {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_routing_paths_id_Delete {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_updatedAt {
+  create: BridgeDocAccessFields_updatedAt_Create
+  read: BridgeDocAccessFields_updatedAt_Read
+  update: BridgeDocAccessFields_updatedAt_Update
+  delete: BridgeDocAccessFields_updatedAt_Delete
+}
+
+type BridgeDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_createdAt {
+  create: BridgeDocAccessFields_createdAt_Create
+  read: BridgeDocAccessFields_createdAt_Read
+  update: BridgeDocAccessFields_createdAt_Update
+  delete: BridgeDocAccessFields_createdAt_Delete
+}
+
+type BridgeDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type BridgeDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type BridgeReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type BridgeUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type BridgeReadVersionsDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type BridgeVersion {
+  version: BridgeVersion_Version
+  createdAt: DateTime
+  updatedAt: DateTime
+  id: String
+}
+
+type BridgeVersion_Version {
+  title: String
+  description: String
+  routing: BridgeVersion_Version_Routing
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+type BridgeVersion_Version_Routing {
+  paths: [BridgeVersion_Version_Routing_Paths!]
+}
+
+type BridgeVersion_Version_Routing_Paths {
+  sourceChain: Chain
+  sourceContract: Contract
+  targetChain: Chain
+  id: String
+}
+
+type versionsBridge {
+  docs: [BridgeVersion]
+  hasNextPage: Boolean
+  hasPrevPage: Boolean
+  limit: Int
+  nextPage: Int
+  offset: Int
+  page: Int
+  pagingCounter: Int
+  prevPage: Int
+  totalDocs: Int
+  totalPages: Int
+}
+
+input versionsBridge_where {
+  version__title: versionsBridge_version__title_operator
+  version__description: versionsBridge_version__description_operator
+  version__routing__paths__sourceChain: versionsBridge_version__routing__paths__sourceChain_operator
+  version__routing__paths__sourceContract: versionsBridge_version__routing__paths__sourceContract_operator
+  version__routing__paths__targetChain: versionsBridge_version__routing__paths__targetChain_operator
+  version__routing__paths__id: versionsBridge_version__routing__paths__id_operator
+  version__updatedAt: versionsBridge_version__updatedAt_operator
+  version__createdAt: versionsBridge_version__createdAt_operator
+  createdAt: versionsBridge_createdAt_operator
+  updatedAt: versionsBridge_updatedAt_operator
+  id: versionsBridge_id_operator
+  AND: [versionsBridge_where_and]
+  OR: [versionsBridge_where_or]
+}
+
+input versionsBridge_version__title_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input versionsBridge_version__description_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  exists: Boolean
+}
+
+input versionsBridge_version__routing__paths__sourceChain_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+}
+
+input versionsBridge_version__routing__paths__sourceContract_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+}
+
+input versionsBridge_version__routing__paths__targetChain_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+}
+
+input versionsBridge_version__routing__paths__id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input versionsBridge_version__updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input versionsBridge_version__createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input versionsBridge_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input versionsBridge_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input versionsBridge_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input versionsBridge_where_and {
+  version__title: versionsBridge_version__title_operator
+  version__description: versionsBridge_version__description_operator
+  version__routing__paths__sourceChain: versionsBridge_version__routing__paths__sourceChain_operator
+  version__routing__paths__sourceContract: versionsBridge_version__routing__paths__sourceContract_operator
+  version__routing__paths__targetChain: versionsBridge_version__routing__paths__targetChain_operator
+  version__routing__paths__id: versionsBridge_version__routing__paths__id_operator
+  version__updatedAt: versionsBridge_version__updatedAt_operator
+  version__createdAt: versionsBridge_version__createdAt_operator
+  createdAt: versionsBridge_createdAt_operator
+  updatedAt: versionsBridge_updatedAt_operator
+  id: versionsBridge_id_operator
+  AND: [versionsBridge_where_and]
+  OR: [versionsBridge_where_or]
+}
+
+input versionsBridge_where_or {
+  version__title: versionsBridge_version__title_operator
+  version__description: versionsBridge_version__description_operator
+  version__routing__paths__sourceChain: versionsBridge_version__routing__paths__sourceChain_operator
+  version__routing__paths__sourceContract: versionsBridge_version__routing__paths__sourceContract_operator
+  version__routing__paths__targetChain: versionsBridge_version__routing__paths__targetChain_operator
+  version__routing__paths__id: versionsBridge_version__routing__paths__id_operator
+  version__updatedAt: versionsBridge_version__updatedAt_operator
+  version__createdAt: versionsBridge_version__createdAt_operator
+  createdAt: versionsBridge_createdAt_operator
+  updatedAt: versionsBridge_updatedAt_operator
+  id: versionsBridge_id_operator
+  AND: [versionsBridge_where_and]
+  OR: [versionsBridge_where_or]
+}
+
 type Project {
   testnet: Boolean
   logo(where: Project_Logo_where): Media!
   name: String!
   description: String!
   url: String!
-  views: Project_Views
   networks: Project_Networks
   footer: Project_Footer
   updatedAt: DateTime
@@ -9736,10 +8265,6 @@ input Project_Logo_where_or {
   OR: [Project_Logo_where_or]
 }
 
-type Project_Views {
-  defaultView: Page
-}
-
 type Project_Networks {
   defaultChain: Chain
 }
@@ -9760,7 +8285,6 @@ type ProjectDocAccessFields {
   name: ProjectDocAccessFields_name
   description: ProjectDocAccessFields_description
   url: ProjectDocAccessFields_url
-  views: ProjectDocAccessFields_views
   networks: ProjectDocAccessFields_networks
   footer: ProjectDocAccessFields_footer
   updatedAt: ProjectDocAccessFields_updatedAt
@@ -9879,57 +8403,6 @@ type ProjectDocAccessFields_url_Update {
 }
 
 type ProjectDocAccessFields_url_Delete {
-  permission: Boolean!
-}
-
-type ProjectDocAccessFields_views {
-  create: ProjectDocAccessFields_views_Create
-  read: ProjectDocAccessFields_views_Read
-  update: ProjectDocAccessFields_views_Update
-  delete: ProjectDocAccessFields_views_Delete
-  fields: ProjectDocAccessFields_views_Fields
-}
-
-type ProjectDocAccessFields_views_Create {
-  permission: Boolean!
-}
-
-type ProjectDocAccessFields_views_Read {
-  permission: Boolean!
-}
-
-type ProjectDocAccessFields_views_Update {
-  permission: Boolean!
-}
-
-type ProjectDocAccessFields_views_Delete {
-  permission: Boolean!
-}
-
-type ProjectDocAccessFields_views_Fields {
-  defaultView: ProjectDocAccessFields_views_defaultView
-}
-
-type ProjectDocAccessFields_views_defaultView {
-  create: ProjectDocAccessFields_views_defaultView_Create
-  read: ProjectDocAccessFields_views_defaultView_Read
-  update: ProjectDocAccessFields_views_defaultView_Update
-  delete: ProjectDocAccessFields_views_defaultView_Delete
-}
-
-type ProjectDocAccessFields_views_defaultView_Create {
-  permission: Boolean!
-}
-
-type ProjectDocAccessFields_views_defaultView_Read {
-  permission: Boolean!
-}
-
-type ProjectDocAccessFields_views_defaultView_Update {
-  permission: Boolean!
-}
-
-type ProjectDocAccessFields_views_defaultView_Delete {
   permission: Boolean!
 }
 
@@ -10369,7 +8842,6 @@ type LayerZeroUpdateDocAccess {
 
 type Cmc {
   networks: [Cmc_Networks!]
-  endpoints: [Cmc_Endpoints!]
   updatedAt: DateTime
   createdAt: DateTime
 }
@@ -10382,17 +8854,6 @@ type Cmc_Networks {
   id: String
 }
 
-type Cmc_Endpoints {
-  type: Cmc_Endpoints_type
-  path: String
-  slugPath: String
-  id: String
-}
-
-enum Cmc_Endpoints_type {
-  quote
-}
-
 type cmcDocAccess {
   fields: CmcDocAccessFields
   read: CmcReadDocAccess
@@ -10401,7 +8862,6 @@ type cmcDocAccess {
 
 type CmcDocAccessFields {
   networks: CmcDocAccessFields_networks
-  endpoints: CmcDocAccessFields_endpoints
   updatedAt: CmcDocAccessFields_updatedAt
   createdAt: CmcDocAccessFields_createdAt
 }
@@ -10550,129 +9010,6 @@ type CmcDocAccessFields_networks_id_Update {
 }
 
 type CmcDocAccessFields_networks_id_Delete {
-  permission: Boolean!
-}
-
-type CmcDocAccessFields_endpoints {
-  create: CmcDocAccessFields_endpoints_Create
-  read: CmcDocAccessFields_endpoints_Read
-  update: CmcDocAccessFields_endpoints_Update
-  delete: CmcDocAccessFields_endpoints_Delete
-  fields: CmcDocAccessFields_endpoints_Fields
-}
-
-type CmcDocAccessFields_endpoints_Create {
-  permission: Boolean!
-}
-
-type CmcDocAccessFields_endpoints_Read {
-  permission: Boolean!
-}
-
-type CmcDocAccessFields_endpoints_Update {
-  permission: Boolean!
-}
-
-type CmcDocAccessFields_endpoints_Delete {
-  permission: Boolean!
-}
-
-type CmcDocAccessFields_endpoints_Fields {
-  type: CmcDocAccessFields_endpoints_type
-  path: CmcDocAccessFields_endpoints_path
-  slugPath: CmcDocAccessFields_endpoints_slugPath
-  id: CmcDocAccessFields_endpoints_id
-}
-
-type CmcDocAccessFields_endpoints_type {
-  create: CmcDocAccessFields_endpoints_type_Create
-  read: CmcDocAccessFields_endpoints_type_Read
-  update: CmcDocAccessFields_endpoints_type_Update
-  delete: CmcDocAccessFields_endpoints_type_Delete
-}
-
-type CmcDocAccessFields_endpoints_type_Create {
-  permission: Boolean!
-}
-
-type CmcDocAccessFields_endpoints_type_Read {
-  permission: Boolean!
-}
-
-type CmcDocAccessFields_endpoints_type_Update {
-  permission: Boolean!
-}
-
-type CmcDocAccessFields_endpoints_type_Delete {
-  permission: Boolean!
-}
-
-type CmcDocAccessFields_endpoints_path {
-  create: CmcDocAccessFields_endpoints_path_Create
-  read: CmcDocAccessFields_endpoints_path_Read
-  update: CmcDocAccessFields_endpoints_path_Update
-  delete: CmcDocAccessFields_endpoints_path_Delete
-}
-
-type CmcDocAccessFields_endpoints_path_Create {
-  permission: Boolean!
-}
-
-type CmcDocAccessFields_endpoints_path_Read {
-  permission: Boolean!
-}
-
-type CmcDocAccessFields_endpoints_path_Update {
-  permission: Boolean!
-}
-
-type CmcDocAccessFields_endpoints_path_Delete {
-  permission: Boolean!
-}
-
-type CmcDocAccessFields_endpoints_slugPath {
-  create: CmcDocAccessFields_endpoints_slugPath_Create
-  read: CmcDocAccessFields_endpoints_slugPath_Read
-  update: CmcDocAccessFields_endpoints_slugPath_Update
-  delete: CmcDocAccessFields_endpoints_slugPath_Delete
-}
-
-type CmcDocAccessFields_endpoints_slugPath_Create {
-  permission: Boolean!
-}
-
-type CmcDocAccessFields_endpoints_slugPath_Read {
-  permission: Boolean!
-}
-
-type CmcDocAccessFields_endpoints_slugPath_Update {
-  permission: Boolean!
-}
-
-type CmcDocAccessFields_endpoints_slugPath_Delete {
-  permission: Boolean!
-}
-
-type CmcDocAccessFields_endpoints_id {
-  create: CmcDocAccessFields_endpoints_id_Create
-  read: CmcDocAccessFields_endpoints_id_Read
-  update: CmcDocAccessFields_endpoints_id_Update
-  delete: CmcDocAccessFields_endpoints_id_Delete
-}
-
-type CmcDocAccessFields_endpoints_id_Create {
-  permission: Boolean!
-}
-
-type CmcDocAccessFields_endpoints_id_Read {
-  permission: Boolean!
-}
-
-type CmcDocAccessFields_endpoints_id_Update {
-  permission: Boolean!
-}
-
-type CmcDocAccessFields_endpoints_id_Delete {
   permission: Boolean!
 }
 
@@ -10963,7 +9300,6 @@ type MoralisUpdateDocAccess {
 
 type Opensea {
   networks: [Opensea_Networks!]
-  endpoints: [Opensea_Endpoints!]
   updatedAt: DateTime
   createdAt: DateTime
 }
@@ -10976,18 +9312,6 @@ type Opensea_Networks {
   id: String
 }
 
-type Opensea_Endpoints {
-  type: Opensea_Endpoints_type
-  path: String
-  slugPath: String
-  id: String
-}
-
-enum Opensea_Endpoints_type {
-  nfts_by_account
-  nfts_by_collection_slug
-}
-
 type openseaDocAccess {
   fields: OpenseaDocAccessFields
   read: OpenseaReadDocAccess
@@ -10996,7 +9320,6 @@ type openseaDocAccess {
 
 type OpenseaDocAccessFields {
   networks: OpenseaDocAccessFields_networks
-  endpoints: OpenseaDocAccessFields_endpoints
   updatedAt: OpenseaDocAccessFields_updatedAt
   createdAt: OpenseaDocAccessFields_createdAt
 }
@@ -11148,129 +9471,6 @@ type OpenseaDocAccessFields_networks_id_Delete {
   permission: Boolean!
 }
 
-type OpenseaDocAccessFields_endpoints {
-  create: OpenseaDocAccessFields_endpoints_Create
-  read: OpenseaDocAccessFields_endpoints_Read
-  update: OpenseaDocAccessFields_endpoints_Update
-  delete: OpenseaDocAccessFields_endpoints_Delete
-  fields: OpenseaDocAccessFields_endpoints_Fields
-}
-
-type OpenseaDocAccessFields_endpoints_Create {
-  permission: Boolean!
-}
-
-type OpenseaDocAccessFields_endpoints_Read {
-  permission: Boolean!
-}
-
-type OpenseaDocAccessFields_endpoints_Update {
-  permission: Boolean!
-}
-
-type OpenseaDocAccessFields_endpoints_Delete {
-  permission: Boolean!
-}
-
-type OpenseaDocAccessFields_endpoints_Fields {
-  type: OpenseaDocAccessFields_endpoints_type
-  path: OpenseaDocAccessFields_endpoints_path
-  slugPath: OpenseaDocAccessFields_endpoints_slugPath
-  id: OpenseaDocAccessFields_endpoints_id
-}
-
-type OpenseaDocAccessFields_endpoints_type {
-  create: OpenseaDocAccessFields_endpoints_type_Create
-  read: OpenseaDocAccessFields_endpoints_type_Read
-  update: OpenseaDocAccessFields_endpoints_type_Update
-  delete: OpenseaDocAccessFields_endpoints_type_Delete
-}
-
-type OpenseaDocAccessFields_endpoints_type_Create {
-  permission: Boolean!
-}
-
-type OpenseaDocAccessFields_endpoints_type_Read {
-  permission: Boolean!
-}
-
-type OpenseaDocAccessFields_endpoints_type_Update {
-  permission: Boolean!
-}
-
-type OpenseaDocAccessFields_endpoints_type_Delete {
-  permission: Boolean!
-}
-
-type OpenseaDocAccessFields_endpoints_path {
-  create: OpenseaDocAccessFields_endpoints_path_Create
-  read: OpenseaDocAccessFields_endpoints_path_Read
-  update: OpenseaDocAccessFields_endpoints_path_Update
-  delete: OpenseaDocAccessFields_endpoints_path_Delete
-}
-
-type OpenseaDocAccessFields_endpoints_path_Create {
-  permission: Boolean!
-}
-
-type OpenseaDocAccessFields_endpoints_path_Read {
-  permission: Boolean!
-}
-
-type OpenseaDocAccessFields_endpoints_path_Update {
-  permission: Boolean!
-}
-
-type OpenseaDocAccessFields_endpoints_path_Delete {
-  permission: Boolean!
-}
-
-type OpenseaDocAccessFields_endpoints_slugPath {
-  create: OpenseaDocAccessFields_endpoints_slugPath_Create
-  read: OpenseaDocAccessFields_endpoints_slugPath_Read
-  update: OpenseaDocAccessFields_endpoints_slugPath_Update
-  delete: OpenseaDocAccessFields_endpoints_slugPath_Delete
-}
-
-type OpenseaDocAccessFields_endpoints_slugPath_Create {
-  permission: Boolean!
-}
-
-type OpenseaDocAccessFields_endpoints_slugPath_Read {
-  permission: Boolean!
-}
-
-type OpenseaDocAccessFields_endpoints_slugPath_Update {
-  permission: Boolean!
-}
-
-type OpenseaDocAccessFields_endpoints_slugPath_Delete {
-  permission: Boolean!
-}
-
-type OpenseaDocAccessFields_endpoints_id {
-  create: OpenseaDocAccessFields_endpoints_id_Create
-  read: OpenseaDocAccessFields_endpoints_id_Read
-  update: OpenseaDocAccessFields_endpoints_id_Update
-  delete: OpenseaDocAccessFields_endpoints_id_Delete
-}
-
-type OpenseaDocAccessFields_endpoints_id_Create {
-  permission: Boolean!
-}
-
-type OpenseaDocAccessFields_endpoints_id_Read {
-  permission: Boolean!
-}
-
-type OpenseaDocAccessFields_endpoints_id_Update {
-  permission: Boolean!
-}
-
-type OpenseaDocAccessFields_endpoints_id_Delete {
-  permission: Boolean!
-}
-
 type OpenseaDocAccessFields_updatedAt {
   create: OpenseaDocAccessFields_updatedAt_Create
   read: OpenseaDocAccessFields_updatedAt_Read
@@ -11329,7 +9529,6 @@ type OpenseaUpdateDocAccess {
 
 type Reservoir {
   networks: [Reservoir_Networks!]
-  endpoints: [Reservoir_Endpoints!]
   updatedAt: DateTime
   createdAt: DateTime
 }
@@ -11341,23 +9540,6 @@ type Reservoir_Networks {
   id: String
 }
 
-type Reservoir_Endpoints {
-  type: Reservoir_Endpoints_type
-  version: Reservoir_Endpoints_version
-  path: String
-  slugPath: String
-  id: String
-}
-
-enum Reservoir_Endpoints_type {
-  users
-}
-
-enum Reservoir_Endpoints_version {
-  v4
-  v10
-}
-
 type reservoirDocAccess {
   fields: ReservoirDocAccessFields
   read: ReservoirReadDocAccess
@@ -11366,7 +9548,6 @@ type reservoirDocAccess {
 
 type ReservoirDocAccessFields {
   networks: ReservoirDocAccessFields_networks
-  endpoints: ReservoirDocAccessFields_endpoints
   updatedAt: ReservoirDocAccessFields_updatedAt
   createdAt: ReservoirDocAccessFields_createdAt
 }
@@ -11491,153 +9672,6 @@ type ReservoirDocAccessFields_networks_id_Update {
 }
 
 type ReservoirDocAccessFields_networks_id_Delete {
-  permission: Boolean!
-}
-
-type ReservoirDocAccessFields_endpoints {
-  create: ReservoirDocAccessFields_endpoints_Create
-  read: ReservoirDocAccessFields_endpoints_Read
-  update: ReservoirDocAccessFields_endpoints_Update
-  delete: ReservoirDocAccessFields_endpoints_Delete
-  fields: ReservoirDocAccessFields_endpoints_Fields
-}
-
-type ReservoirDocAccessFields_endpoints_Create {
-  permission: Boolean!
-}
-
-type ReservoirDocAccessFields_endpoints_Read {
-  permission: Boolean!
-}
-
-type ReservoirDocAccessFields_endpoints_Update {
-  permission: Boolean!
-}
-
-type ReservoirDocAccessFields_endpoints_Delete {
-  permission: Boolean!
-}
-
-type ReservoirDocAccessFields_endpoints_Fields {
-  type: ReservoirDocAccessFields_endpoints_type
-  version: ReservoirDocAccessFields_endpoints_version
-  path: ReservoirDocAccessFields_endpoints_path
-  slugPath: ReservoirDocAccessFields_endpoints_slugPath
-  id: ReservoirDocAccessFields_endpoints_id
-}
-
-type ReservoirDocAccessFields_endpoints_type {
-  create: ReservoirDocAccessFields_endpoints_type_Create
-  read: ReservoirDocAccessFields_endpoints_type_Read
-  update: ReservoirDocAccessFields_endpoints_type_Update
-  delete: ReservoirDocAccessFields_endpoints_type_Delete
-}
-
-type ReservoirDocAccessFields_endpoints_type_Create {
-  permission: Boolean!
-}
-
-type ReservoirDocAccessFields_endpoints_type_Read {
-  permission: Boolean!
-}
-
-type ReservoirDocAccessFields_endpoints_type_Update {
-  permission: Boolean!
-}
-
-type ReservoirDocAccessFields_endpoints_type_Delete {
-  permission: Boolean!
-}
-
-type ReservoirDocAccessFields_endpoints_version {
-  create: ReservoirDocAccessFields_endpoints_version_Create
-  read: ReservoirDocAccessFields_endpoints_version_Read
-  update: ReservoirDocAccessFields_endpoints_version_Update
-  delete: ReservoirDocAccessFields_endpoints_version_Delete
-}
-
-type ReservoirDocAccessFields_endpoints_version_Create {
-  permission: Boolean!
-}
-
-type ReservoirDocAccessFields_endpoints_version_Read {
-  permission: Boolean!
-}
-
-type ReservoirDocAccessFields_endpoints_version_Update {
-  permission: Boolean!
-}
-
-type ReservoirDocAccessFields_endpoints_version_Delete {
-  permission: Boolean!
-}
-
-type ReservoirDocAccessFields_endpoints_path {
-  create: ReservoirDocAccessFields_endpoints_path_Create
-  read: ReservoirDocAccessFields_endpoints_path_Read
-  update: ReservoirDocAccessFields_endpoints_path_Update
-  delete: ReservoirDocAccessFields_endpoints_path_Delete
-}
-
-type ReservoirDocAccessFields_endpoints_path_Create {
-  permission: Boolean!
-}
-
-type ReservoirDocAccessFields_endpoints_path_Read {
-  permission: Boolean!
-}
-
-type ReservoirDocAccessFields_endpoints_path_Update {
-  permission: Boolean!
-}
-
-type ReservoirDocAccessFields_endpoints_path_Delete {
-  permission: Boolean!
-}
-
-type ReservoirDocAccessFields_endpoints_slugPath {
-  create: ReservoirDocAccessFields_endpoints_slugPath_Create
-  read: ReservoirDocAccessFields_endpoints_slugPath_Read
-  update: ReservoirDocAccessFields_endpoints_slugPath_Update
-  delete: ReservoirDocAccessFields_endpoints_slugPath_Delete
-}
-
-type ReservoirDocAccessFields_endpoints_slugPath_Create {
-  permission: Boolean!
-}
-
-type ReservoirDocAccessFields_endpoints_slugPath_Read {
-  permission: Boolean!
-}
-
-type ReservoirDocAccessFields_endpoints_slugPath_Update {
-  permission: Boolean!
-}
-
-type ReservoirDocAccessFields_endpoints_slugPath_Delete {
-  permission: Boolean!
-}
-
-type ReservoirDocAccessFields_endpoints_id {
-  create: ReservoirDocAccessFields_endpoints_id_Create
-  read: ReservoirDocAccessFields_endpoints_id_Read
-  update: ReservoirDocAccessFields_endpoints_id_Update
-  delete: ReservoirDocAccessFields_endpoints_id_Delete
-}
-
-type ReservoirDocAccessFields_endpoints_id_Create {
-  permission: Boolean!
-}
-
-type ReservoirDocAccessFields_endpoints_id_Read {
-  permission: Boolean!
-}
-
-type ReservoirDocAccessFields_endpoints_id_Update {
-  permission: Boolean!
-}
-
-type ReservoirDocAccessFields_endpoints_id_Delete {
   permission: Boolean!
 }
 
@@ -11911,10 +9945,8 @@ type Access {
   contracts: contractsAccess
   block_explorers: block_explorersAccess
   collections: collectionsAccess
-  pages: pagesAccess
-  bridge_widgets: bridge_widgetsAccess
-  bridge_categories: bridge_categoriesAccess
   payload_preferences: payload_preferencesAccess
+  bridge: bridgeAccess
   project: projectAccess
   evm: evmAccess
   layer_zero: layer_zeroAccess
@@ -14277,6 +12309,7 @@ type ContractsFields {
   blockCreated: ContractsFields_blockCreated
   abi: ContractsFields_abi
   chain: ContractsFields_chain
+  type: ContractsFields_type
   updatedAt: ContractsFields_updatedAt
   createdAt: ContractsFields_createdAt
 }
@@ -14416,6 +12449,29 @@ type ContractsFields_chain_Update {
 }
 
 type ContractsFields_chain_Delete {
+  permission: Boolean!
+}
+
+type ContractsFields_type {
+  create: ContractsFields_type_Create
+  read: ContractsFields_type_Read
+  update: ContractsFields_type_Update
+  delete: ContractsFields_type_Delete
+}
+
+type ContractsFields_type_Create {
+  permission: Boolean!
+}
+
+type ContractsFields_type_Read {
+  permission: Boolean!
+}
+
+type ContractsFields_type_Update {
+  permission: Boolean!
+}
+
+type ContractsFields_type_Delete {
   permission: Boolean!
 }
 
@@ -14931,859 +12987,6 @@ type CollectionsDeleteAccess {
   where: JSONObject
 }
 
-type pagesAccess {
-  fields: PagesFields
-  create: PagesCreateAccess
-  read: PagesReadAccess
-  update: PagesUpdateAccess
-  delete: PagesDeleteAccess
-}
-
-type PagesFields {
-  slug: PagesFields_slug
-  title: PagesFields_title
-  excerpt: PagesFields_excerpt
-  publishedDate: PagesFields_publishedDate
-  layout: PagesFields_layout
-  meta: PagesFields_meta
-  updatedAt: PagesFields_updatedAt
-  createdAt: PagesFields_createdAt
-}
-
-type PagesFields_slug {
-  create: PagesFields_slug_Create
-  read: PagesFields_slug_Read
-  update: PagesFields_slug_Update
-  delete: PagesFields_slug_Delete
-}
-
-type PagesFields_slug_Create {
-  permission: Boolean!
-}
-
-type PagesFields_slug_Read {
-  permission: Boolean!
-}
-
-type PagesFields_slug_Update {
-  permission: Boolean!
-}
-
-type PagesFields_slug_Delete {
-  permission: Boolean!
-}
-
-type PagesFields_title {
-  create: PagesFields_title_Create
-  read: PagesFields_title_Read
-  update: PagesFields_title_Update
-  delete: PagesFields_title_Delete
-}
-
-type PagesFields_title_Create {
-  permission: Boolean!
-}
-
-type PagesFields_title_Read {
-  permission: Boolean!
-}
-
-type PagesFields_title_Update {
-  permission: Boolean!
-}
-
-type PagesFields_title_Delete {
-  permission: Boolean!
-}
-
-type PagesFields_excerpt {
-  create: PagesFields_excerpt_Create
-  read: PagesFields_excerpt_Read
-  update: PagesFields_excerpt_Update
-  delete: PagesFields_excerpt_Delete
-}
-
-type PagesFields_excerpt_Create {
-  permission: Boolean!
-}
-
-type PagesFields_excerpt_Read {
-  permission: Boolean!
-}
-
-type PagesFields_excerpt_Update {
-  permission: Boolean!
-}
-
-type PagesFields_excerpt_Delete {
-  permission: Boolean!
-}
-
-type PagesFields_publishedDate {
-  create: PagesFields_publishedDate_Create
-  read: PagesFields_publishedDate_Read
-  update: PagesFields_publishedDate_Update
-  delete: PagesFields_publishedDate_Delete
-}
-
-type PagesFields_publishedDate_Create {
-  permission: Boolean!
-}
-
-type PagesFields_publishedDate_Read {
-  permission: Boolean!
-}
-
-type PagesFields_publishedDate_Update {
-  permission: Boolean!
-}
-
-type PagesFields_publishedDate_Delete {
-  permission: Boolean!
-}
-
-type PagesFields_layout {
-  create: PagesFields_layout_Create
-  read: PagesFields_layout_Read
-  update: PagesFields_layout_Update
-  delete: PagesFields_layout_Delete
-}
-
-type PagesFields_layout_Create {
-  permission: Boolean!
-}
-
-type PagesFields_layout_Read {
-  permission: Boolean!
-}
-
-type PagesFields_layout_Update {
-  permission: Boolean!
-}
-
-type PagesFields_layout_Delete {
-  permission: Boolean!
-}
-
-type PagesFields_meta {
-  create: PagesFields_meta_Create
-  read: PagesFields_meta_Read
-  update: PagesFields_meta_Update
-  delete: PagesFields_meta_Delete
-  fields: PagesFields_meta_Fields
-}
-
-type PagesFields_meta_Create {
-  permission: Boolean!
-}
-
-type PagesFields_meta_Read {
-  permission: Boolean!
-}
-
-type PagesFields_meta_Update {
-  permission: Boolean!
-}
-
-type PagesFields_meta_Delete {
-  permission: Boolean!
-}
-
-type PagesFields_meta_Fields {
-  title: PagesFields_meta_title
-  description: PagesFields_meta_description
-  image: PagesFields_meta_image
-}
-
-type PagesFields_meta_title {
-  create: PagesFields_meta_title_Create
-  read: PagesFields_meta_title_Read
-  update: PagesFields_meta_title_Update
-  delete: PagesFields_meta_title_Delete
-}
-
-type PagesFields_meta_title_Create {
-  permission: Boolean!
-}
-
-type PagesFields_meta_title_Read {
-  permission: Boolean!
-}
-
-type PagesFields_meta_title_Update {
-  permission: Boolean!
-}
-
-type PagesFields_meta_title_Delete {
-  permission: Boolean!
-}
-
-type PagesFields_meta_description {
-  create: PagesFields_meta_description_Create
-  read: PagesFields_meta_description_Read
-  update: PagesFields_meta_description_Update
-  delete: PagesFields_meta_description_Delete
-}
-
-type PagesFields_meta_description_Create {
-  permission: Boolean!
-}
-
-type PagesFields_meta_description_Read {
-  permission: Boolean!
-}
-
-type PagesFields_meta_description_Update {
-  permission: Boolean!
-}
-
-type PagesFields_meta_description_Delete {
-  permission: Boolean!
-}
-
-type PagesFields_meta_image {
-  create: PagesFields_meta_image_Create
-  read: PagesFields_meta_image_Read
-  update: PagesFields_meta_image_Update
-  delete: PagesFields_meta_image_Delete
-}
-
-type PagesFields_meta_image_Create {
-  permission: Boolean!
-}
-
-type PagesFields_meta_image_Read {
-  permission: Boolean!
-}
-
-type PagesFields_meta_image_Update {
-  permission: Boolean!
-}
-
-type PagesFields_meta_image_Delete {
-  permission: Boolean!
-}
-
-type PagesFields_updatedAt {
-  create: PagesFields_updatedAt_Create
-  read: PagesFields_updatedAt_Read
-  update: PagesFields_updatedAt_Update
-  delete: PagesFields_updatedAt_Delete
-}
-
-type PagesFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type PagesFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type PagesFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type PagesFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type PagesFields_createdAt {
-  create: PagesFields_createdAt_Create
-  read: PagesFields_createdAt_Read
-  update: PagesFields_createdAt_Update
-  delete: PagesFields_createdAt_Delete
-}
-
-type PagesFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type PagesFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type PagesFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type PagesFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type PagesCreateAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type PagesReadAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type PagesUpdateAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type PagesDeleteAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type bridge_widgetsAccess {
-  fields: Bridge_widgetsFields
-  create: Bridge_widgetsCreateAccess
-  read: Bridge_widgetsReadAccess
-  update: Bridge_widgetsUpdateAccess
-  delete: Bridge_widgetsDeleteAccess
-}
-
-type Bridge_widgetsFields {
-  slug: Bridge_widgetsFields_slug
-  name: Bridge_widgetsFields_name
-  title: Bridge_widgetsFields_title
-  description: Bridge_widgetsFields_description
-  setup: Bridge_widgetsFields_setup
-  routing: Bridge_widgetsFields_routing
-  updatedAt: Bridge_widgetsFields_updatedAt
-  createdAt: Bridge_widgetsFields_createdAt
-}
-
-type Bridge_widgetsFields_slug {
-  create: Bridge_widgetsFields_slug_Create
-  read: Bridge_widgetsFields_slug_Read
-  update: Bridge_widgetsFields_slug_Update
-  delete: Bridge_widgetsFields_slug_Delete
-}
-
-type Bridge_widgetsFields_slug_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_slug_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_slug_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_slug_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_name {
-  create: Bridge_widgetsFields_name_Create
-  read: Bridge_widgetsFields_name_Read
-  update: Bridge_widgetsFields_name_Update
-  delete: Bridge_widgetsFields_name_Delete
-}
-
-type Bridge_widgetsFields_name_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_name_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_name_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_name_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_title {
-  create: Bridge_widgetsFields_title_Create
-  read: Bridge_widgetsFields_title_Read
-  update: Bridge_widgetsFields_title_Update
-  delete: Bridge_widgetsFields_title_Delete
-}
-
-type Bridge_widgetsFields_title_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_title_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_title_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_title_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_description {
-  create: Bridge_widgetsFields_description_Create
-  read: Bridge_widgetsFields_description_Read
-  update: Bridge_widgetsFields_description_Update
-  delete: Bridge_widgetsFields_description_Delete
-}
-
-type Bridge_widgetsFields_description_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_description_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_description_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_description_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_setup {
-  create: Bridge_widgetsFields_setup_Create
-  read: Bridge_widgetsFields_setup_Read
-  update: Bridge_widgetsFields_setup_Update
-  delete: Bridge_widgetsFields_setup_Delete
-  fields: Bridge_widgetsFields_setup_Fields
-}
-
-type Bridge_widgetsFields_setup_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_setup_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_setup_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_setup_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_setup_Fields {
-  category: Bridge_widgetsFields_setup_category
-  version: Bridge_widgetsFields_setup_version
-}
-
-type Bridge_widgetsFields_setup_category {
-  create: Bridge_widgetsFields_setup_category_Create
-  read: Bridge_widgetsFields_setup_category_Read
-  update: Bridge_widgetsFields_setup_category_Update
-  delete: Bridge_widgetsFields_setup_category_Delete
-}
-
-type Bridge_widgetsFields_setup_category_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_setup_category_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_setup_category_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_setup_category_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_setup_version {
-  create: Bridge_widgetsFields_setup_version_Create
-  read: Bridge_widgetsFields_setup_version_Read
-  update: Bridge_widgetsFields_setup_version_Update
-  delete: Bridge_widgetsFields_setup_version_Delete
-}
-
-type Bridge_widgetsFields_setup_version_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_setup_version_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_setup_version_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_setup_version_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_routing {
-  create: Bridge_widgetsFields_routing_Create
-  read: Bridge_widgetsFields_routing_Read
-  update: Bridge_widgetsFields_routing_Update
-  delete: Bridge_widgetsFields_routing_Delete
-  fields: Bridge_widgetsFields_routing_Fields
-}
-
-type Bridge_widgetsFields_routing_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_routing_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_routing_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_routing_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_routing_Fields {
-  paths: Bridge_widgetsFields_routing_paths
-}
-
-type Bridge_widgetsFields_routing_paths {
-  create: Bridge_widgetsFields_routing_paths_Create
-  read: Bridge_widgetsFields_routing_paths_Read
-  update: Bridge_widgetsFields_routing_paths_Update
-  delete: Bridge_widgetsFields_routing_paths_Delete
-  fields: Bridge_widgetsFields_routing_paths_Fields
-}
-
-type Bridge_widgetsFields_routing_paths_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_routing_paths_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_routing_paths_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_routing_paths_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_routing_paths_Fields {
-  sourceChain: Bridge_widgetsFields_routing_paths_sourceChain
-  sourceContract: Bridge_widgetsFields_routing_paths_sourceContract
-  targetChain: Bridge_widgetsFields_routing_paths_targetChain
-  id: Bridge_widgetsFields_routing_paths_id
-}
-
-type Bridge_widgetsFields_routing_paths_sourceChain {
-  create: Bridge_widgetsFields_routing_paths_sourceChain_Create
-  read: Bridge_widgetsFields_routing_paths_sourceChain_Read
-  update: Bridge_widgetsFields_routing_paths_sourceChain_Update
-  delete: Bridge_widgetsFields_routing_paths_sourceChain_Delete
-}
-
-type Bridge_widgetsFields_routing_paths_sourceChain_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_routing_paths_sourceChain_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_routing_paths_sourceChain_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_routing_paths_sourceChain_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_routing_paths_sourceContract {
-  create: Bridge_widgetsFields_routing_paths_sourceContract_Create
-  read: Bridge_widgetsFields_routing_paths_sourceContract_Read
-  update: Bridge_widgetsFields_routing_paths_sourceContract_Update
-  delete: Bridge_widgetsFields_routing_paths_sourceContract_Delete
-}
-
-type Bridge_widgetsFields_routing_paths_sourceContract_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_routing_paths_sourceContract_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_routing_paths_sourceContract_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_routing_paths_sourceContract_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_routing_paths_targetChain {
-  create: Bridge_widgetsFields_routing_paths_targetChain_Create
-  read: Bridge_widgetsFields_routing_paths_targetChain_Read
-  update: Bridge_widgetsFields_routing_paths_targetChain_Update
-  delete: Bridge_widgetsFields_routing_paths_targetChain_Delete
-}
-
-type Bridge_widgetsFields_routing_paths_targetChain_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_routing_paths_targetChain_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_routing_paths_targetChain_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_routing_paths_targetChain_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_routing_paths_id {
-  create: Bridge_widgetsFields_routing_paths_id_Create
-  read: Bridge_widgetsFields_routing_paths_id_Read
-  update: Bridge_widgetsFields_routing_paths_id_Update
-  delete: Bridge_widgetsFields_routing_paths_id_Delete
-}
-
-type Bridge_widgetsFields_routing_paths_id_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_routing_paths_id_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_routing_paths_id_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_routing_paths_id_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_updatedAt {
-  create: Bridge_widgetsFields_updatedAt_Create
-  read: Bridge_widgetsFields_updatedAt_Read
-  update: Bridge_widgetsFields_updatedAt_Update
-  delete: Bridge_widgetsFields_updatedAt_Delete
-}
-
-type Bridge_widgetsFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_createdAt {
-  create: Bridge_widgetsFields_createdAt_Create
-  read: Bridge_widgetsFields_createdAt_Read
-  update: Bridge_widgetsFields_createdAt_Update
-  delete: Bridge_widgetsFields_createdAt_Delete
-}
-
-type Bridge_widgetsFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type Bridge_widgetsFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type Bridge_widgetsCreateAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type Bridge_widgetsReadAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type Bridge_widgetsUpdateAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type Bridge_widgetsDeleteAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type bridge_categoriesAccess {
-  fields: Bridge_categoriesFields
-  create: Bridge_categoriesCreateAccess
-  read: Bridge_categoriesReadAccess
-  update: Bridge_categoriesUpdateAccess
-  delete: Bridge_categoriesDeleteAccess
-}
-
-type Bridge_categoriesFields {
-  slug: Bridge_categoriesFields_slug
-  name: Bridge_categoriesFields_name
-  description: Bridge_categoriesFields_description
-  updatedAt: Bridge_categoriesFields_updatedAt
-  createdAt: Bridge_categoriesFields_createdAt
-}
-
-type Bridge_categoriesFields_slug {
-  create: Bridge_categoriesFields_slug_Create
-  read: Bridge_categoriesFields_slug_Read
-  update: Bridge_categoriesFields_slug_Update
-  delete: Bridge_categoriesFields_slug_Delete
-}
-
-type Bridge_categoriesFields_slug_Create {
-  permission: Boolean!
-}
-
-type Bridge_categoriesFields_slug_Read {
-  permission: Boolean!
-}
-
-type Bridge_categoriesFields_slug_Update {
-  permission: Boolean!
-}
-
-type Bridge_categoriesFields_slug_Delete {
-  permission: Boolean!
-}
-
-type Bridge_categoriesFields_name {
-  create: Bridge_categoriesFields_name_Create
-  read: Bridge_categoriesFields_name_Read
-  update: Bridge_categoriesFields_name_Update
-  delete: Bridge_categoriesFields_name_Delete
-}
-
-type Bridge_categoriesFields_name_Create {
-  permission: Boolean!
-}
-
-type Bridge_categoriesFields_name_Read {
-  permission: Boolean!
-}
-
-type Bridge_categoriesFields_name_Update {
-  permission: Boolean!
-}
-
-type Bridge_categoriesFields_name_Delete {
-  permission: Boolean!
-}
-
-type Bridge_categoriesFields_description {
-  create: Bridge_categoriesFields_description_Create
-  read: Bridge_categoriesFields_description_Read
-  update: Bridge_categoriesFields_description_Update
-  delete: Bridge_categoriesFields_description_Delete
-}
-
-type Bridge_categoriesFields_description_Create {
-  permission: Boolean!
-}
-
-type Bridge_categoriesFields_description_Read {
-  permission: Boolean!
-}
-
-type Bridge_categoriesFields_description_Update {
-  permission: Boolean!
-}
-
-type Bridge_categoriesFields_description_Delete {
-  permission: Boolean!
-}
-
-type Bridge_categoriesFields_updatedAt {
-  create: Bridge_categoriesFields_updatedAt_Create
-  read: Bridge_categoriesFields_updatedAt_Read
-  update: Bridge_categoriesFields_updatedAt_Update
-  delete: Bridge_categoriesFields_updatedAt_Delete
-}
-
-type Bridge_categoriesFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type Bridge_categoriesFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type Bridge_categoriesFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type Bridge_categoriesFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type Bridge_categoriesFields_createdAt {
-  create: Bridge_categoriesFields_createdAt_Create
-  read: Bridge_categoriesFields_createdAt_Read
-  update: Bridge_categoriesFields_createdAt_Update
-  delete: Bridge_categoriesFields_createdAt_Delete
-}
-
-type Bridge_categoriesFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type Bridge_categoriesFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type Bridge_categoriesFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type Bridge_categoriesFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type Bridge_categoriesCreateAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type Bridge_categoriesReadAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type Bridge_categoriesUpdateAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type Bridge_categoriesDeleteAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
 type payload_preferencesAccess {
   fields: PayloadPreferencesFields
   create: PayloadPreferencesCreateAccess
@@ -15935,6 +13138,279 @@ type PayloadPreferencesDeleteAccess {
   where: JSONObject
 }
 
+type bridgeAccess {
+  fields: BridgeFields
+  read: BridgeReadAccess
+  update: BridgeUpdateAccess
+  readVersions: BridgeReadVersionsAccess
+}
+
+type BridgeFields {
+  title: BridgeFields_title
+  description: BridgeFields_description
+  routing: BridgeFields_routing
+  updatedAt: BridgeFields_updatedAt
+  createdAt: BridgeFields_createdAt
+}
+
+type BridgeFields_title {
+  create: BridgeFields_title_Create
+  read: BridgeFields_title_Read
+  update: BridgeFields_title_Update
+  delete: BridgeFields_title_Delete
+}
+
+type BridgeFields_title_Create {
+  permission: Boolean!
+}
+
+type BridgeFields_title_Read {
+  permission: Boolean!
+}
+
+type BridgeFields_title_Update {
+  permission: Boolean!
+}
+
+type BridgeFields_title_Delete {
+  permission: Boolean!
+}
+
+type BridgeFields_description {
+  create: BridgeFields_description_Create
+  read: BridgeFields_description_Read
+  update: BridgeFields_description_Update
+  delete: BridgeFields_description_Delete
+}
+
+type BridgeFields_description_Create {
+  permission: Boolean!
+}
+
+type BridgeFields_description_Read {
+  permission: Boolean!
+}
+
+type BridgeFields_description_Update {
+  permission: Boolean!
+}
+
+type BridgeFields_description_Delete {
+  permission: Boolean!
+}
+
+type BridgeFields_routing {
+  create: BridgeFields_routing_Create
+  read: BridgeFields_routing_Read
+  update: BridgeFields_routing_Update
+  delete: BridgeFields_routing_Delete
+  fields: BridgeFields_routing_Fields
+}
+
+type BridgeFields_routing_Create {
+  permission: Boolean!
+}
+
+type BridgeFields_routing_Read {
+  permission: Boolean!
+}
+
+type BridgeFields_routing_Update {
+  permission: Boolean!
+}
+
+type BridgeFields_routing_Delete {
+  permission: Boolean!
+}
+
+type BridgeFields_routing_Fields {
+  paths: BridgeFields_routing_paths
+}
+
+type BridgeFields_routing_paths {
+  create: BridgeFields_routing_paths_Create
+  read: BridgeFields_routing_paths_Read
+  update: BridgeFields_routing_paths_Update
+  delete: BridgeFields_routing_paths_Delete
+  fields: BridgeFields_routing_paths_Fields
+}
+
+type BridgeFields_routing_paths_Create {
+  permission: Boolean!
+}
+
+type BridgeFields_routing_paths_Read {
+  permission: Boolean!
+}
+
+type BridgeFields_routing_paths_Update {
+  permission: Boolean!
+}
+
+type BridgeFields_routing_paths_Delete {
+  permission: Boolean!
+}
+
+type BridgeFields_routing_paths_Fields {
+  sourceChain: BridgeFields_routing_paths_sourceChain
+  sourceContract: BridgeFields_routing_paths_sourceContract
+  targetChain: BridgeFields_routing_paths_targetChain
+  id: BridgeFields_routing_paths_id
+}
+
+type BridgeFields_routing_paths_sourceChain {
+  create: BridgeFields_routing_paths_sourceChain_Create
+  read: BridgeFields_routing_paths_sourceChain_Read
+  update: BridgeFields_routing_paths_sourceChain_Update
+  delete: BridgeFields_routing_paths_sourceChain_Delete
+}
+
+type BridgeFields_routing_paths_sourceChain_Create {
+  permission: Boolean!
+}
+
+type BridgeFields_routing_paths_sourceChain_Read {
+  permission: Boolean!
+}
+
+type BridgeFields_routing_paths_sourceChain_Update {
+  permission: Boolean!
+}
+
+type BridgeFields_routing_paths_sourceChain_Delete {
+  permission: Boolean!
+}
+
+type BridgeFields_routing_paths_sourceContract {
+  create: BridgeFields_routing_paths_sourceContract_Create
+  read: BridgeFields_routing_paths_sourceContract_Read
+  update: BridgeFields_routing_paths_sourceContract_Update
+  delete: BridgeFields_routing_paths_sourceContract_Delete
+}
+
+type BridgeFields_routing_paths_sourceContract_Create {
+  permission: Boolean!
+}
+
+type BridgeFields_routing_paths_sourceContract_Read {
+  permission: Boolean!
+}
+
+type BridgeFields_routing_paths_sourceContract_Update {
+  permission: Boolean!
+}
+
+type BridgeFields_routing_paths_sourceContract_Delete {
+  permission: Boolean!
+}
+
+type BridgeFields_routing_paths_targetChain {
+  create: BridgeFields_routing_paths_targetChain_Create
+  read: BridgeFields_routing_paths_targetChain_Read
+  update: BridgeFields_routing_paths_targetChain_Update
+  delete: BridgeFields_routing_paths_targetChain_Delete
+}
+
+type BridgeFields_routing_paths_targetChain_Create {
+  permission: Boolean!
+}
+
+type BridgeFields_routing_paths_targetChain_Read {
+  permission: Boolean!
+}
+
+type BridgeFields_routing_paths_targetChain_Update {
+  permission: Boolean!
+}
+
+type BridgeFields_routing_paths_targetChain_Delete {
+  permission: Boolean!
+}
+
+type BridgeFields_routing_paths_id {
+  create: BridgeFields_routing_paths_id_Create
+  read: BridgeFields_routing_paths_id_Read
+  update: BridgeFields_routing_paths_id_Update
+  delete: BridgeFields_routing_paths_id_Delete
+}
+
+type BridgeFields_routing_paths_id_Create {
+  permission: Boolean!
+}
+
+type BridgeFields_routing_paths_id_Read {
+  permission: Boolean!
+}
+
+type BridgeFields_routing_paths_id_Update {
+  permission: Boolean!
+}
+
+type BridgeFields_routing_paths_id_Delete {
+  permission: Boolean!
+}
+
+type BridgeFields_updatedAt {
+  create: BridgeFields_updatedAt_Create
+  read: BridgeFields_updatedAt_Read
+  update: BridgeFields_updatedAt_Update
+  delete: BridgeFields_updatedAt_Delete
+}
+
+type BridgeFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type BridgeFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type BridgeFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type BridgeFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type BridgeFields_createdAt {
+  create: BridgeFields_createdAt_Create
+  read: BridgeFields_createdAt_Read
+  update: BridgeFields_createdAt_Update
+  delete: BridgeFields_createdAt_Delete
+}
+
+type BridgeFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type BridgeFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type BridgeFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type BridgeFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type BridgeReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type BridgeUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type BridgeReadVersionsAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type projectAccess {
   fields: ProjectFields
   read: ProjectReadAccess
@@ -15947,7 +13423,6 @@ type ProjectFields {
   name: ProjectFields_name
   description: ProjectFields_description
   url: ProjectFields_url
-  views: ProjectFields_views
   networks: ProjectFields_networks
   footer: ProjectFields_footer
   updatedAt: ProjectFields_updatedAt
@@ -16066,57 +13541,6 @@ type ProjectFields_url_Update {
 }
 
 type ProjectFields_url_Delete {
-  permission: Boolean!
-}
-
-type ProjectFields_views {
-  create: ProjectFields_views_Create
-  read: ProjectFields_views_Read
-  update: ProjectFields_views_Update
-  delete: ProjectFields_views_Delete
-  fields: ProjectFields_views_Fields
-}
-
-type ProjectFields_views_Create {
-  permission: Boolean!
-}
-
-type ProjectFields_views_Read {
-  permission: Boolean!
-}
-
-type ProjectFields_views_Update {
-  permission: Boolean!
-}
-
-type ProjectFields_views_Delete {
-  permission: Boolean!
-}
-
-type ProjectFields_views_Fields {
-  defaultView: ProjectFields_views_defaultView
-}
-
-type ProjectFields_views_defaultView {
-  create: ProjectFields_views_defaultView_Create
-  read: ProjectFields_views_defaultView_Read
-  update: ProjectFields_views_defaultView_Update
-  delete: ProjectFields_views_defaultView_Delete
-}
-
-type ProjectFields_views_defaultView_Create {
-  permission: Boolean!
-}
-
-type ProjectFields_views_defaultView_Read {
-  permission: Boolean!
-}
-
-type ProjectFields_views_defaultView_Update {
-  permission: Boolean!
-}
-
-type ProjectFields_views_defaultView_Delete {
   permission: Boolean!
 }
 
@@ -16544,7 +13968,6 @@ type cmcAccess {
 
 type CmcFields {
   networks: CmcFields_networks
-  endpoints: CmcFields_endpoints
   updatedAt: CmcFields_updatedAt
   createdAt: CmcFields_createdAt
 }
@@ -16693,129 +14116,6 @@ type CmcFields_networks_id_Update {
 }
 
 type CmcFields_networks_id_Delete {
-  permission: Boolean!
-}
-
-type CmcFields_endpoints {
-  create: CmcFields_endpoints_Create
-  read: CmcFields_endpoints_Read
-  update: CmcFields_endpoints_Update
-  delete: CmcFields_endpoints_Delete
-  fields: CmcFields_endpoints_Fields
-}
-
-type CmcFields_endpoints_Create {
-  permission: Boolean!
-}
-
-type CmcFields_endpoints_Read {
-  permission: Boolean!
-}
-
-type CmcFields_endpoints_Update {
-  permission: Boolean!
-}
-
-type CmcFields_endpoints_Delete {
-  permission: Boolean!
-}
-
-type CmcFields_endpoints_Fields {
-  type: CmcFields_endpoints_type
-  path: CmcFields_endpoints_path
-  slugPath: CmcFields_endpoints_slugPath
-  id: CmcFields_endpoints_id
-}
-
-type CmcFields_endpoints_type {
-  create: CmcFields_endpoints_type_Create
-  read: CmcFields_endpoints_type_Read
-  update: CmcFields_endpoints_type_Update
-  delete: CmcFields_endpoints_type_Delete
-}
-
-type CmcFields_endpoints_type_Create {
-  permission: Boolean!
-}
-
-type CmcFields_endpoints_type_Read {
-  permission: Boolean!
-}
-
-type CmcFields_endpoints_type_Update {
-  permission: Boolean!
-}
-
-type CmcFields_endpoints_type_Delete {
-  permission: Boolean!
-}
-
-type CmcFields_endpoints_path {
-  create: CmcFields_endpoints_path_Create
-  read: CmcFields_endpoints_path_Read
-  update: CmcFields_endpoints_path_Update
-  delete: CmcFields_endpoints_path_Delete
-}
-
-type CmcFields_endpoints_path_Create {
-  permission: Boolean!
-}
-
-type CmcFields_endpoints_path_Read {
-  permission: Boolean!
-}
-
-type CmcFields_endpoints_path_Update {
-  permission: Boolean!
-}
-
-type CmcFields_endpoints_path_Delete {
-  permission: Boolean!
-}
-
-type CmcFields_endpoints_slugPath {
-  create: CmcFields_endpoints_slugPath_Create
-  read: CmcFields_endpoints_slugPath_Read
-  update: CmcFields_endpoints_slugPath_Update
-  delete: CmcFields_endpoints_slugPath_Delete
-}
-
-type CmcFields_endpoints_slugPath_Create {
-  permission: Boolean!
-}
-
-type CmcFields_endpoints_slugPath_Read {
-  permission: Boolean!
-}
-
-type CmcFields_endpoints_slugPath_Update {
-  permission: Boolean!
-}
-
-type CmcFields_endpoints_slugPath_Delete {
-  permission: Boolean!
-}
-
-type CmcFields_endpoints_id {
-  create: CmcFields_endpoints_id_Create
-  read: CmcFields_endpoints_id_Read
-  update: CmcFields_endpoints_id_Update
-  delete: CmcFields_endpoints_id_Delete
-}
-
-type CmcFields_endpoints_id_Create {
-  permission: Boolean!
-}
-
-type CmcFields_endpoints_id_Read {
-  permission: Boolean!
-}
-
-type CmcFields_endpoints_id_Update {
-  permission: Boolean!
-}
-
-type CmcFields_endpoints_id_Delete {
   permission: Boolean!
 }
 
@@ -17098,7 +14398,6 @@ type openseaAccess {
 
 type OpenseaFields {
   networks: OpenseaFields_networks
-  endpoints: OpenseaFields_endpoints
   updatedAt: OpenseaFields_updatedAt
   createdAt: OpenseaFields_createdAt
 }
@@ -17250,129 +14549,6 @@ type OpenseaFields_networks_id_Delete {
   permission: Boolean!
 }
 
-type OpenseaFields_endpoints {
-  create: OpenseaFields_endpoints_Create
-  read: OpenseaFields_endpoints_Read
-  update: OpenseaFields_endpoints_Update
-  delete: OpenseaFields_endpoints_Delete
-  fields: OpenseaFields_endpoints_Fields
-}
-
-type OpenseaFields_endpoints_Create {
-  permission: Boolean!
-}
-
-type OpenseaFields_endpoints_Read {
-  permission: Boolean!
-}
-
-type OpenseaFields_endpoints_Update {
-  permission: Boolean!
-}
-
-type OpenseaFields_endpoints_Delete {
-  permission: Boolean!
-}
-
-type OpenseaFields_endpoints_Fields {
-  type: OpenseaFields_endpoints_type
-  path: OpenseaFields_endpoints_path
-  slugPath: OpenseaFields_endpoints_slugPath
-  id: OpenseaFields_endpoints_id
-}
-
-type OpenseaFields_endpoints_type {
-  create: OpenseaFields_endpoints_type_Create
-  read: OpenseaFields_endpoints_type_Read
-  update: OpenseaFields_endpoints_type_Update
-  delete: OpenseaFields_endpoints_type_Delete
-}
-
-type OpenseaFields_endpoints_type_Create {
-  permission: Boolean!
-}
-
-type OpenseaFields_endpoints_type_Read {
-  permission: Boolean!
-}
-
-type OpenseaFields_endpoints_type_Update {
-  permission: Boolean!
-}
-
-type OpenseaFields_endpoints_type_Delete {
-  permission: Boolean!
-}
-
-type OpenseaFields_endpoints_path {
-  create: OpenseaFields_endpoints_path_Create
-  read: OpenseaFields_endpoints_path_Read
-  update: OpenseaFields_endpoints_path_Update
-  delete: OpenseaFields_endpoints_path_Delete
-}
-
-type OpenseaFields_endpoints_path_Create {
-  permission: Boolean!
-}
-
-type OpenseaFields_endpoints_path_Read {
-  permission: Boolean!
-}
-
-type OpenseaFields_endpoints_path_Update {
-  permission: Boolean!
-}
-
-type OpenseaFields_endpoints_path_Delete {
-  permission: Boolean!
-}
-
-type OpenseaFields_endpoints_slugPath {
-  create: OpenseaFields_endpoints_slugPath_Create
-  read: OpenseaFields_endpoints_slugPath_Read
-  update: OpenseaFields_endpoints_slugPath_Update
-  delete: OpenseaFields_endpoints_slugPath_Delete
-}
-
-type OpenseaFields_endpoints_slugPath_Create {
-  permission: Boolean!
-}
-
-type OpenseaFields_endpoints_slugPath_Read {
-  permission: Boolean!
-}
-
-type OpenseaFields_endpoints_slugPath_Update {
-  permission: Boolean!
-}
-
-type OpenseaFields_endpoints_slugPath_Delete {
-  permission: Boolean!
-}
-
-type OpenseaFields_endpoints_id {
-  create: OpenseaFields_endpoints_id_Create
-  read: OpenseaFields_endpoints_id_Read
-  update: OpenseaFields_endpoints_id_Update
-  delete: OpenseaFields_endpoints_id_Delete
-}
-
-type OpenseaFields_endpoints_id_Create {
-  permission: Boolean!
-}
-
-type OpenseaFields_endpoints_id_Read {
-  permission: Boolean!
-}
-
-type OpenseaFields_endpoints_id_Update {
-  permission: Boolean!
-}
-
-type OpenseaFields_endpoints_id_Delete {
-  permission: Boolean!
-}
-
 type OpenseaFields_updatedAt {
   create: OpenseaFields_updatedAt_Create
   read: OpenseaFields_updatedAt_Read
@@ -17437,7 +14613,6 @@ type reservoirAccess {
 
 type ReservoirFields {
   networks: ReservoirFields_networks
-  endpoints: ReservoirFields_endpoints
   updatedAt: ReservoirFields_updatedAt
   createdAt: ReservoirFields_createdAt
 }
@@ -17562,153 +14737,6 @@ type ReservoirFields_networks_id_Update {
 }
 
 type ReservoirFields_networks_id_Delete {
-  permission: Boolean!
-}
-
-type ReservoirFields_endpoints {
-  create: ReservoirFields_endpoints_Create
-  read: ReservoirFields_endpoints_Read
-  update: ReservoirFields_endpoints_Update
-  delete: ReservoirFields_endpoints_Delete
-  fields: ReservoirFields_endpoints_Fields
-}
-
-type ReservoirFields_endpoints_Create {
-  permission: Boolean!
-}
-
-type ReservoirFields_endpoints_Read {
-  permission: Boolean!
-}
-
-type ReservoirFields_endpoints_Update {
-  permission: Boolean!
-}
-
-type ReservoirFields_endpoints_Delete {
-  permission: Boolean!
-}
-
-type ReservoirFields_endpoints_Fields {
-  type: ReservoirFields_endpoints_type
-  version: ReservoirFields_endpoints_version
-  path: ReservoirFields_endpoints_path
-  slugPath: ReservoirFields_endpoints_slugPath
-  id: ReservoirFields_endpoints_id
-}
-
-type ReservoirFields_endpoints_type {
-  create: ReservoirFields_endpoints_type_Create
-  read: ReservoirFields_endpoints_type_Read
-  update: ReservoirFields_endpoints_type_Update
-  delete: ReservoirFields_endpoints_type_Delete
-}
-
-type ReservoirFields_endpoints_type_Create {
-  permission: Boolean!
-}
-
-type ReservoirFields_endpoints_type_Read {
-  permission: Boolean!
-}
-
-type ReservoirFields_endpoints_type_Update {
-  permission: Boolean!
-}
-
-type ReservoirFields_endpoints_type_Delete {
-  permission: Boolean!
-}
-
-type ReservoirFields_endpoints_version {
-  create: ReservoirFields_endpoints_version_Create
-  read: ReservoirFields_endpoints_version_Read
-  update: ReservoirFields_endpoints_version_Update
-  delete: ReservoirFields_endpoints_version_Delete
-}
-
-type ReservoirFields_endpoints_version_Create {
-  permission: Boolean!
-}
-
-type ReservoirFields_endpoints_version_Read {
-  permission: Boolean!
-}
-
-type ReservoirFields_endpoints_version_Update {
-  permission: Boolean!
-}
-
-type ReservoirFields_endpoints_version_Delete {
-  permission: Boolean!
-}
-
-type ReservoirFields_endpoints_path {
-  create: ReservoirFields_endpoints_path_Create
-  read: ReservoirFields_endpoints_path_Read
-  update: ReservoirFields_endpoints_path_Update
-  delete: ReservoirFields_endpoints_path_Delete
-}
-
-type ReservoirFields_endpoints_path_Create {
-  permission: Boolean!
-}
-
-type ReservoirFields_endpoints_path_Read {
-  permission: Boolean!
-}
-
-type ReservoirFields_endpoints_path_Update {
-  permission: Boolean!
-}
-
-type ReservoirFields_endpoints_path_Delete {
-  permission: Boolean!
-}
-
-type ReservoirFields_endpoints_slugPath {
-  create: ReservoirFields_endpoints_slugPath_Create
-  read: ReservoirFields_endpoints_slugPath_Read
-  update: ReservoirFields_endpoints_slugPath_Update
-  delete: ReservoirFields_endpoints_slugPath_Delete
-}
-
-type ReservoirFields_endpoints_slugPath_Create {
-  permission: Boolean!
-}
-
-type ReservoirFields_endpoints_slugPath_Read {
-  permission: Boolean!
-}
-
-type ReservoirFields_endpoints_slugPath_Update {
-  permission: Boolean!
-}
-
-type ReservoirFields_endpoints_slugPath_Delete {
-  permission: Boolean!
-}
-
-type ReservoirFields_endpoints_id {
-  create: ReservoirFields_endpoints_id_Create
-  read: ReservoirFields_endpoints_id_Read
-  update: ReservoirFields_endpoints_id_Update
-  delete: ReservoirFields_endpoints_id_Delete
-}
-
-type ReservoirFields_endpoints_id_Create {
-  permission: Boolean!
-}
-
-type ReservoirFields_endpoints_id_Read {
-  permission: Boolean!
-}
-
-type ReservoirFields_endpoints_id_Update {
-  permission: Boolean!
-}
-
-type ReservoirFields_endpoints_id_Delete {
   permission: Boolean!
 }
 
@@ -17967,11 +14995,29 @@ type getERC721IsApprovedForAll {
   isApprovedForAll: Boolean
 }
 
-type getERC721CollectionsByAddress {
+type getERC721Balance {
+  tokenIds: [String]
+  collectionAddress: String
+  chainId: Int
+  ownerAddress: String
+  count: Int
+}
+
+type getERC721Collections {
+  collections: [ERC721OwnerCollection]
+}
+
+type ERC721OwnerCollection {
   address: String
   name: String
   image: String
-  tokenCount: String
+}
+
+type getERC721CollectionMetadata {
+  name: String
+  symbol: String
+  description: String
+  image: String
 }
 
 type Mutation {
@@ -18010,19 +15056,12 @@ type Mutation {
   createCollection(data: mutationCollectionInput!, draft: Boolean): Collection
   updateCollection(id: String!, autosave: Boolean, data: mutationCollectionUpdateInput!, draft: Boolean): Collection
   deleteCollection(id: String!): Collection
-  createPage(data: mutationPageInput!, draft: Boolean): Page
-  updatePage(id: String!, autosave: Boolean, data: mutationPageUpdateInput!, draft: Boolean): Page
-  deletePage(id: String!): Page
-  createBridge_widget(data: mutationBridge_widgetInput!, draft: Boolean): Bridge_widget
-  updateBridge_widget(id: String!, autosave: Boolean, data: mutationBridge_widgetUpdateInput!, draft: Boolean): Bridge_widget
-  deleteBridge_widget(id: String!): Bridge_widget
-  createBridge_category(data: mutationBridge_categoryInput!, draft: Boolean): Bridge_category
-  updateBridge_category(id: String!, autosave: Boolean, data: mutationBridge_categoryUpdateInput!, draft: Boolean): Bridge_category
-  deleteBridge_category(id: String!): Bridge_category
   createPayloadPreference(data: mutationPayloadPreferenceInput!, draft: Boolean): PayloadPreference
   updatePayloadPreference(id: String!, autosave: Boolean, data: mutationPayloadPreferenceUpdateInput!, draft: Boolean): PayloadPreference
   deletePayloadPreference(id: String!): PayloadPreference
   duplicatePayloadPreference(id: String!): PayloadPreference
+  updateBridge(data: mutationBridgeInput!, draft: Boolean): Bridge
+  restoreVersionBridge(id: String, draft: Boolean): Bridge
   updateProject(data: mutationProjectInput!, draft: Boolean): Project
   updateEvm(data: mutationEvmInput!, draft: Boolean): Evm
   updateLayerZero(data: mutationLayerZeroInput!, draft: Boolean): LayerZero
@@ -18353,8 +15392,13 @@ input mutationContractInput {
   blockCreated: Float
   abi: String!
   chain: String
+  type: Contract_type_MutationInput!
   updatedAt: String
   createdAt: String
+}
+
+enum Contract_type_MutationInput {
+  bridge
 }
 
 input mutationContractUpdateInput {
@@ -18364,8 +15408,13 @@ input mutationContractUpdateInput {
   blockCreated: Float
   abi: String
   chain: String
+  type: ContractUpdate_type_MutationInput
   updatedAt: String
   createdAt: String
+}
+
+enum ContractUpdate_type_MutationInput {
+  bridge
 }
 
 input mutationBlock_explorerInput {
@@ -18412,110 +15461,6 @@ input mutationCollectionUpdateInput {
   createdAt: String
 }
 
-input mutationPageInput {
-  slug: String!
-  title: String!
-  excerpt: String!
-  publishedDate: String
-  layout: JSON
-  meta: mutationPage_MetaInput
-  updatedAt: String
-  createdAt: String
-}
-
-input mutationPage_MetaInput {
-  title: String
-  description: String
-  image: String
-}
-
-input mutationPageUpdateInput {
-  slug: String
-  title: String
-  excerpt: String
-  publishedDate: String
-  layout: JSON
-  meta: mutationPageUpdate_MetaInput
-  updatedAt: String
-  createdAt: String
-}
-
-input mutationPageUpdate_MetaInput {
-  title: String
-  description: String
-  image: String
-}
-
-input mutationBridge_widgetInput {
-  slug: String!
-  name: String!
-  title: String!
-  description: String
-  setup: mutationBridge_widget_SetupInput!
-  routing: mutationBridge_widget_RoutingInput!
-  updatedAt: String
-  createdAt: String
-}
-
-input mutationBridge_widget_SetupInput {
-  category: String
-  version: Float
-}
-
-input mutationBridge_widget_RoutingInput {
-  paths: [mutationBridge_widget_Routing_PathsInput]
-}
-
-input mutationBridge_widget_Routing_PathsInput {
-  sourceChain: String
-  sourceContract: String
-  targetChain: String
-  id: String
-}
-
-input mutationBridge_widgetUpdateInput {
-  slug: String
-  name: String
-  title: String
-  description: String
-  setup: mutationBridge_widgetUpdate_SetupInput!
-  routing: mutationBridge_widgetUpdate_RoutingInput!
-  updatedAt: String
-  createdAt: String
-}
-
-input mutationBridge_widgetUpdate_SetupInput {
-  category: String
-  version: Float
-}
-
-input mutationBridge_widgetUpdate_RoutingInput {
-  paths: [mutationBridge_widgetUpdate_Routing_PathsInput]
-}
-
-input mutationBridge_widgetUpdate_Routing_PathsInput {
-  sourceChain: String
-  sourceContract: String
-  targetChain: String
-  id: String
-}
-
-input mutationBridge_categoryInput {
-  slug: String!
-  name: String!
-  description: String
-  updatedAt: String
-  createdAt: String
-}
-
-input mutationBridge_categoryUpdateInput {
-  slug: String
-  name: String
-  description: String
-  updatedAt: String
-  createdAt: String
-}
-
 input mutationPayloadPreferenceInput {
   user: PayloadPreference_UserRelationshipInput
   key: String
@@ -18550,21 +15495,35 @@ enum PayloadPreferenceUpdate_UserRelationshipInputRelationTo {
   users
 }
 
+input mutationBridgeInput {
+  title: String!
+  description: String
+  routing: mutationBridge_RoutingInput!
+  updatedAt: String
+  createdAt: String
+}
+
+input mutationBridge_RoutingInput {
+  paths: [mutationBridge_Routing_PathsInput]
+}
+
+input mutationBridge_Routing_PathsInput {
+  sourceChain: String
+  sourceContract: String
+  targetChain: String
+  id: String
+}
+
 input mutationProjectInput {
   testnet: Boolean
   logo: String!
   name: String!
   description: String!
   url: String!
-  views: mutationProject_ViewsInput!
   networks: mutationProject_NetworksInput!
   footer: mutationProject_FooterInput!
   updatedAt: String
   createdAt: String
-}
-
-input mutationProject_ViewsInput {
-  defaultView: String
 }
 
 input mutationProject_NetworksInput {
@@ -18595,7 +15554,6 @@ input mutationLayerZero_NetworksInput {
 
 input mutationCmcInput {
   networks: [mutationCmc_NetworksInput]
-  endpoints: [mutationCmc_EndpointsInput]
   updatedAt: String
   createdAt: String
 }
@@ -18606,17 +15564,6 @@ input mutationCmc_NetworksInput {
   apiKey: String!
   apiUrl: String!
   id: String
-}
-
-input mutationCmc_EndpointsInput {
-  type: Cmc_Endpoints_type_MutationInput!
-  path: String!
-  slugPath: String!
-  id: String
-}
-
-enum Cmc_Endpoints_type_MutationInput {
-  quote
 }
 
 input mutationMoralisInput {
@@ -18635,7 +15582,6 @@ input mutationMoralis_NetworksInput {
 
 input mutationOpenseaInput {
   networks: [mutationOpensea_NetworksInput]
-  endpoints: [mutationOpensea_EndpointsInput]
   updatedAt: String
   createdAt: String
 }
@@ -18648,21 +15594,8 @@ input mutationOpensea_NetworksInput {
   id: String
 }
 
-input mutationOpensea_EndpointsInput {
-  type: Opensea_Endpoints_type_MutationInput!
-  path: String!
-  slugPath: String!
-  id: String
-}
-
-enum Opensea_Endpoints_type_MutationInput {
-  nfts_by_account
-  nfts_by_collection_slug
-}
-
 input mutationReservoirInput {
   networks: [mutationReservoir_NetworksInput]
-  endpoints: [mutationReservoir_EndpointsInput]
   updatedAt: String
   createdAt: String
 }
@@ -18672,23 +15605,6 @@ input mutationReservoir_NetworksInput {
   apiKey: String!
   apiUrl: String!
   id: String
-}
-
-input mutationReservoir_EndpointsInput {
-  type: Reservoir_Endpoints_type_MutationInput!
-  version: Reservoir_Endpoints_version_MutationInput!
-  path: String!
-  slugPath: String!
-  id: String
-}
-
-enum Reservoir_Endpoints_type_MutationInput {
-  users
-}
-
-enum Reservoir_Endpoints_version_MutationInput {
-  v4
-  v10
 }
 
 input mutationAlchemyInput {
