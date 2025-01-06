@@ -19,9 +19,6 @@ export interface Config {
     contracts: Contracts;
     block_explorers: BlockExplorers;
     collections: Collections;
-    pages: Pages;
-    bridge_widgets: BridgeWidgets;
-    bridge_categories: BridgeCategories;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -29,6 +26,7 @@ export interface Config {
     defaultIDType: string;
   };
   globals: {
+    bridge: Bridge;
     project: Project;
     evm: Evm;
     layer_zero: LayerZero;
@@ -265,69 +263,6 @@ export interface Collections {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages".
- */
-export interface Pages {
-  id: string;
-  slug: string;
-  title: string;
-  excerpt: string;
-  publishedDate?: string | null;
-  layout?:
-    | {
-        widget?: (string | null) | BridgeWidgets;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'bridges';
-      }[]
-    | null;
-  meta?: {
-    title?: string | null;
-    description?: string | null;
-    image?: string | Media | null;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "bridge_widgets".
- */
-export interface BridgeWidgets {
-  id: string;
-  slug: string;
-  name: string;
-  title: string;
-  description?: string | null;
-  setup: {
-    category: string | BridgeCategories;
-    version: number;
-  };
-  routing: {
-    paths: {
-      sourceChain: string | Chains;
-      sourceContract: string | Contracts;
-      targetChain: string | Chains;
-      id?: string | null;
-    }[];
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "bridge_categories".
- */
-export interface BridgeCategories {
-  id: string;
-  slug: string;
-  name: string;
-  description?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
@@ -362,6 +297,25 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bridge".
+ */
+export interface Bridge {
+  id: string;
+  title: string;
+  description?: string | null;
+  routing: {
+    paths: {
+      sourceChain: string | Chains;
+      sourceContract: string | Contracts;
+      targetChain: string | Chains;
+      id?: string | null;
+    }[];
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "project".
  */
 export interface Project {
@@ -371,9 +325,6 @@ export interface Project {
   name: string;
   description: string;
   url: string;
-  views: {
-    defaultView: string | Pages;
-  };
   networks: {
     defaultChain: string | Chains;
   };
