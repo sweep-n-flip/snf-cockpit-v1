@@ -1,7 +1,7 @@
 import { Bridge as BridgeType, Chains } from '@/lib/payloadcms/types/payload-types'
 import { Card, Typography } from '@/lib/ui/components'
-import Form from '@/lib/ui/components/blocks/bridges/form/Form'
 import { useMemo } from 'react'
+import Form from '@/components/bridge/form/Form'
 
 export type WidgetProps = {
   config?: (string | null) | BridgeType

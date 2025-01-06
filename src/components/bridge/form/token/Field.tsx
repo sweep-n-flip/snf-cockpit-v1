@@ -8,11 +8,11 @@ import {
   ChooseCollection,
   Rangebar,
   AssetValues,
-} from '@/lib/ui/components/blocks/bridges/form/token'
-import { ChooseChainProps } from '@/lib/ui/components/blocks/bridges/form/token/ChooseChain'
-import { TokenType } from '@/lib/ui/components/blocks/bridges/types/bridge'
+} from '@/components/bridge/form/token'
+import { ChooseChainProps } from '@/components/bridge/form/token/ChooseChain'
+import { TokenType } from '@/components/bridge/types/bridge'
 import { useFormContext } from 'react-hook-form'
-import { COLLECTION_ADDRESS_IN } from '@/lib/ui/components/blocks/bridges/utils/constants/fields'
+import { COLLECTION_ADDRESS_IN } from '@/components/bridge/utils/constants/fields'
 import gt from 'lodash/gt'
 import { Collection } from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/ownership/types'
 

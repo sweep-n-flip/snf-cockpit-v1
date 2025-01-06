@@ -2,7 +2,7 @@
 import { Children, useEffect } from 'react'
 import { Default as Modal } from '@/lib/ui/components/modal/Default'
 import { Button, Typography } from '@/lib/ui/components'
-import { TokenType } from '@/lib/ui/components/blocks/bridges/types/bridge'
+import { TokenType } from '@/components/bridge/types/bridge'
 import { useFormContext } from 'react-hook-form'
 import { useIsomorphicLayoutEffect, useToggle } from 'usehooks-ts'
 import Image from 'next/image'
@@ -16,9 +16,9 @@ import {
   TOKEN_IDS_IN,
   TOKEN_IDS_OUT,
   COLLECTION_ADDRESS_IN,
-} from '@/lib/ui/components/blocks/bridges/utils/constants/fields'
+} from '@/components/bridge/utils/constants/fields'
 
-import { Rangebar } from '@/lib/ui/components/blocks/bridges/form/token'
+import { Rangebar } from '@/components/bridge/form/token'
 import { useNetwork } from '@/lib/web3'
 import { find } from 'lodash'
 import { Chains } from '@/lib/payloadcms/types/payload-types'

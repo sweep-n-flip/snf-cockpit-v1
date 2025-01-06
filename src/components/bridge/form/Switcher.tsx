@@ -11,7 +11,7 @@ import {
   COLLECTION_ADDRESS_OUT,
   CHAIN_ID_IN,
   CHAIN_ID_OUT,
-} from '@/lib/ui/components/blocks/bridges/utils/constants/fields'
+} from '@/components/bridge/utils/constants/fields'
 import { clone } from 'lodash'
 
 export const Switcher = () => {

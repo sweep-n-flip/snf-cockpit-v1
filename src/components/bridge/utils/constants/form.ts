@@ -1,4 +1,4 @@
-import { TokenType, FormDataType } from '@/lib/ui/components/blocks/bridges/types/bridge'
+import { TokenType, FormDataType } from '@/components/bridge/types/bridge'
 import { Address } from 'viem'
 
 export const DEFAULT_FORM_STATE: FormDataType = {

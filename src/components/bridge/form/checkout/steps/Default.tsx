@@ -1,6 +1,6 @@
-import { BridgeStep } from '@/lib/ui/components/blocks/bridges/types/bridge'
+import { BridgeStep } from '@/components/bridge/types/bridge'
 import { Address } from 'viem'
-import { Steps } from '@/lib/ui/components/blocks/bridges/form/checkout'
+import { Steps } from '@/components/bridge/form/checkout'
 import { Chains } from '@/lib/payloadcms/types/payload-types'
 import { Collection } from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/ownership/types'
 

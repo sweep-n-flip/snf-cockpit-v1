@@ -1,7 +1,7 @@
 import { Typography } from '@/lib/ui/components'
 import { Address } from 'viem'
 import Image from 'next/image'
-import { Info } from '@/lib/ui/components/blocks/bridges/form/checkout'
+import { Info } from '@/components/bridge/form/checkout'
 import { Chains } from '@/lib/payloadcms/types/payload-types'
 import { Collection } from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/ownership/types'
 

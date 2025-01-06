@@ -1,14 +1,7 @@
 import { products, settings } from '@/lib/services/local'
-import { views } from '@/lib/services/local'
 import { Metadata } from 'next'
 import { metadataGenerate } from '@/lib/payloadcms/utils/metadata/generate'
 import Bridge from '@/components/bridge/Bridge'
-
-export async function generateStaticParams() {
-  const pages = await views.getPages()
-  // @ts-ignore
-  return pages.filter((page) => page.slug).map((page) => page.slug)
-}
 
 export async function generateMetadata(): Promise<Metadata> {
   const project = await settings.getProject()
@@ -18,8 +11,12 @@ export async function generateMetadata(): Promise<Metadata> {
     isHomepage: true,
     page: {
       title: bridge.title,
-      description: bridge.description,
-      image: project.logo as string,
+      meta: {
+        description: bridge.description,
+        image: {
+          url: project.logo.toString(),
+        },
+      },
     },
     siteName: project.name,
     siteUrl: project.url,

@@ -1,7 +1,7 @@
-import { Typography } from '../../../../../index'
-import { Chain as ChainIcon } from '../../../../../../../web3/components/icons/chains/Chain'
+import { Chain as ChainIcon } from '@/lib/web3/components/icons/chains/Chain'
 import { ArrowRightIcon } from '@heroicons/react/24/outline'
 import { Chains } from '@/lib/payloadcms/types/payload-types'
+import { Typography } from '@/lib/ui/components'
 
 export type ChainProps = {
   chainIn?: Chains

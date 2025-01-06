@@ -2,12 +2,9 @@
 
 import classNames from 'classnames'
 import { useFormContext } from 'react-hook-form'
-import { TokenType } from '@/lib/ui/components/blocks/bridges/types/bridge'
+import { TokenType } from '@/components/bridge/types/bridge'
 
-import {
-  TOKEN_IDS_IN,
-  TOKEN_IDS_OUT,
-} from '@/lib/ui/components/blocks/bridges/utils/constants/fields'
+import { TOKEN_IDS_IN, TOKEN_IDS_OUT } from '@/components/bridge/utils/constants/fields'
 
 export type InputProps = {
   disabled?: boolean

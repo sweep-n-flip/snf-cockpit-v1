@@ -1,18 +1,15 @@
 'use client'
 
 import { useWallet } from '@/lib/web3'
-import { Field } from '@/lib/ui/components/blocks/bridges/form/token'
-import { Switcher } from '@/lib/ui/components/blocks/bridges/form/Switcher'
+import { Field } from '@/components/bridge/form/token'
+import { Switcher } from '@/components/bridge/form/Switcher'
 import { Buttons } from '@/lib/web3/components/wallet'
 import { useForm, FormProvider } from 'react-hook-form'
-import { DEFAULT_FORM_STATE } from '@/lib/ui/components/blocks/bridges/utils/constants/form'
-import {
-  CHAIN_ID_IN,
-  COLLECTION_ADDRESS_IN,
-} from '@/lib/ui/components/blocks/bridges/utils/constants/fields'
-import { FormDataType, TokenType } from '@/lib/ui/components/blocks/bridges/types/bridge'
+import { DEFAULT_FORM_STATE } from '@/components/bridge/utils/constants/form'
+import { CHAIN_ID_IN, COLLECTION_ADDRESS_IN } from '@/components/bridge/utils/constants/fields'
+import { FormDataType, TokenType } from '@/components/bridge/types/bridge'
 import { Chains } from '@/lib/payloadcms/types/payload-types'
-import Modal from '@/lib/ui/components/blocks/bridges/form/checkout/Modal'
+import Modal from '@/components/bridge/form/checkout/Modal'
 import React, { useMemo } from 'react'
 import useGetERC721OwnerCollections from '@/lib/services/graphql/entities/ERC721/hooks/useGetERC721OwnerCollections'
 import useGetERC721Balance from '@/lib/services/graphql/entities/ERC721/hooks/useGetERC721Balance'

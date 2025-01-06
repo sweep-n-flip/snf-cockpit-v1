@@ -4,7 +4,7 @@ import { Card } from '@/lib/ui/components'
 import { Modal, Option } from '@/lib/ui/components/select/Modal'
 import Image from 'next/image'
 import { useFormContext } from 'react-hook-form'
-import { TokenType } from '@/lib/ui/components/blocks/bridges/types/bridge'
+import { TokenType } from '@/components/bridge/types/bridge'
 import { useIsomorphicLayoutEffect } from 'usehooks-ts'
 import { useEffect } from 'react'
 import classNames from 'classnames'
@@ -13,7 +13,7 @@ import {
   CHAIN_ID_IN,
   COLLECTION_ADDRESS_IN,
   COLLECTION_ADDRESS_OUT,
-} from '@/lib/ui/components/blocks/bridges/utils/constants/fields'
+} from '@/components/bridge/utils/constants/fields'
 import { Collection } from '@/lib/payloadcms/plugins/snf/graphql/entities/ERC721/ownership/types'
 
 export type ChooseTokensProps = {

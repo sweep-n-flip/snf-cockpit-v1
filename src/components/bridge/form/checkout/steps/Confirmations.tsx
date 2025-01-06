@@ -7,11 +7,8 @@ import {
   ExclamationCircleIcon,
 } from '@heroicons/react/24/outline'
 import { CheckCircleIcon } from '@heroicons/react/24/solid'
-import {
-  TOTAL_STEPS,
-  STEPS_DATA,
-} from '@/lib/ui/components/blocks/bridges/utils/constants/checkout'
-import { Info } from '@/lib/ui/components/blocks/bridges/form/checkout'
+import { TOTAL_STEPS, STEPS_DATA } from '@/components/bridge/utils/constants/checkout'
+import { Info } from '@/components/bridge/form/checkout'
 import Image from 'next/image'
 import React from 'react'
 import Link from 'next/link'

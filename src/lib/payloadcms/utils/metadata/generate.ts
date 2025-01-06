@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import { Pages } from '@/lib/payloadcms/types/payload-types'
 
 export const metadataGenerate = ({
   page,
@@ -7,7 +6,16 @@ export const metadataGenerate = ({
   siteName,
   siteUrl,
 }: {
-  page: Pages
+  page: {
+    title: string
+    slug?: string
+    meta?: {
+      description?: string | null
+      image?: {
+        url: string | null
+      }
+    }
+  }
   siteName: string
   siteUrl: string
   isHomepage?: boolean

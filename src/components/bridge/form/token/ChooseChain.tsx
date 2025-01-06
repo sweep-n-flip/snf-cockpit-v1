@@ -1,17 +1,14 @@
 'use client'
 
 import { Modal, Option } from '@/lib/ui/components/select/Modal'
-import { TokenType } from '@/lib/ui/components/blocks/bridges/types/bridge'
+import { TokenType } from '@/components/bridge/types/bridge'
 import { Chain as ChainComponent } from '@/lib/web3/components/icons/chains/Chain'
 import { useFormContext } from 'react-hook-form'
 import { useIsomorphicLayoutEffect } from 'usehooks-ts'
 import classNames from 'classnames'
 import gt from 'lodash/gt'
 
-import {
-  CHAIN_ID_IN,
-  CHAIN_ID_OUT,
-} from '@/lib/ui/components/blocks/bridges/utils/constants/fields'
+import { CHAIN_ID_IN, CHAIN_ID_OUT } from '@/components/bridge/utils/constants/fields'
 import { Chains } from '@/lib/payloadcms/types/payload-types'
 
 export type ChooseChainProps = {

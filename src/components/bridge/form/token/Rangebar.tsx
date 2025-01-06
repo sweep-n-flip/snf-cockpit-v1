@@ -3,13 +3,10 @@
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
 
-import { TokenType } from '@/lib/ui/components/blocks/bridges/types/bridge'
+import { TokenType } from '@/components/bridge/types/bridge'
 import { useFormContext } from 'react-hook-form'
 
-import {
-  TOKEN_IDS_IN,
-  TOKEN_IDS_OUT,
-} from '@/lib/ui/components/blocks/bridges/utils/constants/fields'
+import { TOKEN_IDS_IN, TOKEN_IDS_OUT } from '@/components/bridge/utils/constants/fields'
 
 import { MinusCircleIcon, PlusCircleIcon } from '@heroicons/react/24/outline'
 import classNames from 'classnames'
