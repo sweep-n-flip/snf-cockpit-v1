@@ -31,11 +31,7 @@ export const plugin = ({ graphQL }: PluginParams) => {
           /// general
           'upload',
           'collections',
-          'pages',
           'users',
-          /// bridge
-          'bridge_widgets',
-          'bridge_categories',
         ],
         (acc, method) => ({
           ...acc,
@@ -48,7 +44,9 @@ export const plugin = ({ graphQL }: PluginParams) => {
     (config: Config): Config =>
       reduce<keyof typeof globals, Config>(
         [
-          /// project setup
+          /// products setup
+          'bridge',
+          /// settings setup
           'project',
           /// providers setup
           'evm',

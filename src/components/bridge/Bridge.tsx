@@ -1,14 +1,14 @@
-import { BridgeWidgets, Chains } from '@/lib/payloadcms/types/payload-types'
+import { Bridge as BridgeType, Chains } from '@/lib/payloadcms/types/payload-types'
 import { Card, Typography } from '@/lib/ui/components'
 import Form from '@/lib/ui/components/blocks/bridges/form/Form'
 import { useMemo } from 'react'
 
 export type WidgetProps = {
-  widget?: (string | null) | BridgeWidgets
+  data?: (string | null) | BridgeType
 }
 
-export const Widget = ({ widget }: WidgetProps) => {
-  const { title, description, setup, routing } = (widget || {}) as Partial<BridgeWidgets>
+export const Bridge = ({ data }: WidgetProps) => {
+  const { title, description, routing } = (data || {}) as Partial<BridgeType>
 
   // Get the source and target chains
   const { sourceChains, targetChains } = useMemo(() => {
@@ -49,17 +49,9 @@ export const Widget = ({ widget }: WidgetProps) => {
             <Form sourceChains={sourceChains as Chains[]} targetChains={targetChains as Chains[]} />
           </div>
         </Card.Default>
-
-        <div className="text-center">
-          {setup?.version && (
-            <Typography.Paragraph size="xs" className="text-gray-400">
-              widget version {setup?.version}
-            </Typography.Paragraph>
-          )}
-        </div>
       </div>
     </div>
   )
 }
 
-export default Widget
+export default Bridge

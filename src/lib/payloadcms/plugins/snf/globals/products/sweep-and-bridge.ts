@@ -11,10 +11,10 @@ export const sweepAndBridge = ({ globals }: Project): Project['globals'] => {
     {
       slug: `bridge`,
       typescript: {
-        interface: `Bridge`,
+        interface: `SweepAndBridge`,
       },
       graphQL: {
-        name: `Bridge`,
+        name: `SweepAndBridge`,
       },
       admin: {
         group: `Products`,

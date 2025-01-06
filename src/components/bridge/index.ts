@@ -1,1 +1,1 @@
-export * as Bridges from './Widget'
+export * as Bridges from './Bridge'
