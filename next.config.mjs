@@ -35,7 +35,20 @@ const nextConfig = {
       {
         hostname: 'i.seadn.io',
       },
+      //remover
+      {
+        hostname: 's3.cointelegraph.com',
+      },
     ],
+  },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/bridge',
+        permanent: false,
+      },
+    ]
   },
 }
 
