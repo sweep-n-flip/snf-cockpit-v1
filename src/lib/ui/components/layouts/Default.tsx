@@ -2,7 +2,6 @@ import type { HTMLProps, ReactNode } from 'react'
 import { Header, HeaderProps } from '@/lib/ui/components/header/Header'
 import { Footer, FooterProps } from '@/lib/ui/components/footer/Footer'
 import classNames from 'classnames'
-
 export type DefaultProps = HTMLProps<HTMLBodyElement> & {
   children: ReactNode
   headerProps?: HeaderProps

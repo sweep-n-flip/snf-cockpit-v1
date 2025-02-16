@@ -1,5 +1,4 @@
 import '@/lib/ui/styles/default.css'
-
 import { Inter } from 'next/font/google'
 import { ReactNode } from 'react'
 import { Web3Provider } from '@/lib/web3/components'
@@ -107,7 +106,9 @@ export default async function SlugLayout({
               },
             }}
           >
-            {children}
+            <div className="flex w-full justify-center py-12">
+              <div className="w-full max-w-[1200px]">{children}</div>
+            </div>
           </Layouts.Default>
         </Registry>
       </Web3Provider>

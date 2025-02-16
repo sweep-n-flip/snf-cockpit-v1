@@ -35,8 +35,24 @@ const nextConfig = {
       {
         hostname: 'i.seadn.io',
       },
+      //remover
+      {
+        hostname: 's3.cointelegraph.com',
+      },
+      {
+        hostname: 'www.moneytimes.com.br',
+      },
     ],
   },
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: '/',
+  //       destination: '/bridge',
+  //       permanent: false,
+  //     },
+  //   ]
+  // },
 }
 
 export default withPayload(nextConfig)

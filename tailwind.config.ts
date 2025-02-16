@@ -2,7 +2,11 @@ import type { Config } from 'tailwindcss'
 import plugin from 'tailwindcss/plugin'
 
 const config: Config = {
-  content: ['./src/app/**/*.{tsx,ts}', './src/lib/**/*.{tsx,ts}'],
+  content: [
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/lib/**/*.{tsx,ts}',
+  ],
   darkMode: 'class',
   corePlugins: {
     container: false,
@@ -15,7 +19,6 @@ const config: Config = {
           margin: 'auto',
           paddingRight: '1rem',
           paddingLeft: '1rem',
-
           '@screen md': {
             maxWidth: '768px',
           },
@@ -27,7 +30,6 @@ const config: Config = {
           },
         },
       }
-
       addUtilities(utility)
     }),
   ],
