@@ -7,8 +7,8 @@ import { FaCheckCircle, FaExternalLinkAlt } from 'react-icons/fa'
 import Image from 'next/image'
 import { Chain } from '@/lib/web3/components/icons/chains'
 import { Heading, Paragraph } from '@/lib/ui/components/typography'
-import Form from '@/components/bridge/form/Form'
 import { useMemo } from 'react'
+import NftCardBridge from '@/components/bridge-collection/NftCardBridge'
 
 export type WidgetProps = {
   config?: (string | null) | BridgeType
@@ -160,25 +160,7 @@ export const BridgeCollectionDetail = ({ config }: WidgetProps) => {
           My Wallet
         </Paragraph>
       </Heading>
-      <Card.Default className="flex w-full flex-col gap-4 lg:max-w-[30rem]">
-        <div>
-          {title && (
-            <Typography.Heading
-              as="h3"
-              size="h4"
-              className="flex items-center justify-between gap-8 "
-            >
-              <Typography.Paragraph size="default" variant="default">
-                {title}
-              </Typography.Paragraph>
-            </Typography.Heading>
-          )}
-
-          {description && <Typography.Paragraph>{description}</Typography.Paragraph>}
-
-          <Form sourceChains={sourceChains as Chains[]} targetChains={targetChains as Chains[]} />
-        </div>
-      </Card.Default>
+      <NftCardBridge />
     </Card.Default>
   )
 }

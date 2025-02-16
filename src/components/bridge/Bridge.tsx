@@ -1,6 +1,6 @@
+'use client'
 import { Bridge as BridgeType } from '@/lib/payloadcms/types/payload-types'
 import { Tabs, Typography } from '@/lib/ui/components'
-
 import { Tab } from '@/lib/ui/components/tabs/Default'
 import YourAssetsTable from '@/components/bridge/your-assets-table/YourAssetsTable'
 
