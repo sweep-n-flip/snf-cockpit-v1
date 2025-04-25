@@ -1,6 +1,6 @@
 import type { Config } from 'payload'
-import { networks } from './networks'
 import { media } from './media'
+import { networks } from './networks'
 import { tokens } from './tokens'
 import { users } from './users'
 

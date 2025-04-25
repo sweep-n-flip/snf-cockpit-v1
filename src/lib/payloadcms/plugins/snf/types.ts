@@ -1,7 +1,7 @@
-import type { Config as PayloadConfig, PayloadRequest, GraphQLExtension } from 'payload'
-import { ApolloClient, NormalizedCacheObject, DocumentNode } from '@apollo/client/core'
+import { ApolloClient, DocumentNode, NormalizedCacheObject } from '@apollo/client/core'
+import type { GraphQLExtension, Config as PayloadConfig, PayloadRequest } from 'payload'
 
-export type { PayloadConfig, PayloadRequest, GraphQLExtension }
+export type { GraphQLExtension, PayloadConfig, PayloadRequest }
 
 export type GraphQLConfigParams = {
   query: ApolloClient<NormalizedCacheObject>['query']
@@ -10,6 +10,14 @@ export type GraphQLConfigParams = {
   queries: Record<string, DocumentNode>
   mutations: Record<string, DocumentNode>
   subscriptions: Record<string, DocumentNode>
+}
+
+export type GraphQLEntitiesParams = {
+  graphQL?: PayloadConfig['graphQL']
+}
+
+export type EntitiesParams = {
+  graphQL: PayloadConfig['graphQL']
 }
 
 export type PluginParams = {

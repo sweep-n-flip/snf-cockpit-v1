@@ -6,10 +6,66 @@
  * and re-run `payload generate:types` to regenerate this file.
  */
 
+/**
+ * Supported timezones in IANA format.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "supportedTimezones".
+ */
+export type SupportedTimezones =
+  | 'Pacific/Midway'
+  | 'Pacific/Niue'
+  | 'Pacific/Honolulu'
+  | 'Pacific/Rarotonga'
+  | 'America/Anchorage'
+  | 'Pacific/Gambier'
+  | 'America/Los_Angeles'
+  | 'America/Tijuana'
+  | 'America/Denver'
+  | 'America/Phoenix'
+  | 'America/Chicago'
+  | 'America/Guatemala'
+  | 'America/New_York'
+  | 'America/Bogota'
+  | 'America/Caracas'
+  | 'America/Santiago'
+  | 'America/Buenos_Aires'
+  | 'America/Sao_Paulo'
+  | 'Atlantic/South_Georgia'
+  | 'Atlantic/Azores'
+  | 'Atlantic/Cape_Verde'
+  | 'Europe/London'
+  | 'Europe/Berlin'
+  | 'Africa/Lagos'
+  | 'Europe/Athens'
+  | 'Africa/Cairo'
+  | 'Europe/Moscow'
+  | 'Asia/Riyadh'
+  | 'Asia/Dubai'
+  | 'Asia/Baku'
+  | 'Asia/Karachi'
+  | 'Asia/Tashkent'
+  | 'Asia/Calcutta'
+  | 'Asia/Dhaka'
+  | 'Asia/Almaty'
+  | 'Asia/Jakarta'
+  | 'Asia/Bangkok'
+  | 'Asia/Shanghai'
+  | 'Asia/Singapore'
+  | 'Asia/Tokyo'
+  | 'Asia/Seoul'
+  | 'Australia/Brisbane'
+  | 'Australia/Sydney'
+  | 'Pacific/Guam'
+  | 'Pacific/Noumea'
+  | 'Pacific/Auckland'
+  | 'Pacific/Fiji';
+
 export interface Config {
   auth: {
     users: UserAuthOperations;
   };
+  blocks: {};
   collections: {
     users: User;
     media: Media;
@@ -19,8 +75,23 @@ export interface Config {
     contracts: Contracts;
     block_explorers: BlockExplorers;
     collections: Collections;
+    'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
+  };
+  collectionsJoins: {};
+  collectionsSelect: {
+    users: UsersSelect<false> | UsersSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
+    chains: ChainsSelect<false> | ChainsSelect<true>;
+    rpcs: RpcsSelect<false> | RpcsSelect<true>;
+    marketplaces: MarketplacesSelect<false> | MarketplacesSelect<true>;
+    contracts: ContractsSelect<false> | ContractsSelect<true>;
+    block_explorers: BlockExplorersSelect<false> | BlockExplorersSelect<true>;
+    collections: CollectionsSelect<false> | CollectionsSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
     defaultIDType: string;
@@ -36,9 +107,24 @@ export interface Config {
     reservoir: Reservoir;
     alchemy: Alchemy;
   };
+  globalsSelect: {
+    bridge: BridgeSelect<false> | BridgeSelect<true>;
+    project: ProjectSelect<false> | ProjectSelect<true>;
+    evm: EvmSelect<false> | EvmSelect<true>;
+    layer_zero: LayerZeroSelect<false> | LayerZeroSelect<true>;
+    cmc: CmcSelect<false> | CmcSelect<true>;
+    moralis: MoralisSelect<false> | MoralisSelect<true>;
+    opensea: OpenseaSelect<false> | OpenseaSelect<true>;
+    reservoir: ReservoirSelect<false> | ReservoirSelect<true>;
+    alchemy: AlchemySelect<false> | AlchemySelect<true>;
+  };
   locale: null;
   user: User & {
     collection: 'users';
+  };
+  jobs: {
+    tasks: unknown;
+    workflows: unknown;
   };
 }
 export interface UserAuthOperations {
@@ -194,7 +280,13 @@ export interface Marketplaces {
   slug: string;
   name: string;
   url: string;
+  /**
+   * Eg: /{{address}}/{{tokenId}} to replace {{address}} with the collection address and {{tokenId}} with the token id
+   */
   urlTokenIdPath: string;
+  /**
+   * Eg: /{{address}} to replace {{address}} with the collection address
+   */
   urlTokenPath: string;
   logo: string | Media;
   chain: string | Chains;
@@ -263,6 +355,53 @@ export interface Collections {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents".
+ */
+export interface PayloadLockedDocument {
+  id: string;
+  document?:
+    | ({
+        relationTo: 'users';
+        value: string | User;
+      } | null)
+    | ({
+        relationTo: 'media';
+        value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'chains';
+        value: string | Chains;
+      } | null)
+    | ({
+        relationTo: 'rpcs';
+        value: string | RPCS;
+      } | null)
+    | ({
+        relationTo: 'marketplaces';
+        value: string | Marketplaces;
+      } | null)
+    | ({
+        relationTo: 'contracts';
+        value: string | Contracts;
+      } | null)
+    | ({
+        relationTo: 'block_explorers';
+        value: string | BlockExplorers;
+      } | null)
+    | ({
+        relationTo: 'collections';
+        value: string | Collections;
+      } | null);
+  globalSlug?: string | null;
+  user: {
+    relationTo: 'users';
+    value: string | User;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
@@ -297,6 +436,235 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users_select".
+ */
+export interface UsersSelect<T extends boolean = true> {
+  name?: T;
+  alias?: T;
+  roles?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+  alt?: T;
+  caption?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+  sizes?:
+    | T
+    | {
+        icon?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        thumbnail?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        small?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        medium?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        large?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "chains_select".
+ */
+export interface ChainsSelect<T extends boolean = true> {
+  slug?: T;
+  chainId?: T;
+  name?: T;
+  testnet?: T;
+  nativeCurrency?:
+    | T
+    | {
+        name?: T;
+        symbol?: T;
+        decimals?: T;
+        address?: T;
+      };
+  custom?:
+    | T
+    | {
+        logo?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rpcs_select".
+ */
+export interface RpcsSelect<T extends boolean = true> {
+  slug?: T;
+  name?: T;
+  http?:
+    | T
+    | {
+        url?: T;
+        id?: T;
+      };
+  webSocket?:
+    | T
+    | {
+        url?: T;
+        id?: T;
+      };
+  chain?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "marketplaces_select".
+ */
+export interface MarketplacesSelect<T extends boolean = true> {
+  slug?: T;
+  name?: T;
+  url?: T;
+  urlTokenIdPath?: T;
+  urlTokenPath?: T;
+  logo?: T;
+  chain?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contracts_select".
+ */
+export interface ContractsSelect<T extends boolean = true> {
+  slug?: T;
+  address?: T;
+  name?: T;
+  blockCreated?: T;
+  abi?: T;
+  chain?: T;
+  type?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "block_explorers_select".
+ */
+export interface BlockExplorersSelect<T extends boolean = true> {
+  slug?: T;
+  name?: T;
+  url?: T;
+  apiUrl?: T;
+  logo?: T;
+  chain?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "collections_select".
+ */
+export interface CollectionsSelect<T extends boolean = true> {
+  slug?: T;
+  address?: T;
+  chain?: T;
+  name?: T;
+  symbol?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents_select".
+ */
+export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
+  document?: T;
+  globalSlug?: T;
+  user?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-preferences_select".
+ */
+export interface PayloadPreferencesSelect<T extends boolean = true> {
+  user?: T;
+  key?: T;
+  value?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-migrations_select".
+ */
+export interface PayloadMigrationsSelect<T extends boolean = true> {
+  name?: T;
+  batch?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "bridge".
  */
 export interface Bridge {
@@ -320,6 +688,9 @@ export interface Bridge {
  */
 export interface Project {
   id: string;
+  /**
+   * Enable testnet mode for the current environment
+   */
   testnet?: boolean | null;
   logo: string | Media;
   name: string;
@@ -441,12 +812,176 @@ export interface Alchemy {
     | {
         chain: string | Chains;
         apiKey: string;
+        /**
+         * Eg: MATIC_MAINNET
+         */
         evmChainKey: string;
         id?: string | null;
       }[]
     | null;
   updatedAt?: string | null;
   createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bridge_select".
+ */
+export interface BridgeSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  routing?:
+    | T
+    | {
+        paths?:
+          | T
+          | {
+              sourceChain?: T;
+              sourceContract?: T;
+              targetChain?: T;
+              id?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "project_select".
+ */
+export interface ProjectSelect<T extends boolean = true> {
+  testnet?: T;
+  logo?: T;
+  name?: T;
+  description?: T;
+  url?: T;
+  networks?:
+    | T
+    | {
+        defaultChain?: T;
+      };
+  footer?:
+    | T
+    | {
+        copyright?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "evm_select".
+ */
+export interface EvmSelect<T extends boolean = true> {
+  chains?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "layer_zero_select".
+ */
+export interface LayerZeroSelect<T extends boolean = true> {
+  networks?:
+    | T
+    | {
+        chain?: T;
+        abstractChainId?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cmc_select".
+ */
+export interface CmcSelect<T extends boolean = true> {
+  networks?:
+    | T
+    | {
+        chain?: T;
+        chainSlug?: T;
+        apiKey?: T;
+        apiUrl?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "moralis_select".
+ */
+export interface MoralisSelect<T extends boolean = true> {
+  networks?:
+    | T
+    | {
+        chain?: T;
+        apiKey?: T;
+        evmChainKey?: T;
+        maxRetries?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "opensea_select".
+ */
+export interface OpenseaSelect<T extends boolean = true> {
+  networks?:
+    | T
+    | {
+        chain?: T;
+        apiKey?: T;
+        apiUrl?: T;
+        chainSlug?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reservoir_select".
+ */
+export interface ReservoirSelect<T extends boolean = true> {
+  networks?:
+    | T
+    | {
+        chain?: T;
+        apiKey?: T;
+        apiUrl?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "alchemy_select".
+ */
+export interface AlchemySelect<T extends boolean = true> {
+  networks?:
+    | T
+    | {
+        chain?: T;
+        apiKey?: T;
+        evmChainKey?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
