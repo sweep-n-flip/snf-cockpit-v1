@@ -59,825 +59,827 @@ export type SupportedTimezones =
   | 'Pacific/Guam'
   | 'Pacific/Noumea'
   | 'Pacific/Auckland'
-  | 'Pacific/Fiji';
+  | 'Pacific/Fiji'
 
 export interface Config {
   auth: {
-    users: UserAuthOperations;
-  };
-  blocks: {};
+    users: UserAuthOperations
+  }
+  blocks: {}
   collections: {
-    users: User;
-    media: Media;
-    chains: Chains;
-    rpcs: RPCS;
-    marketplaces: Marketplaces;
-    contracts: Contracts;
-    block_explorers: BlockExplorers;
-    collections: Collections;
-    'payload-locked-documents': PayloadLockedDocument;
-    'payload-preferences': PayloadPreference;
-    'payload-migrations': PayloadMigration;
-  };
-  collectionsJoins: {};
+    users: User
+    media: Media
+    chains: Chains
+    rpcs: RPCS
+    marketplaces: Marketplaces
+    contracts: Contracts
+    block_explorers: BlockExplorers
+    collections: Collections
+    'payload-locked-documents': PayloadLockedDocument
+    'payload-preferences': PayloadPreference
+    'payload-migrations': PayloadMigration
+  }
+  collectionsJoins: {}
   collectionsSelect: {
-    users: UsersSelect<false> | UsersSelect<true>;
-    media: MediaSelect<false> | MediaSelect<true>;
-    chains: ChainsSelect<false> | ChainsSelect<true>;
-    rpcs: RpcsSelect<false> | RpcsSelect<true>;
-    marketplaces: MarketplacesSelect<false> | MarketplacesSelect<true>;
-    contracts: ContractsSelect<false> | ContractsSelect<true>;
-    block_explorers: BlockExplorersSelect<false> | BlockExplorersSelect<true>;
-    collections: CollectionsSelect<false> | CollectionsSelect<true>;
-    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
-    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
-    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
-  };
+    users: UsersSelect<false> | UsersSelect<true>
+    media: MediaSelect<false> | MediaSelect<true>
+    chains: ChainsSelect<false> | ChainsSelect<true>
+    rpcs: RpcsSelect<false> | RpcsSelect<true>
+    marketplaces: MarketplacesSelect<false> | MarketplacesSelect<true>
+    contracts: ContractsSelect<false> | ContractsSelect<true>
+    block_explorers: BlockExplorersSelect<false> | BlockExplorersSelect<true>
+    collections: CollectionsSelect<false> | CollectionsSelect<true>
+    'payload-locked-documents':
+      | PayloadLockedDocumentsSelect<false>
+      | PayloadLockedDocumentsSelect<true>
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>
+  }
   db: {
-    defaultIDType: string;
-  };
+    defaultIDType: string
+  }
   globals: {
-    bridge: Bridge;
-    project: Project;
-    evm: Evm;
-    layer_zero: LayerZero;
-    cmc: Cmc;
-    moralis: Moralis;
-    opensea: Opensea;
-    reservoir: Reservoir;
-    alchemy: Alchemy;
-  };
+    bridge: Bridge
+    project: Project
+    evm: Evm
+    layer_zero: LayerZero
+    cmc: Cmc
+    moralis: Moralis
+    opensea: Opensea
+    reservoir: Reservoir
+    alchemy: Alchemy
+  }
   globalsSelect: {
-    bridge: BridgeSelect<false> | BridgeSelect<true>;
-    project: ProjectSelect<false> | ProjectSelect<true>;
-    evm: EvmSelect<false> | EvmSelect<true>;
-    layer_zero: LayerZeroSelect<false> | LayerZeroSelect<true>;
-    cmc: CmcSelect<false> | CmcSelect<true>;
-    moralis: MoralisSelect<false> | MoralisSelect<true>;
-    opensea: OpenseaSelect<false> | OpenseaSelect<true>;
-    reservoir: ReservoirSelect<false> | ReservoirSelect<true>;
-    alchemy: AlchemySelect<false> | AlchemySelect<true>;
-  };
-  locale: null;
+    bridge: BridgeSelect<false> | BridgeSelect<true>
+    project: ProjectSelect<false> | ProjectSelect<true>
+    evm: EvmSelect<false> | EvmSelect<true>
+    layer_zero: LayerZeroSelect<false> | LayerZeroSelect<true>
+    cmc: CmcSelect<false> | CmcSelect<true>
+    moralis: MoralisSelect<false> | MoralisSelect<true>
+    opensea: OpenseaSelect<false> | OpenseaSelect<true>
+    reservoir: ReservoirSelect<false> | ReservoirSelect<true>
+    alchemy: AlchemySelect<false> | AlchemySelect<true>
+  }
+  locale: null
   user: User & {
-    collection: 'users';
-  };
+    collection: 'users'
+  }
   jobs: {
-    tasks: unknown;
-    workflows: unknown;
-  };
+    tasks: unknown
+    workflows: unknown
+  }
 }
 export interface UserAuthOperations {
   forgotPassword: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
   login: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
   registerFirstUser: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
   unlock: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
-  id: string;
-  name?: string | null;
-  alias?: string | null;
-  roles?: ('admin' | 'user')[] | null;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  password?: string | null;
+  id: string
+  name?: string | null
+  alias?: string | null
+  roles?: ('admin' | 'user')[] | null
+  updatedAt: string
+  createdAt: string
+  email: string
+  resetPasswordToken?: string | null
+  resetPasswordExpiration?: string | null
+  salt?: string | null
+  hash?: string | null
+  loginAttempts?: number | null
+  lockUntil?: string | null
+  password?: string | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
-  id: string;
-  alt: string;
-  caption?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
+  id: string
+  alt: string
+  caption?: string | null
+  updatedAt: string
+  createdAt: string
+  url?: string | null
+  thumbnailURL?: string | null
+  filename?: string | null
+  mimeType?: string | null
+  filesize?: number | null
+  width?: number | null
+  height?: number | null
+  focalX?: number | null
+  focalY?: number | null
   sizes?: {
     icon?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
+      url?: string | null
+      width?: number | null
+      height?: number | null
+      mimeType?: string | null
+      filesize?: number | null
+      filename?: string | null
+    }
     thumbnail?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
+      url?: string | null
+      width?: number | null
+      height?: number | null
+      mimeType?: string | null
+      filesize?: number | null
+      filename?: string | null
+    }
     small?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
+      url?: string | null
+      width?: number | null
+      height?: number | null
+      mimeType?: string | null
+      filesize?: number | null
+      filename?: string | null
+    }
     medium?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
+      url?: string | null
+      width?: number | null
+      height?: number | null
+      mimeType?: string | null
+      filesize?: number | null
+      filename?: string | null
+    }
     large?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-  };
+      url?: string | null
+      width?: number | null
+      height?: number | null
+      mimeType?: string | null
+      filesize?: number | null
+      filename?: string | null
+    }
+  }
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "chains".
  */
 export interface Chains {
-  id: string;
-  slug: string;
-  chainId: number;
-  name: string;
-  testnet?: boolean | null;
+  id: string
+  slug: string
+  chainId: number
+  name: string
+  testnet?: boolean | null
   nativeCurrency: {
-    name: string;
-    symbol: string;
-    decimals: number;
-    address: string;
-  };
+    name: string
+    symbol: string
+    decimals: number
+    address: string
+  }
   custom: {
-    logo: string | Media;
-  };
-  updatedAt: string;
-  createdAt: string;
+    logo: string | Media
+  }
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "rpcs".
  */
 export interface RPCS {
-  id: string;
-  slug: string;
-  name: string;
+  id: string
+  slug: string
+  name: string
   http: {
-    url: string;
-    id?: string | null;
-  }[];
+    url: string
+    id?: string | null
+  }[]
   webSocket?:
     | {
-        url: string;
-        id?: string | null;
+        url: string
+        id?: string | null
       }[]
-    | null;
-  chain: string | Chains;
-  updatedAt: string;
-  createdAt: string;
+    | null
+  chain: string | Chains
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "marketplaces".
  */
 export interface Marketplaces {
-  id: string;
-  slug: string;
-  name: string;
-  url: string;
+  id: string
+  slug: string
+  name: string
+  url: string
   /**
    * Eg: /{{address}}/{{tokenId}} to replace {{address}} with the collection address and {{tokenId}} with the token id
    */
-  urlTokenIdPath: string;
+  urlTokenIdPath: string
   /**
    * Eg: /{{address}} to replace {{address}} with the collection address
    */
-  urlTokenPath: string;
-  logo: string | Media;
-  chain: string | Chains;
-  updatedAt: string;
-  createdAt: string;
+  urlTokenPath: string
+  logo: string | Media
+  chain: string | Chains
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "contracts".
  */
 export interface Contracts {
-  id: string;
-  slug: string;
-  address: string;
-  name: string;
-  blockCreated?: number | null;
-  abi: string;
-  chain: string | Chains;
-  type: 'bridge';
-  updatedAt: string;
-  createdAt: string;
+  id: string
+  slug: string
+  address: string
+  name: string
+  blockCreated?: number | null
+  abi: string
+  chain: string | Chains
+  type: 'bridge'
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "block_explorers".
  */
 export interface BlockExplorers {
-  id: string;
-  slug: string;
-  name: string;
-  url: string;
-  apiUrl?: string | null;
-  logo: string | Media;
-  chain: string | Chains;
-  updatedAt: string;
-  createdAt: string;
+  id: string
+  slug: string
+  name: string
+  url: string
+  apiUrl?: string | null
+  logo: string | Media
+  chain: string | Chains
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "collections".
  */
 export interface Collections {
-  id: string;
-  slug: string;
-  address: string;
-  chain: string | Chains;
-  name: string;
-  symbol: string;
+  id: string
+  slug: string
+  address: string
+  chain: string | Chains
+  name: string
+  symbol: string
   description?: {
     root: {
-      type: string;
+      type: string
       children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  updatedAt: string;
-  createdAt: string;
+        type: string
+        version: number
+        [k: string]: unknown
+      }[]
+      direction: ('ltr' | 'rtl') | null
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+      indent: number
+      version: number
+    }
+    [k: string]: unknown
+  } | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: string;
+  id: string
   document?:
     | ({
-        relationTo: 'users';
-        value: string | User;
+        relationTo: 'users'
+        value: string | User
       } | null)
     | ({
-        relationTo: 'media';
-        value: string | Media;
+        relationTo: 'media'
+        value: string | Media
       } | null)
     | ({
-        relationTo: 'chains';
-        value: string | Chains;
+        relationTo: 'chains'
+        value: string | Chains
       } | null)
     | ({
-        relationTo: 'rpcs';
-        value: string | RPCS;
+        relationTo: 'rpcs'
+        value: string | RPCS
       } | null)
     | ({
-        relationTo: 'marketplaces';
-        value: string | Marketplaces;
+        relationTo: 'marketplaces'
+        value: string | Marketplaces
       } | null)
     | ({
-        relationTo: 'contracts';
-        value: string | Contracts;
+        relationTo: 'contracts'
+        value: string | Contracts
       } | null)
     | ({
-        relationTo: 'block_explorers';
-        value: string | BlockExplorers;
+        relationTo: 'block_explorers'
+        value: string | BlockExplorers
       } | null)
     | ({
-        relationTo: 'collections';
-        value: string | Collections;
-      } | null);
-  globalSlug?: string | null;
+        relationTo: 'collections'
+        value: string | Collections
+      } | null)
+  globalSlug?: string | null
   user: {
-    relationTo: 'users';
-    value: string | User;
-  };
-  updatedAt: string;
-  createdAt: string;
+    relationTo: 'users'
+    value: string | User
+  }
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: string;
+  id: string
   user: {
-    relationTo: 'users';
-    value: string | User;
-  };
-  key?: string | null;
+    relationTo: 'users'
+    value: string | User
+  }
+  key?: string | null
   value?:
     | {
-        [k: string]: unknown;
+        [k: string]: unknown
       }
     | unknown[]
     | string
     | number
     | boolean
-    | null;
-  updatedAt: string;
-  createdAt: string;
+    | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: string;
-  name?: string | null;
-  batch?: number | null;
-  updatedAt: string;
-  createdAt: string;
+  id: string
+  name?: string | null
+  batch?: number | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-  name?: T;
-  alias?: T;
-  roles?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  email?: T;
-  resetPasswordToken?: T;
-  resetPasswordExpiration?: T;
-  salt?: T;
-  hash?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
+  name?: T
+  alias?: T
+  roles?: T
+  updatedAt?: T
+  createdAt?: T
+  email?: T
+  resetPasswordToken?: T
+  resetPasswordExpiration?: T
+  salt?: T
+  hash?: T
+  loginAttempts?: T
+  lockUntil?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
-  alt?: T;
-  caption?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
+  alt?: T
+  caption?: T
+  updatedAt?: T
+  createdAt?: T
+  url?: T
+  thumbnailURL?: T
+  filename?: T
+  mimeType?: T
+  filesize?: T
+  width?: T
+  height?: T
+  focalX?: T
+  focalY?: T
   sizes?:
     | T
     | {
         icon?:
           | T
           | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
+              url?: T
+              width?: T
+              height?: T
+              mimeType?: T
+              filesize?: T
+              filename?: T
+            }
         thumbnail?:
           | T
           | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
+              url?: T
+              width?: T
+              height?: T
+              mimeType?: T
+              filesize?: T
+              filename?: T
+            }
         small?:
           | T
           | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
+              url?: T
+              width?: T
+              height?: T
+              mimeType?: T
+              filesize?: T
+              filename?: T
+            }
         medium?:
           | T
           | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
+              url?: T
+              width?: T
+              height?: T
+              mimeType?: T
+              filesize?: T
+              filename?: T
+            }
         large?:
           | T
           | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-      };
+              url?: T
+              width?: T
+              height?: T
+              mimeType?: T
+              filesize?: T
+              filename?: T
+            }
+      }
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "chains_select".
  */
 export interface ChainsSelect<T extends boolean = true> {
-  slug?: T;
-  chainId?: T;
-  name?: T;
-  testnet?: T;
+  slug?: T
+  chainId?: T
+  name?: T
+  testnet?: T
   nativeCurrency?:
     | T
     | {
-        name?: T;
-        symbol?: T;
-        decimals?: T;
-        address?: T;
-      };
+        name?: T
+        symbol?: T
+        decimals?: T
+        address?: T
+      }
   custom?:
     | T
     | {
-        logo?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
+        logo?: T
+      }
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "rpcs_select".
  */
 export interface RpcsSelect<T extends boolean = true> {
-  slug?: T;
-  name?: T;
+  slug?: T
+  name?: T
   http?:
     | T
     | {
-        url?: T;
-        id?: T;
-      };
+        url?: T
+        id?: T
+      }
   webSocket?:
     | T
     | {
-        url?: T;
-        id?: T;
-      };
-  chain?: T;
-  updatedAt?: T;
-  createdAt?: T;
+        url?: T
+        id?: T
+      }
+  chain?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "marketplaces_select".
  */
 export interface MarketplacesSelect<T extends boolean = true> {
-  slug?: T;
-  name?: T;
-  url?: T;
-  urlTokenIdPath?: T;
-  urlTokenPath?: T;
-  logo?: T;
-  chain?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  slug?: T
+  name?: T
+  url?: T
+  urlTokenIdPath?: T
+  urlTokenPath?: T
+  logo?: T
+  chain?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "contracts_select".
  */
 export interface ContractsSelect<T extends boolean = true> {
-  slug?: T;
-  address?: T;
-  name?: T;
-  blockCreated?: T;
-  abi?: T;
-  chain?: T;
-  type?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  slug?: T
+  address?: T
+  name?: T
+  blockCreated?: T
+  abi?: T
+  chain?: T
+  type?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "block_explorers_select".
  */
 export interface BlockExplorersSelect<T extends boolean = true> {
-  slug?: T;
-  name?: T;
-  url?: T;
-  apiUrl?: T;
-  logo?: T;
-  chain?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  slug?: T
+  name?: T
+  url?: T
+  apiUrl?: T
+  logo?: T
+  chain?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "collections_select".
  */
 export interface CollectionsSelect<T extends boolean = true> {
-  slug?: T;
-  address?: T;
-  chain?: T;
-  name?: T;
-  symbol?: T;
-  description?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  slug?: T
+  address?: T
+  chain?: T
+  name?: T
+  symbol?: T
+  description?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents_select".
  */
 export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
-  document?: T;
-  globalSlug?: T;
-  user?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  document?: T
+  globalSlug?: T
+  user?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences_select".
  */
 export interface PayloadPreferencesSelect<T extends boolean = true> {
-  user?: T;
-  key?: T;
-  value?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  user?: T
+  key?: T
+  value?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations_select".
  */
 export interface PayloadMigrationsSelect<T extends boolean = true> {
-  name?: T;
-  batch?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  name?: T
+  batch?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "bridge".
  */
 export interface Bridge {
-  id: string;
-  title: string;
-  description?: string | null;
+  id: string
+  title: string
+  description?: string | null
   routing: {
     paths: {
-      sourceChain: string | Chains;
-      sourceContract: string | Contracts;
-      targetChain: string | Chains;
-      id?: string | null;
-    }[];
-  };
-  updatedAt?: string | null;
-  createdAt?: string | null;
+      sourceChain: string | Chains
+      sourceContract: string | Contracts
+      targetChain: string | Chains
+      id?: string | null
+    }[]
+  }
+  updatedAt?: string | null
+  createdAt?: string | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "project".
  */
 export interface Project {
-  id: string;
+  id: string
   /**
    * Enable testnet mode for the current environment
    */
-  testnet?: boolean | null;
-  logo: string | Media;
-  name: string;
-  description: string;
-  url: string;
+  testnet?: boolean | null
+  logo: string | Media
+  name: string
+  description: string
+  url: string
   networks: {
-    defaultChain: string | Chains;
-  };
+    defaultChain: string | Chains
+  }
   footer: {
-    copyright: string;
-  };
-  updatedAt?: string | null;
-  createdAt?: string | null;
+    copyright: string
+  }
+  updatedAt?: string | null
+  createdAt?: string | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "evm".
  */
 export interface Evm {
-  id: string;
-  chains: (string | Chains)[];
-  updatedAt?: string | null;
-  createdAt?: string | null;
+  id: string
+  chains: (string | Chains)[]
+  updatedAt?: string | null
+  createdAt?: string | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "layer_zero".
  */
 export interface LayerZero {
-  id: string;
+  id: string
   networks?:
     | {
-        chain: string | Chains;
-        abstractChainId: number;
-        id?: string | null;
+        chain: string | Chains
+        abstractChainId: number
+        id?: string | null
       }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
+    | null
+  updatedAt?: string | null
+  createdAt?: string | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "cmc".
  */
 export interface Cmc {
-  id: string;
+  id: string
   networks?:
     | {
-        chain: string | Chains;
-        chainSlug: string;
-        apiKey: string;
-        apiUrl: string;
-        id?: string | null;
+        chain: string | Chains
+        chainSlug: string
+        apiKey: string
+        apiUrl: string
+        id?: string | null
       }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
+    | null
+  updatedAt?: string | null
+  createdAt?: string | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "moralis".
  */
 export interface Moralis {
-  id: string;
+  id: string
   networks?:
     | {
-        chain: string | Chains;
-        apiKey: string;
-        evmChainKey: string;
-        maxRetries: number;
-        id?: string | null;
+        chain: string | Chains
+        apiKey: string
+        evmChainKey: string
+        maxRetries: number
+        id?: string | null
       }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
+    | null
+  updatedAt?: string | null
+  createdAt?: string | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "opensea".
  */
 export interface Opensea {
-  id: string;
+  id: string
   networks?:
     | {
-        chain: string | Chains;
-        apiKey: string;
-        apiUrl: string;
-        chainSlug: string;
-        id?: string | null;
+        chain: string | Chains
+        apiKey: string
+        apiUrl: string
+        chainSlug: string
+        id?: string | null
       }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
+    | null
+  updatedAt?: string | null
+  createdAt?: string | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "reservoir".
  */
 export interface Reservoir {
-  id: string;
+  id: string
   networks?:
     | {
-        chain: string | Chains;
-        apiKey: string;
-        apiUrl: string;
-        id?: string | null;
+        chain: string | Chains
+        apiKey: string
+        apiUrl: string
+        id?: string | null
       }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
+    | null
+  updatedAt?: string | null
+  createdAt?: string | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "alchemy".
  */
 export interface Alchemy {
-  id: string;
+  id: string
   networks?:
     | {
-        chain: string | Chains;
-        apiKey: string;
+        chain: string | Chains
+        apiKey: string
         /**
          * Eg: MATIC_MAINNET
          */
-        evmChainKey: string;
-        id?: string | null;
+        evmChainKey: string
+        id?: string | null
       }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
+    | null
+  updatedAt?: string | null
+  createdAt?: string | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "bridge_select".
  */
 export interface BridgeSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
+  title?: T
+  description?: T
   routing?:
     | T
     | {
         paths?:
           | T
           | {
-              sourceChain?: T;
-              sourceContract?: T;
-              targetChain?: T;
-              id?: T;
-            };
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+              sourceChain?: T
+              sourceContract?: T
+              targetChain?: T
+              id?: T
+            }
+      }
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "project_select".
  */
 export interface ProjectSelect<T extends boolean = true> {
-  testnet?: T;
-  logo?: T;
-  name?: T;
-  description?: T;
-  url?: T;
+  testnet?: T
+  logo?: T
+  name?: T
+  description?: T
+  url?: T
   networks?:
     | T
     | {
-        defaultChain?: T;
-      };
+        defaultChain?: T
+      }
   footer?:
     | T
     | {
-        copyright?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+        copyright?: T
+      }
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "evm_select".
  */
 export interface EvmSelect<T extends boolean = true> {
-  chains?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+  chains?: T
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -887,13 +889,13 @@ export interface LayerZeroSelect<T extends boolean = true> {
   networks?:
     | T
     | {
-        chain?: T;
-        abstractChainId?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+        chain?: T
+        abstractChainId?: T
+        id?: T
+      }
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -903,15 +905,15 @@ export interface CmcSelect<T extends boolean = true> {
   networks?:
     | T
     | {
-        chain?: T;
-        chainSlug?: T;
-        apiKey?: T;
-        apiUrl?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+        chain?: T
+        chainSlug?: T
+        apiKey?: T
+        apiUrl?: T
+        id?: T
+      }
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -921,15 +923,15 @@ export interface MoralisSelect<T extends boolean = true> {
   networks?:
     | T
     | {
-        chain?: T;
-        apiKey?: T;
-        evmChainKey?: T;
-        maxRetries?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+        chain?: T
+        apiKey?: T
+        evmChainKey?: T
+        maxRetries?: T
+        id?: T
+      }
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -939,15 +941,15 @@ export interface OpenseaSelect<T extends boolean = true> {
   networks?:
     | T
     | {
-        chain?: T;
-        apiKey?: T;
-        apiUrl?: T;
-        chainSlug?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+        chain?: T
+        apiKey?: T
+        apiUrl?: T
+        chainSlug?: T
+        id?: T
+      }
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -957,14 +959,14 @@ export interface ReservoirSelect<T extends boolean = true> {
   networks?:
     | T
     | {
-        chain?: T;
-        apiKey?: T;
-        apiUrl?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+        chain?: T
+        apiKey?: T
+        apiUrl?: T
+        id?: T
+      }
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -974,23 +976,22 @@ export interface AlchemySelect<T extends boolean = true> {
   networks?:
     | T
     | {
-        chain?: T;
-        apiKey?: T;
-        evmChainKey?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+        chain?: T
+        apiKey?: T
+        evmChainKey?: T
+        id?: T
+      }
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auth".
  */
 export interface Auth {
-  [k: string]: unknown;
+  [k: string]: unknown
 }
-
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}

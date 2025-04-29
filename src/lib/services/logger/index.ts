@@ -69,4 +69,4 @@ export class Logger {
       console.log(`${this.prefix} VERBOSE: ${message}`, data || '')
     }
   }
-} 
+}

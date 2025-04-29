@@ -16,6 +16,6 @@ export async function OPTIONS() {
       'Access-Control-Allow-Credentials': 'true',
     },
   })
-  
+
   return response
 }

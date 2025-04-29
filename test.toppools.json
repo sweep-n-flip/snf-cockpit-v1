@@ -1,0 +1,3570 @@
+[{
+  "_id": {
+    "$oid": "680c5a242aab85d5c48c3d62"
+  },
+  "chainId": 56,
+  "poolId": "0x3d70391b486810eed94fd0db15e9bde2efc8d81a",
+  "apr": "42.30458321091165211",
+  "collectionToken": {
+    "id": "0xa75e367b4866256b75e8f1059e4873fc0cbf9748",
+    "name": "BNB Anons",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x8ed6cde28714f01af1336ddcd851e3d6033350ca",
+      "name": "Wrapped BNB Anons",
+      "symbol": "WBNON",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:32.861Z"
+  },
+  "erc20Token": {
+    "id": "BNB",
+    "name": "Wrapped BNB",
+    "symbol": "WBNB",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+      "name": "Wrapped BNB",
+      "symbol": "BNB",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "0.19135",
+  "name": "Wrapped BNB/BNB Anons",
+  "nftListings": "24.999999999999999999",
+  "nftPrice": "0.00383",
+  "offers": "0.09568",
+  "totalVolume": "0.06389",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:01.567Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a262aab85d5c48c3d63"
+  },
+  "chainId": 42161,
+  "poolId": "0x82e27cefb4de63481ba5b9bfe8d66c903c46cd40",
+  "apr": "9.24331133071300914",
+  "collectionToken": {
+    "id": "0x986094d0b882005f9f58081b20c310772bf3688d",
+    "name": "The Knowers",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x5798451c07320cd113f96a392e47d577bd040802",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:34.356Z"
+  },
+  "erc20Token": {
+    "id": "ETH",
+    "name": "Wrapped Ether",
+    "symbol": "WETH",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
+      "name": "Wrapped Ether",
+      "symbol": "ETH",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "0.70616",
+  "name": "Wrapped Ether/The Knowers",
+  "nftListings": "52",
+  "nftPrice": "0.00679",
+  "offers": "0.35308",
+  "totalVolume": "1.29147",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:03.839Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a262aab85d5c48c3d64"
+  },
+  "chainId": 42161,
+  "poolId": "0xb87dae5bde57ef54a33d558b0fef1a3331e3c173",
+  "apr": "18.56383589158469511",
+  "collectionToken": {
+    "id": "0x1ac7a2fc7f66fa4edf2713a88cd4bad24220c86c",
+    "name": "ArbiDudesGenOne",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xf84c752c64810ef06af6a35af67c2b79d02a5269",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:34.356Z"
+  },
+  "erc20Token": {
+    "id": "ETH",
+    "name": "Wrapped Ether",
+    "symbol": "WETH",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
+      "name": "Wrapped Ether",
+      "symbol": "ETH",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "0.10623",
+  "name": "Wrapped Ether/ArbiDudesGenOne",
+  "nftListings": "47",
+  "nftPrice": "0.00113",
+  "offers": "0.05311",
+  "totalVolume": "0.04735",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:03.839Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a262aab85d5c48c3d65"
+  },
+  "chainId": 42161,
+  "poolId": "0xb41ec5a9eb44d1d6f1452f041a4088928671900a",
+  "apr": "45.063576082169904655",
+  "collectionToken": {
+    "id": "0xe5b68556c12f37fa12f15ae87ea32f15a8c4e7b9",
+    "name": "Baka Bears",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x3acf608ed84beac8049dedd390fcd74371768b2b",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:34.356Z"
+  },
+  "erc20Token": {
+    "id": "ETH",
+    "name": "Wrapped Ether",
+    "symbol": "WETH",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
+      "name": "Wrapped Ether",
+      "symbol": "ETH",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "0.10180",
+  "name": "Wrapped Ether/Baka Bears",
+  "nftListings": "13",
+  "nftPrice": "0.00392",
+  "offers": "0.05090",
+  "totalVolume": "0.28144",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:03.839Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a262aab85d5c48c3d66"
+  },
+  "chainId": 42161,
+  "poolId": "0x0a1255e881f6355e4d8575f13f3b2f4ea4a01ef3",
+  "apr": "70.587736832808065785",
+  "collectionToken": {
+    "id": "0xeba9fd1355d2cc0883110f4c0b03c9ef57e38f12",
+    "name": "ChainBeras",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x5e2e096808b5b120e01a8c74215573557cdbfcf7",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:34.356Z"
+  },
+  "erc20Token": {
+    "id": "ETH",
+    "name": "Wrapped Ether",
+    "symbol": "WETH",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
+      "name": "Wrapped Ether",
+      "symbol": "ETH",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "0.03809",
+  "name": "Wrapped Ether/ChainBeras",
+  "nftListings": "8",
+  "nftPrice": "0.00238",
+  "offers": "0.01904",
+  "totalVolume": "0.02626",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:03.839Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a262aab85d5c48c3d67"
+  },
+  "chainId": 42161,
+  "poolId": "0xa308bc000ee6ba88c1f1664395174defd4687a23",
+  "apr": "25.410298005943635565",
+  "collectionToken": {
+    "id": "0xfae39ec09730ca0f14262a636d2d7c5539353752",
+    "name": "Arbitrum Odyssey NFT",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x7e664c8e92c943aed2c7ec3b7b9e6f9f98494979",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:34.356Z"
+  },
+  "erc20Token": {
+    "id": "ETH",
+    "name": "Wrapped Ether",
+    "symbol": "WETH",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
+      "name": "Wrapped Ether",
+      "symbol": "ETH",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "0.00774",
+  "name": "Wrapped Ether/Arbitrum Odyssey NFT",
+  "nftListings": "56",
+  "nftPrice": "0.00007",
+  "offers": "0.00387",
+  "totalVolume": "0.00977",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:03.839Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a272aab85d5c48c3d68"
+  },
+  "chainId": 8453,
+  "poolId": "0xa56d6bcc0417b92758a40d33fcc6774791229903",
+  "apr": "44.2821430145585224",
+  "collectionToken": {
+    "id": "0x04f3d4214a045a942821ac37f46ab8b719061d93",
+    "name": "RWA AI L3",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xdd0e6ede35793446975731f772ce8b5dad4b9359",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:35.671Z"
+  },
+  "erc20Token": {
+    "id": "ETH",
+    "name": "Wrapped Ether",
+    "symbol": "WETH",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x4200000000000000000000000000000000000006",
+      "name": "Wrapped Ether",
+      "symbol": "ETH",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "0.11048",
+  "name": "Wrapped Ether/RWA AI L3",
+  "nftListings": "180",
+  "nftPrice": "0.00031",
+  "offers": "0.05524",
+  "totalVolume": "0.02758",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:03.823Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a272aab85d5c48c3d69"
+  },
+  "chainId": 8453,
+  "poolId": "0x7954e4941a1a2ca2beb2342029c1686fb0c4b8ce",
+  "apr": "24.33735016253555546",
+  "collectionToken": {
+    "id": "0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17",
+    "name": "Gnars",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xe14e1119e3b3a61f2acf5dec31f239b410dabe1d",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:35.671Z"
+  },
+  "erc20Token": {
+    "id": "ETH",
+    "name": "Wrapped Ether",
+    "symbol": "WETH",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x4200000000000000000000000000000000000006",
+      "name": "Wrapped Ether",
+      "symbol": "ETH",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "0.02005",
+  "name": "Wrapped Ether/Gnars",
+  "nftListings": "1",
+  "nftPrice": "0.01003",
+  "offers": "0.01003",
+  "totalVolume": "0.02146",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:03.823Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a272aab85d5c48c3d6a"
+  },
+  "chainId": 8453,
+  "poolId": "0x48cce5105663601025e46628380f7653d7f22193",
+  "apr": "114.25027893167805092",
+  "collectionToken": {
+    "id": "0xd7a0cbea449d13909467bfbe63732efc728a6090",
+    "name": "Not Based Punk",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xb4c0cbc44d123727e3ba759ce360f507e87cbc61",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:35.671Z"
+  },
+  "erc20Token": {
+    "id": "ETH",
+    "name": "Wrapped Ether",
+    "symbol": "WETH",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x4200000000000000000000000000000000000006",
+      "name": "Wrapped Ether",
+      "symbol": "ETH",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "0.01776",
+  "name": "Wrapped Ether/Not Based Punk",
+  "nftListings": "12",
+  "nftPrice": "0.00074",
+  "offers": "0.00888",
+  "totalVolume": "0.02915",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:03.823Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a272aab85d5c48c3d6b"
+  },
+  "chainId": 8453,
+  "poolId": "0x7de9a529811a04ab806fa74ae00d54dc9a21035a",
+  "apr": "36.505363068295446195",
+  "collectionToken": {
+    "id": "0xa8e9a8c6bc3a29d1ac93c41238cd881aedec78fd",
+    "name": "Base Friends",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xaf50772b856c09782ceab2fc0fdeb1a11e6aaa76",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:35.671Z"
+  },
+  "erc20Token": {
+    "id": "ETH",
+    "name": "Wrapped Ether",
+    "symbol": "WETH",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x4200000000000000000000000000000000000006",
+      "name": "Wrapped Ether",
+      "symbol": "ETH",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "0.00607",
+  "name": "Wrapped Ether/Base Friends",
+  "nftListings": "10",
+  "nftPrice": "0.00030",
+  "offers": "0.00304",
+  "totalVolume": "0.00201",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:03.823Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a272aab85d5c48c3d6c"
+  },
+  "chainId": 43114,
+  "poolId": "0xdb8e058b30ae74be5f2ad2f3e667a38c4adc1dc3",
+  "apr": "10.334098806281478625",
+  "collectionToken": {
+    "id": "0xafbd550c8ca7d5dd9a86a56cfcfa2697b2422fec",
+    "name": "Aviassance Ecosystem Explorer",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x80884565cd0e922758e84725c694ab13ea4c325e",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:35.690Z"
+  },
+  "erc20Token": {
+    "id": "0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e",
+    "name": "USD Coin",
+    "symbol": "USDC",
+    "isErc20": true,
+    "isCollection": false
+  },
+  "liquidity": "3.43448",
+  "name": "USD Coin/Aviassance Ecosystem Explorer",
+  "nftListings": "34",
+  "nftPrice": "0.05051",
+  "offers": "1.71724",
+  "totalVolume": "0.09724",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:03.793Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a272aab85d5c48c3d6d"
+  },
+  "chainId": 43114,
+  "poolId": "0x1ddd293b34ba14b10ead118f2a3fb77e19a39fdb",
+  "apr": "0",
+  "collectionToken": {
+    "id": "0x64defa3bbcb14c4e31042451c7208f1898c5d295",
+    "name": "Avax Cookies",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x56d56d83a32249ef46e23c67f74e983d66b97681",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:35.690Z"
+  },
+  "erc20Token": {
+    "id": "0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e",
+    "name": "USD Coin",
+    "symbol": "USDC",
+    "isErc20": true,
+    "isCollection": false
+  },
+  "liquidity": "0.60000",
+  "name": "USD Coin/Avax Cookies",
+  "nftListings": "57",
+  "nftPrice": "0.00526",
+  "offers": "0.30000",
+  "totalVolume": "0.00000",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:03.793Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a272aab85d5c48c3d6e"
+  },
+  "chainId": 43114,
+  "poolId": "0x25e9c02e6a78bb4ed8aec9f8f7754b0e72e1460b",
+  "apr": "27.694191825655583615",
+  "collectionToken": {
+    "id": "0x64defa3bbcb14c4e31042451c7208f1898c5d295",
+    "name": "Avax Cookies",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x56d56d83a32249ef46e23c67f74e983d66b97681",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:35.690Z"
+  },
+  "erc20Token": {
+    "id": "AVAX",
+    "name": "Wrapped AVAX",
+    "symbol": "WAVAX",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7",
+      "name": "Wrapped AVAX",
+      "symbol": "AVAX",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "0.42041",
+  "name": "Wrapped AVAX/Avax Cookies",
+  "nftListings": "99",
+  "nftPrice": "0.00212",
+  "offers": "0.21020",
+  "totalVolume": "0.22492",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:03.793Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a272aab85d5c48c3d6f"
+  },
+  "chainId": 43114,
+  "poolId": "0x2071b62ce45fcabe4ee8e273b2b5aa921a9d79e4",
+  "apr": "92.171717171717171625",
+  "collectionToken": {
+    "id": "0x8d556299531b2dce5a3c448e22fafc346d004b61",
+    "name": "G Minions",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x7886072a9288950b2c1ab05d9c386fa0fc694313",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:35.690Z"
+  },
+  "erc20Token": {
+    "id": "AVAX",
+    "name": "Wrapped AVAX",
+    "symbol": "WAVAX",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7",
+      "name": "Wrapped AVAX",
+      "symbol": "AVAX",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "0.32327",
+  "name": "Wrapped AVAX/G Minions",
+  "nftListings": "4",
+  "nftPrice": "0.04041",
+  "offers": "0.16163",
+  "totalVolume": "0.04082",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:03.793Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a292aab85d5c48c3d70"
+  },
+  "chainId": 10,
+  "poolId": "0xb12c04019e4d2a490b7b80f11c9e659cc93ae81e",
+  "apr": "0",
+  "collectionToken": {
+    "id": "0xfc5a74aa1b273abec8a1b3a074feed0b4ad7d7bd",
+    "name": "Meme Collection",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xe1723dce9df7e8a517c8285e117956729e2658f0",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:37.811Z"
+  },
+  "erc20Token": {
+    "id": "0x0b2c639c533813f4aa9d7837caf62653d097ff85",
+    "name": "USD Coin",
+    "symbol": "USDC",
+    "isErc20": true,
+    "isCollection": false
+  },
+  "liquidity": "1.00000",
+  "name": "USD Coin/Meme Collection",
+  "nftListings": "3",
+  "nftPrice": "0.16667",
+  "offers": "0.50000",
+  "totalVolume": "0.00000",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:04.995Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a292aab85d5c48c3d71"
+  },
+  "chainId": 10,
+  "poolId": "0x159bc72f5ac87d16118d3b3687f8de667eb4ed9f",
+  "apr": "11.999707086236974335",
+  "collectionToken": {
+    "id": "0xfc5a74aa1b273abec8a1b3a074feed0b4ad7d7bd",
+    "name": "Meme Collection",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xe1723dce9df7e8a517c8285e117956729e2658f0",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:37.811Z"
+  },
+  "erc20Token": {
+    "id": "ETH",
+    "name": "Wrapped Ether",
+    "symbol": "WETH",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x4200000000000000000000000000000000000006",
+      "name": "Wrapped Ether",
+      "symbol": "ETH",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "0.09802",
+  "name": "Wrapped Ether/Meme Collection",
+  "nftListings": "161",
+  "nftPrice": "0.00030",
+  "offers": "0.04901",
+  "totalVolume": "0.01132",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:04.995Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a292aab85d5c48c3d72"
+  },
+  "chainId": 10,
+  "poolId": "0xf2ec3fbbfad93cbeb8aacb10ed0e44f104d6acc1",
+  "apr": "24.21954677197763841",
+  "collectionToken": {
+    "id": "0xb96113b576d58f848382a501c7f3b532a8edc3e8",
+    "name": "Alpha Gal",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xeae25daa2aa0b8dcc85024adcdb25dcc6e980e46",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:37.811Z"
+  },
+  "erc20Token": {
+    "id": "ETH",
+    "name": "Wrapped Ether",
+    "symbol": "WETH",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x4200000000000000000000000000000000000006",
+      "name": "Wrapped Ether",
+      "symbol": "ETH",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "0.02183",
+  "name": "Wrapped Ether/Alpha Gal",
+  "nftListings": "12",
+  "nftPrice": "0.00091",
+  "offers": "0.01091",
+  "totalVolume": "0.00632",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:04.995Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a2f2aab85d5c48c3d73"
+  },
+  "chainId": 81457,
+  "poolId": "0x65a0286c7e8382940886441be3f612cfc25c1820",
+  "apr": "85.027989786278011835",
+  "collectionToken": {
+    "id": "0x32d298746ca5d3786b6fcf688ce80dc8bacdec06",
+    "name": "Baldamigos",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x384313f4c9b70ebd91def4a23abb7e47c028daab",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:43.007Z"
+  },
+  "erc20Token": {
+    "id": "ETH",
+    "name": "Wrapped Ether",
+    "symbol": "WETH",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x4300000000000000000000000000000000000004",
+      "name": "Wrapped Ether",
+      "symbol": "ETH",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "0.01260",
+  "name": "Wrapped Ether/Baldamigos",
+  "nftListings": "118",
+  "nftPrice": "0.00005",
+  "offers": "0.00630",
+  "totalVolume": "0.12319",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:04.924Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a2f2aab85d5c48c3d74"
+  },
+  "chainId": 81457,
+  "poolId": "0xdcf1f2bb92f3b0cebddfe3fc79f1c554b4ee0da2",
+  "apr": "146.63114432122922904",
+  "collectionToken": {
+    "id": "0xd641dde60985fab88c623188adba6be3148288d9",
+    "name": "BlastRunners",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xbba6a3a7cff0d3e66b481cc2c218c1ab608fe1ce",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:43.007Z"
+  },
+  "erc20Token": {
+    "id": "ETH",
+    "name": "Wrapped Ether",
+    "symbol": "WETH",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x4300000000000000000000000000000000000004",
+      "name": "Wrapped Ether",
+      "symbol": "ETH",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "0.01028",
+  "name": "Wrapped Ether/BlastRunners",
+  "nftListings": "3",
+  "nftPrice": "0.00171",
+  "offers": "0.00514",
+  "totalVolume": "0.01014",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:04.924Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3d85"
+  },
+  "chainId": 137,
+  "poolId": "0x8803a9d6d316d1abc66c4ae01f3d16bc8de87964",
+  "apr": "1.18850305985443593",
+  "collectionToken": {
+    "id": "0x6065959a7a7c0a9b66704b456f683443ea0ff642",
+    "name": "gotas.social",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x545989fb839814376b824a784ff331732f0966c7",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "266.76398",
+  "name": "Wrapped Matic/gotas.social",
+  "nftListings": "2427",
+  "nftPrice": "0.05496",
+  "offers": "133.38199",
+  "totalVolume": "1,114.88081",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3d86"
+  },
+  "chainId": 137,
+  "poolId": "0xe2512c623924b0eab955bc85fba37197cf17031a",
+  "apr": "71.65429935477784232",
+  "collectionToken": {
+    "id": "0xa12a70950139090016423365031e48613927d8f5",
+    "name": "Crazy Bears",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xce0912f690bf767263d6584268b86201d4bbac75",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "239.55400",
+  "name": "Wrapped Matic/Crazy Bears",
+  "nftListings": "3",
+  "nftPrice": "39.92567",
+  "offers": "119.77700",
+  "totalVolume": "219.49944",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3d87"
+  },
+  "poolId": "0x14f9d294beafe73b7ef22bf717f8eef8ff429daf",
+  "chainId": 137,
+  "apr": "19.253491679584967355",
+  "collectionToken": {
+    "id": "0xd1fdb6ae006c4d3c78b4e40c45d1f7bc15046db8",
+    "name": "Cripto Ape",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xb9712344c7f32a64fe13cd232cea1bd60f31ee56",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "188.94231",
+  "name": "Wrapped Matic/Cripto Ape",
+  "nftListings": "97",
+  "nftPrice": "0.97393",
+  "offers": "94.47115",
+  "totalVolume": "1,174.02764",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3d88"
+  },
+  "poolId": "0x7ba0732a1a1bd7d3064d35e7c123415e3be701b7",
+  "chainId": 137,
+  "apr": "9.285262686336728735",
+  "collectionToken": {
+    "id": "0x8b24641461622d3f50a957be9ee2dbf4b578d463",
+    "name": "The Outliers Club",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x793f53a27a5bf19f36df3fc29bd04d07d0a86503",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "187.09746",
+  "name": "Wrapped Matic/The Outliers Club",
+  "nftListings": "310",
+  "nftPrice": "0.30177",
+  "offers": "93.54873",
+  "totalVolume": "237.71146",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3d89"
+  },
+  "chainId": 137,
+  "poolId": "0xc0265ce767619e7c949c768c803ced998bb2b9b8",
+  "apr": "38.194731134086826575",
+  "collectionToken": {
+    "id": "0x220fa5ccc9404802ed6db0935eb4feefc27c937e",
+    "name": "BROZO",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xa6e93156ace5efafb4a39fd84cbaaed122d295fc",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "184.74726",
+  "name": "Wrapped Matic/BROZO",
+  "nftListings": "3",
+  "nftPrice": "30.79121",
+  "offers": "92.37363",
+  "totalVolume": "4,493.55508",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3d8a"
+  },
+  "chainId": 137,
+  "poolId": "0x0798174579b6593d3d7cf603b474d3f3530e210b",
+  "apr": "0",
+  "collectionToken": {
+    "id": "0x9498274b8c82b4a3127d67839f2127f2ae9753f4",
+    "name": "PolygonPunks",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xfcca33d12200891e65c619549f62b870f9d66004",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "180.00000",
+  "name": "Wrapped Matic/PolygonPunks",
+  "nftListings": "3",
+  "nftPrice": "30.00000",
+  "offers": "90.00000",
+  "totalVolume": "0.00000",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3d8b"
+  },
+  "poolId": "0xeb5da70d2a6f01139fa35ef2d1e484a5395acff6",
+  "chainId": 137,
+  "apr": "15.177096160197040615",
+  "collectionToken": {
+    "id": "0xf8b06f92f147adf01da319304a9d18a2b1b8c9e8",
+    "name": "Gen K",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x0577ecc0ea34de87d8a0b9155a760041c83c6966",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "179.10477",
+  "name": "Wrapped Matic/Gen K",
+  "nftListings": "23",
+  "nftPrice": "3.89358",
+  "offers": "89.55239",
+  "totalVolume": "2,426.59227",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3d8c"
+  },
+  "poolId": "0x68cf8f7878c1b9a445afb2e7a4c7c93d91e1d246",
+  "chainId": 137,
+  "apr": "19.545781337046904855",
+  "collectionToken": {
+    "id": "0xc6210509389fdac176d68a35d021c095ba657b82",
+    "name": "DeNutz",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x54422234b0bb59a1af154bf8eb78a758797964dd",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "172.65594",
+  "name": "Wrapped Matic/DeNutz",
+  "nftListings": "124",
+  "nftPrice": "0.69619",
+  "offers": "86.32797",
+  "totalVolume": "2,391.00247",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3d8d"
+  },
+  "poolId": "0xa31f503535688cab9f55c1f7ec47802de6006930",
+  "chainId": 137,
+  "apr": "6.43005854896093126",
+  "collectionToken": {
+    "id": "0x502800ca34be6776db961229cb261608545285ff",
+    "name": "Degen Devils",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x09175ddc72cf43193ae4b699711373685c4fd41c",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "130.29542",
+  "name": "Wrapped Matic/Degen Devils",
+  "nftListings": "637",
+  "nftPrice": "0.10227",
+  "offers": "65.14771",
+  "totalVolume": "45.32675",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3d8e"
+  },
+  "poolId": "0xd993af8987abc036476bc3af3941018aff38d584",
+  "chainId": 137,
+  "apr": "23.307418138282419465",
+  "collectionToken": {
+    "id": "0xb609996e8f1754e63ef08300406c6d7529bb4007",
+    "name": "Rekt Chickens",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x42c56234d141146aed770fbcdce8c12e5b5b6996",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "129.51465",
+  "name": "Wrapped Matic/Rekt Chickens",
+  "nftListings": "9",
+  "nftPrice": "7.19526",
+  "offers": "64.75733",
+  "totalVolume": "159.04175",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3d8f"
+  },
+  "poolId": "0x0da3cdbe4a0265365e3d3328c1cb17d5676eeee6",
+  "chainId": 137,
+  "apr": "12.708183060745513995",
+  "collectionToken": {
+    "id": "0xc6aa6ac190e0268476e8242b2d3df35d9667f877",
+    "name": "Fuzzy Feins",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x6fc9dd986104643debf6f3bb26dbd79ce1ea2f64",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "126.11036",
+  "name": "Wrapped Matic/Fuzzy Feins",
+  "nftListings": "48",
+  "nftPrice": "1.31365",
+  "offers": "63.05518",
+  "totalVolume": "477.89161",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3d90"
+  },
+  "poolId": "0x1ecab8d524bee166956d85dfa2da358dc075f8f8",
+  "chainId": 137,
+  "apr": "50.20690143995861473",
+  "collectionToken": {
+    "id": "0xace8187b113a38f83bd9c896c6878b175c234dcc",
+    "name": "RektDogs",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xf94014c6ba2a5e87830ff7493fff9f06870f58f7",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "125.68730",
+  "name": "Wrapped Matic/RektDogs",
+  "nftListings": "3",
+  "nftPrice": "20.94788",
+  "offers": "62.84365",
+  "totalVolume": "2,447.42396",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3d91"
+  },
+  "poolId": "0xe6ed7772f29650a528a635eafd65ca89225fc30e",
+  "chainId": 137,
+  "apr": "34.46774592065905129",
+  "collectionToken": {
+    "id": "0x2ef45389859b6d3c99b789352121b2d250e3d5b0",
+    "name": "Doonz",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xbf823473636c4c6ec4b8b6bcb9cdd0e19fd68d67",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "103.83643",
+  "name": "Wrapped Matic/Doonz",
+  "nftListings": "9",
+  "nftPrice": "5.76869",
+  "offers": "51.91821",
+  "totalVolume": "184.79781",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3d92"
+  },
+  "poolId": "0x2749ff3e48b4c76a9970bccab0875d40ae8214d7",
+  "chainId": 137,
+  "apr": "25.559295361493964565",
+  "collectionToken": {
+    "id": "0x7ce5bebcb5368304054880b85f5d97330e6115ef",
+    "name": "Dalmatians",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x131bbd8803a6b9beb5d2cbca433c9d5a9afcbe26",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "69.73353",
+  "name": "Wrapped Matic/Dalmatians",
+  "nftListings": "55",
+  "nftPrice": "0.63394",
+  "offers": "34.86676",
+  "totalVolume": "64.95405",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3d93"
+  },
+  "poolId": "0x572d779ddd98a93a9fc6d11b4856d81bb3d3347e",
+  "chainId": 137,
+  "apr": "0",
+  "collectionToken": {
+    "id": "0x6065959a7a7c0a9b66704b456f683443ea0ff642",
+    "name": "gotas.social",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x545989fb839814376b824a784ff331732f0966c7",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+    "name": "USD Coin (PoS)",
+    "symbol": "USDC",
+    "isErc20": true,
+    "isCollection": false
+  },
+  "liquidity": "69.30365",
+  "name": "USD Coin (PoS)/gotas.social",
+  "nftListings": "559",
+  "nftPrice": "0.06199",
+  "offers": "34.65183",
+  "totalVolume": "0.00000",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3d94"
+  },
+  "poolId": "0x720de00a50336c8f1191b0e89b103b0bfb3de5d7",
+  "chainId": 137,
+  "apr": "60.65581587720430995",
+  "collectionToken": {
+    "id": "0xa25541164ae9d59322b59fe94a73869b494c3691",
+    "name": "Rival Bears",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x59a2d91640ec76dd8ccb6848ee61f9b59343921f",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "60.19017",
+  "name": "Wrapped Matic/Rival Bears",
+  "nftListings": "9",
+  "nftPrice": "3.34390",
+  "offers": "30.09509",
+  "totalVolume": "142.34377",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3d95"
+  },
+  "poolId": "0x39d8c155bc0818a59eb56fedbbf3c89e4f6f717d",
+  "chainId": 137,
+  "apr": "42.272650269153138345",
+  "collectionToken": {
+    "id": "0xd83c669e1939789bfec37bd5a31ed5fad0a7d9e3",
+    "name": "PFP Supply Co.",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xd917315a05fad221f8be8fdb8fd8b49af067c721",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "53.87629",
+  "name": "Wrapped Matic/PFP Supply Co.",
+  "nftListings": "6",
+  "nftPrice": "4.48969",
+  "offers": "26.93815",
+  "totalVolume": "41.00576",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3d96"
+  },
+  "poolId": "0xcea039d25f2f70a75b9d837a5a962b7b02dbee05",
+  "chainId": 137,
+  "apr": "0",
+  "collectionToken": {
+    "id": "0x08dbff8f481692a04039457fa242f0a174629b76",
+    "name": "Elon Musk Digital Trading Cards",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x6c2306c562e3135245cd85e68bd9ecd29eb459ea",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "50.00000",
+  "name": "Wrapped Matic/Elon Musk Digital Trading Cards",
+  "nftListings": "3",
+  "nftPrice": "8.33333",
+  "offers": "25.00000",
+  "totalVolume": "0.00000",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3d97"
+  },
+  "poolId": "0x5d1fb273755955810e58dd8f445a1d4ea7955861",
+  "chainId": 137,
+  "apr": "60.171480849679349355",
+  "collectionToken": {
+    "id": "0xc30626bbc7718c8a0c0786850ba100e0299da2bf",
+    "name": "nfETs Modern Age",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xf0095b20e9a53676f672844c3e39225ba1f3c0c5",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "46.50022",
+  "name": "Wrapped Matic/nfETs Modern Age",
+  "nftListings": "79",
+  "nftPrice": "0.29431",
+  "offers": "23.25011",
+  "totalVolume": "89.12437",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3d98"
+  },
+  "poolId": "0x5966ce75bc352cbdd76306e231dbedfeaa14a089",
+  "chainId": 137,
+  "apr": "4.181126343630177735",
+  "collectionToken": {
+    "id": "0x07b435bda7bed44a7898db48cce5fb52f365ef00",
+    "name": "gotas.social",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x898c9b3991a640c180369ad5b9fe6b53729e5529",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "44.22333",
+  "name": "Wrapped Matic/gotas.social",
+  "nftListings": "137",
+  "nftPrice": "0.16140",
+  "offers": "22.11167",
+  "totalVolume": "87.67817",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3d99"
+  },
+  "poolId": "0x3f8550eaf39c1cccf5f9e3247dc66b4431a8e27f",
+  "chainId": 137,
+  "apr": "43.6791577006475713",
+  "collectionToken": {
+    "id": "0xfba9a3dd515e0ed7f39b515f71a4041aa088849e",
+    "name": "Lama Inu Doodle Collectiva",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xfa394859fa0ead8a8497d918ebf641c69dc847c7",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "40.54456",
+  "name": "Wrapped Matic/Lama Inu Doodle Collectiva",
+  "nftListings": "4",
+  "nftPrice": "5.06807",
+  "offers": "20.27228",
+  "totalVolume": "51.79748",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3d9a"
+  },
+  "poolId": "0xa3e31c46e04e383866fe95ab7f172b82e66fbd3e",
+  "chainId": 137,
+  "apr": "13.394337302794797625",
+  "collectionToken": {
+    "id": "0x4c24e01735bf8ae72fd725a3763644d49952c664",
+    "name": "GOTAS.SOCIAL",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x1b018241a1c8aa914736527db3d7808236eb978d",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "28.45061",
+  "name": "Wrapped Matic/GOTAS.SOCIAL",
+  "nftListings": "668",
+  "nftPrice": "0.02130",
+  "offers": "14.22531",
+  "totalVolume": "1,212.71039",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3d9b"
+  },
+  "poolId": "0x98d35129eed60450e28f5c14db17b8200634ae8e",
+  "chainId": 137,
+  "apr": "10.06043767961993441",
+  "collectionToken": {
+    "id": "0x9d188f85e9556c577d7e572c318707faec137b00",
+    "name": "gotas.social",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x57193bcae1de885f122b45e27b8950cdb4de125e",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "26.60318",
+  "name": "Wrapped Matic/gotas.social",
+  "nftListings": "152",
+  "nftPrice": "0.08751",
+  "offers": "13.30159",
+  "totalVolume": "57.04716",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3d9c"
+  },
+  "poolId": "0xd15581ca783cce1033763d29775b6a967553902e",
+  "chainId": 137,
+  "apr": "159.17461904892691127",
+  "collectionToken": {
+    "id": "0x6e5dca69c7738e92b92f80c8cdc7727135a13ba3",
+    "name": "Baby Monkey",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xe657ec4a3858ab0ae2ee5e391b532072e6a6c84a",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+    "name": "USD Coin (PoS)",
+    "symbol": "USDC",
+    "isErc20": true,
+    "isCollection": false
+  },
+  "liquidity": "23.27331",
+  "name": "USD Coin (PoS)/Baby Monkey",
+  "nftListings": "48",
+  "nftPrice": "0.24243",
+  "offers": "11.63666",
+  "totalVolume": "2.73104",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3d9d"
+  },
+  "poolId": "0xdaeca4cda7fe2551405bdb366f72ead0d50d722a",
+  "chainId": 137,
+  "apr": "48.579918818703193325",
+  "collectionToken": {
+    "id": "0xa36768a1c1ee64479168b9ca83fa233b493a8852",
+    "name": "Otherdoodlez",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x3ce122a0a094315afe5c16417bebd3dd7ae7e2f6",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "21.59449",
+  "name": "Wrapped Matic/Otherdoodlez",
+  "nftListings": "40",
+  "nftPrice": "0.26993",
+  "offers": "10.79724",
+  "totalVolume": "65.04625",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3d9e"
+  },
+  "poolId": "0x58479a5f4a69dea0e951b79b3f746231f4761111",
+  "chainId": 137,
+  "apr": "48.106270408723883995",
+  "collectionToken": {
+    "id": "0xe8612d218554b3620af50619a8536df6c31770ca",
+    "name": "gotas.social",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x2c7956aee671a4925607bb1a9d75d145eae21b7a",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "19.75271",
+  "name": "Wrapped Matic/gotas.social",
+  "nftListings": "30",
+  "nftPrice": "0.32921",
+  "offers": "9.87636",
+  "totalVolume": "69.63633",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3d9f"
+  },
+  "poolId": "0xa7fe23cd3a3b69dc4e7f3c4a9bff3a1aa18354b1",
+  "chainId": 137,
+  "apr": "80.730912728245100725",
+  "collectionToken": {
+    "id": "0x1de8aeb6794dff0c76914e4a429a28a44ba056c5",
+    "name": "TroglodyteSociety",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x227b4ec4c9901bd8fadff5e93a335da047e48f37",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "18.22629",
+  "name": "Wrapped Matic/TroglodyteSociety",
+  "nftListings": "3",
+  "nftPrice": "3.03772",
+  "offers": "9.11315",
+  "totalVolume": "14.77662",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3da0"
+  },
+  "poolId": "0xd74f01fe0ef2f8ca9e2680c781fd3824622c3012",
+  "chainId": 137,
+  "apr": "10.07035861378639908",
+  "collectionToken": {
+    "id": "0x1b9a3aec52acf354f0a4a043d1b19dbe491cdeaa",
+    "name": "gotas.social",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xbd283176b49004463f7e1df120fec7cd59e0fbe3",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "16.38822",
+  "name": "Wrapped Matic/gotas.social",
+  "nftListings": "134",
+  "nftPrice": "0.06115",
+  "offers": "8.19411",
+  "totalVolume": "36.87532",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3da1"
+  },
+  "poolId": "0x395f2b1834d44a4eaa7a894233f85469bfdd732c",
+  "chainId": 137,
+  "apr": "89.38221319249794151",
+  "collectionToken": {
+    "id": "0xde38d76661203619f655ef0e3de16d2e23dcc332",
+    "name": "gotas.social",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x9bec6834f9136f57b80866f4c3b6619dcaf876f7",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "15.31801",
+  "name": "Wrapped Matic/gotas.social",
+  "nftListings": "44",
+  "nftPrice": "0.17407",
+  "offers": "7.65901",
+  "totalVolume": "140.57499",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3da2"
+  },
+  "poolId": "0x6eb16d9a791d77a1876fd4ab77f00ad24dfa979d",
+  "chainId": 137,
+  "apr": "13.18987180237671842",
+  "collectionToken": {
+    "id": "0x0aad434f1d76058eddf751261f99537bda224470",
+    "name": "DeadBirds",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x69623b7c07824efbdd02612b16f322a82a1884a8",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "11.60596",
+  "name": "Wrapped Matic/DeadBirds",
+  "nftListings": "10",
+  "nftPrice": "0.58030",
+  "offers": "5.80298",
+  "totalVolume": "44.18530",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3da3"
+  },
+  "poolId": "0x07b53966eeebdadb9fe35cfe8f3dcf41500a1761",
+  "chainId": 137,
+  "apr": "8.95650926228693548",
+  "collectionToken": {
+    "id": "0x882c83f2fe66abddce4f16c49b60445931281047",
+    "name": "gotas.social",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x8d719aa7fd463c37a470da705e872f2d9764a40c",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "8.33924",
+  "name": "Wrapped Matic/gotas.social",
+  "nftListings": "311",
+  "nftPrice": "0.01341",
+  "offers": "4.16962",
+  "totalVolume": "49.03806",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3da4"
+  },
+  "poolId": "0x277c5555336afbb4d805230739dca7f8e7832216",
+  "chainId": 137,
+  "apr": "137.21804511278195475",
+  "collectionToken": {
+    "id": "0x464b23b15b68b8d4baab438fa749653f4390b82e",
+    "name": "R3v3nge",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x631f5218ea2e960a04b7d9910fb10ef0e53a7b08",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "8.06061",
+  "name": "Wrapped Matic/R3v3nge",
+  "nftListings": "1",
+  "nftPrice": "4.03030",
+  "offers": "4.03030",
+  "totalVolume": "3.03030",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3da5"
+  },
+  "poolId": "0xe2c927eafc23673df491ca87dd579d930903e5da",
+  "chainId": 137,
+  "apr": "0",
+  "collectionToken": {
+    "id": "0xc233986ccb7975a6afbc4a84529f0c99b29e795d",
+    "name": "DeNutz",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x0065eacd101c1b4cd73ace0d0590b87d0273a914",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "7.40000",
+  "name": "Wrapped Matic/DeNutz",
+  "nftListings": "5",
+  "nftPrice": "0.74000",
+  "offers": "3.70000",
+  "totalVolume": "0.00000",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3da6"
+  },
+  "poolId": "0x13306caaf41a381010b3dc2d3a172166c7012728",
+  "chainId": 137,
+  "apr": "19.276743940926905835",
+  "collectionToken": {
+    "id": "0xb5dd45c28674d0556efd4081d6587c70444a1eb2",
+    "name": "gotas.social",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x33489bf73d9e68d0ec0db69fa60f7b56a8bbfa0d",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "7.24864",
+  "name": "Wrapped Matic/gotas.social",
+  "nftListings": "129",
+  "nftPrice": "0.02810",
+  "offers": "3.62432",
+  "totalVolume": "48.44095",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3da7"
+  },
+  "poolId": "0x297347c010d2d848c11bf65774c8e64a36256dde",
+  "chainId": 137,
+  "apr": "22.584375",
+  "collectionToken": {
+    "id": "0xe7e38914bcb289918098823521572e0104eaa215",
+    "name": "gotas.social",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x8eefbc0b95d7073f75382c8ae56a92d9178e6706",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "7.11902",
+  "name": "Wrapped Matic/gotas.social",
+  "nftListings": "9",
+  "nftPrice": "0.39550",
+  "offers": "3.55951",
+  "totalVolume": "0.44049",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3da8"
+  },
+  "poolId": "0xbf64ad8c02dc599fb3e70af4b5e99f17a876834a",
+  "chainId": 137,
+  "apr": "46.47689507325027866",
+  "collectionToken": {
+    "id": "0xb0775c58547686170388f7512ae939c0efd868ca",
+    "name": "FartHeadz",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x89b8470f8d9f50405c56e45f02b37579841b55d3",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "6.74051",
+  "name": "Wrapped Matic/FartHeadz",
+  "nftListings": "16",
+  "nftPrice": "0.21064",
+  "offers": "3.37025",
+  "totalVolume": "6.98406",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3da9"
+  },
+  "poolId": "0xa0a4e0a2f840195927860c3b1e105dafd223c885",
+  "chainId": 137,
+  "apr": "0",
+  "collectionToken": {
+    "id": "0xd751dfd30bcaa0a7fd286c678c6edfb99b15a1d7",
+    "name": "Ultimate Waifus",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x9b6abdf8c4fa8454ac58a914af47bb29ecc0a7dc",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "4.00000",
+  "name": "Wrapped Matic/Ultimate Waifus",
+  "nftListings": "1",
+  "nftPrice": "2.00000",
+  "offers": "2.00000",
+  "totalVolume": "0.00000",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3daa"
+  },
+  "poolId": "0x07843994f5cc8729a2f1f2bc17c5f5617d57e815",
+  "chainId": 137,
+  "apr": "0",
+  "collectionToken": {
+    "id": "0x7584ad36840aee31beae610ab077a931666d1469",
+    "name": "RR RockingRabbitz",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x37204b917c4dc8e6ea44a04f43a1f6f59c5990e9",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "3.60000",
+  "name": "Wrapped Matic/RR RockingRabbitz",
+  "nftListings": "3",
+  "nftPrice": "0.60000",
+  "offers": "1.80000",
+  "totalVolume": "0.00000",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3dab"
+  },
+  "poolId": "0x64aecbb39768307ec55f31bbfebef45ebb95e6ad",
+  "chainId": 137,
+  "apr": "14.82947676626175366",
+  "collectionToken": {
+    "id": "0xac67a9040627a54f991ddf9e11ee2d2101967873",
+    "name": "gotas.social",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x108179559692bc52b2ed350a3e41e61e5bce024c",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "3.08582",
+  "name": "Wrapped Matic/gotas.social",
+  "nftListings": "49",
+  "nftPrice": "0.03149",
+  "offers": "1.54291",
+  "totalVolume": "3.81260",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3dac"
+  },
+  "poolId": "0x51b4751b4403ba1a03175b893903fede4d4f6ee3",
+  "chainId": 137,
+  "apr": "29.68620694341262003",
+  "collectionToken": {
+    "id": "0x77faeb63f02f70db20832bc024d7d296e3ccbe38",
+    "name": "gotas.social",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xa0afa79d46a80b204e479d824f5e1d1c7bdc0ee3",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "2.58749",
+  "name": "Wrapped Matic/gotas.social",
+  "nftListings": "60",
+  "nftPrice": "0.02156",
+  "offers": "1.29374",
+  "totalVolume": "11.05300",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3dad"
+  },
+  "poolId": "0x721da985b62d802148f9ca309bf60321fdac70ab",
+  "chainId": 137,
+  "apr": "0",
+  "collectionToken": {
+    "id": "0x6effd0dd5c5e132e63bf459aea0485b45dcf0d1f",
+    "name": "Poly Dolls",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xaacda16cf453e0b1dca42872544f87890073e5b1",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "1.60000",
+  "name": "Wrapped Matic/Poly Dolls",
+  "nftListings": "4",
+  "nftPrice": "0.20000",
+  "offers": "0.80000",
+  "totalVolume": "0.00000",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3dae"
+  },
+  "poolId": "0x87d5b834e855021a6a27beeeafc626341536b03c",
+  "chainId": 137,
+  "apr": "37.814349191127417165",
+  "collectionToken": {
+    "id": "0xa693bad49a1e1cf140a54965d4485f56d991e276",
+    "name": "GOTAS.SOCIAL",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xb7d01045d79ae50acd0ee5353307d9bba9f65ef8",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "1.42100",
+  "name": "Wrapped Matic/GOTAS.SOCIAL",
+  "nftListings": "33",
+  "nftPrice": "0.02153",
+  "offers": "0.71050",
+  "totalVolume": "4.69073",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3daf"
+  },
+  "poolId": "0x1aeb4a78ed29627d2573fc3346833d54f85ee008",
+  "chainId": 137,
+  "apr": "104.72966933792759376",
+  "collectionToken": {
+    "id": "0xa1838b9ea7d9e356519c03ad31932414207a4371",
+    "name": "PolyGoons",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xd0790da898156ae8395e4fb484f2bbc354ff561a",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "1.16323",
+  "name": "Wrapped Matic/PolyGoons",
+  "nftListings": "4",
+  "nftPrice": "0.14540",
+  "offers": "0.58161",
+  "totalVolume": "4.17602",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3db0"
+  },
+  "poolId": "0x57e027348cdd829cc1b01fe916bf4b5b6f797a57",
+  "chainId": 137,
+  "apr": "23.636248856887608165",
+  "collectionToken": {
+    "id": "0x364653bd7ea48fc0da11eaad39e1ea74b83513c2",
+    "name": "gotas.social",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xc61090440b25f6b6de3099603afa78e75b8ab0b6",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "0.94493",
+  "name": "Wrapped Matic/gotas.social",
+  "nftListings": "15",
+  "nftPrice": "0.03150",
+  "offers": "0.47247",
+  "totalVolume": "2.93382",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3db1"
+  },
+  "poolId": "0xc47de8bb25b35e7404515e7bc9b3eabda022c589",
+  "chainId": 137,
+  "apr": "37.510607968883827595",
+  "collectionToken": {
+    "id": "0xca03177a592cbb69b7cae0d4e0f64604f32ba903",
+    "name": "gotas.social",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x66a7a3085b86c240bf182c1559ffd1eb0a41deb6",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "0.83886",
+  "name": "Wrapped Matic/gotas.social",
+  "nftListings": "6",
+  "nftPrice": "0.06991",
+  "offers": "0.41943",
+  "totalVolume": "6.62804",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3db2"
+  },
+  "poolId": "0x9e521ce4316a803a0c3c86fdb5aeb98d2288ecb4",
+  "chainId": 137,
+  "apr": "75.26285808069608866",
+  "collectionToken": {
+    "id": "0x06aac2f9600235e576df812532af27586fa1e58b",
+    "name": "gotas.social",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x6e470bba3bd29dd27f74930a0b1ecb91f10c82e6",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "0.82559",
+  "name": "Wrapped Matic/gotas.social",
+  "nftListings": "8",
+  "nftPrice": "0.05160",
+  "offers": "0.41279",
+  "totalVolume": "0.89877",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3db3"
+  },
+  "poolId": "0x745c9d565f41d3aa81e5ff0cd15c11c8f25652fc",
+  "chainId": 137,
+  "apr": "0",
+  "collectionToken": {
+    "id": "0x502800ca34be6776db961229cb261608545285ff",
+    "name": "Degen Devils",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x09175ddc72cf43193ae4b699711373685c4fd41c",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+    "name": "USD Coin (PoS)",
+    "symbol": "USDC",
+    "isErc20": true,
+    "isCollection": false
+  },
+  "liquidity": "0.54116",
+  "name": "USD Coin (PoS)/Degen Devils",
+  "nftListings": "3",
+  "nftPrice": "0.09019",
+  "offers": "0.27058",
+  "totalVolume": "0.00000",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3db4"
+  },
+  "poolId": "0xb86905d7d769bd9717fe30a4a1f027e4f47d3411",
+  "chainId": 137,
+  "apr": "91.028031061729379425",
+  "collectionToken": {
+    "id": "0xa008d44fbe1407176d2787a83e015c563ca7c0e2",
+    "name": "gotas.social",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xf5788dc6415f9cde6d4123b6def2012977c833e5",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "0.43693",
+  "name": "Wrapped Matic/gotas.social",
+  "nftListings": "26",
+  "nftPrice": "0.00840",
+  "offers": "0.21847",
+  "totalVolume": "4.05320",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3db5"
+  },
+  "poolId": "0x25d1c2c50a103348304a4b582e11fe239d51f4e5",
+  "chainId": 137,
+  "apr": "61.241610738255034995",
+  "collectionToken": {
+    "id": "0xc3c0b5cfef7d5b72f2ca07d91db0dda2db544c51",
+    "name": "gotas.social",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xa54454620bcbd3f609371f5cbfe063eaf9e294f1",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "0.38830",
+  "name": "Wrapped Matic/gotas.social",
+  "nftListings": "6",
+  "nftPrice": "0.03236",
+  "offers": "0.19415",
+  "totalVolume": "0.02172",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3db6"
+  },
+  "poolId": "0x167a2fb99734d3f46d3de01f2507bfc5a4520f3d",
+  "chainId": 137,
+  "apr": "0",
+  "collectionToken": {
+    "id": "0xd3a0c7218f77d943d92bc9355df1bb7848642d6f",
+    "name": "Dads",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xdaaf70fd498bd070f5094edfbfbae356c4caa60d",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "0x04b48c9707fe5091ee772d92941f745bc0ad2b8f",
+    "name": "POLYGON DADS",
+    "symbol": "DADS",
+    "isErc20": true,
+    "isCollection": false
+  },
+  "liquidity": "160,512,000.00000",
+  "name": "POLYGON DADS/Dads",
+  "nftListings": "20",
+  "nftPrice": "4,012,800.00000",
+  "offers": "80,256,000.00000",
+  "totalVolume": "0.00000",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3db7"
+  },
+  "poolId": "0xfa4b1f65803da56298645446604eecfcd37046b2",
+  "chainId": 137,
+  "apr": "61.451264837179896125",
+  "collectionToken": {
+    "id": "0x52cbfbe5e99b43c962d7ba55e11dfdb03fae6578",
+    "name": "gotas.social",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x11e8952cf713714f0d8d77a875f5f6af68c15b46",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "0.73539",
+  "name": "Wrapped Matic/gotas.social",
+  "nftListings": "14",
+  "nftPrice": "0.02626",
+  "offers": "0.36769",
+  "totalVolume": "1.58187",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3db8"
+  },
+  "poolId": "0x26caf958463b1dd3d5e34291e61ddcfcf7fd7b29",
+  "chainId": 137,
+  "apr": "112.434037937589949495",
+  "collectionToken": {
+    "id": "0x54f99d866d24411c70f7e2f5aa45f555d057013a",
+    "name": "Beauteous Girl",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xa6080268131b590378ffccb11a6606062e416971",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "0.58626",
+  "name": "Wrapped Matic/Beauteous Girl",
+  "nftListings": "17",
+  "nftPrice": "0.01724",
+  "offers": "0.29313",
+  "totalVolume": "0.88277",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3db9"
+  },
+  "poolId": "0x1b5e603d7405425b3e25f87eb7dc26bd77632b29",
+  "chainId": 137,
+  "apr": "117.127570336129488585",
+  "collectionToken": {
+    "id": "0x46ccdc2dc13fb8197488d847181d63cb621cf4d9",
+    "name": "gotas.social",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x6996f493cc3458f0a70e689da18b93a03d366267",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "0.16542",
+  "name": "Wrapped Matic/gotas.social",
+  "nftListings": "25",
+  "nftPrice": "0.00331",
+  "offers": "0.08271",
+  "totalVolume": "67.29215",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c5a342aab85d5c48c3dba"
+  },
+  "poolId": "0x1d72409dd6b57b4ad5864aa3cde020c35546c6c7",
+  "chainId": 137,
+  "apr": "65.921617093553844365",
+  "collectionToken": {
+    "id": "0x9928a8ea82d86290dfd1920e126b3872890525b3",
+    "name": "EtheremonMonster",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x535a900686ddc6d88be6dd299905be341532b1c5",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-26T03:59:47.483Z"
+  },
+  "erc20Token": {
+    "id": "MATIC",
+    "name": "Wrapped Matic",
+    "symbol": "WMATIC",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "name": "Wrapped Matic",
+      "symbol": "MATIC",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "0.09093",
+  "name": "Wrapped Matic/EtheremonMonster",
+  "nftListings": "3",
+  "nftPrice": "0.01515",
+  "offers": "0.04546",
+  "totalVolume": "0.03168",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:02.309Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680fa7a92aab85d5c48cf3af"
+  },
+  "poolId": "0x26a7f7f3b9cdd88db2e022aaa4e93397605161e7",
+  "chainId": 34443,
+  "apr": "0",
+  "collectionToken": {
+    "id": "0x9e3e7b9ea49c70a9d863f767145686efd8fe6ca0",
+    "name": "Mode On",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x20fc9022d8145093897062cf0daa8dee28edfa30",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-28T16:07:05.350Z"
+  },
+  "erc20Token": {
+    "id": "ETH",
+    "name": "Wrapped Ether",
+    "symbol": "WETH",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x4200000000000000000000000000000000000006",
+      "name": "Wrapped Ether",
+      "symbol": "ETH",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "0.00300",
+  "name": "Wrapped Ether/Mode On",
+  "nftListings": "5",
+  "nftPrice": "0.00030",
+  "offers": "0.00150",
+  "totalVolume": "0.00000",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:06.110Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680fa7a92aab85d5c48cf3b0"
+  },
+  "poolId": "0x65821a56e1056b24af61123bf5ce5af4d9520bb2",
+  "chainId": 34443,
+  "apr": "0",
+  "collectionToken": {
+    "id": "0x358336bb7a796c4a8d0a316ea169793689abbebe",
+    "name": "Mode OWL 🔴",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x8ad5d11b10b5c0cd05ba60b367a80358a97bcec0",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-28T16:07:05.350Z"
+  },
+  "erc20Token": {
+    "id": "ETH",
+    "name": "Wrapped Ether",
+    "symbol": "WETH",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0x4200000000000000000000000000000000000006",
+      "name": "Wrapped Ether",
+      "symbol": "ETH",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "0.00005",
+  "name": "Wrapped Ether/Mode OWL 🔴",
+  "nftListings": "10",
+  "nftPrice": "0.00000",
+  "offers": "0.00003",
+  "totalVolume": "0.00000",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:06.110Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680fa7aa2aab85d5c48cf3b1"
+  },
+  "chainId": 1284,
+  "poolId": "0xcdaa4ec71ea7d9e0ee21f65823a94c053acddc08",
+  "apr": "205.868570846766947965",
+  "collectionToken": {
+    "id": "0xd105e0da7fdc86192469654fb565c2f584920da0",
+    "name": "Hamsters Gang",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0xf816a9fa1bd5b1995b7e7ff215f1a94b0209f296",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-28T16:07:06.538Z"
+  },
+  "erc20Token": {
+    "id": "GLMR",
+    "name": "Wrapped GLMR",
+    "symbol": "WGLMR",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0xacc15dc74880c9944775448304b263d191c6077f",
+      "name": "Wrapped GLMR",
+      "symbol": "GLMR",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "48.16065",
+  "name": "Wrapped GLMR/Hamsters Gang",
+  "nftListings": "12",
+  "nftPrice": "2.00669",
+  "offers": "24.08033",
+  "totalVolume": "47.38565",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:06.228Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680fa7aa2aab85d5c48cf3b2"
+  },
+  "chainId": 1284,
+  "poolId": "0x6c496fce4aafc7ad8e15ba2f412e5106f7b82314",
+  "apr": "23.21882951653944025",
+  "collectionToken": {
+    "id": "0x3949e8db32d93f0b6f575ad5beda6a32a63c12fb",
+    "name": "Moonbeam One",
+    "isErc20": false,
+    "isCollection": true,
+    "wrapper": {
+      "id": "0x14dd26f01e4b243c4e98d68a6e50fa2f103baed5",
+      "name": "Wrapped NFT",
+      "symbol": "WNFT",
+      "isErc20": true,
+      "isCollection": false
+    }
+  },
+  "createdAt": {
+    "$date": "2025-04-28T16:07:06.538Z"
+  },
+  "erc20Token": {
+    "id": "GLMR",
+    "name": "Wrapped GLMR",
+    "symbol": "WGLMR",
+    "isErc20": true,
+    "isCollection": false,
+    "wrapper": {
+      "id": "0xacc15dc74880c9944775448304b263d191c6077f",
+      "name": "Wrapped GLMR",
+      "symbol": "GLMR",
+      "isErc20": false,
+      "isCollection": false
+    }
+  },
+  "liquidity": "16.04082",
+  "name": "Wrapped GLMR/Moonbeam One",
+  "nftListings": "7",
+  "nftPrice": "1.14577",
+  "offers": "8.02041",
+  "totalVolume": "1.02041",
+  "updatedAt": {
+    "$date": "2025-04-28T16:45:06.228Z"
+  }
+}]

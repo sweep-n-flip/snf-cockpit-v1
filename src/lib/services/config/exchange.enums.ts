@@ -1,4 +1,4 @@
 export enum SupportedExchanges {
   zeroX = 'zeroX',
-  oneInch = 'oneInch'
-} 
+  oneInch = 'oneInch',
+}

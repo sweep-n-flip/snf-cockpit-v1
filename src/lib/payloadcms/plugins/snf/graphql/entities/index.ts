@@ -10,16 +10,12 @@ export const entities = ({ graphQL }: EntitiesParams): EntitiesParams['graphQL']
     ...graphQL,
 
     // Usamos cast para unknown antes de converter para GraphQLExtension
-    queries: (function queries(
-      name: any, 
-      schema: any, 
-      options: any
-    ) {
+    queries: function queries(name: any, schema: any, options: any) {
       const bridgeTransactions = bridge.transactions || {}
       const erc721Ownership = ERC721.ownership || {}
       const erc721Metadata = ERC721.metadata || {}
       const ammQueries = amm.resolvers || {}
-      
+
       const queryFns = [
         graphQL?.queries,
         /// @dev: bridge graphql queries
@@ -30,19 +26,19 @@ export const entities = ({ graphQL }: EntitiesParams): EntitiesParams['graphQL']
       ]
 
       const result = {}
-      
+
       // Process traditional queries
       for (const fn of queryFns) {
         if (typeof fn === 'function') {
-          // @ts-ignore 
+          // @ts-ignore
           Object.assign(result, fn.call(this, name, schema, options))
         }
       }
-      
+
       // Add AMM queries directly (without call)
       Object.assign(result, ammQueries)
-      
+
       return result
-    }) as unknown as GraphQLExtension,
+    } as unknown as GraphQLExtension,
   }
 }

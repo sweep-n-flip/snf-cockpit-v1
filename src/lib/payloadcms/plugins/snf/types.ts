@@ -35,3 +35,15 @@ export type Context = {
     }
   }
 }
+
+export interface Plugin<TArgs = unknown, TResponse = unknown> {
+  name: string
+  queries?: {
+    [key: string]: {
+      name: string
+      description: string
+      args: Record<string, unknown>
+      resolve: (root: unknown, args: TArgs, context: Context) => Promise<TResponse>
+    }
+  }
+}

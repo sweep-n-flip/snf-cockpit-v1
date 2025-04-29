@@ -11,9 +11,9 @@ export class Helpers {
     if (typeof value === 'string') {
       value = new BigNumber(value)
     }
-    
+
     return value.toFormat(precision)
   }
 }
 
-export const helpers = new Helpers() 
+export const helpers = new Helpers()

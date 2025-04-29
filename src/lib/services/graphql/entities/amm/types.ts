@@ -84,4 +84,4 @@ export interface TopPoolResult {
       isCollection: boolean
     }
   }
-} 
+}

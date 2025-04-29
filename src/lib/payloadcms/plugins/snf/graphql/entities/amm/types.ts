@@ -10,7 +10,7 @@ export const TokenType = new GraphQLObjectType({
     decimals: { type: GraphQLString },
     isErc20: { type: GraphQLBoolean },
     isCollection: { type: GraphQLBoolean },
-    wrapper: { 
+    wrapper: {
       type: new GraphQLObjectType({
         name: 'TokenWrapper',
         fields: {
@@ -19,12 +19,12 @@ export const TokenType = new GraphQLObjectType({
           symbol: { type: GraphQLString },
           decimals: { type: GraphQLString },
           isErc20: { type: GraphQLBoolean },
-          isCollection: { type: GraphQLBoolean }
-        }
+          isCollection: { type: GraphQLBoolean },
+        },
       }),
-      resolve: (parent) => parent.wrapper || null
-    }
-  }
+      resolve: (parent) => parent.wrapper || null,
+    },
+  },
 })
 
 // Tipo para pool de liquidez
@@ -41,6 +41,6 @@ export const TopPoolType = new GraphQLObjectType({
     totalVolume: { type: GraphQLString },
     liquidity: { type: GraphQLString },
     erc20Token: { type: TokenType },
-    collectionToken: { type: TokenType }
-  }
-}) 
+    collectionToken: { type: TokenType },
+  },
+})

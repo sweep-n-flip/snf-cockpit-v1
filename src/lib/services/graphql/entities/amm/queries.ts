@@ -41,7 +41,7 @@ export const GET_TOP_POOLS_QUERY = gql`
       }
     }
   }
-` 
+`
 
 // Queries GraphQL do AMM (movidas do resolver)
 export const COLLECTION_CURRENCIES_SUBSQUID_QUERY = gql`
@@ -281,4 +281,4 @@ export const PAIR_MONTHLY_TOTAL_VOLUME_QUERY = gql`
       volume1
     }
   }
-` 
+`
