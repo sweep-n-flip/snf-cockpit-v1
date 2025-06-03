@@ -19,6 +19,8 @@ export interface Config {
     contracts: Contracts;
     block_explorers: BlockExplorers;
     collections: Collections;
+    tokens: Tokens;
+    pools: Pools;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -258,6 +260,53 @@ export interface Collections {
     };
     [k: string]: unknown;
   } | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tokens".
+ */
+export interface Tokens {
+  id: string;
+  address: string;
+  name: string;
+  symbol?: string | null;
+  decimals?: number | null;
+  logo?: string | null;
+  nativeChain: number;
+  isErc20?: boolean | null;
+  isCollection?: boolean | null;
+  wrapper?: {
+    id?: string | null;
+    name?: string | null;
+    symbol?: string | null;
+    isErc20?: boolean | null;
+    isCollection?: boolean | null;
+    address?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pools".
+ */
+export interface Pools {
+  id: string;
+  poolId: string;
+  chainId: number;
+  name: string;
+  poolType?: string | null;
+  poolStats?: {
+    nftPrice?: number | null;
+    nftListings?: string | null;
+    offers?: number | null;
+    apr?: number | null;
+    tvl?: number | null;
+    delta?: number | null;
+    spotPrice?: number | null;
+  };
   updatedAt: string;
   createdAt: string;
 }

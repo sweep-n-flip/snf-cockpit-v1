@@ -1,5 +1,4 @@
 # Backend-v3 + Cockpit-v1 Direct Integration
-
 Esta documentação descreve a integração **direta** entre o `snf-backend-v3` e o `snf-cockpit-v1`, onde ambos compartilham a mesma base de dados MongoDB como fonte única da verdade.
 
 ## Arquitetura Simplificada
@@ -22,43 +21,59 @@ Esta documentação descreve a integração **direta** entre o `snf-backend-v3` 
 └─────────────────┘    └─────────────────┘    └─────────────────┘
 ```
 
-## Princípios da Integração
+## Princípios da Arquitetura
 
-### 🎯 **Dual Database Architecture**
-- **Backend-v3**: Escreve dados no DATABASE_DATA_URI via cron jobs
-- **DATABASE_DATA_URI**: Fonte única da verdade para dados de negócio
-- **DATABASE_URI**: Banco dedicado do PayloadCMS (users, media, admin)
-- **Cockpit**: Lê dados de ambos os bancos conforme necessário
-- **Frontend**: Consome REST API do cockpit
+### 🎯 **Single Database Architecture**
+- **Backend-v3**: Escreve dados no DATABASE_URI via cron jobs
+- **DATABASE_URI**: Fonte única da verdade unificada
+- **MongoDB snf**: Banco consolidado para todos os dados
+- **PayloadCMS**: Gerencia collections através de plugin SNF
 
-### 🚀 **Zero Duplicação**
-- Não há sync intermediário entre projetos
-- REST API conecta diretamente ao DATABASE_DATA_URI
-- PayloadCMS gerencia apenas users/admin no DATABASE_URI
+### 🚀 **Arquitetura Simplificada**
+- Plugin SNF gerencia as 4 collections principais
+- REST API conecta diretamente ao DATABASE_URI
+- PayloadCMS gerencia apenas users/admin e outros dados
 - Dados em tempo real, sem latência de sincronização
 
 ## Collections MongoDB Compartilhadas
 
 ### Backend-v3 ➡️ Cockpit (Leitura Direta)
 
-| Collection | Backend-v3 (Escreve) | Cockpit (Lê via PayloadCMS) |
+| Collection | Backend-v3 (Escreve) | Cockpit (Lê,edita ou escreve via PayloadCMS) |
 |------------|----------------------|------------------------------|
 | `chains` | ✅ Cron sync multi-chain | ✅ PayloadCMS collection |
 | `pools` | ✅ AMM data aggregation | ✅ PayloadCMS collection |
 | `collections` | ✅ NFT metadata sync | ✅ PayloadCMS collection |
 | `tokens` | ✅ Token data sync | ✅ PayloadCMS collection |
+| `blockexplorers`| | PayloadCMS Manual |
+| `contracts`| | PayloadCMS Manual |
+| `globals`| | PayloadCMS Manual |
+| `marketplaces` | | PayloadCMS Manual |
+| `media` | | PayloadCMS Manual |
+| `rpcs` | | PayloadCMS Manual |
+| `users` | | PayloadCMS Manual |
 
-## PayloadCMS Collections
+### Plugin SNF Collections
+
+O plugin SNF gerencia as 4 collections principais com total integração PayloadCMS:
 
 ### Chains
 ```typescript
-// Corresponde exatamente ao schema backend-v3
+// Schema completo migrado e funcionando
 {
-  chainId: number (unique)
+  chainId: number (unique, indexed)
   name: string
   isTestnet: boolean
-  network: json
-  // ... todos os campos do backend-v3
+  network: {
+    token: {
+      address: string
+      wrappedAddress: string
+      decimals: number
+      symbol: string
+    }
+  }
+  rpcAddress: string
+  stablecoinAddress: string
 }
 ```
 
@@ -66,17 +81,18 @@ Esta documentação descreve a integração **direta** entre o `snf-backend-v3` 
 ```typescript
 // Schema espelha backend-v3/src/database/schemas/pool.schema.ts
 {
-  poolId: string
-  chainId: number (direto, não relacionamento)
+  poolId: string (unique)
+  chainId: number (direto, indexado)
   name: string
   poolStats: {
     nftPrice: number
     liquidity: number
     apr: number
+    volume24h: number
     // ...
   }
-  token0: { ... }
-  token1: { ... }
+  token0: { address, symbol, decimals }
+  token1: { address, symbol, decimals }
 }
 ```
 
@@ -85,35 +101,34 @@ Esta documentação descreve a integração **direta** entre o `snf-backend-v3` 
 - Relacionamentos usando `chainId` numérico direto
 - Sem duplicação de estruturas
 
-## REST API Endpoints
+## REST API Endpoints ✅
+### Chains API
+```bash
+GET /api/chains
 
-### Pools
-- `GET /api/pools?chainId=1&page=1&limit=10`
-- `GET /api/pools?sortBy=poolStats.liquidity&sortOrder=desc`
-- `POST /api/pools` (criar via admin)
-- `PUT /api/pools/[id]` (editar via admin)
+### Pools API  
+```bash
+GET /api/pools
 
-### Chains  
-- `GET /api/chains?isTestnet=false`
-- `GET /api/chains?page=1&limit=50`
+### Collections API
+```bash
+GET /api/collections  
 
-### Collections
-- `GET /api/collections?chainId=1&verified=true`
-- `GET /api/collections?search=cryptopunks`
+### Tokens API
+```bash
+GET /api/tokens
 
-### Tokens
-- `GET /api/tokens?chainId=1&isErc20=true`
 
-## Setup e Configuração
+## Setup e Configuração ✅
 
-### 1. Variáveis de Ambiente
+### 1. Variáveis de Ambiente (Configurado)
 
 ```env
-# Separação de bancos para responsabilidades distintas
-DATABASE_URI=mongodb://localhost:27017/snf-cockpit        # PayloadCMS users/admin
-DATABASE_DATA_URI=mongodb://localhost:27017/snf-data      # Backend-v3 data
+DATABASE_URI=mongodb+srv://user:pass@cluster.mongodb.net/snf?retryWrites=true&w=majority
 PAYLOAD_SECRET=your-secret-key
-BLOB_READ_WRITE_TOKEN=vercel-blob-token
+BLOB_READ_WRITE_TOKEN=vercel_blob_rw_***
+
+
 ```
 
 ### 2. Instalação
@@ -121,15 +136,17 @@ BLOB_READ_WRITE_TOKEN=vercel-blob-token
 ```bash
 cd snf-cockpit-v1
 pnpm install
-pnpm run setup:integration
 ```
 
-### 3. Primeira Execução
+### 3. Execução Atual ✅
 
-1. **Inicie o backend-v3** (popula dados via cron jobs)
-2. **Inicie o cockpit**: `pnpm run dev`
-3. **Acesse admin**: http://localhost:3000/admin
-4. **Dados disponíveis imediatamente** - não precisa de sync!
+```bash
+# ✅ Servidor rodando na porta 3001
+pnpm run dev
+
+# ✅ Admin PayloadCMS: http://localhost:3001/admin
+# ✅ API funcionando: http://localhost:3001/api/*
+```
 
 ## Fluxo de Dados em Tempo Real
 
@@ -211,21 +228,27 @@ curl "http://localhost:3000/api/tokens?isErc20=true&chainId=1"
 snf-cockpit-v1/
 ├── src/
 │   ├── app/
-│   │   ├── api/              # REST endpoints (leem PayloadCMS)
-│   │   │   ├── pools/        # Pool management
-│   │   │   ├── chains/       # Chain management  
-│   │   │   ├── collections/  # NFT collections
-│   │   │   └── tokens/       # Token management
-│   │   ├── pools/            # Exemplo de interface
-│   │   └── admin/            # PayloadCMS admin
-│   └── lib/
-│       ├── payloadcms/
-│       │   └── collections/  # PayloadCMS collections (espelham backend-v3)
-│       └── services/
-│           └── rest/hooks/   # React hooks para frontend
+│   │   ├── api/             # REST endpoints (leem PayloadCMS)
+│   │   │   ├── chains/route.ts   
+│   │   │   ├── pools/route.ts     
+│   │   │   ├── collections/route.ts
+│   │   │   └── tokens/route.ts    
+│   │   ├── bridge/               
+│   │   └── (payload)/admin/       
+│   ├── lib/
+│   │   ├── payloadcms/
+│   │   │   ├── plugins/snf/        
+│   │   │   │   ├── index.ts        
+│   │   │   │   └── collections/    
+│   │   │   └── collections/        
+│   │   └── services/
+│   │       └── data-db/connection.ts 
+│   └── payload.config.ts          unificada
 ├── scripts/
-│   └── setup-integration.js # Setup automatizado
-└── INTEGRATION.md
+│   ├── migrate-users.ts            
+│   ├── migrate-collections.ts     
+│   └── check-collections.ts       
+└── INTEGRATION.md                  
 ```
 
 ## Monitoring & Debug

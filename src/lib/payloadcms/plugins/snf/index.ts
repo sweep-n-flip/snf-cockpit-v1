@@ -1,8 +1,8 @@
-import type { Config, PluginParams } from '@/lib/payloadcms/plugins/snf/types'
 import { collections } from '@/lib/payloadcms/plugins/snf/collections'
 import { globals } from '@/lib/payloadcms/plugins/snf/globals'
 import { graphql } from '@/lib/payloadcms/plugins/snf/graphql'
 import { config as graphQLConfig } from '@/lib/payloadcms/plugins/snf/graphql/config'
+import type { Config, PluginParams } from '@/lib/payloadcms/plugins/snf/types'
 import flow from 'lodash/flow'
 import merge from 'lodash/merge'
 import reduce from 'lodash/reduce'
@@ -31,6 +31,8 @@ export const plugin = ({ graphQL }: PluginParams) => {
           /// general
           'upload',
           'collections',
+          'tokens',
+          'pools',
           'users',
         ],
         (acc, method) => ({

@@ -16,11 +16,8 @@ class DataDatabaseService {
 
   async connect(): Promise<Db> {
     if (!this.db) {
-      console.log(
-        '🔗 Connecting to DATABASE_DATA_URI:',
-        process.env.DATABASE_DATA_URI?.split('@')[1],
-      )
-      this.client = new MongoClient(process.env.DATABASE_DATA_URI!)
+      console.log('🔗 Connecting to DATABASE_URI:', process.env.DATABASE_URI?.split('@')[1])
+      this.client = new MongoClient(process.env.DATABASE_URI!)
       await this.client.connect()
       // Use the correct database name 'snf'
       this.db = this.client.db('snf')

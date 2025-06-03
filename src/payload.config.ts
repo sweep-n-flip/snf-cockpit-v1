@@ -1,21 +1,20 @@
-import { mongooseAdapter } from '@payloadcms/db-mongodb'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
-import path from 'path'
-import { buildConfig } from 'payload'
-import { fileURLToPath } from 'url'
-import sharp from 'sharp'
-import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
-import { Users, Media } from '@/lib/payloadcms/collections'
-import { seoPlugin } from '@payloadcms/plugin-seo'
+import { Media, Users } from '@/lib/payloadcms/collections'
 import { snf } from '@/lib/payloadcms/plugins'
 import { serverClient } from '@/lib/services/graphql/config/server'
 import { GET_BRIDGE_TRANSACTION_STATUS_QUERY } from '@/lib/services/graphql/entities/bridge/queries'
 import {
-  GET_ERC721_BALANCE_QUERY,
   GET_ERC721_APPROVAL_QUERY,
+  GET_ERC721_BALANCE_QUERY,
   GET_ERC721_COLLECTION_METADATA_QUERY,
   GET_ERC721_OWNER_COLLECTIONS_QUERY,
 } from '@/lib/services/graphql/entities/ERC721/queries'
+import { mongooseAdapter } from '@payloadcms/db-mongodb'
+import { seoPlugin } from '@payloadcms/plugin-seo'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
+import path from 'path'
+import { buildConfig } from 'payload'
+import { fileURLToPath } from 'url'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -39,7 +38,6 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  sharp,
   /// dev: the order of plugins is important
   plugins: [
     vercelBlobStorage({
