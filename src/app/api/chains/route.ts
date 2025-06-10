@@ -1,6 +1,21 @@
 import { dataDb } from '@/lib/services/data-db/connection'
 import { NextRequest, NextResponse } from 'next/server'
 
+// Add CORS headers to response
+function addCorsHeaders(response: NextResponse) {
+  response.headers.set('Access-Control-Allow-Origin', '*')
+  response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+  response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With')
+  response.headers.set('Access-Control-Max-Age', '86400')
+  return response
+}
+
+// Handle CORS preflight requests
+export async function OPTIONS() {
+  const response = new NextResponse(null, { status: 200 })
+  return addCorsHeaders(response)
+}
+
 export async function GET(request: NextRequest) {
   try {
     const db = await dataDb.connect()
@@ -29,7 +44,7 @@ export async function GET(request: NextRequest) {
 
     const totalPages = Math.ceil(totalCount / limit)
 
-    return NextResponse.json({
+    return addCorsHeaders(NextResponse.json({
       success: true,
       data: chains,
       pagination: {
@@ -40,10 +55,10 @@ export async function GET(request: NextRequest) {
         hasNextPage: page < totalPages,
         hasPrevPage: page > 1,
       },
-    })
+    }))
   } catch (error) {
     console.error('Error fetching chains:', error)
-    return NextResponse.json({ success: false, error: 'Failed to fetch chains' }, { status: 500 })
+    return addCorsHeaders(NextResponse.json({ success: false, error: 'Failed to fetch chains' }, { status: 500 }))
   }
 }
 
@@ -63,12 +78,12 @@ export async function POST(request: NextRequest) {
 
     const result = await chainsCollection.insertOne(chainData)
 
-    return NextResponse.json({
+    return addCorsHeaders(NextResponse.json({
       success: true,
       data: { ...chainData, _id: result.insertedId },
-    })
+    }))
   } catch (error) {
     console.error('Error creating chain:', error)
-    return NextResponse.json({ success: false, error: 'Failed to create chain' }, { status: 500 })
+    return addCorsHeaders(NextResponse.json({ success: false, error: 'Failed to create chain' }, { status: 500 }))
   }
 }

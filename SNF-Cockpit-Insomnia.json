@@ -1,7 +1,7 @@
 {
   "_type": "export",
   "__export_format": 4,
-  "__export_date": "2025-06-02T00:00:00.000Z",
+  "__export_date": "2025-06-10T00:00:00.000Z",
   "__export_source": "insomnia.desktop.app:v2024.5.0",
   "resources": [
     {
@@ -9,8 +9,9 @@
       "_type": "environment",
       "name": "SNF Cockpit Environment",
       "data": {
-        "base_url": "http://localhost:3000",
-        "api_base": "{{ _.base_url }}/api"
+        "base_url": "http://localhost:3001",
+        "api_base": "{{ _.base_url }}/api",
+        "frontend_url": "http://localhost:3000"
       },
       "dataPropertyOrder": null,
       "color": "#007ACC",
@@ -89,7 +90,7 @@
       ],
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"chainId\": 1,\n  \"name\": \"Ethereum\",\n  \"logo\": \"https://example.com/eth-logo.png\",\n  \"isTestnet\": false,\n  \"rpcAddress\": \"https://mainnet.infura.io/v3/...\",\n  \"explorerUrl\": \"https://etherscan.io\",\n  \"network\": {\n    \"type\": \"ethereum\",\n    \"nativeCurrency\": {\n      \"name\": \"Ether\",\n      \"symbol\": \"ETH\",\n      \"decimals\": 18\n    }\n  },\n  \"stablecoinAddress\": \"0xA0b86a33E6441E44e0E7a8C4bC1FEF3d6F48AE45\"\n}"
+        "text": "{\n  \"chainId\": 1,\n  \"name\": \"Ethereum\",\n  \"symbol\": \"ETH\",\n  \"icon\": \"https://example.com/eth-logo.png\",\n  \"isTestnet\": false,\n  \"rpcAddress\": \"https://mainnet.infura.io/v3/...\",\n  \"explorerUrl\": \"https://etherscan.io\",\n  \"network\": {\n    \"type\": \"ethereum\",\n    \"nativeCurrency\": {\n      \"name\": \"Ether\",\n      \"symbol\": \"ETH\",\n      \"decimals\": 18\n    }\n  },\n  \"stablecoinAddress\": \"0xA0b86a33E6441E44e0E7a8C4bC1FEF3d6F48AE45\"\n}"
       },
       "parentId": "fld_chains",
       "metaSortKey": 1100
@@ -107,8 +108,8 @@
     {
       "_id": "req_pools_get_all",
       "_type": "request",
-      "name": "Get All Pools",
-      "description": "Lista todos os pools com paginação e filtros",
+      "name": "Get Top Pools",
+      "description": "Lista os top pools com paginação e filtros (usado no frontend)",
       "url": "{{ _.api_base }}/pools",
       "method": "GET",
       "headers": [
@@ -122,19 +123,19 @@
           "name": "page",
           "value": "1",
           "description": "Número da página",
-          "disabled": true
+          "disabled": false
         },
         {
           "name": "limit",
           "value": "10",
           "description": "Limite de itens por página",
-          "disabled": true
+          "disabled": false
         },
         {
           "name": "chainId",
-          "value": "1",
-          "description": "Filtrar por chain ID",
-          "disabled": true
+          "value": "all",
+          "description": "Filtrar por chain ID (ou 'all' para todas)",
+          "disabled": false
         },
         {
           "name": "sortBy",
@@ -157,26 +158,6 @@
       "metaSortKey": 2000
     },
     {
-      "_id": "req_pools_get_by_id",
-      "_type": "request",
-      "name": "Get Pool by ID",
-      "description": "Busca um pool específico por ID",
-      "url": "{{ _.api_base }}/pools/{{ _.pool_id }}",
-      "method": "GET",
-      "headers": [
-        {
-          "name": "Content-Type",
-          "value": "application/json"
-        }
-      ],
-      "body": {
-        "mimeType": "application/json",
-        "text": ""
-      },
-      "parentId": "fld_pools",
-      "metaSortKey": 2100
-    },
-    {
       "_id": "req_pools_create",
       "_type": "request",
       "name": "Create Pool",
@@ -191,50 +172,10 @@
       ],
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"poolId\": \"pool_eth_nft_001\",\n  \"chainId\": 1,\n  \"name\": \"ETH-NFT Pool\",\n  \"poolStats\": {\n    \"nftPrice\": 1.5,\n    \"nftListings\": \"25\",\n    \"offers\": 10,\n    \"apr\": 12.5,\n    \"totalVolume\": 1500000,\n    \"liquidity\": 850000,\n    \"reserve0\": 425000,\n    \"reserve1\": 425000,\n    \"dailyVolume0\": 15000,\n    \"dailyVolume1\": 15000\n  },\n  \"token0\": {\n    \"id\": \"eth\",\n    \"symbol\": \"ETH\",\n    \"name\": \"Ethereum\",\n    \"isErc20\": true,\n    \"isCollection\": false,\n    \"address\": \"0x0000000000000000000000000000000000000000\"\n  },\n  \"token1\": {\n    \"id\": \"bayc\",\n    \"symbol\": \"BAYC\",\n    \"name\": \"Bored Ape Yacht Club\",\n    \"isErc20\": false,\n    \"isCollection\": true,\n    \"address\": \"0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D\"\n  },\n  \"chain\": {\n    \"id\": 1,\n    \"name\": \"Ethereum\",\n    \"networkType\": \"mainnet\",\n    \"rpcUrl\": \"https://mainnet.infura.io/v3/...\",\n    \"explorerUrl\": \"https://etherscan.io\"\n  }\n}"
+        "text": "{\n  \"chainId\": \"ObjectId\",\n  \"poolStats\": {\n    \"nftPrice\": 1.5,\n    \"nftListings\": \"25\",\n    \"offers\": 10,\n    \"apr\": 12.5,\n    \"totalVolume\": 1500000,\n    \"liquidity\": 850000,\n    \"reserve0\": 425000,\n    \"reserve1\": 425000,\n    \"dailyVolume0\": 15000,\n    \"dailyVolume1\": 15000,\n    \"updatedAt\": \"2025-06-10T00:00:00.000Z\"\n  },\n  \"token0\": {\n    \"name\": \"Ethereum\",\n    \"symbol\": \"ETH\",\n    \"icon\": \"https://example.com/eth.png\",\n    \"isCollection\": false,\n    \"address\": \"0x0000000000000000000000000000000000000000\"\n  },\n  \"token1\": {\n    \"name\": \"Bored Ape Yacht Club\",\n    \"symbol\": \"BAYC\",\n    \"icon\": \"https://example.com/bayc.png\",\n    \"isCollection\": true,\n    \"address\": \"0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D\"\n  }\n}"
       },
       "parentId": "fld_pools",
       "metaSortKey": 2200
-    },
-    {
-      "_id": "req_pools_update",
-      "_type": "request",
-      "name": "Update Pool",
-      "description": "Atualiza um pool existente",
-      "url": "{{ _.api_base }}/pools/{{ _.pool_id }}",
-      "method": "PUT",
-      "headers": [
-        {
-          "name": "Content-Type",
-          "value": "application/json"
-        }
-      ],
-      "body": {
-        "mimeType": "application/json",
-        "text": "{\n  \"poolStats\": {\n    \"nftPrice\": 1.8,\n    \"liquidity\": 900000,\n    \"apr\": 15.2\n  }\n}"
-      },
-      "parentId": "fld_pools",
-      "metaSortKey": 2300
-    },
-    {
-      "_id": "req_pools_delete",
-      "_type": "request",
-      "name": "Delete Pool",
-      "description": "Remove um pool",
-      "url": "{{ _.api_base }}/pools/{{ _.pool_id }}",
-      "method": "DELETE",
-      "headers": [
-        {
-          "name": "Content-Type",
-          "value": "application/json"
-        }
-      ],
-      "body": {
-        "mimeType": "application/json",
-        "text": ""
-      },
-      "parentId": "fld_pools",
-      "metaSortKey": 2400
     },
     {
       "_id": "fld_collections",
@@ -245,6 +186,58 @@
       "environmentPropertyOrder": null,
       "metaSortKey": 3000,
       "parentId": "wrk_main"
+    },
+    {
+      "_id": "req_trending_collections",
+      "_type": "request",
+      "name": "Get Trending Collections",
+      "description": "Lista as coleções trending (usado no frontend)",
+      "url": "{{ _.api_base }}/trending-collections",
+      "method": "GET",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "page",
+          "value": "1",
+          "description": "Número da página",
+          "disabled": false
+        },
+        {
+          "name": "limit",
+          "value": "10",
+          "description": "Limite de itens por página",
+          "disabled": false
+        },
+        {
+          "name": "chainId",
+          "value": "all",
+          "description": "Filtrar por chain ID (ou 'all' para todas)",
+          "disabled": false
+        },
+        {
+          "name": "sortBy",
+          "value": "volume24h",
+          "description": "Campo para ordenação",
+          "disabled": true
+        },
+        {
+          "name": "sortOrder",
+          "value": "desc",
+          "description": "Ordem (asc/desc)",
+          "disabled": true
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": ""
+      },
+      "parentId": "fld_collections",
+      "metaSortKey": 3000
     },
     {
       "_id": "req_collections_get_all",
@@ -302,7 +295,7 @@
         "text": ""
       },
       "parentId": "fld_collections",
-      "metaSortKey": 3000
+      "metaSortKey": 3100
     },
     {
       "_id": "req_collections_create",
@@ -319,10 +312,10 @@
       ],
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"name\": \"Bored Ape Yacht Club\",\n  \"symbol\": \"BAYC\",\n  \"address\": \"0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D\",\n  \"nativeChain\": 1,\n  \"availableChains\": [\n    {\n      \"chainId\": 1\n    }\n  ],\n  \"totalSupply\": 10000,\n  \"numNfts\": 10000,\n  \"verified\": true,\n  \"tokenType\": \"ERC721\",\n  \"floorPrice\": 25.5,\n  \"holders\": 6500,\n  \"description\": \"The Bored Ape Yacht Club is a collection of 10,000 unique Bored Ape NFTs\",\n  \"hasFees\": true,\n  \"fee\": 2.5,\n  \"feeAddress\": \"0x...\",\n  \"enabled\": true\n}"
+        "text": "{\n  \"name\": \"Bored Ape Yacht Club\",\n  \"symbol\": \"BAYC\",\n  \"address\": \"0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D\",\n  \"image\": \"https://i.seadn.io/gae/Ju9CkWtV-1Okvf45wo8UctR-M9He2PjILP0oOvxE89AyiPPGtrR3gysu1Zgy0hjd2xKIgjJJtWIc0ybj4Vd7wv8t3pxDGHoJBzDB?auto=format&w=384\",\n  \"nativeChain\": \"ObjectId\",\n  \"availableChains\": [\n    {\n      \"chainId\": \"ObjectId\"\n    }\n  ],\n  \"totalSupply\": 10000,\n  \"numNfts\": 10000,\n  \"verified\": true,\n  \"tokenType\": \"ERC721\",\n  \"floorPrice\": 25.5,\n  \"holders\": 6500,\n  \"description\": \"The Bored Ape Yacht Club is a collection of 10,000 unique Bored Ape NFTs\",\n  \"hasFees\": true,\n  \"fee\": 2.5,\n  \"feeAddress\": \"0x...\",\n  \"enabled\": true,\n  \"volume24h\": 1250000,\n  \"change24h\": \"+5.2%\"\n}"
       },
       "parentId": "fld_collections",
-      "metaSortKey": 3100
+      "metaSortKey": 3200
     },
     {
       "_id": "fld_tokens",
@@ -407,202 +400,26 @@
       ],
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"address\": \"0xA0b86a33E6441E44e0E7a8C4bC1FEF3d6F48AE45\",\n  \"name\": \"USD Coin\",\n  \"symbol\": \"USDC\",\n  \"decimals\": 6,\n  \"logo\": \"https://cryptologos.cc/logos/usd-coin-usdc-logo.png\",\n  \"nativeChain\": 1,\n  \"isErc20\": true,\n  \"isCollection\": false,\n  \"totalSupply\": \"1000000000000000\",\n  \"verified\": true,\n  \"enabled\": true\n}"
+        "text": "{\n  \"address\": \"0xA0b86a33E6441E44e0E7a8C4bC1FEF3d6F48AE45\",\n  \"name\": \"USD Coin\",\n  \"symbol\": \"USDC\",\n  \"decimals\": 6,\n  \"icon\": \"https://cryptologos.cc/logos/usd-coin-usdc-logo.png\",\n  \"nativeChain\": \"ObjectId\",\n  \"isErc20\": true,\n  \"isCollection\": false,\n  \"totalSupply\": \"1000000000000000\",\n  \"verified\": true,\n  \"enabled\": true\n}"
       },
       "parentId": "fld_tokens",
       "metaSortKey": 4100
     },
     {
-      "_id": "fld_payload_api",
-      "_type": "request_group",
-      "name": "⚙️ PayloadCMS API",
-      "description": "API nativa do PayloadCMS para operações administrativas",
-      "environment": {},
-      "environmentPropertyOrder": null,
-      "metaSortKey": 5000,
-      "parentId": "wrk_main"
-    },
-    {
-      "_id": "req_payload_chains_get",
-      "_type": "request",
-      "name": "PayloadCMS - Get Chains",
-      "description": "Lista chains via API nativa do PayloadCMS",
-      "url": "{{ _.base_url }}/api/chains",
-      "method": "GET",
-      "headers": [
-        {
-          "name": "Content-Type",
-          "value": "application/json"
-        }
-      ],
-      "parameters": [
-        {
-          "name": "depth",
-          "value": "1",
-          "description": "Profundidade dos relacionamentos",
-          "disabled": true
-        },
-        {
-          "name": "limit",
-          "value": "10",
-          "description": "Limite de resultados",
-          "disabled": true
-        },
-        {
-          "name": "page",
-          "value": "1",
-          "description": "Número da página",
-          "disabled": true
-        }
-      ],
-      "body": {
-        "mimeType": "application/json",
-        "text": ""
-      },
-      "parentId": "fld_payload_api",
-      "metaSortKey": 5000
-    },
-    {
-      "_id": "req_payload_pools_get",
-      "_type": "request",
-      "name": "PayloadCMS - Get Pools",
-      "description": "Lista pools via API nativa do PayloadCMS",
-      "url": "{{ _.base_url }}/api/pools",
-      "method": "GET",
-      "headers": [
-        {
-          "name": "Content-Type",
-          "value": "application/json"
-        }
-      ],
-      "parameters": [
-        {
-          "name": "depth",
-          "value": "1",
-          "description": "Profundidade dos relacionamentos",
-          "disabled": true
-        },
-        {
-          "name": "limit",
-          "value": "10",
-          "description": "Limite de resultados",
-          "disabled": true
-        },
-        {
-          "name": "page",
-          "value": "1",
-          "description": "Número da página",
-          "disabled": true
-        },
-        {
-          "name": "where[chainId][equals]",
-          "value": "1",
-          "description": "Filtrar por chain ID",
-          "disabled": true
-        }
-      ],
-      "body": {
-        "mimeType": "application/json",
-        "text": ""
-      },
-      "parentId": "fld_payload_api",
-      "metaSortKey": 5100
-    },
-    {
-      "_id": "req_payload_collections_get",
-      "_type": "request",
-      "name": "PayloadCMS - Get Collections",
-      "description": "Lista coleções via API nativa do PayloadCMS",
-      "url": "{{ _.base_url }}/api/collections",
-      "method": "GET",
-      "headers": [
-        {
-          "name": "Content-Type",
-          "value": "application/json"
-        }
-      ],
-      "parameters": [
-        {
-          "name": "depth",
-          "value": "1",
-          "description": "Profundidade dos relacionamentos",
-          "disabled": true
-        },
-        {
-          "name": "limit",
-          "value": "10",
-          "description": "Limite de resultados",
-          "disabled": true
-        },
-        {
-          "name": "where[verified][equals]",
-          "value": "true",
-          "description": "Filtrar por verificado",
-          "disabled": true
-        }
-      ],
-      "body": {
-        "mimeType": "application/json",
-        "text": ""
-      },
-      "parentId": "fld_payload_api",
-      "metaSortKey": 5200
-    },
-    {
-      "_id": "req_payload_tokens_get",
-      "_type": "request",
-      "name": "PayloadCMS - Get Tokens",
-      "description": "Lista tokens via API nativa do PayloadCMS",
-      "url": "{{ _.base_url }}/api/tokens",
-      "method": "GET",
-      "headers": [
-        {
-          "name": "Content-Type",
-          "value": "application/json"
-        }
-      ],
-      "parameters": [
-        {
-          "name": "depth",
-          "value": "1",
-          "description": "Profundidade dos relacionamentos",
-          "disabled": true
-        },
-        {
-          "name": "limit",
-          "value": "10",
-          "description": "Limite de resultados",
-          "disabled": true
-        },
-        {
-          "name": "where[isErc20][equals]",
-          "value": "true",
-          "description": "Filtrar tokens ERC20",
-          "disabled": true
-        }
-      ],
-      "body": {
-        "mimeType": "application/json",
-        "text": ""
-      },
-      "parentId": "fld_payload_api",
-      "metaSortKey": 5300
-    },
-    {
       "_id": "fld_examples",
       "_type": "request_group",
-      "name": "📋 Exemplos de Uso",
-      "description": "Exemplos práticos baseados na documentação",
+      "name": "📋 Exemplos de Uso Frontend",
+      "description": "Exemplos práticos dos endpoints utilizados pelo frontend",
       "environment": {},
       "environmentPropertyOrder": null,
       "metaSortKey": 6000,
       "parentId": "wrk_main"
     },
     {
-      "_id": "req_example_pools_by_chain",
+      "_id": "req_example_top_pools_ethereum",
       "_type": "request",
-      "name": "📊 Pools por Chain (Liquidez DESC)",
-      "description": "Buscar pools da Ethereum ordenados por liquidez",
+      "name": "📊 Top Pools - Ethereum",
+      "description": "Top pools da Ethereum (usado na tabela TopPoolsTable)",
       "url": "{{ _.api_base }}/pools",
       "method": "GET",
       "headers": [
@@ -629,8 +446,13 @@
         },
         {
           "name": "limit",
-          "value": "5",
-          "description": "Top 5 pools"
+          "value": "10",
+          "description": "Top 10 pools"
+        },
+        {
+          "name": "page",
+          "value": "1",
+          "description": "Primeira página"
         }
       ],
       "body": {
@@ -641,11 +463,11 @@
       "metaSortKey": 6000
     },
     {
-      "_id": "req_example_verified_collections",
+      "_id": "req_example_top_pools_all_chains",
       "_type": "request",
-      "name": "✅ Coleções Verificadas",
-      "description": "Buscar coleções NFT verificadas na Ethereum",
-      "url": "{{ _.api_base }}/collections",
+      "name": "📊 Top Pools - Todas as Chains",
+      "description": "Top pools de todas as chains (usado na tabela TopPoolsTable)",
+      "url": "{{ _.api_base }}/pools",
       "method": "GET",
       "headers": [
         {
@@ -655,14 +477,19 @@
       ],
       "parameters": [
         {
-          "name": "verified",
-          "value": "true",
-          "description": "Apenas verificadas"
+          "name": "chainId",
+          "value": "all",
+          "description": "Todas as chains"
         },
         {
-          "name": "nativeChain",
+          "name": "limit",
+          "value": "10",
+          "description": "Top 10 pools"
+        },
+        {
+          "name": "page",
           "value": "1",
-          "description": "Ethereum mainnet"
+          "description": "Primeira página"
         }
       ],
       "body": {
@@ -673,11 +500,11 @@
       "metaSortKey": 6100
     },
     {
-      "_id": "req_example_erc20_tokens",
+      "_id": "req_example_trending_collections_ethereum",
       "_type": "request",
-      "name": "🪙 Tokens ERC20",
-      "description": "Buscar tokens ERC20 na Ethereum",
-      "url": "{{ _.api_base }}/tokens",
+      "name": "🔥 Trending Collections - Ethereum",
+      "description": "Coleções trending da Ethereum (usado na tabela TrendingCollectionsTable)",
+      "url": "{{ _.api_base }}/trending-collections",
       "method": "GET",
       "headers": [
         {
@@ -687,14 +514,29 @@
       ],
       "parameters": [
         {
-          "name": "isErc20",
-          "value": "true",
-          "description": "Apenas tokens ERC20"
-        },
-        {
-          "name": "nativeChain",
+          "name": "chainId",
           "value": "1",
           "description": "Ethereum mainnet"
+        },
+        {
+          "name": "sortBy",
+          "value": "volume24h",
+          "description": "Ordenar por volume 24h"
+        },
+        {
+          "name": "sortOrder",
+          "value": "desc",
+          "description": "Maior para menor"
+        },
+        {
+          "name": "limit",
+          "value": "10",
+          "description": "Top 10 coleções"
+        },
+        {
+          "name": "page",
+          "value": "1",
+          "description": "Primeira página"
         }
       ],
       "body": {
@@ -705,10 +547,47 @@
       "metaSortKey": 6200
     },
     {
-      "_id": "req_example_mainnets_only",
+      "_id": "req_example_trending_collections_all_chains",
       "_type": "request",
-      "name": "🌐 Apenas Mainnets",
-      "description": "Buscar apenas chains de mainnet (não testnet)",
+      "name": "🔥 Trending Collections - Todas as Chains",
+      "description": "Coleções trending de todas as chains (usado na tabela TrendingCollectionsTable)",
+      "url": "{{ _.api_base }}/trending-collections",
+      "method": "GET",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "chainId",
+          "value": "all",
+          "description": "Todas as chains"
+        },
+        {
+          "name": "limit",
+          "value": "10",
+          "description": "Top 10 coleções"
+        },
+        {
+          "name": "page",
+          "value": "1",
+          "description": "Primeira página"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": ""
+      },
+      "parentId": "fld_examples",
+      "metaSortKey": 6300
+    },
+    {
+      "_id": "req_example_all_chains",
+      "_type": "request",
+      "name": "🔗 Get All Chains",
+      "description": "Lista todas as chains disponíveis (usado no ChainFilter)",
       "url": "{{ _.api_base }}/chains",
       "method": "GET",
       "headers": [
@@ -721,7 +600,7 @@
         {
           "name": "isTestnet",
           "value": "false",
-          "description": "Excluir testnets"
+          "description": "Apenas mainnets"
         }
       ],
       "body": {
@@ -729,19 +608,69 @@
         "text": ""
       },
       "parentId": "fld_examples",
-      "metaSortKey": 6300
+      "metaSortKey": 6400
+    },
+    {
+      "_id": "fld_health",
+      "_type": "request_group",
+      "name": "🏥 Health Check",
+      "description": "Endpoints para verificar status da API",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": 7000,
+      "parentId": "wrk_main"
+    },
+    {
+      "_id": "req_health_check",
+      "_type": "request",
+      "name": "Health Check",
+      "description": "Verifica se a API está funcionando",
+      "url": "{{ _.base_url }}",
+      "method": "GET",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": ""
+      },
+      "parentId": "fld_health",
+      "metaSortKey": 7000
+    },
+    {
+      "_id": "req_api_health",
+      "_type": "request",
+      "name": "API Health",
+      "description": "Verifica status específico da API",
+      "url": "{{ _.api_base }}/health",
+      "method": "GET",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": ""
+      },
+      "parentId": "fld_health",
+      "metaSortKey": 7100
     },
     {
       "_id": "env_dev",
       "_type": "environment",
       "name": "Development",
       "data": {
-        "base_url": "http://localhost:3000",
+        "base_url": "http://localhost:3001",
         "api_base": "{{ _.base_url }}/api",
-        "pool_id": "6507f1234567890abcdef123"
+        "frontend_url": "http://localhost:3000"
       },
       "dataPropertyOrder": {
-        "&": ["base_url", "api_base", "pool_id"]
+        "&": ["base_url", "api_base", "frontend_url"]
       },
       "color": "#28a745",
       "isPrivate": false,
@@ -755,10 +684,10 @@
       "data": {
         "base_url": "https://your-cockpit-domain.com",
         "api_base": "{{ _.base_url }}/api",
-        "pool_id": ""
+        "frontend_url": "https://your-frontend-domain.com"
       },
       "dataPropertyOrder": {
-        "&": ["base_url", "api_base", "pool_id"]
+        "&": ["base_url", "api_base", "frontend_url"]
       },
       "color": "#dc3545",
       "isPrivate": false,

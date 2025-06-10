@@ -30,6 +30,7 @@ export default buildConfig({
       'lib/payloadcms/plugins/snf/graphql/schemas/default.graphql',
     ),
   },
+  cors: '*',
   collections: [Users, Media],
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
