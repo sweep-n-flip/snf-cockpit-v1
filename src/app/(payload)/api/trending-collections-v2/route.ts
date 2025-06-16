@@ -87,29 +87,33 @@ export async function GET(request: NextRequest) {
     const sortBy = searchParams.get('sortBy') || 'volume24h'
     const sortOrder = searchParams.get('sortOrder') || 'desc'
 
-    // Debug: Check what's in the collections
-    const totalDocsInCollection = await trendingCollectionsCollection.countDocuments({})
-    const enabledDocs = await trendingCollectionsCollection.countDocuments({ enabled: true })
-    const allChains = await chainsCollection.find({}).toArray()
-    
-    console.log(`🔍 Debug: Total docs in trending-collections: ${totalDocsInCollection}`)
-    console.log(`🔍 Debug: Enabled docs: ${enabledDocs}`)
-    console.log(`🔍 Debug: Available chains:`, allChains.map(c => ({ chainId: c.chainId, name: c.name })))
-
     // Build aggregation pipeline for trending collections
-    const matchStage: any = {}
-
-    // Remove the enabled filter for now to see all data
-    // enabled: true, // Only active collections
+    const matchStage: any = {
+      enabled: true, // Only active collections
+    }
 
     // Filter by chain if specified
     if (chainId && chainId !== 'all') {
       const chainNumericId = parseInt(chainId)
-      // Filter by the chainId inside the nativeChain object
-      matchStage['nativeChain.chainId'] = chainNumericId
+      const chain = await chainsCollection.findOne({ chainId: chainNumericId })
+      if (chain) {
+        matchStage.nativeChain = chainNumericId
+      } else {
+        // If chain not found, return empty results
+        return addCorsHeaders(NextResponse.json({
+          success: true,
+          data: [],
+          pagination: {
+            page,
+            limit,
+            totalPages: 0,
+            totalDocs: 0,
+            hasNextPage: false,
+            hasPrevPage: false,
+          },
+        }))
+      }
     }
-
-    console.log(`🔍 Debug: Match stage:`, JSON.stringify(matchStage, null, 2))
 
     // Calculate skip for pagination
     const skip = (page - 1) * limit
@@ -148,10 +152,21 @@ export async function GET(request: NextRequest) {
         sortCriteria = { trendingScore1Day: -1 } // Default to trending score
     }
 
-    // Simplified aggregation pipeline (no lookup needed since nativeChain is already populated)
+    // Aggregation pipeline
     const pipeline = [
       // Match enabled collections and chain filter
       { $match: matchStage },
+
+      // Lookup chain data
+      {
+        $lookup: {
+          from: 'chains',
+          localField: 'nativeChain',
+          foreignField: 'chainId',
+          as: 'chain',
+        },
+      },
+      { $unwind: '$chain' },
 
       // Sort by specified criteria
       { $sort: { ...sortCriteria, _id: 1 } }, // Add _id for stable sort
@@ -199,11 +214,11 @@ export async function GET(request: NextRequest) {
           address: collection.address || '',
         },
         chain: {
-          _id: collection.nativeChain._id?.toString() || '',
-          chainId: collection.nativeChain.chainId || 1,
-          name: collection.nativeChain.name || 'Unknown Chain',
-          symbol: collection.nativeChain.network?.token?.symbol || 'ETH',
-          icon: collection.nativeChain.logo || '/crypto---polygon.svg',
+          _id: collection.chain._id?.toString() || '',
+          chainId: collection.chain.chainId || 1,
+          name: collection.chain.name || 'Unknown Chain',
+          symbol: collection.chain.network?.token?.symbol || 'ETH',
+          icon: collection.chain.logo || '/crypto---polygon.svg',
         },
         liquidityPools: {
           icons: [], // This would need to be calculated from pools data if needed
@@ -212,12 +227,12 @@ export async function GET(request: NextRequest) {
         },
         floor: {
           value: floorPrice.toFixed(4),
-          currency: collection.nativeChain.network?.token?.symbol || 'ETH',
+          currency: collection.chain.network?.token?.symbol || 'ETH',
         },
         floorChange: `${floorChange1Day >= 0 ? '+' : ''}${floorChange1Day.toFixed(1)}%`,
         volume: {
           value: (volume1Day / 1000).toFixed(1), // Convert to K format
-          currency: collection.nativeChain.network?.token?.symbol || 'ETH',
+          currency: collection.chain.network?.token?.symbol || 'ETH',
         },
         volumeChange: `${volumeChange1Day >= 0 ? '+' : ''}${volumeChange1Day.toFixed(1)}%`,
         items: collection.totalSupply ? 

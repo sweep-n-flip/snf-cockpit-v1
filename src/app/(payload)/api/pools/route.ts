@@ -1,5 +1,6 @@
 import { dataDb } from '@/lib/services/data-db/connection'
 import { NextRequest, NextResponse } from 'next/server'
+import { ObjectId } from 'mongodb'
 
 export interface TopPool {
   rank: number
@@ -72,20 +73,35 @@ export async function GET(request: NextRequest) {
 
     // Filter by chain if specified
     if (chainId && chainId !== 'all') {
-      const chain = await chainsCollection.findOne({ chainId: parseInt(chainId) })
+      const chainNumericId = parseInt(chainId)
+      const chain = await chainsCollection.findOne({ chainId: chainNumericId })
       if (chain) {
         matchStage.chainId = chain._id
+      } else {
+        // If chain not found, return empty results
+        return addCorsHeaders(NextResponse.json({
+          success: true,
+          data: [],
+          pagination: {
+            page,
+            limit,
+            totalPages: 0,
+            totalDocs: 0,
+            hasNextPage: false,
+            hasPrevPage: false,
+          },
+        }))
       }
     }
 
     // Calculate skip for pagination
     const skip = (page - 1) * limit
 
-    // Simple aggregation pipeline
+    // Aggregation pipeline to get pools with chain data
     const pipeline = [
       { $match: matchStage },
 
-      // Lookup chain data
+      // Lookup chain data using ObjectId reference
       {
         $lookup: {
           from: 'chains',
@@ -96,31 +112,20 @@ export async function GET(request: NextRequest) {
       },
       { $unwind: { path: '$chainData', preserveNullAndEmptyArrays: true } },
 
-      // Sort pools
+      // Sort pools by the specified field
       {
         $sort: {
-          'poolStats.liquidity': -1,
-          _id: 1,
+          [sortBy]: sortOrder === 'desc' ? -1 : 1,
+          _id: 1, // Stable sort
         },
       },
 
-      // Add rank
+      // Add rank using window function
       {
-        $group: {
-          _id: null,
-          pools: { $push: '$$ROOT' },
-        },
-      },
-      {
-        $unwind: {
-          path: '$pools',
-          includeArrayIndex: 'rank',
-        },
-      },
-      {
-        $replaceRoot: {
-          newRoot: {
-            $mergeObjects: ['$pools', { rank: { $add: ['$rank', 1] } }],
+        $setWindowFields: {
+          sortBy: { [sortBy]: sortOrder === 'desc' ? -1 : 1 },
+          output: {
+            rank: { $rank: {} },
           },
         },
       },
@@ -133,24 +138,24 @@ export async function GET(request: NextRequest) {
     // Execute aggregation
     const pools = await poolsCollection.aggregate(pipeline).toArray()
 
-    // Get total count
+    // Get total count for pagination
     const totalCount = await poolsCollection.countDocuments(matchStage)
     const totalPages = Math.ceil(totalCount / limit)
 
     // Transform data to match frontend interface
     const transformedPools = pools.map((pool: any) => {
-      // Determine collection and native tokens
+      // Determine collection and native tokens based on isCollection flag
       const collectionToken = pool.token0?.isCollection ? pool.token0 : pool.token1
       const nativeToken = pool.token0?.isCollection ? pool.token1 : pool.token0
       const chain = pool.chainData || {}
 
       return {
-        rank: pool.rank,
+        rank: pool.rank || 0,
         collectionPool: {
           _id: pool._id?.toString() || '',
-          name: collectionToken?.name || 'Unknown Collection',
-          image: collectionToken?.image || '/rectangle-2-7.png',
-          verified: collectionToken?.verified || false,
+          name: collectionToken?.name || collectionToken?.symbol || 'Unknown Collection',
+          image: '/rectangle-2-7.png', // Default image since we don't have images in pool data
+          verified: true, // Default since we don't have verification status in pool data
           address: collectionToken?.address || '',
         },
         chain: {
@@ -162,37 +167,35 @@ export async function GET(request: NextRequest) {
         },
         lp: {
           icons: [
-            nativeToken?.icon || '/default-token.png',
-            collectionToken?.icon || '/default-nft.png',
+            '/default-token.png', // Default icons since we don't have token icons
+            '/default-nft.png',
           ],
           hasAddButton: false,
         },
         nftPrice: {
           value: (pool.poolStats?.nftPrice || 0).toFixed(3),
-          currency: chain.symbol || 'ETH',
+          currency: nativeToken?.symbol || chain.symbol || 'ETH',
         },
         listings: (pool.poolStats?.nftListings || 0).toString(),
         ethOffers: {
-          value: (pool.poolStats?.offers || 0).toFixed(2),
-          currency: chain.symbol || 'ETH',
+          value: (pool.poolStats?.offers || 0).toString(),
+          currency: nativeToken?.symbol || chain.symbol || 'ETH',
         },
-        liquidity: ((pool.poolStats?.liquidity || 0) / 1000).toFixed(1),
-        volume24h: (
-          (pool.poolStats?.dailyVolume0 || 0) + (pool.poolStats?.dailyVolume1 || 0)
-        ).toFixed(0),
+        liquidity: ((pool.poolStats?.liquidity || 0) / 1000).toFixed(1) + 'K',
+        volume24h: ((pool.poolStats?.dailyVolume0 || 0) + (pool.poolStats?.dailyVolume1 || 0)).toFixed(0),
         apy: `${(pool.poolStats?.apr || 0).toFixed(1)}%`,
-        poolStats: pool.poolStats || {
-          nftPrice: 0,
-          nftListings: 0,
-          offers: 0,
-          apr: 0,
-          totalVolume: 0,
-          liquidity: 0,
-          reserve0: 0,
-          reserve1: 0,
-          dailyVolume0: 0,
-          dailyVolume1: 0,
-          updatedAt: new Date().toISOString(),
+        poolStats: {
+          nftPrice: pool.poolStats?.nftPrice || 0,
+          nftListings: pool.poolStats?.nftListings || 0,
+          offers: pool.poolStats?.offers || 0,
+          apr: pool.poolStats?.apr || 0,
+          totalVolume: pool.poolStats?.totalVolume || 0,
+          liquidity: pool.poolStats?.liquidity || 0,
+          reserve0: pool.poolStats?.reserve0 || 0,
+          reserve1: pool.poolStats?.reserve1 || 0,
+          dailyVolume0: pool.poolStats?.dailyVolume0 || 0,
+          dailyVolume1: pool.poolStats?.dailyVolume1 || 0,
+          updatedAt: pool.poolStats?.updatedAt?.toISOString() || new Date().toISOString(),
         },
         expandedData: {
           subPools: [],

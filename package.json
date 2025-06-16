@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
-    "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev -p 3000",
-    "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev -p 3000",
+    "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev -p 3002",
+    "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev -p 3002",
     "generate:types": "payload generate:types",
     "generate:graphql:schemas": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload-graphql generate:schema",
     "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",

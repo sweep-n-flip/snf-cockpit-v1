@@ -1,4 +1,4 @@
-import { Media, Users } from '@/lib/payloadcms/collections'
+import { Media, Users, TrendingCollections } from '@/lib/payloadcms/collections'
 import { snf } from '@/lib/payloadcms/plugins'
 import { serverClient } from '@/lib/services/graphql/config/server'
 import { GET_BRIDGE_TRANSACTION_STATUS_QUERY } from '@/lib/services/graphql/entities/bridge/queries'
@@ -31,7 +31,7 @@ export default buildConfig({
     ),
   },
   cors: '*',
-  collections: [Users, Media],
+  collections: [Users, Media, TrendingCollections],
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'lib/payloadcms/types/payload-types.ts'),
