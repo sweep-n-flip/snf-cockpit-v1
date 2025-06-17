@@ -82,7 +82,7 @@ export async function GET(request: NextRequest) {
 
     // Parse query parameters
     const page = parseInt(searchParams.get('page') || '1')
-    const limit = parseInt(searchParams.get('limit') || '20')
+    const limit = parseInt(searchParams.get('limit') || '10')
     const chainId = searchParams.get('chainId')
     const sortBy = searchParams.get('sortBy') || 'volume24h'
     const sortOrder = searchParams.get('sortOrder') || 'desc'
@@ -105,7 +105,7 @@ export async function GET(request: NextRequest) {
     // Filter by chain if specified
     if (chainId && chainId !== 'all') {
       const chainNumericId = parseInt(chainId)
-      // Filter by the chainId inside the nativeChain object
+      // Filter by the chainId inside the nativeChain object (after lookup)
       matchStage['nativeChain.chainId'] = chainNumericId
     }
 
@@ -148,9 +148,27 @@ export async function GET(request: NextRequest) {
         sortCriteria = { trendingScore1Day: -1 } // Default to trending score
     }
 
-    // Simplified aggregation pipeline (no lookup needed since nativeChain is already populated)
+    // Build aggregation pipeline with lookup for nativeChain
     const pipeline = [
-      // Match enabled collections and chain filter
+      // First, populate the nativeChain field
+      {
+        $lookup: {
+          from: 'chains',
+          localField: 'nativeChain',
+          foreignField: '_id',
+          as: 'nativeChain'
+        }
+      },
+      
+      // Unwind the nativeChain array (since it's a single document)
+      {
+        $unwind: {
+          path: '$nativeChain',
+          preserveNullAndEmptyArrays: true
+        }
+      },
+
+      // Now apply the match stage after nativeChain is populated
       { $match: matchStage },
 
       // Sort by specified criteria
@@ -174,7 +192,25 @@ export async function GET(request: NextRequest) {
     // Execute aggregation
     const [collections, totalCountResult] = await Promise.all([
       trendingCollectionsCollection.aggregate(pipeline).toArray(),
-      trendingCollectionsCollection.aggregate([{ $match: matchStage }, { $count: 'total' }]).toArray(),
+      trendingCollectionsCollection.aggregate([
+        // Same lookup and unwind for counting
+        {
+          $lookup: {
+            from: 'chains',
+            localField: 'nativeChain',
+            foreignField: '_id',
+            as: 'nativeChain'
+          }
+        },
+        {
+          $unwind: {
+            path: '$nativeChain',
+            preserveNullAndEmptyArrays: true
+          }
+        },
+        { $match: matchStage }, 
+        { $count: 'total' }
+      ]).toArray(),
     ])
 
     const totalCount = totalCountResult[0]?.total || 0
@@ -194,7 +230,7 @@ export async function GET(request: NextRequest) {
         collection: {
           _id: collection._id?.toString() || '',
           name: collection.name || collection.symbol || 'Unknown Collection',
-          image: collection.image || '/default-collection.png',
+          image: collection.image || '',
           verified: collection.verified || collection.openseaVerificationStatus === 'verified',
           address: collection.address || '',
         },
