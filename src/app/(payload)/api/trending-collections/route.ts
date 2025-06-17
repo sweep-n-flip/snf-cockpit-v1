@@ -129,11 +129,14 @@ export async function GET(request: NextRequest) {
       case 'floorPrice':
         sortCriteria = { floorAskPrice: sortOrder === 'desc' ? -1 : 1 }
         break
-      case 'marketCap':
-        sortCriteria = { marketCap: sortOrder === 'desc' ? -1 : 1 }
+      case 'floorChange':
+        sortCriteria = { 'floorChange.percentage1Day': sortOrder === 'desc' ? -1 : 1 }
         break
-      case 'owners':
-        sortCriteria = { ownerCount: sortOrder === 'desc' ? -1 : 1 }
+      case 'volumeChange':
+        sortCriteria = { 'volume.volumeChange1Day': sortOrder === 'desc' ? -1 : 1 }
+        break
+      case 'items':
+        sortCriteria = { totalSupply: sortOrder === 'desc' ? -1 : 1 }
         break
       case 'rank1Day':
         sortCriteria = { rank1Day: 1 } // Always ascending for rank
