@@ -1,6 +1,5 @@
 import { dataDb } from '@/lib/services/data-db/connection'
 import { NextRequest, NextResponse } from 'next/server'
-import { ObjectId } from 'mongodb'
 
 export interface TopPool {
   rank: number
@@ -67,6 +66,7 @@ export async function GET(request: NextRequest) {
     const chainId = searchParams.get('chainId')
     const sortBy = searchParams.get('sortBy') || 'poolStats.liquidity'
     const sortOrder = searchParams.get('sortOrder') || 'desc'
+    const search = searchParams.get('search')
 
     // Build match stage
     const matchStage: any = {}
@@ -92,6 +92,16 @@ export async function GET(request: NextRequest) {
           },
         }))
       }
+    }
+
+    // Add search filter if specified
+    if (search && search.trim()) {
+      const searchRegex = new RegExp(search.trim(), 'i') // Case-insensitive search
+      matchStage.$or = [
+        { 'collection.name': searchRegex }, // Search by collection name
+        { 'collection.symbol': searchRegex }, // Search by collection symbol
+        { 'collection.address': searchRegex }, // Search by collection address
+      ]
     }
 
     // Calculate skip for pagination

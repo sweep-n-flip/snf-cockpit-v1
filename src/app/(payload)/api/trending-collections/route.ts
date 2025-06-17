@@ -86,6 +86,7 @@ export async function GET(request: NextRequest) {
     const chainId = searchParams.get('chainId')
     const sortBy = searchParams.get('sortBy') || 'volume24h'
     const sortOrder = searchParams.get('sortOrder') || 'desc'
+    const search = searchParams.get('search')
 
     // Debug: Check what's in the collections
     const totalDocsInCollection = await trendingCollectionsCollection.countDocuments({})
@@ -107,6 +108,16 @@ export async function GET(request: NextRequest) {
       const chainNumericId = parseInt(chainId)
       // Filter by the chainId inside the nativeChain object (after lookup)
       matchStage['nativeChain.chainId'] = chainNumericId
+    }
+
+    // Add search filter if specified
+    if (search && search.trim()) {
+      const searchRegex = new RegExp(search.trim(), 'i') // Case-insensitive search
+      matchStage.$or = [
+        { name: searchRegex }, // Search by collection name
+        { symbol: searchRegex }, // Search by collection symbol
+        { address: searchRegex }, // Search by collection address
+      ]
     }
 
     console.log(`🔍 Debug: Match stage:`, JSON.stringify(matchStage, null, 2))
