@@ -98,9 +98,13 @@ export async function GET(request: NextRequest) {
     if (search && search.trim()) {
       const searchRegex = new RegExp(search.trim(), 'i') // Case-insensitive search
       matchStage.$or = [
-        { 'collection.name': searchRegex }, // Search by collection name
-        { 'collection.symbol': searchRegex }, // Search by collection symbol
-        { 'collection.address': searchRegex }, // Search by collection address
+        { 'name': searchRegex }, // Search by pool name (WRASTA/WETH format)
+        { 'token0.collection.name': searchRegex }, // Search by token0 collection name
+        { 'token0.collection.symbol': searchRegex }, // Search by token0 collection symbol
+        { 'token1.collection.name': searchRegex }, // Search by token1 collection name
+        { 'token1.collection.symbol': searchRegex }, // Search by token1 collection symbol
+        { 'token0.symbol': searchRegex }, // Search by token0 symbol
+        { 'token1.symbol': searchRegex }, // Search by token1 symbol
       ]
     }
 
@@ -153,32 +157,42 @@ export async function GET(request: NextRequest) {
     const totalPages = Math.ceil(totalCount / limit)
 
     // Transform data to match frontend interface
-    const transformedPools = pools.map((pool: any) => {
+    const transformedPools = pools.map((pool: any, index: number) => {
       // Determine collection and native tokens based on isCollection flag
       const collectionToken = pool.token0?.isCollection ? pool.token0 : pool.token1
       const nativeToken = pool.token0?.isCollection ? pool.token1 : pool.token0
       const chain = pool.chainData || {}
 
+      // Get collection info from the collection object within the token
+      const collectionInfo = collectionToken?.collection || {}
+      
+      // Try to get collection image from multiple sources
+      const collectionImage = collectionInfo.logo || 
+                             collectionInfo.image || 
+                             collectionInfo.banner || 
+                             collectionToken?.logo || 
+                             '/rectangle-2-7.png'
+
       return {
-        rank: pool.rank || 0,
+        rank: skip + index + 1, // Calculate correct rank based on pagination
         collectionPool: {
           _id: pool._id?.toString() || '',
-          name: collectionToken?.name || collectionToken?.symbol || 'Unknown Collection',
-          image: '/rectangle-2-7.png', // Default image since we don't have images in pool data
-          verified: true, // Default since we don't have verification status in pool data
-          address: collectionToken?.address || '',
+          name: pool.name || `${collectionToken?.symbol || 'NFT'}-${nativeToken?.symbol || 'ETH'} Pool`, // Use the new pool name format (WRASTA/WETH)
+          image: collectionImage, // Use collection logo from Reservoir with fallbacks
+          verified: collectionInfo.verified || false, // Use actual verification status
+          address: collectionInfo.address || collectionToken?.address || '',
         },
         chain: {
           _id: chain._id?.toString() || '',
           chainId: chain.chainId || 1,
           name: chain.name || 'Unknown Chain',
           symbol: chain.symbol || 'ETH',
-          icon: chain.icon || '/crypto---polygon.svg',
+          icon: chain.logo || '/crypto---polygon.svg', // Use chain logo
         },
         lp: {
           icons: [
-            '/default-token.png', // Default icons since we don't have token icons
-            '/default-nft.png',
+            chain.logo || '/ethereum-icon.svg', // Chain icon
+            collectionImage, // Collection icon (same as collectionPool.image)
           ],
           hasAddButton: false,
         },
