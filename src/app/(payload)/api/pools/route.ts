@@ -31,7 +31,7 @@ export interface TopPool {
     currency: string
   }
   liquidity: string
-  volume24h: string
+  volume: string
   apy: string
   poolStats: {
     nftPrice: number
@@ -134,16 +134,6 @@ export async function GET(request: NextRequest) {
         },
       },
 
-      // Add rank using window function
-      {
-        $setWindowFields: {
-          sortBy: { [sortBy]: sortOrder === 'desc' ? -1 : 1 },
-          output: {
-            rank: { $rank: {} },
-          },
-        },
-      },
-
       // Pagination
       { $skip: skip },
       { $limit: limit },
@@ -152,11 +142,17 @@ export async function GET(request: NextRequest) {
     // Execute aggregation
     const pools = await poolsCollection.aggregate(pipeline).toArray()
 
+    // Debug: Log liquidity values to check ordering
+    console.log('🔍 Pool liquidity values (first 5):')
+    pools.slice(0, 5).forEach((pool, index) => {
+      console.log(`  ${index + 1}: ${pool.poolStats?.liquidity || 'N/A'} (${pool.name})`)
+    })
+
     // Get total count for pagination
     const totalCount = await poolsCollection.countDocuments(matchStage)
     const totalPages = Math.ceil(totalCount / limit)
 
-    // Transform data to match frontend interface
+    // Transform data to match frontend interface and add rank
     const transformedPools = pools.map((pool: any, index: number) => {
       // Determine collection and native tokens based on isCollection flag
       const collectionToken = pool.token0?.isCollection ? pool.token0 : pool.token1
@@ -174,7 +170,7 @@ export async function GET(request: NextRequest) {
                              '/rectangle-2-7.png'
 
       return {
-        rank: skip + index + 1, // Calculate correct rank based on pagination
+        rank: index + 1, // Rank baseado na posição atual na lista ordenada
         collectionPool: {
           _id: pool._id?.toString() || '',
           name: pool.name || `${collectionToken?.symbol || 'NFT'}-${nativeToken?.symbol || 'ETH'} Pool`, // Use the new pool name format (WRASTA/WETH)
@@ -205,8 +201,8 @@ export async function GET(request: NextRequest) {
           value: (pool.poolStats?.offers || 0).toString(),
           currency: nativeToken?.symbol || chain.symbol || 'ETH',
         },
-        liquidity: ((pool.poolStats?.liquidity || 0) / 1000).toFixed(1) + 'K',
-        volume24h: ((pool.poolStats?.dailyVolume0 || 0) + (pool.poolStats?.dailyVolume1 || 0)).toFixed(0),
+        liquidity: (pool.poolStats?.liquidity || 0).toFixed(3),
+        volume: (pool.poolStats?.totalVolume || 0).toFixed(3), // Using totalVolume since dailyVolume0/1 are not populated
         apy: `${(pool.poolStats?.apr || 0).toFixed(1)}%`,
         poolStats: {
           nftPrice: pool.poolStats?.nftPrice || 0,
