@@ -9,9 +9,9 @@
       "_type": "environment",
       "name": "SNF Cockpit Environment",
       "data": {
-        "base_url": "http://localhost:3001",
+        "base_url": "http://localhost:3002",
         "api_base": "{{ _.base_url }}/api",
-        "frontend_url": "http://localhost:3000"
+        "frontend_url": "http://localhost:3001"
       },
       "dataPropertyOrder": null,
       "color": "#007ACC",
@@ -184,7 +184,7 @@
       "description": "Endpoints para gerenciar coleções NFT",
       "environment": {},
       "environmentPropertyOrder": null,
-      "metaSortKey": 3000,
+      "metaSortKey": 3001,
       "parentId": "wrk_main"
     },
     {
@@ -237,7 +237,7 @@
         "text": ""
       },
       "parentId": "fld_collections",
-      "metaSortKey": 3000
+      "metaSortKey": 3001
     },
     {
       "_id": "req_collections_get_all",
@@ -665,9 +665,9 @@
       "_type": "environment",
       "name": "Development",
       "data": {
-        "base_url": "http://localhost:3001",
+        "base_url": "http://localhost:3002",
         "api_base": "{{ _.base_url }}/api",
-        "frontend_url": "http://localhost:3000"
+        "frontend_url": "http://localhost:3001"
       },
       "dataPropertyOrder": {
         "&": ["base_url", "api_base", "frontend_url"]
