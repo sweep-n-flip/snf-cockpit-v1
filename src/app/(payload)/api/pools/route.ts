@@ -58,8 +58,6 @@ export async function GET(request: NextRequest) {
     const chainsCollection = db.collection('chains')
     const { searchParams } = new URL(request.url)
 
-    console.log('🔍 Top Pools API - Database name:', db.databaseName)
-
     // Parse query parameters
     const page = parseInt(searchParams.get('page') || '1')
     const limit = parseInt(searchParams.get('limit') || '10')
@@ -98,13 +96,13 @@ export async function GET(request: NextRequest) {
     if (search && search.trim()) {
       const searchRegex = new RegExp(search.trim(), 'i') // Case-insensitive search
       matchStage.$or = [
-        { 'name': searchRegex }, // Search by pool name (WRASTA/WETH format)
-        { 'token0.collection.name': searchRegex }, // Search by token0 collection name
-        { 'token0.collection.symbol': searchRegex }, // Search by token0 collection symbol
-        { 'token1.collection.name': searchRegex }, // Search by token1 collection name
-        { 'token1.collection.symbol': searchRegex }, // Search by token1 collection symbol
-        { 'token0.symbol': searchRegex }, // Search by token0 symbol
-        { 'token1.symbol': searchRegex }, // Search by token1 symbol
+        { 'name': searchRegex },
+        { 'token0.collection.name': searchRegex },
+        { 'token0.collection.symbol': searchRegex },
+        { 'token1.collection.name': searchRegex },
+        { 'token1.collection.symbol': searchRegex },
+        { 'token0.symbol': searchRegex },
+        { 'token1.symbol': searchRegex },
       ]
     }
 
@@ -142,12 +140,6 @@ export async function GET(request: NextRequest) {
     // Execute aggregation
     const pools = await poolsCollection.aggregate(pipeline).toArray()
 
-    // Debug: Log liquidity values to check ordering
-    console.log('🔍 Pool liquidity values (first 5):')
-    pools.slice(0, 5).forEach((pool, index) => {
-      console.log(`  ${index + 1}: ${pool.poolStats?.liquidity || 'N/A'} (${pool.name})`)
-    })
-
     // Get total count for pagination
     const totalCount = await poolsCollection.countDocuments(matchStage)
     const totalPages = Math.ceil(totalCount / limit)
@@ -161,34 +153,27 @@ export async function GET(request: NextRequest) {
 
       // Get collection info from the collection object within the token
       const collectionInfo = collectionToken?.collection || {}
-      
-      // Try to get collection image from multiple sources
-      const collectionImage = collectionInfo.logo || 
-                             collectionInfo.image || 
-                             collectionInfo.banner || 
-                             collectionToken?.logo || 
-                             '/rectangle-2-7.png'
 
       return {
-        rank: index + 1, // Rank baseado na posição atual na lista ordenada
+        rank: index + 1,
         collectionPool: {
-          _id: pool._id?.toString() || '',
-          name: pool.name || `${collectionToken?.symbol || 'NFT'}-${nativeToken?.symbol || 'ETH'} Pool`, // Use the new pool name format (WRASTA/WETH)
-          image: collectionImage, // Use collection logo from Reservoir with fallbacks
-          verified: collectionInfo.verified || false, // Use actual verification status
+          _id: pool._id?.toString(),
+          name: pool.name,
+          image: collectionInfo.logo,
+          verified: collectionInfo.verified || false,
           address: collectionInfo.address || collectionToken?.address || '',
         },
         chain: {
-          _id: chain._id?.toString() || '',
-          chainId: chain.chainId || 1,
-          name: chain.name || 'Unknown Chain',
-          symbol: chain.symbol || 'ETH',
-          icon: chain.logo || '/crypto---polygon.svg', // Use chain logo
+          _id: chain._id?.toString(),
+          chainId: chain.chainId,
+          name: chain.name,
+          symbol: chain.symbol,
+          icon: chain.logo,
         },
         lp: {
           icons: [
-            chain.logo || '/ethereum-icon.svg', // Chain icon
-            collectionImage, // Collection icon (same as collectionPool.image)
+            chain.logo,
+            collectionInfo.logo,
           ],
           hasAddButton: false,
         },

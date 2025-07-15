@@ -42,7 +42,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
       { returnDocument: 'after' },
     )
 
-    if (!result.value) {
+    if (!result || !result.value) {
       return NextResponse.json({ success: false, error: 'Pool not found' }, { status: 404 })
     }
 
