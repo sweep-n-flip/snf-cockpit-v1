@@ -153,11 +153,15 @@ export async function GET(request: NextRequest) {
 
       // Get collection info from the collection object within the token
       const collectionInfo = collectionToken?.collection || {}
-
       return {
         rank: index + 1,
+        pool: {
+          poolId: pool.poolId,
+          token0Id: pool.token0?.id,
+          token1Id: pool.token1?.id,
+        },
         collectionPool: {
-          _id: pool._id?.toString(),
+          id: collectionInfo.id,
           name: pool.name,
           image: collectionInfo.logo,
           verified: collectionInfo.verified || false,

@@ -150,56 +150,6 @@ const fetchPoolById = async (id: string): Promise<{ success: boolean; data: Pool
   return response.json()
 }
 
-const createPool = async (poolData: Partial<Pool>): Promise<{ success: boolean; data: Pool }> => {
-  const response = await fetch('/api/pools', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(poolData),
-  })
-
-  if (!response.ok) {
-    throw new Error('Failed to create pool')
-  }
-
-  return response.json()
-}
-
-const updatePool = async ({
-  id,
-  data,
-}: {
-  id: string
-  data: Partial<Pool>
-}): Promise<{ success: boolean; data: Pool }> => {
-  const response = await fetch(`/api/pools/${id}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
-
-  if (!response.ok) {
-    throw new Error('Failed to update pool')
-  }
-
-  return response.json()
-}
-
-const deletePool = async (id: string): Promise<{ success: boolean; message: string }> => {
-  const response = await fetch(`/api/pools/${id}`, {
-    method: 'DELETE',
-  })
-
-  if (!response.ok) {
-    throw new Error('Failed to delete pool')
-  }
-
-  return response.json()
-}
-
 export const usePools = (params?: PoolsParams) => {
   return useQuery({
     queryKey: ['pools', params],
@@ -239,15 +189,6 @@ export const usePoolByTokens = (params: PoolByTokensParams) => {
         }
         return false
       })
-      
-      console.log('[usePoolByTokens] Found pool:', pool ? {
-        id: pool.id,
-        chain: pool.chain.name,
-        erc20: pool.erc20Token?.address,
-        collection: pool.nftToken?.collectionAddress,
-        nativeToken: pool.chain.nativeToken
-      } : null)
-      
       return pool || null
     },
     enabled: !!params.chainId,
@@ -278,36 +219,3 @@ export const usePool = (id: string) => {
   })
 }
 
-export const useCreatePool = () => {
-  const queryClient = useQueryClient()
-
-  return useMutation({
-    mutationFn: createPool,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['pools'] })
-    },
-  })
-}
-
-export const useUpdatePool = () => {
-  const queryClient = useQueryClient()
-
-  return useMutation({
-    mutationFn: updatePool,
-    onSuccess: (data, variables) => {
-      queryClient.invalidateQueries({ queryKey: ['pools'] })
-      queryClient.invalidateQueries({ queryKey: ['pool', variables.id] })
-    },
-  })
-}
-
-export const useDeletePool = () => {
-  const queryClient = useQueryClient()
-
-  return useMutation({
-    mutationFn: deletePool,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['pools'] })
-    },
-  })
-}
