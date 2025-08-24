@@ -83,6 +83,10 @@ export async function GET(request: NextRequest) {
       address: token.address || token.collection?.address || null,
       tokenIds: token.tokenIds || null,
       wrapper: token.wrapper || null,
+      collection: token.collection ? {
+        ...token.collection,
+        id: token.id || token.collection.id,
+      } : token.collection,
     }))
 
     return addCorsHeaders(NextResponse.json({
