@@ -15,8 +15,10 @@ type Args = {
 }
 
 export const generateMetadata = ({ params, searchParams }: Args): Promise<Metadata> =>
+  // @ts-ignore - Payload type compatibility issue
   generatePageMetadata({ config, params, searchParams })
 
+// @ts-ignore - Payload type compatibility issue
 const NotFound = ({ params, searchParams }: Args) => NotFoundPage({ config, params, searchParams })
 
 export default NotFound

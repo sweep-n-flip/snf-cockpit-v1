@@ -6,13 +6,70 @@
  * and re-run `payload generate:types` to regenerate this file.
  */
 
+/**
+ * Supported timezones in IANA format.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "supportedTimezones".
+ */
+export type SupportedTimezones =
+  | 'Pacific/Midway'
+  | 'Pacific/Niue'
+  | 'Pacific/Honolulu'
+  | 'Pacific/Rarotonga'
+  | 'America/Anchorage'
+  | 'Pacific/Gambier'
+  | 'America/Los_Angeles'
+  | 'America/Tijuana'
+  | 'America/Denver'
+  | 'America/Phoenix'
+  | 'America/Chicago'
+  | 'America/Guatemala'
+  | 'America/New_York'
+  | 'America/Bogota'
+  | 'America/Caracas'
+  | 'America/Santiago'
+  | 'America/Buenos_Aires'
+  | 'America/Sao_Paulo'
+  | 'Atlantic/South_Georgia'
+  | 'Atlantic/Azores'
+  | 'Atlantic/Cape_Verde'
+  | 'Europe/London'
+  | 'Europe/Berlin'
+  | 'Africa/Lagos'
+  | 'Europe/Athens'
+  | 'Africa/Cairo'
+  | 'Europe/Moscow'
+  | 'Asia/Riyadh'
+  | 'Asia/Dubai'
+  | 'Asia/Baku'
+  | 'Asia/Karachi'
+  | 'Asia/Tashkent'
+  | 'Asia/Calcutta'
+  | 'Asia/Dhaka'
+  | 'Asia/Almaty'
+  | 'Asia/Jakarta'
+  | 'Asia/Bangkok'
+  | 'Asia/Shanghai'
+  | 'Asia/Singapore'
+  | 'Asia/Tokyo'
+  | 'Asia/Seoul'
+  | 'Australia/Brisbane'
+  | 'Australia/Sydney'
+  | 'Pacific/Guam'
+  | 'Pacific/Noumea'
+  | 'Pacific/Auckland'
+  | 'Pacific/Fiji';
+
 export interface Config {
   auth: {
     users: UserAuthOperations;
   };
+  blocks: {};
   collections: {
     users: User;
     media: Media;
+    'trending-collections': TrendingCollection;
     chains: Chains;
     rpcs: RPCS;
     marketplaces: Marketplaces;
@@ -21,8 +78,26 @@ export interface Config {
     collections: Collections;
     tokens: Tokens;
     pools: Pools;
+    'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
+  };
+  collectionsJoins: {};
+  collectionsSelect: {
+    users: UsersSelect<false> | UsersSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
+    'trending-collections': TrendingCollectionsSelect<false> | TrendingCollectionsSelect<true>;
+    chains: ChainsSelect<false> | ChainsSelect<true>;
+    rpcs: RpcsSelect<false> | RpcsSelect<true>;
+    marketplaces: MarketplacesSelect<false> | MarketplacesSelect<true>;
+    contracts: ContractsSelect<false> | ContractsSelect<true>;
+    block_explorers: BlockExplorersSelect<false> | BlockExplorersSelect<true>;
+    collections: CollectionsSelect<false> | CollectionsSelect<true>;
+    tokens: TokensSelect<false> | TokensSelect<true>;
+    pools: PoolsSelect<false> | PoolsSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
     defaultIDType: string;
@@ -38,9 +113,24 @@ export interface Config {
     reservoir: Reservoir;
     alchemy: Alchemy;
   };
+  globalsSelect: {
+    bridge: BridgeSelect<false> | BridgeSelect<true>;
+    project: ProjectSelect<false> | ProjectSelect<true>;
+    evm: EvmSelect<false> | EvmSelect<true>;
+    layer_zero: LayerZeroSelect<false> | LayerZeroSelect<true>;
+    cmc: CmcSelect<false> | CmcSelect<true>;
+    moralis: MoralisSelect<false> | MoralisSelect<true>;
+    opensea: OpenseaSelect<false> | OpenseaSelect<true>;
+    reservoir: ReservoirSelect<false> | ReservoirSelect<true>;
+    alchemy: AlchemySelect<false> | AlchemySelect<true>;
+  };
   locale: null;
   user: User & {
     collection: 'users';
+  };
+  jobs: {
+    tasks: unknown;
+    workflows: unknown;
   };
 }
 export interface UserAuthOperations {
@@ -145,6 +235,73 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "trending-collections".
+ */
+export interface TrendingCollection {
+  id: string;
+  collectionId: string;
+  address: string;
+  name: string;
+  symbol?: string | null;
+  image?: string | null;
+  banner?: string | null;
+  nativeChain: number;
+  verified?: boolean | null;
+  contractKind?: ('erc721' | 'erc1155') | null;
+  totalSupply?: number | null;
+  onSaleCount?: number | null;
+  ownerCount?: number | null;
+  floorAskPrice?: number | null;
+  floorAskPriceUsd?: number | null;
+  floorChange?: {
+    percentage1Day?: number | null;
+    percentage7Day?: number | null;
+    percentage30Day?: number | null;
+  };
+  volume?: {
+    volume1Day?: number | null;
+    volume7Day?: number | null;
+    volume30Day?: number | null;
+    volumeChange1Day?: number | null;
+    volumeChange7Day?: number | null;
+    volumeChange30Day?: number | null;
+  };
+  sales?: {
+    sales1Day?: number | null;
+    sales7Day?: number | null;
+    sales30Day?: number | null;
+  };
+  marketCap?: number | null;
+  royaltiesBps?: number | null;
+  royaltiesRecipient?: string | null;
+  isSpam?: boolean | null;
+  openseaVerificationStatus?: ('verified' | 'requested' | 'not_requested' | 'approved' | 'unknown') | null;
+  magicedenVerificationStatus?: string | null;
+  description?: string | null;
+  externalUrl?: string | null;
+  twitterUsername?: string | null;
+  discordUrl?: string | null;
+  telegramUrl?: string | null;
+  instagramUsername?: string | null;
+  mediumUsername?: string | null;
+  facebookUsername?: string | null;
+  allTimeVolume?: {
+    volume?: number | null;
+    volumeUsd?: number | null;
+  };
+  lastSyncAt?: string | null;
+  enabled?: boolean | null;
+  rank1Day?: number | null;
+  rank7Day?: number | null;
+  rank30Day?: number | null;
+  trendingScore1Day?: number | null;
+  trendingScore7Day?: number | null;
+  trendingScore30Day?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "chains".
  */
 export interface Chains {
@@ -196,7 +353,13 @@ export interface Marketplaces {
   slug: string;
   name: string;
   url: string;
+  /**
+   * Eg: /{{address}}/{{tokenId}} to replace {{address}} with the collection address and {{tokenId}} with the token id
+   */
   urlTokenIdPath: string;
+  /**
+   * Eg: /{{address}} to replace {{address}} with the collection address
+   */
   urlTokenPath: string;
   logo: string | Media;
   chain: string | Chains;
@@ -312,6 +475,65 @@ export interface Pools {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents".
+ */
+export interface PayloadLockedDocument {
+  id: string;
+  document?:
+    | ({
+        relationTo: 'users';
+        value: string | User;
+      } | null)
+    | ({
+        relationTo: 'media';
+        value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'trending-collections';
+        value: string | TrendingCollection;
+      } | null)
+    | ({
+        relationTo: 'chains';
+        value: string | Chains;
+      } | null)
+    | ({
+        relationTo: 'rpcs';
+        value: string | RPCS;
+      } | null)
+    | ({
+        relationTo: 'marketplaces';
+        value: string | Marketplaces;
+      } | null)
+    | ({
+        relationTo: 'contracts';
+        value: string | Contracts;
+      } | null)
+    | ({
+        relationTo: 'block_explorers';
+        value: string | BlockExplorers;
+      } | null)
+    | ({
+        relationTo: 'collections';
+        value: string | Collections;
+      } | null)
+    | ({
+        relationTo: 'tokens';
+        value: string | Tokens;
+      } | null)
+    | ({
+        relationTo: 'pools';
+        value: string | Pools;
+      } | null);
+  globalSlug?: string | null;
+  user: {
+    relationTo: 'users';
+    value: string | User;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
@@ -346,6 +568,358 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users_select".
+ */
+export interface UsersSelect<T extends boolean = true> {
+  name?: T;
+  alias?: T;
+  roles?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+  alt?: T;
+  caption?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+  sizes?:
+    | T
+    | {
+        icon?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        thumbnail?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        small?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        medium?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        large?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "trending-collections_select".
+ */
+export interface TrendingCollectionsSelect<T extends boolean = true> {
+  collectionId?: T;
+  address?: T;
+  name?: T;
+  symbol?: T;
+  image?: T;
+  banner?: T;
+  nativeChain?: T;
+  verified?: T;
+  contractKind?: T;
+  totalSupply?: T;
+  onSaleCount?: T;
+  ownerCount?: T;
+  floorAskPrice?: T;
+  floorAskPriceUsd?: T;
+  floorChange?:
+    | T
+    | {
+        percentage1Day?: T;
+        percentage7Day?: T;
+        percentage30Day?: T;
+      };
+  volume?:
+    | T
+    | {
+        volume1Day?: T;
+        volume7Day?: T;
+        volume30Day?: T;
+        volumeChange1Day?: T;
+        volumeChange7Day?: T;
+        volumeChange30Day?: T;
+      };
+  sales?:
+    | T
+    | {
+        sales1Day?: T;
+        sales7Day?: T;
+        sales30Day?: T;
+      };
+  marketCap?: T;
+  royaltiesBps?: T;
+  royaltiesRecipient?: T;
+  isSpam?: T;
+  openseaVerificationStatus?: T;
+  magicedenVerificationStatus?: T;
+  description?: T;
+  externalUrl?: T;
+  twitterUsername?: T;
+  discordUrl?: T;
+  telegramUrl?: T;
+  instagramUsername?: T;
+  mediumUsername?: T;
+  facebookUsername?: T;
+  allTimeVolume?:
+    | T
+    | {
+        volume?: T;
+        volumeUsd?: T;
+      };
+  lastSyncAt?: T;
+  enabled?: T;
+  rank1Day?: T;
+  rank7Day?: T;
+  rank30Day?: T;
+  trendingScore1Day?: T;
+  trendingScore7Day?: T;
+  trendingScore30Day?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "chains_select".
+ */
+export interface ChainsSelect<T extends boolean = true> {
+  slug?: T;
+  chainId?: T;
+  name?: T;
+  testnet?: T;
+  nativeCurrency?:
+    | T
+    | {
+        name?: T;
+        symbol?: T;
+        decimals?: T;
+        address?: T;
+      };
+  custom?:
+    | T
+    | {
+        logo?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rpcs_select".
+ */
+export interface RpcsSelect<T extends boolean = true> {
+  slug?: T;
+  name?: T;
+  http?:
+    | T
+    | {
+        url?: T;
+        id?: T;
+      };
+  webSocket?:
+    | T
+    | {
+        url?: T;
+        id?: T;
+      };
+  chain?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "marketplaces_select".
+ */
+export interface MarketplacesSelect<T extends boolean = true> {
+  slug?: T;
+  name?: T;
+  url?: T;
+  urlTokenIdPath?: T;
+  urlTokenPath?: T;
+  logo?: T;
+  chain?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contracts_select".
+ */
+export interface ContractsSelect<T extends boolean = true> {
+  slug?: T;
+  address?: T;
+  name?: T;
+  blockCreated?: T;
+  abi?: T;
+  chain?: T;
+  type?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "block_explorers_select".
+ */
+export interface BlockExplorersSelect<T extends boolean = true> {
+  slug?: T;
+  name?: T;
+  url?: T;
+  apiUrl?: T;
+  logo?: T;
+  chain?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "collections_select".
+ */
+export interface CollectionsSelect<T extends boolean = true> {
+  slug?: T;
+  address?: T;
+  chain?: T;
+  name?: T;
+  symbol?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tokens_select".
+ */
+export interface TokensSelect<T extends boolean = true> {
+  address?: T;
+  name?: T;
+  symbol?: T;
+  decimals?: T;
+  logo?: T;
+  nativeChain?: T;
+  isErc20?: T;
+  isCollection?: T;
+  wrapper?:
+    | T
+    | {
+        id?: T;
+        name?: T;
+        symbol?: T;
+        isErc20?: T;
+        isCollection?: T;
+        address?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pools_select".
+ */
+export interface PoolsSelect<T extends boolean = true> {
+  poolId?: T;
+  chainId?: T;
+  name?: T;
+  poolType?: T;
+  poolStats?:
+    | T
+    | {
+        nftPrice?: T;
+        nftListings?: T;
+        offers?: T;
+        apr?: T;
+        tvl?: T;
+        delta?: T;
+        spotPrice?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents_select".
+ */
+export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
+  document?: T;
+  globalSlug?: T;
+  user?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-preferences_select".
+ */
+export interface PayloadPreferencesSelect<T extends boolean = true> {
+  user?: T;
+  key?: T;
+  value?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-migrations_select".
+ */
+export interface PayloadMigrationsSelect<T extends boolean = true> {
+  name?: T;
+  batch?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "bridge".
  */
 export interface Bridge {
@@ -369,6 +943,9 @@ export interface Bridge {
  */
 export interface Project {
   id: string;
+  /**
+   * Enable testnet mode for the current environment
+   */
   testnet?: boolean | null;
   logo: string | Media;
   name: string;
@@ -490,12 +1067,176 @@ export interface Alchemy {
     | {
         chain: string | Chains;
         apiKey: string;
+        /**
+         * Eg: MATIC_MAINNET
+         */
         evmChainKey: string;
         id?: string | null;
       }[]
     | null;
   updatedAt?: string | null;
   createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bridge_select".
+ */
+export interface BridgeSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  routing?:
+    | T
+    | {
+        paths?:
+          | T
+          | {
+              sourceChain?: T;
+              sourceContract?: T;
+              targetChain?: T;
+              id?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "project_select".
+ */
+export interface ProjectSelect<T extends boolean = true> {
+  testnet?: T;
+  logo?: T;
+  name?: T;
+  description?: T;
+  url?: T;
+  networks?:
+    | T
+    | {
+        defaultChain?: T;
+      };
+  footer?:
+    | T
+    | {
+        copyright?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "evm_select".
+ */
+export interface EvmSelect<T extends boolean = true> {
+  chains?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "layer_zero_select".
+ */
+export interface LayerZeroSelect<T extends boolean = true> {
+  networks?:
+    | T
+    | {
+        chain?: T;
+        abstractChainId?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cmc_select".
+ */
+export interface CmcSelect<T extends boolean = true> {
+  networks?:
+    | T
+    | {
+        chain?: T;
+        chainSlug?: T;
+        apiKey?: T;
+        apiUrl?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "moralis_select".
+ */
+export interface MoralisSelect<T extends boolean = true> {
+  networks?:
+    | T
+    | {
+        chain?: T;
+        apiKey?: T;
+        evmChainKey?: T;
+        maxRetries?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "opensea_select".
+ */
+export interface OpenseaSelect<T extends boolean = true> {
+  networks?:
+    | T
+    | {
+        chain?: T;
+        apiKey?: T;
+        apiUrl?: T;
+        chainSlug?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reservoir_select".
+ */
+export interface ReservoirSelect<T extends boolean = true> {
+  networks?:
+    | T
+    | {
+        chain?: T;
+        apiKey?: T;
+        apiUrl?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "alchemy_select".
+ */
+export interface AlchemySelect<T extends boolean = true> {
+  networks?:
+    | T
+    | {
+        chain?: T;
+        apiKey?: T;
+        evmChainKey?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

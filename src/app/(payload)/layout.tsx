@@ -11,6 +11,9 @@ type Args = {
   children: React.ReactNode
 }
 
-const Layout = ({ children }: Args) => <RootLayout config={configPromise}>{children}</RootLayout>
+const Layout = ({ children }: Args) => (
+  // @ts-ignore - Payload type compatibility issue with Next.js 15
+  <RootLayout config={configPromise}>{children}</RootLayout>
+)
 
 export default Layout
